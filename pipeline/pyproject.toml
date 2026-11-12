@@ -4,7 +4,11 @@ version = "0.0.1"
 description = "Orbyt Earth pipeline: satellite observations compared with official reports"
 requires-python = ">=3.12"
 license = "MIT"
-dependencies = []
+dependencies = [
+    "earthengine-api>=1.7.52",
+    "numpy>=2.5.4",
+    "rasterio>=1.5.2",
+]
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.8"]
