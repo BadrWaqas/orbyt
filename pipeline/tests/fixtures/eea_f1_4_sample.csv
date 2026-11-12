@@ -1,0 +1,12 @@
+PublicationDate,countryName,reportingYear,EPRTR_SectorCode,EPRTR_SectorName,EPRTRAnnexIMainActivity,FacilityInspireId,facilityName,city,Longitude,Latitude,addressConfidentialityReason,TargetRelease,Pollutant,Releases,confidentialityReason
+2026/02/13,Czechia,2022,1,Energy sector,1(c),CZ.MZP.U424/CZ44746297.FACILITY,Elektrárna Počerady,Výškov,13.67737464,50.42667116,,AIR,Nitrogen oxides (NOX),4335347.987,
+2026/02/13,Czechia,2022,1,Energy sector,1(c),CZ.MZP.U424/CZ44746297.FACILITY,Elektrárna Počerady,Výškov,13.67737464,50.42667116,,AIR,Sulphur oxides (SOX),3101203.983,
+2026/02/13,Italy,2022,3,Mineral industry,3(c),IT.CAED/210322001.FACILITY,CONFIDENTIAL -Article4(2)(d),CARAVATE,,,Article4(2)(d),AIR,Nitrogen oxides (NOX),962000,
+2026/02/13,Italy,2023,3,Mineral industry,3(c),IT.CAED/210322001.FACILITY,CONFIDENTIAL -Article4(2)(d),CARAVATE,,,Article4(2)(d),AIR,Nitrogen oxides (NOX),812500,
+2026/02/13,Italy,2024,3,Mineral industry,3(c),IT.CAED/210322001.FACILITY,CONFIDENTIAL -Article4(2)(d),CARAVATE,,,Article4(2)(d),AIR,Nitrogen oxides (NOX),959600,
+2026/02/13,Poland,2022,1,Energy sector,1(c),PL.MŚ/000000349.FACILITY,PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Bełchatów,Rogowiec,19.3166675567627,51.2666664123535,,AIR,Nitrogen oxides (NOX),26600000,
+2026/02/13,Poland,2022,1,Energy sector,1(c),PL.MŚ/000000349.FACILITY,PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Bełchatów,Rogowiec,19.3166675567627,51.2666664123535,,AIR,Sulphur oxides (SOX),36700000,
+2026/02/13,Poland,2023,1,Energy sector,1(c),PL.MŚ/000000349.FACILITY,PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Bełchatów,Rogowiec,19.3166675567627,51.2666664123535,,AIR,Nitrogen oxides (NOX),18800000,
+2026/02/13,Poland,2023,1,Energy sector,1(c),PL.MŚ/000000349.FACILITY,PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Bełchatów,Rogowiec,19.3166675567627,51.2666664123535,,AIR,Sulphur oxides (SOX),27100000,
+2026/02/13,Poland,2024,1,Energy sector,1(c),PL.MŚ/000000349.FACILITY,PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Bełchatów,Rogowiec,19.3166675567627,51.2666664123535,,AIR,Nitrogen oxides (NOX),18800000,
+2026/02/13,Poland,2024,1,Energy sector,1(c),PL.MŚ/000000349.FACILITY,PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Bełchatów,Rogowiec,19.3166675567627,51.2666664123535,,AIR,Sulphur oxides (SOX),29200000,
