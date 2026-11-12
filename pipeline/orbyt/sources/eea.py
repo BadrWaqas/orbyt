@@ -149,11 +149,17 @@ def write_warehouse(con: duckdb.DuckDBPyConnection, out_dir: Path = WAREHOUSE_DI
         con.execute(f"copy {table} to '{target}' (format parquet)")
 
 
-def top_reporters(con: duckdb.DuckDBPyConnection, year: int, n: int) -> list[dict]:
+MIN_FALLBACK_YEAR = 2022  # older latest years (UK 2019, Norway 2017, Iceland 2007) are dropped
+
+
+def top_reporters(
+    con: duckdb.DuckDBPyConnection, year: int, n: int, min_year: int = MIN_FALLBACK_YEAR
+) -> list[dict]:
     """The n largest NOx reporters that have usable coordinates.
 
     Each facility is taken at ``year``, or at its country's latest reported year when that
-    country has not reported ``year`` yet. The row carries the year actually used.
+    country has not reported ``year`` yet. Rows older than ``min_year`` are left out before the
+    cut to n, so the list is refilled with the next largest. The row carries the year used.
     """
     rows = con.execute(
         """
@@ -163,10 +169,11 @@ def top_reporters(con: duckdb.DuckDBPyConnection, year: int, n: int) -> list[dic
         join facilities f using (facility_id)
         join coverage c on c.country = r.country and r.year = least(c.last_year, ?)
         where f.lon between -180 and 180 and f.lat between -90 and 90
+          and r.year >= ?
         order by r.release_t desc, f.facility_id
         limit ?
         """,
-        [year, n],
+        [year, min_year, n],
     ).fetchall()
     keys = ("register_id", "name", "city", "country", "sector", "lon", "lat", "release_t", "year")
     return [dict(zip(keys, row, strict=True)) for row in rows]

@@ -69,6 +69,12 @@ def test_top_reporters_keeps_countries_without_2024_at_their_latest_year(con):
     ]
 
 
+def test_fallback_years_older_than_the_cutoff_are_dropped(con):
+    top = eea.top_reporters(con, 2024, 10, min_year=2023)
+    assert [(r["register_id"], r["year"]) for r in top] == [(BELCHATOW, 2024)]
+    assert eea.MIN_FALLBACK_YEAR == 2022
+
+
 def test_subject_id_is_stable_and_not_rank_based():
     a = eea.subject_id(BELCHATOW)
     assert a == eea.subject_id(BELCHATOW)
