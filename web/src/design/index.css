@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@import "@fontsource-variable/mona-sans/wdth.css";
+@import "@fontsource-variable/source-serif-4/wght.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
+@import "./tokens.css";
+
+/* Expose the tokens to Tailwind utilities: bg-void, text-text-2, font-record and so on. */
+@theme inline {
+  --color-void: var(--void);
+  --color-panel: var(--panel);
+  --color-raised: var(--raised);
+  --color-hairline: var(--hairline);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-ledger: var(--ledger);
+  --color-focus: var(--focus);
+  --color-no2: var(--hue-no2-glow);
+  --font-sans: var(--family-instrument);
+  --font-record: var(--family-record);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: var(--family-instrument);
+  font-size: 16px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* The two voices (PLAN.md 9.1). Serif and paper tone for what was reported. */
+.voice-record {
+  font-family: var(--family-record);
+  font-weight: 400;
+  color: var(--ledger);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Wide sans and signal colour for what the satellite measured. */
+.voice-instrument {
+  font-family: var(--family-instrument);
+  font-weight: 600;
+  font-stretch: 125%;
+  letter-spacing: -0.02em;
+  color: var(--hue-no2-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+.wordmark {
+  font-family: var(--family-instrument);
+  font-weight: 600;
+  font-stretch: 112%;
+  letter-spacing: 0.01em;
+}
+
+/* MapLibre attribution, restyled for the dark theme. */
+.maplibregl-ctrl-attrib.maplibregl-compact {
+  background: var(--panel-solid);
+  color: var(--text-2);
+  border: 1px solid var(--hairline);
+}
+
+.maplibregl-ctrl-attrib a {
+  color: var(--text-2);
+}
+
+.maplibregl-ctrl-attrib-button {
+  filter: invert(1);
+  opacity: 0.7;
+}

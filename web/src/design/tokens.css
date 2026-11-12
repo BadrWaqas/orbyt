@@ -1,0 +1,66 @@
+/* Orbyt Earth design tokens. Source of truth: PLAN.md section 9. */
+
+:root {
+  /* Surfaces */
+  --void: #000000;
+  --panel: rgba(13, 18, 24, 0.84);
+  --panel-solid: #0d1218;
+  --raised: #161d26;
+  --hairline: rgba(255, 255, 255, 0.1);
+
+  /* Text */
+  --text: #f2f4f7;
+  --text-2: #aab2bd;
+  --text-3: #7d8794;
+  --ledger: #e9e1d0; /* the record voice */
+  --focus: #7cc4ff;
+
+  /* Night-side Earth */
+  --earth-ocean: #04070b;
+  --earth-land: #0c1219;
+  --earth-border: #2a3440;
+  --earth-label: #8a94a3;
+
+  /* Module hues: mark step for charts and chips, glow step for map layers and large numerals */
+  --hue-no2-mark: #c98500;
+  --hue-no2-glow: #ffb02e;
+  --hue-ghost-mark: #d55181;
+  --hue-ghost-glow: #feacc4;
+  --hue-forest-mark: #008300;
+  --hue-forest-glow: #80e379;
+  --hue-methane-mark: #9085e9;
+  --hue-methane-glow: #c3bffe;
+  --hue-flaring-mark: #d95926;
+  --hue-flaring-glow: #ffb297;
+  --hue-irrigation-mark: #199e70;
+  --hue-irrigation-glow: #2ee9a7;
+
+  /* The gap. Always paired with an icon and a label. */
+  --gap-higher: #e66767;
+  --gap-consistent: #8a94a3;
+  --gap-lower: #3987e5;
+
+  /* Type */
+  --family-instrument: "Mona Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --family-record: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+
+  /* Space and shape */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --radius-chip: 2px;
+  --radius-panel: 10px;
+  --margin-outer: 12px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --margin-outer: 24px;
+  }
+}
