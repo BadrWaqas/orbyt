@@ -10,8 +10,9 @@ What the v16 CSVs hold, checked against the real files:
 - ``F1_4_Air_Releases_Facilities.csv`` has one row per facility, year and pollutant. Releases are
   in kilograms. NOx is "Nitrogen oxides (NOX)", expressed as NO2.
 - There is no measured, calculated or estimated column in the CSV bundle. The method code is not
-  published there, so ``claimed.basis`` is null until another source supplies it.
-- Some countries have not reported 2024 yet. See the ``coverage`` table.
+  published there, so ``claimed.basis`` is "unknown" until another source supplies it.
+- Some countries have not reported 2024 yet. See the ``coverage`` table. Their facilities are
+  kept at the country's latest year, and each finding's ``period`` says which year that is.
 """
 
 from __future__ import annotations
@@ -149,19 +150,25 @@ def write_warehouse(con: duckdb.DuckDBPyConnection, out_dir: Path = WAREHOUSE_DI
 
 
 def top_reporters(con: duckdb.DuckDBPyConnection, year: int, n: int) -> list[dict]:
-    """The n facilities with the largest NOx release in ``year`` that have usable coordinates."""
+    """The n largest NOx reporters that have usable coordinates.
+
+    Each facility is taken at ``year``, or at its country's latest reported year when that
+    country has not reported ``year`` yet. The row carries the year actually used.
+    """
     rows = con.execute(
         """
-        select f.facility_id, f.name, f.city, f.country, f.sector, f.lon, f.lat, r.release_t
-        from reported r join facilities f using (facility_id)
-        where r.year = ?
-          and f.lon between -180 and 180 and f.lat between -90 and 90
+        select f.facility_id, f.name, f.city, f.country, f.sector, f.lon, f.lat,
+               r.release_t, r.year
+        from reported r
+        join facilities f using (facility_id)
+        join coverage c on c.country = r.country and r.year = least(c.last_year, ?)
+        where f.lon between -180 and 180 and f.lat between -90 and 90
         order by r.release_t desc, f.facility_id
         limit ?
         """,
         [year, n],
     ).fetchall()
-    keys = ("register_id", "name", "city", "country", "sector", "lon", "lat", "release_t")
+    keys = ("register_id", "name", "city", "country", "sector", "lon", "lat", "release_t", "year")
     return [dict(zip(keys, row, strict=True)) for row in rows]
 
 
@@ -171,12 +178,23 @@ def subject_id(register_id: str) -> str:
 
 
 def build_findings(rows: list[dict], year: int) -> dict:
-    """findings.json payload (PLAN.md Appendix B) with the reported side only."""
+    """findings.json payload (PLAN.md Appendix B) with the reported side only.
+
+    ``year`` is the target year. A row from a country that has not reported it carries its own
+    year in ``period`` and a note saying so, and the country is listed in ``latest_year_countries``.
+    """
     findings = []
+    latest_year_countries: dict[str, int] = {}
     for r in rows:
+        y = r["year"]
+        iso = COUNTRY_ISO2.get(r["country"], r["country"])
+        period = {"label": str(y), "start": f"{y}-01-01", "end": f"{y}-12-31"}
+        if y != year:
+            period["note"] = f"Latest year reported by {r['country']}. No {year} data."
+            latest_year_countries[iso] = y
         findings.append(
             {
-                "id": f"{subject_id(r['register_id'])}-{year}",
+                "id": f"{subject_id(r['register_id'])}-{y}",
                 "module": "pollution-hunter",
                 "subject": {
                     "id": subject_id(r["register_id"]),
@@ -184,18 +202,18 @@ def build_findings(rows: list[dict], year: int) -> dict:
                     "name": r["name"],
                     "operator": None,
                     "sector": r["sector"],
-                    "country": COUNTRY_ISO2.get(r["country"], r["country"]),
+                    "country": iso,
                     "city": r["city"],
                     "lat": round(r["lat"], 5),
                     "lon": round(r["lon"], 5),
                     "register": "EEA",
                     "register_id": r["register_id"],
                 },
-                "period": {"label": str(year), "start": f"{year}-01-01", "end": f"{year}-12-31"},
+                "period": period,
                 "claimed": {
                     "value": round(r["release_t"], 1),
                     "unit": "t NOx/yr",
-                    "basis": None,
+                    "basis": "unknown",
                     "source": SOURCE,
                 },
                 "observed": None,
@@ -204,8 +222,14 @@ def build_findings(rows: list[dict], year: int) -> dict:
                 "grade": None,
             }
         )
-    return {"module": "pollution-hunter", "period": str(year), "source": SOURCE,
-            "count": len(findings), "findings": findings}  # fmt: skip
+    return {
+        "module": "pollution-hunter",
+        "period": str(year),
+        "source": SOURCE,
+        "count": len(findings),
+        "latest_year_countries": dict(sorted(latest_year_countries.items())),
+        "findings": findings,
+    }
 
 
 def export_findings(
@@ -235,7 +259,10 @@ def main() -> None:
     missing = con.execute(
         "select country, last_year from coverage where last_year < ? order by country", [args.year]
     ).fetchall()
-    print(f"Countries with no {args.year} NOx rows:", ", ".join(f"{c} ({y})" for c, y in missing))
+    print(
+        f"Latest year used where {args.year} is missing:",
+        ", ".join(f"{c} ({y})" for c, y in missing),
+    )
 
 
 if __name__ == "__main__":

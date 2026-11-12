@@ -58,8 +58,15 @@ def test_top_reporters_orders_by_release_and_skips_rows_without_coordinates(con)
         "CZ.MZP.U424/CZ44746297.FACILITY",
     ]
     assert top_2022[0]["release_t"] == 26_600.0
-    assert [r["register_id"] for r in eea.top_reporters(con, 2024, 10)] == [BELCHATOW]
     assert len(eea.top_reporters(con, 2022, 1)) == 1
+
+
+def test_top_reporters_keeps_countries_without_2024_at_their_latest_year(con):
+    top = eea.top_reporters(con, 2024, 10)
+    assert [(r["register_id"], r["year"]) for r in top] == [
+        (BELCHATOW, 2024),
+        ("CZ.MZP.U424/CZ44746297.FACILITY", 2022),  # Czechia stops at 2022
+    ]
 
 
 def test_subject_id_is_stable_and_not_rank_based():
@@ -71,7 +78,7 @@ def test_subject_id_is_stable_and_not_rank_based():
 
 def test_findings_have_reported_values_only(con):
     payload = eea.build_findings(eea.top_reporters(con, 2024, 5), 2024)
-    assert payload["count"] == 1 and payload["period"] == "2024"
+    assert payload["count"] == 2 and payload["period"] == "2024"
     f = payload["findings"][0]
     assert f["id"] == f"{eea.subject_id(BELCHATOW)}-2024"
     assert f["subject"]["country"] == "PL" and f["subject"]["register"] == "EEA"
@@ -79,12 +86,24 @@ def test_findings_have_reported_values_only(con):
     assert f["claimed"] == {
         "value": 18800.0,
         "unit": "t NOx/yr",
-        "basis": None,
+        "basis": "unknown",
         "source": "EEA Industrial Reporting database v16",
     }
     assert f["observed"] is None and f["ratio"] is None
     assert f["verdict"] is None and f["grade"] is None
     assert f["period"] == {"label": "2024", "start": "2024-01-01", "end": "2024-12-31"}
+
+
+def test_findings_label_the_year_when_a_country_has_no_2024(con):
+    payload = eea.build_findings(eea.top_reporters(con, 2024, 5), 2024)
+    cz = payload["findings"][1]
+    assert cz["subject"]["country"] == "CZ"
+    assert cz["id"].endswith("-2022")
+    assert cz["period"]["label"] == "2022"
+    assert cz["period"]["start"] == "2022-01-01" and cz["period"]["end"] == "2022-12-31"
+    assert cz["period"]["note"] == "Latest year reported by Czechia. No 2024 data."
+    assert "note" not in payload["findings"][0]["period"]
+    assert payload["latest_year_countries"] == {"CZ": 2022}
 
 
 def test_export_findings_writes_utf8_json(con, tmp_path):

@@ -3,6 +3,15 @@
  "period": "2024",
  "source": "EEA Industrial Reporting database v16",
  "count": 300,
+ "latest_year_countries": {
+  "CY": 2023,
+  "CZ": 2022,
+  "GB": 2019,
+  "IS": 2007,
+  "LT": 2022,
+  "NO": 2017,
+  "SK": 2022
+ },
  "findings": [
   {
    "id": "ph-eu-a43eff1e-2024",
@@ -28,7 +37,7 @@
    "claimed": {
     "value": 18800.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -60,7 +69,7 @@
    "claimed": {
     "value": 12400.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -92,7 +101,7 @@
    "claimed": {
     "value": 9800.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -124,7 +133,7 @@
    "claimed": {
     "value": 9562.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -156,7 +165,7 @@
    "claimed": {
     "value": 9370.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -188,7 +197,7 @@
    "claimed": {
     "value": 9230.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -220,7 +229,40 @@
    "claimed": {
     "value": 8261.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-15f5ccf8-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-15f5ccf8",
+    "kind": "facility",
+    "name": "Drax Power Station EPR/VP3530LS",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "SELBY",
+    "lat": 53.73671,
+    "lon": -0.99653,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-67.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 8170.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -252,7 +294,7 @@
    "claimed": {
     "value": 7650.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -284,7 +326,7 @@
    "claimed": {
     "value": 7600.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -316,7 +358,7 @@
    "claimed": {
     "value": 7526.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -348,7 +390,7 @@
    "claimed": {
     "value": 7500.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -380,7 +422,7 @@
    "claimed": {
     "value": 6694.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -412,7 +454,40 @@
    "claimed": {
     "value": 5690.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-3039293b-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-3039293b",
+    "kind": "facility",
+    "name": "Scunthorpe Iron & Steel Works EPR/HP3736AW",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Scunthorpe",
+    "lat": 53.58124,
+    "lon": -0.62002,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-13608.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 5360.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -444,7 +519,7 @@
    "claimed": {
     "value": 5250.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -476,7 +551,7 @@
    "claimed": {
     "value": 5060.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -508,7 +583,7 @@
    "claimed": {
     "value": 5040.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -540,7 +615,40 @@
    "claimed": {
     "value": 4900.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-fc14b0ee-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-fc14b0ee",
+    "kind": "facility",
+    "name": "Port Talbot Steelworks Tata Steel",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "GB",
+    "city": "PORT TALBOT",
+    "lat": 51.55608,
+    "lon": -3.76471,
+    "register": "EEA",
+    "register_id": "UK.CAED/NRW170281.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 4830.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -572,7 +680,7 @@
    "claimed": {
     "value": 4620.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -604,7 +712,40 @@
    "claimed": {
     "value": 4600.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-9a89785a-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-9a89785a",
+    "kind": "facility",
+    "name": "Troll",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 60.64513,
+    "lon": 3.72485,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0095.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 4420.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -636,7 +777,73 @@
    "claimed": {
     "value": 4390.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-c485cf28-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-c485cf28",
+    "kind": "facility",
+    "name": "Elektrárna Počerady",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Výškov",
+    "lat": 50.42667,
+    "lon": 13.67737,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U424/CZ44746297.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 4335.3,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-ea3a5453-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-ea3a5453",
+    "kind": "facility",
+    "name": "U.S.Steel s.r.o.",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "SK",
+    "city": "Košice - Šaca",
+    "lat": 48.61778,
+    "lon": 21.19833,
+    "register": "EEA",
+    "register_id": "https://data.gov.sk/set/data/so/b4d884b3-4442-43db-a19c-ceb6e127960f/SK57002803.NRZ.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Slovakia. No 2024 data."
+   },
+   "claimed": {
+    "value": 4290.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -668,7 +875,7 @@
    "claimed": {
     "value": 4274.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -700,7 +907,7 @@
    "claimed": {
     "value": 4260.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -732,7 +939,7 @@
    "claimed": {
     "value": 4140.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -764,7 +971,7 @@
    "claimed": {
     "value": 4136.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -796,7 +1003,7 @@
    "claimed": {
     "value": 4020.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -828,7 +1035,40 @@
    "claimed": {
     "value": 3933.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-28c54e51-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-28c54e51",
+    "kind": "facility",
+    "name": "Elektrárna Chvaletice",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Chvaletice",
+    "lat": 50.02839,
+    "lon": 15.453,
+    "register": "EEA",
+    "register_id": "CZ.MZP.E532/CZ90841608.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 3898.7,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -860,7 +1100,7 @@
    "claimed": {
     "value": 3730.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -892,7 +1132,7 @@
    "claimed": {
     "value": 3720.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -924,7 +1164,7 @@
    "claimed": {
     "value": 3700.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -956,7 +1196,40 @@
    "claimed": {
     "value": 3690.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-1bdbcb06-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-1bdbcb06",
+    "kind": "facility",
+    "name": "Gullfaks",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 61.17558,
+    "lon": 2.18734,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0046.02.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 3680.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -988,7 +1261,7 @@
    "claimed": {
     "value": 3560.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1020,7 +1293,40 @@
    "claimed": {
     "value": 3480.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-20f91980-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-20f91980",
+    "kind": "facility",
+    "name": "Oseberg",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 60.49131,
+    "lon": 2.8256,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0010.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 3470.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1052,7 +1358,7 @@
    "claimed": {
     "value": 3390.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1084,7 +1390,7 @@
    "claimed": {
     "value": 3340.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1116,7 +1422,40 @@
    "claimed": {
     "value": 3304.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-f32c5bd4-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-f32c5bd4",
+    "kind": "facility",
+    "name": "Cottam Power Station EPR/SP3535LT",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Cottam",
+    "lat": 53.30334,
+    "lon": -0.78177,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-16737.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 3260.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1148,7 +1487,40 @@
    "claimed": {
     "value": 3200.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-62f2cb99-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-62f2cb99",
+    "kind": "facility",
+    "name": "Whitwell Works",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "WORKSOP",
+    "lat": 53.27074,
+    "lon": -1.19865,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-1608.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 3200.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1180,7 +1552,40 @@
    "claimed": {
     "value": 3181.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-a33f2e7a-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-a33f2e7a",
+    "kind": "facility",
+    "name": "Fawley Refinery EPR/BR6996IC",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Southampton",
+    "lat": 50.8306,
+    "lon": -1.35459,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-1089.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 3140.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1212,7 +1617,7 @@
    "claimed": {
     "value": 3050.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1244,7 +1649,7 @@
    "claimed": {
     "value": 3023.5,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1276,7 +1681,7 @@
    "claimed": {
     "value": 2963.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1308,7 +1713,7 @@
    "claimed": {
     "value": 2950.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1340,7 +1745,7 @@
    "claimed": {
     "value": 2940.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1372,7 +1777,7 @@
    "claimed": {
     "value": 2883.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1404,7 +1809,7 @@
    "claimed": {
     "value": 2873.9,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1436,7 +1841,40 @@
    "claimed": {
     "value": 2850.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-28d2047d-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-28d2047d",
+    "kind": "facility",
+    "name": "Stanlow Manufacturing Complex",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "South Wirral",
+    "lat": 53.27351,
+    "lon": -2.84121,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-5464.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2730.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1468,7 +1906,40 @@
    "claimed": {
     "value": 2690.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-27649a35-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-27649a35",
+    "kind": "facility",
+    "name": "Statfjord",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 61.25515,
+    "lon": 1.85206,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0008.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 2660.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1500,7 +1971,7 @@
    "claimed": {
     "value": 2660.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1532,7 +2003,238 @@
    "claimed": {
     "value": 2530.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-6619402e-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-6619402e",
+    "kind": "facility",
+    "name": "Saltend Cogeneration Plant EPR/QP3539LE",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Saltend",
+    "lat": 53.52467,
+    "lon": -0.41534,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-2363.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2530.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-f5090bf0-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-f5090bf0",
+    "kind": "facility",
+    "name": "Foinaven FPSO",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 60.31556,
+    "lon": -4.27515,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Foinaven-FPSO.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2480.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-80d72598-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-80d72598",
+    "kind": "facility",
+    "name": "Elektrárny Tušimice",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Kadaň",
+    "lat": 50.3826,
+    "lon": 13.33815,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U422/CZ49480308.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 2463.4,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-7501bcf1-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-7501bcf1",
+    "kind": "facility",
+    "name": "Elektrárny Prunéřov",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Kadaň",
+    "lat": 50.41871,
+    "lon": 13.2587,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U422/CZ34736841.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 2451.9,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-4e6680fa-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-4e6680fa",
+    "kind": "facility",
+    "name": "SLOVNAFT, a.s.",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "SK",
+    "city": "Bratislava - Ružinov",
+    "lat": 48.11902,
+    "lon": 17.18056,
+    "register": "EEA",
+    "register_id": "https://data.gov.sk/set/data/so/b4d884b3-4442-43db-a19c-ceb6e127960f/SK37012102.NRZ.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Slovakia. No 2024 data."
+   },
+   "claimed": {
+    "value": 2440.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-dafec47a-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-dafec47a",
+    "kind": "facility",
+    "name": "ORLEN Unipetrol RPA",
+    "operator": null,
+    "sector": "Chemical industry",
+    "country": "CZ",
+    "city": "Litvínov",
+    "lat": 50.56136,
+    "lon": 13.61186,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U425/CZ17751142.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 2412.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-62b31824-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-62b31824",
+    "kind": "facility",
+    "name": "Armada Kraken FPSO",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 59.92844,
+    "lon": 1.29175,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Armada-Kraken-FPSO.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2390.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1564,7 +2266,7 @@
    "claimed": {
     "value": 2357.4,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1596,7 +2298,40 @@
    "claimed": {
     "value": 2350.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-1cb77172-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-1cb77172",
+    "kind": "facility",
+    "name": "Humber Oil Refinery EPR/UP3230LR",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "South Killingholme",
+    "lat": 53.63168,
+    "lon": -0.24406,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-754.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2350.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1628,7 +2363,73 @@
    "claimed": {
     "value": 2335.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-a4528880-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-a4528880",
+    "kind": "facility",
+    "name": "Heidrun",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 65.32562,
+    "lon": 7.31569,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0038.02.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 2330.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-fff6ec49-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-fff6ec49",
+    "kind": "facility",
+    "name": "Liberty Ostrava a.s.",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "CZ",
+    "city": "Slezská Ostrava",
+    "lat": 49.79587,
+    "lon": 18.30578,
+    "register": "EEA",
+    "register_id": "CZ.MZP.T806/CZ95150686.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 2320.9,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1660,7 +2461,7 @@
    "claimed": {
     "value": 2270.2,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1692,7 +2493,73 @@
    "claimed": {
     "value": 2250.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-e056e658-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-e056e658",
+    "kind": "facility",
+    "name": "Snorre",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 61.44882,
+    "lon": 2.14253,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0009.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 2240.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-b5c5866f-2023",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-b5c5866f",
+    "kind": "facility",
+    "name": "VASSILIKO CEMENT WORKS PUBLIC COMPANY LTD, Vassilikos Plant",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "CY",
+    "city": "LARNAKA",
+    "lat": 34.7217,
+    "lon": 33.3164,
+    "register": "EEA",
+    "register_id": "CY.CAED/0060500000.FACILITY"
+   },
+   "period": {
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31",
+    "note": "Latest year reported by Cyprus. No 2024 data."
+   },
+   "claimed": {
+    "value": 2170.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1724,7 +2591,40 @@
    "claimed": {
     "value": 2170.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-9aca8b02-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-9aca8b02",
+    "kind": "facility",
+    "name": "Pembroke Refinery",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Pembroke",
+    "lat": 51.68669,
+    "lon": -5.02788,
+    "register": "EEA",
+    "register_id": "UK.CAED/NRW170266.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2170.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1756,7 +2656,40 @@
    "claimed": {
     "value": 2141.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-2f9c1efe-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-2f9c1efe",
+    "kind": "facility",
+    "name": "Elektrárna Ledvice",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Bílina",
+    "lat": 50.57648,
+    "lon": 13.78066,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U426/CZ95978240.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 2115.6,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1788,7 +2721,40 @@
    "claimed": {
     "value": 2090.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-15d6843c-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-15d6843c",
+    "kind": "facility",
+    "name": "Hope Cement Works",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "Hope Valley",
+    "lat": 53.3387,
+    "lon": -1.75381,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-16879.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2090.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1820,7 +2786,73 @@
    "claimed": {
     "value": 2040.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-2db61c6a-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-2db61c6a",
+    "kind": "facility",
+    "name": "Fiddlers Ferry Power Station EPR/BS8192IV",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "WARRINGTON",
+    "lat": 53.37337,
+    "lon": -2.68836,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-1562.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2030.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-faa84dff-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-faa84dff",
+    "kind": "facility",
+    "name": "Lerwick Power Station",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Lerwick",
+    "lat": 60.16694,
+    "lon": -1.16472,
+    "register": "EEA",
+    "register_id": "UK.SEPA/200000148.Facility"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 2020.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1852,7 +2884,7 @@
    "claimed": {
     "value": 2016.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1884,7 +2916,7 @@
    "claimed": {
     "value": 1970.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1916,7 +2948,7 @@
    "claimed": {
     "value": 1910.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1948,7 +2980,7 @@
    "claimed": {
     "value": 1880.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -1980,7 +3012,40 @@
    "claimed": {
     "value": 1879.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-4ccd73bd-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-4ccd73bd",
+    "kind": "facility",
+    "name": "Sleipner Øst",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 58.36666,
+    "lon": 1.90703,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0078.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1860.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2012,7 +3077,7 @@
    "claimed": {
     "value": 1850.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2044,7 +3109,7 @@
    "claimed": {
     "value": 1840.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2076,7 +3141,40 @@
    "claimed": {
     "value": 1820.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-56a7aa47-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-56a7aa47",
+    "kind": "facility",
+    "name": "Elektrárna Mělník",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Horní Počaply",
+    "lat": 50.41452,
+    "lon": 14.41333,
+    "register": "EEA",
+    "register_id": "CZ.MZP.S206/CZ33698019.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 1803.9,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2108,7 +3206,7 @@
    "claimed": {
     "value": 1800.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2140,7 +3238,7 @@
    "claimed": {
     "value": 1790.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2172,7 +3270,7 @@
    "claimed": {
     "value": 1780.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2204,7 +3302,7 @@
    "claimed": {
     "value": 1770.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2236,7 +3334,7 @@
    "claimed": {
     "value": 1769.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2268,7 +3366,7 @@
    "claimed": {
     "value": 1760.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2300,7 +3398,7 @@
    "claimed": {
     "value": 1743.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2332,7 +3430,7 @@
    "claimed": {
     "value": 1740.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2364,7 +3462,40 @@
    "claimed": {
     "value": 1740.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-b049e3cc-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-b049e3cc",
+    "kind": "facility",
+    "name": "Elkem Salten",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "NO",
+    "city": "Straumen",
+    "lat": 67.36347,
+    "lon": 15.58938,
+    "register": "EEA",
+    "register_id": "NO.EEA/1845.0004.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1730.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2396,7 +3527,7 @@
    "claimed": {
     "value": 1730.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2428,7 +3559,7 @@
    "claimed": {
     "value": 1720.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2460,7 +3591,7 @@
    "claimed": {
     "value": 1720.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2492,7 +3623,7 @@
    "claimed": {
     "value": 1720.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2524,7 +3655,7 @@
    "claimed": {
     "value": 1710.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2556,7 +3687,7 @@
    "claimed": {
     "value": 1700.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2588,7 +3719,7 @@
    "claimed": {
     "value": 1699.8,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2620,7 +3751,7 @@
    "claimed": {
     "value": 1680.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2652,7 +3783,7 @@
    "claimed": {
     "value": 1670.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2684,7 +3815,40 @@
    "claimed": {
     "value": 1670.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-f42de99a-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-f42de99a",
+    "kind": "facility",
+    "name": "Rugby Cement Plant",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "Rugby",
+    "lat": 52.37709,
+    "lon": -1.28632,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-2302.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1670.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2716,7 +3880,40 @@
    "claimed": {
     "value": 1660.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-98cfaa13-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-98cfaa13",
+    "kind": "facility",
+    "name": "Britannia",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 58.04865,
+    "lon": 1.13876,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Britannia.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1660.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2748,7 +3945,40 @@
    "claimed": {
     "value": 1660.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-80adbad1-2023",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-80adbad1",
+    "kind": "facility",
+    "name": "Electricity Authority of Cyprus, Vassilikos Power Station",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CY",
+    "city": "LARNAKA",
+    "lat": 34.7285,
+    "lon": 33.2898,
+    "register": "EEA",
+    "register_id": "CY.CAED/0030030000.FACILITY"
+   },
+   "period": {
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31",
+    "note": "Latest year reported by Cyprus. No 2024 data."
+   },
+   "claimed": {
+    "value": 1650.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2780,7 +4010,7 @@
    "claimed": {
     "value": 1639.7,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2812,7 +4042,7 @@
    "claimed": {
     "value": 1630.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2844,7 +4074,7 @@
    "claimed": {
     "value": 1610.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2876,7 +4106,7 @@
    "claimed": {
     "value": 1610.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2908,7 +4138,40 @@
    "claimed": {
     "value": 1596.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-d5aff011-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-d5aff011",
+    "kind": "facility",
+    "name": "Teplárna Kladno - ELEKTRÁRNA KLADNO",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Kladno",
+    "lat": 50.1535,
+    "lon": 14.12858,
+    "register": "EEA",
+    "register_id": "CZ.MZP.S203/CZ84874607.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 1584.8,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2940,7 +4203,7 @@
    "claimed": {
     "value": 1580.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -2972,7 +4235,40 @@
    "claimed": {
     "value": 1580.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-bdf837ba-2023",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-bdf837ba",
+    "kind": "facility",
+    "name": "Electricity Authority of Cyprus, Dhekelia Power Station",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CY",
+    "city": "LARNAKA",
+    "lat": 34.9801,
+    "lon": 33.7462,
+    "register": "EEA",
+    "register_id": "CY.CAED/0020020000.FACILITY"
+   },
+   "period": {
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31",
+    "note": "Latest year reported by Cyprus. No 2024 data."
+   },
+   "claimed": {
+    "value": 1570.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3004,7 +4300,7 @@
    "claimed": {
     "value": 1570.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3036,7 +4332,73 @@
    "claimed": {
     "value": 1570.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-adfb454f-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-adfb454f",
+    "kind": "facility",
+    "name": "AB \"Akmenės cementas\"",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "LT",
+    "city": "Naujoji Akmenė",
+    "lat": 56.31442,
+    "lon": 22.912,
+    "register": "EEA",
+    "register_id": "LT.CAED/153009143.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Lithuania. No 2024 data."
+   },
+   "claimed": {
+    "value": 1560.3,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-c4b66086-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-c4b66086",
+    "kind": "facility",
+    "name": "Elkem Rana AS",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "NO",
+    "city": "Mo i Rana",
+    "lat": 66.31336,
+    "lon": 14.16755,
+    "register": "EEA",
+    "register_id": "NO.EEA/1833.0035.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1560.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3068,7 +4430,40 @@
    "claimed": {
     "value": 1550.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-9c2ee515-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-9c2ee515",
+    "kind": "facility",
+    "name": "Didcot B Power Station EPR/YP3930LZ",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "DIDCOT",
+    "lat": 51.62364,
+    "lon": -1.26902,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-3999.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1550.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3100,7 +4495,7 @@
    "claimed": {
     "value": 1531.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3132,7 +4527,106 @@
    "claimed": {
     "value": 1530.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-cca49f3c-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-cca49f3c",
+    "kind": "facility",
+    "name": "Åsgard",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 65.06417,
+    "lon": 6.72555,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0025.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1530.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-6cce4c2c-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-6cce4c2c",
+    "kind": "facility",
+    "name": "Buzzard",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 57.81391,
+    "lon": -0.97597,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Buzzard.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1530.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-13f90425-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-13f90425",
+    "kind": "facility",
+    "name": "Elektrárna Opatovice",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Opatovice nad Labem",
+    "lat": 50.12707,
+    "lon": 15.79189,
+    "register": "EEA",
+    "register_id": "CZ.MZP.E532/CZ66069097.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 1524.1,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3164,7 +4658,7 @@
    "claimed": {
     "value": 1520.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3196,7 +4690,7 @@
    "claimed": {
     "value": 1505.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3228,7 +4722,7 @@
    "claimed": {
     "value": 1500.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3260,7 +4754,7 @@
    "claimed": {
     "value": 1500.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3292,7 +4786,7 @@
    "claimed": {
     "value": 1492.8,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3324,7 +4818,40 @@
    "claimed": {
     "value": 1480.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-3a838eff-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-3a838eff",
+    "kind": "facility",
+    "name": "Judy",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 56.69678,
+    "lon": 2.33704,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Judy.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1480.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3356,7 +4883,7 @@
    "claimed": {
     "value": 1464.8,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3388,7 +4915,73 @@
    "claimed": {
     "value": 1450.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-5206f392-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-5206f392",
+    "kind": "facility",
+    "name": "Danucem Slovensko a.s. - Výroba cementu",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "SK",
+    "city": "Rohožník",
+    "lat": 48.4582,
+    "lon": 17.18966,
+    "register": "EEA",
+    "register_id": "https://data.gov.sk/set/data/so/b4d884b3-4442-43db-a19c-ceb6e127960f/SK37084106.NRZ.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Slovakia. No 2024 data."
+   },
+   "claimed": {
+    "value": 1440.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-6ed90fbc-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-6ed90fbc",
+    "kind": "facility",
+    "name": "Provozovna Třinec",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "CZ",
+    "city": "Třinec",
+    "lat": 49.68811,
+    "lon": 18.64728,
+    "register": "EEA",
+    "register_id": "CZ.MZP.T802/CZ29145586.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 1434.7,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3420,7 +5013,40 @@
    "claimed": {
     "value": 1430.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-ac74df6c-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-ac74df6c",
+    "kind": "facility",
+    "name": "Equinor avd. Mongstad raffineri",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "NO",
+    "city": "Mongstad",
+    "lat": 60.81494,
+    "lon": 5.03326,
+    "register": "EEA",
+    "register_id": "NO.EEA/1263.0002.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1420.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3452,7 +5078,7 @@
    "claimed": {
     "value": 1410.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3484,7 +5110,40 @@
    "claimed": {
     "value": 1400.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-97f0a02d-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-97f0a02d",
+    "kind": "facility",
+    "name": "Lynemouth Power Station",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Ashington",
+    "lat": 55.20069,
+    "lon": -1.53902,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-122.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1400.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3516,7 +5175,7 @@
    "claimed": {
     "value": 1390.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3548,7 +5207,7 @@
    "claimed": {
     "value": 1386.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3580,7 +5239,7 @@
    "claimed": {
     "value": 1370.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3612,7 +5271,7 @@
    "claimed": {
     "value": 1350.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3644,7 +5303,7 @@
    "claimed": {
     "value": 1340.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3676,7 +5335,7 @@
    "claimed": {
     "value": 1340.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3708,7 +5367,40 @@
    "claimed": {
     "value": 1339.5,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-c091ad5c-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-c091ad5c",
+    "kind": "facility",
+    "name": "Sleipner Vest",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 58.41724,
+    "lon": 1.71631,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0021.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1310.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3740,7 +5432,7 @@
    "claimed": {
     "value": 1310.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3772,7 +5464,7 @@
    "claimed": {
     "value": 1304.5,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3804,7 +5496,7 @@
    "claimed": {
     "value": 1300.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3836,7 +5528,7 @@
    "claimed": {
     "value": 1300.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3868,7 +5560,7 @@
    "claimed": {
     "value": 1300.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3900,7 +5592,7 @@
    "claimed": {
     "value": 1300.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3932,7 +5624,7 @@
    "claimed": {
     "value": 1290.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3964,7 +5656,40 @@
    "claimed": {
     "value": 1290.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-054f62ca-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-054f62ca",
+    "kind": "facility",
+    "name": "AB \"ORLEN Lietuva\"",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "LT",
+    "city": "Juodeikiai",
+    "lat": 56.38137,
+    "lon": 22.17639,
+    "register": "EEA",
+    "register_id": "LT.CAED/166451720.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Lithuania. No 2024 data."
+   },
+   "claimed": {
+    "value": 1284.9,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -3996,7 +5721,7 @@
    "claimed": {
     "value": 1280.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4028,7 +5753,7 @@
    "claimed": {
     "value": 1280.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4060,7 +5785,7 @@
    "claimed": {
     "value": 1258.6,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4092,7 +5817,106 @@
    "claimed": {
     "value": 1250.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-4ba77ec8-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-4ba77ec8",
+    "kind": "facility",
+    "name": "Pembroke Power Station",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Dyfed",
+    "lat": 51.6838,
+    "lon": -5.0002,
+    "register": "EEA",
+    "register_id": "UK.CAED/NRW170265.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1250.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-6fc4443d-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-6fc4443d",
+    "kind": "facility",
+    "name": "Yara Norge, Yara Porsgrunn",
+    "operator": null,
+    "sector": "Chemical industry",
+    "country": "NO",
+    "city": "Porsgrunn",
+    "lat": 59.12046,
+    "lon": 9.62139,
+    "register": "EEA",
+    "register_id": "NO.EEA/0805.0039.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1230.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-f3b77281-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-f3b77281",
+    "kind": "facility",
+    "name": "Holton Poultry Processing",
+    "operator": null,
+    "sector": "Animal and vegetable products from the food and beverage sector",
+    "country": "GB",
+    "city": "Holton",
+    "lat": 52.35556,
+    "lon": 1.52681,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-3547.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1230.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4124,7 +5948,7 @@
    "claimed": {
     "value": 1223.6,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4156,7 +5980,7 @@
    "claimed": {
     "value": 1215.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4188,7 +6012,7 @@
    "claimed": {
     "value": 1210.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4220,7 +6044,7 @@
    "claimed": {
     "value": 1210.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4252,7 +6076,7 @@
    "claimed": {
     "value": 1200.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4284,7 +6108,40 @@
    "claimed": {
     "value": 1190.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-1aa3ddeb-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-1aa3ddeb",
+    "kind": "facility",
+    "name": "Elkem Thamshavn",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "NO",
+    "city": "Orkanger",
+    "lat": 63.32585,
+    "lon": 9.89443,
+    "register": "EEA",
+    "register_id": "NO.EEA/192328.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1190.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4316,7 +6173,7 @@
    "claimed": {
     "value": 1184.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4348,7 +6205,7 @@
    "claimed": {
     "value": 1180.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4380,7 +6237,40 @@
    "claimed": {
     "value": 1180.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-ca409135-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-ca409135",
+    "kind": "facility",
+    "name": "Draugen",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Kristiansund N",
+    "lat": 64.35294,
+    "lon": 7.78084,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0003.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1180.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4412,7 +6302,7 @@
    "claimed": {
     "value": 1177.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4444,7 +6334,7 @@
    "claimed": {
     "value": 1170.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4476,7 +6366,73 @@
    "claimed": {
     "value": 1160.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-04dedc83-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-04dedc83",
+    "kind": "facility",
+    "name": "Mondi SCP, a.s. - výroba papiera a celulózy",
+    "operator": null,
+    "sector": "Paper and wood production and processing",
+    "country": "SK",
+    "city": "Ružomberok",
+    "lat": 49.07993,
+    "lon": 19.32008,
+    "register": "EEA",
+    "register_id": "https://data.gov.sk/set/data/so/b4d884b3-4442-43db-a19c-ceb6e127960f/SK77062508.NRZ.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Slovakia. No 2024 data."
+   },
+   "claimed": {
+    "value": 1160.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-054fe085-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-054fe085",
+    "kind": "facility",
+    "name": "Grangemouth Refinery",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Grangemouth",
+    "lat": 56.02005,
+    "lon": -3.68694,
+    "register": "EEA",
+    "register_id": "UK.SEPA/200000052.Facility"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1150.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4508,7 +6464,7 @@
    "claimed": {
     "value": 1150.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4540,7 +6496,7 @@
    "claimed": {
     "value": 1146.8,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4572,7 +6528,7 @@
    "claimed": {
     "value": 1140.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4604,7 +6560,40 @@
    "claimed": {
     "value": 1140.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-39c7f022-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-39c7f022",
+    "kind": "facility",
+    "name": "Balder",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 59.19099,
+    "lon": 2.3858,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0035.02.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1140.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4636,7 +6625,7 @@
    "claimed": {
     "value": 1140.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4668,7 +6657,7 @@
    "claimed": {
     "value": 1140.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4700,7 +6689,7 @@
    "claimed": {
     "value": 1130.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4732,7 +6721,40 @@
    "claimed": {
     "value": 1130.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-26e5ddae-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-26e5ddae",
+    "kind": "facility",
+    "name": "Staythorpe C Power Station EPR/VP3538XX",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Staythorpe",
+    "lat": 53.0779,
+    "lon": -0.86487,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-10358.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1130.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4764,7 +6786,40 @@
    "claimed": {
     "value": 1120.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-ba5ed90b-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-ba5ed90b",
+    "kind": "facility",
+    "name": "Závod Řetenice, Servisní středisko",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "CZ",
+    "city": "Teplice",
+    "lat": 50.64063,
+    "lon": 13.80122,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U426/CZ50009387.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 1113.9,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4796,7 +6851,7 @@
    "claimed": {
     "value": 1110.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4828,7 +6883,106 @@
    "claimed": {
     "value": 1105.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-31d6b58d-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-31d6b58d",
+    "kind": "facility",
+    "name": "Elkem Bremanger",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "NO",
+    "city": "Svelgen",
+    "lat": 61.77319,
+    "lon": 5.29649,
+    "register": "EEA",
+    "register_id": "NO.EEA/1438.0002.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1100.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-d48c8b14-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-d48c8b14",
+    "kind": "facility",
+    "name": "South Ferriby Cement Plant EPR/BL1029IP",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "South Ferriby",
+    "lat": 53.67552,
+    "lon": -0.52853,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-2303.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1100.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-68aa11e8-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-68aa11e8",
+    "kind": "facility",
+    "name": "West Burton Power Station EPR/SP3935LW",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "RETFORD",
+    "lat": 53.36072,
+    "lon": -0.81154,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-3048.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1100.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4860,7 +7014,7 @@
    "claimed": {
     "value": 1090.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4892,7 +7046,7 @@
    "claimed": {
     "value": 1090.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4924,7 +7078,7 @@
    "claimed": {
     "value": 1082.2,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4956,7 +7110,139 @@
    "claimed": {
     "value": 1080.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-78cfafbe-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-78cfafbe",
+    "kind": "facility",
+    "name": "Wacker Chemicals Norway",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "NO",
+    "city": "Kyrksæterøra",
+    "lat": 63.31783,
+    "lon": 9.14357,
+    "register": "EEA",
+    "register_id": "NO.EEA/192295.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 1080.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-81040ba5-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-81040ba5",
+    "kind": "facility",
+    "name": "Shearwater",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 57.03155,
+    "lon": 1.95381,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Shearwater.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1080.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-7f620ef5-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-7f620ef5",
+    "kind": "facility",
+    "name": "West Burton CCGT Power Station EPR/CP3035MK",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Retford",
+    "lat": 53.36393,
+    "lon": -0.79927,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-17044.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1080.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-a82fde56-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-a82fde56",
+    "kind": "facility",
+    "name": "EP Kilroot  Ltd",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Carrickfergus",
+    "lat": 54.7258,
+    "lon": -5.7661,
+    "register": "EEA",
+    "register_id": "UK.CAED/P0120_06A.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1080.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -4988,7 +7274,40 @@
    "claimed": {
     "value": 1070.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-5483a4e5-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-5483a4e5",
+    "kind": "facility",
+    "name": "South Humber Bank Power Station EPR/MP3235LY",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "South",
+    "lat": 53.6016,
+    "lon": -0.14481,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-1362.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1070.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5020,7 +7339,7 @@
    "claimed": {
     "value": 1070.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5052,7 +7371,7 @@
    "claimed": {
     "value": 1060.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5084,7 +7403,7 @@
    "claimed": {
     "value": 1060.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5116,7 +7435,7 @@
    "claimed": {
     "value": 1060.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5148,7 +7467,40 @@
    "claimed": {
     "value": 1060.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-27ce281c-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-27ce281c",
+    "kind": "facility",
+    "name": "Ketton Works",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "Stamford",
+    "lat": 52.6367,
+    "lon": -0.54634,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-654.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1060.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5180,7 +7532,7 @@
    "claimed": {
     "value": 1053.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5212,7 +7564,7 @@
    "claimed": {
     "value": 1051.4,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5244,7 +7596,7 @@
    "claimed": {
     "value": 1050.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5276,7 +7628,7 @@
    "claimed": {
     "value": 1050.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5308,7 +7660,73 @@
    "claimed": {
     "value": 1028.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-b14f0433-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-b14f0433",
+    "kind": "facility",
+    "name": "Billingham Fertiliser Works EPR/BX3287IK",
+    "operator": null,
+    "sector": "Chemical industry",
+    "country": "GB",
+    "city": "Billingham",
+    "lat": 54.58189,
+    "lon": -1.26706,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-2660.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1020.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-88f0034b-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-88f0034b",
+    "kind": "facility",
+    "name": "Tunstead Cement and Lime Works",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "Buxton",
+    "lat": 53.27685,
+    "lon": -1.85719,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-6933.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1020.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5340,7 +7758,7 @@
    "claimed": {
     "value": 1014.1,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5372,7 +7790,7 @@
    "claimed": {
     "value": 1013.7,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5404,7 +7822,7 @@
    "claimed": {
     "value": 1010.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5436,7 +7854,40 @@
    "claimed": {
     "value": 1010.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-6a1bdf62-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-6a1bdf62",
+    "kind": "facility",
+    "name": "Captain FPSO",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 58.30601,
+    "lon": -1.74301,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Captain-FPSO.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 1010.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5468,7 +7919,40 @@
    "claimed": {
     "value": 996.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-b20a96aa-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-b20a96aa",
+    "kind": "facility",
+    "name": "Sokolovská uhelná,právní nástupce,a.s.-zpracovatelská část",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Vřesová",
+    "lat": 50.25595,
+    "lon": 12.69636,
+    "register": "EEA",
+    "register_id": "CZ.MZP.K413/CZ39774818.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 993.9,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5500,7 +7984,7 @@
    "claimed": {
     "value": 993.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5532,7 +8016,7 @@
    "claimed": {
     "value": 992.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5564,7 +8048,7 @@
    "claimed": {
     "value": 992.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5596,7 +8080,40 @@
    "claimed": {
     "value": 990.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-f4507bbb-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-f4507bbb",
+    "kind": "facility",
+    "name": "Alloa Glass Factory",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "Alloa",
+    "lat": 56.11113,
+    "lon": -3.80083,
+    "register": "EEA",
+    "register_id": "UK.SEPA/200000073.Facility"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 990.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5628,7 +8145,40 @@
    "claimed": {
     "value": 988.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-8a547887-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-8a547887",
+    "kind": "facility",
+    "name": "Ratcliffe-On-Soar Power Station EPR/EP3133RZ",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "NOTTINGHAM",
+    "lat": 52.86604,
+    "lon": -1.25426,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-1028.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 985.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5660,7 +8210,7 @@
    "claimed": {
     "value": 980.4,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5692,7 +8242,73 @@
    "claimed": {
     "value": 974.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-5aea920c-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-5aea920c",
+    "kind": "facility",
+    "name": "CEMEX Czech Republic, s.r.o.",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "CZ",
+    "city": "Prachovice",
+    "lat": 49.89546,
+    "lon": 15.64044,
+    "register": "EEA",
+    "register_id": "CZ.MZP.E531/CZ27995052.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 966.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-c0b3ee38-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-c0b3ee38",
+    "kind": "facility",
+    "name": "Mondi Štětí a.s. - Celulozka",
+    "operator": null,
+    "sector": "Paper and wood production and processing",
+    "country": "CZ",
+    "city": "Štětí",
+    "lat": 50.46119,
+    "lon": 14.37481,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U423/CZ63876696.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 965.2,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5724,7 +8340,7 @@
    "claimed": {
     "value": 965.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5756,7 +8372,40 @@
    "claimed": {
     "value": 956.7,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-29f36430-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-29f36430",
+    "kind": "facility",
+    "name": "Immingham CHP Power Station EPR/BJ8022IZ",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "GRIMSBY",
+    "lat": 53.63656,
+    "lon": -0.23947,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-1433.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 955.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5788,7 +8437,7 @@
    "claimed": {
     "value": 945.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5820,7 +8469,139 @@
    "claimed": {
     "value": 944.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-20bdca5b-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-20bdca5b",
+    "kind": "facility",
+    "name": "Ferroenergy s.r.o. - Výroba tepla",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "SK",
+    "city": "Košice - Šaca",
+    "lat": 48.61594,
+    "lon": 21.19455,
+    "register": "EEA",
+    "register_id": "https://data.gov.sk/set/data/so/b4d884b3-4442-43db-a19c-ceb6e127960f/SK57011803.NRZ.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Slovakia. No 2024 data."
+   },
+   "claimed": {
+    "value": 942.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-88086b30-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-88086b30",
+    "kind": "facility",
+    "name": "Aberthaw Power Station",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "Aberthaw",
+    "lat": 51.39005,
+    "lon": -3.39504,
+    "register": "EEA",
+    "register_id": "UK.CAED/NRW170003.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 937.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-9078b824-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-9078b824",
+    "kind": "facility",
+    "name": "Ekofisk",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Tananger",
+    "lat": 56.52031,
+    "lon": 3.22141,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0048.05.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 936.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-e842b7be-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-e842b7be",
+    "kind": "facility",
+    "name": "Global Producer III FPSO",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 59.56194,
+    "lon": 1.65833,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Global-Producer-III.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 934.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5852,7 +8633,7 @@
    "claimed": {
     "value": 931.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5884,7 +8665,40 @@
    "claimed": {
     "value": 925.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-9c8f666b-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-9c8f666b",
+    "kind": "facility",
+    "name": "Beryl Bravo",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 59.36372,
+    "lon": 1.30468,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Beryl-Bravo.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 923.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5916,7 +8730,7 @@
    "claimed": {
     "value": 918.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5948,7 +8762,7 @@
    "claimed": {
     "value": 916.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -5980,7 +8794,7 @@
    "claimed": {
     "value": 911.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6012,7 +8826,40 @@
    "claimed": {
     "value": 909.8,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-f8dbc5e1-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-f8dbc5e1",
+    "kind": "facility",
+    "name": "Elektrárna Tisová",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Březová",
+    "lat": 50.15218,
+    "lon": 12.61022,
+    "register": "EEA",
+    "register_id": "CZ.MZP.K413/CZ88718507.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 905.6,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6044,7 +8891,7 @@
    "claimed": {
     "value": 904.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6076,7 +8923,40 @@
    "claimed": {
     "value": 900.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-7199dcba-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-7199dcba",
+    "kind": "facility",
+    "name": "Teplárna Komořany",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "CZ",
+    "city": "Most",
+    "lat": 50.52234,
+    "lon": 13.57209,
+    "register": "EEA",
+    "register_id": "CZ.MZP.U425/CZ88860818.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Czechia. No 2024 data."
+   },
+   "claimed": {
+    "value": 899.3,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6108,7 +8988,7 @@
    "claimed": {
     "value": 896.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6140,7 +9020,7 @@
    "claimed": {
     "value": 892.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6172,7 +9052,7 @@
    "claimed": {
     "value": 892.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6204,7 +9084,205 @@
    "claimed": {
     "value": 887.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-83253273-2007",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-83253273",
+    "kind": "facility",
+    "name": "Elkem Ísland ehf.",
+    "operator": null,
+    "sector": "Production and processing of metals",
+    "country": "IS",
+    "city": "Akranes",
+    "lat": 64.3576,
+    "lon": -21.78548,
+    "register": "EEA",
+    "register_id": "IS.CAED/640675-0209"
+   },
+   "period": {
+    "label": "2007",
+    "start": "2007-01-01",
+    "end": "2007-12-31",
+    "note": "Latest year reported by Iceland. No 2024 data."
+   },
+   "claimed": {
+    "value": 885.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-8dde7e47-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-8dde7e47",
+    "kind": "facility",
+    "name": "RIVERSIDE RESOURCE RECOVERY",
+    "operator": null,
+    "sector": "Waste and wastewater management",
+    "country": "GB",
+    "city": "BELVEDERE",
+    "lat": 51.50514,
+    "lon": 0.15542,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-13691.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 884.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-e1b12293-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-e1b12293",
+    "kind": "facility",
+    "name": "Ribblesdale Cement Works",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "GB",
+    "city": "CLITHEROE",
+    "lat": 53.88833,
+    "lon": -2.38443,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-656.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 884.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-0ad770df-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-0ad770df",
+    "kind": "facility",
+    "name": "Seal Sands Acrylonitrile Production EPR/FP3435GZ",
+    "operator": null,
+    "sector": "Chemical industry",
+    "country": "GB",
+    "city": "MIDDLESBROUGH",
+    "lat": 54.57583,
+    "lon": -1.24505,
+    "register": "EEA",
+    "register_id": "UK.CAED/EW_EA-282.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 877.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-428194c2-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-428194c2",
+    "kind": "facility",
+    "name": "Oseberg Sør",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 60.38961,
+    "lon": 2.79525,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0061.01.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 873.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-c5779bf0-2019",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-c5779bf0",
+    "kind": "facility",
+    "name": "Brae Alpha",
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "GB",
+    "city": "--",
+    "lat": 58.69263,
+    "lon": 1.28186,
+    "register": "EEA",
+    "register_id": "UK.CAED/BEISOffsh-Brae-Alpha.FACILITY"
+   },
+   "period": {
+    "label": "2019",
+    "start": "2019-01-01",
+    "end": "2019-12-31",
+    "note": "Latest year reported by United Kingdom. No 2024 data."
+   },
+   "claimed": {
+    "value": 871.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6236,7 +9314,7 @@
    "claimed": {
     "value": 870.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6268,7 +9346,7 @@
    "claimed": {
     "value": 868.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6300,7 +9378,7 @@
    "claimed": {
     "value": 865.8,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6332,7 +9410,7 @@
    "claimed": {
     "value": 862.5,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6364,7 +9442,7 @@
    "claimed": {
     "value": 861.2,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6396,7 +9474,7 @@
    "claimed": {
     "value": 860.6,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6428,7 +9506,73 @@
    "claimed": {
     "value": 860.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-2ebf13c1-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-2ebf13c1",
+    "kind": "facility",
+    "name": "Danucem Slovensko a.s. - Cementáreň Turňa nad Bodvou",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "SK",
+    "city": "Turňa nad Bodvou",
+    "lat": 48.59216,
+    "lon": 20.84237,
+    "register": "EEA",
+    "register_id": "https://data.gov.sk/set/data/so/b4d884b3-4442-43db-a19c-ceb6e127960f/SK75081806.NRZ.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Slovakia. No 2024 data."
+   },
+   "claimed": {
+    "value": 859.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-c2e0edc0-2017",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-c2e0edc0",
+    "kind": "facility",
+    "name": "Gina Krog",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "NO",
+    "city": "Stavanger",
+    "lat": 58.58332,
+    "lon": 0.74332,
+    "register": "EEA",
+    "register_id": "NO.EEA/0000.0121.02.FACILITY"
+   },
+   "period": {
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
+   },
+   "claimed": {
+    "value": 857.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6460,7 +9604,40 @@
    "claimed": {
     "value": 851.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null
+  },
+  {
+   "id": "ph-eu-e87547c4-2022",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-e87547c4",
+    "kind": "facility",
+    "name": "Považská cementáreň, a.s. - Výroba cementu",
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "SK",
+    "city": "Ladce",
+    "lat": 49.03303,
+    "lon": 18.29276,
+    "register": "EEA",
+    "register_id": "https://data.gov.sk/set/data/so/b4d884b3-4442-43db-a19c-ceb6e127960f/SK77042302.NRZ.FACILITY"
+   },
+   "period": {
+    "label": "2022",
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "note": "Latest year reported by Slovakia. No 2024 data."
+   },
+   "claimed": {
+    "value": 845.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6492,7 +9669,7 @@
    "claimed": {
     "value": 840.0,
     "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
@@ -6501,3102 +9678,31 @@
    "grade": null
   },
   {
-   "id": "ph-eu-21eb6450-2024",
+   "id": "ph-eu-c3d1be9f-2017",
    "module": "pollution-hunter",
    "subject": {
-    "id": "ph-eu-21eb6450",
+    "id": "ph-eu-c3d1be9f",
     "kind": "facility",
-    "name": "EDF PRODUCTION ELECTRIQUE INSULAIRE SAS",
+    "name": "Gassco Kårstø",
     "operator": null,
     "sector": "Energy sector",
-    "country": "FR",
-    "city": "LUCCIANA",
-    "lat": 42.52691,
-    "lon": 9.4464,
+    "country": "NO",
+    "city": "Tysværvåg",
+    "lat": 59.27473,
+    "lon": 5.51285,
     "register": "EEA",
-    "register_id": "FR.CAED/12044.FACILITY"
+    "register_id": "NO.EEA/1146.0004.01.FACILITY"
    },
    "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
+    "label": "2017",
+    "start": "2017-01-01",
+    "end": "2017-12-31",
+    "note": "Latest year reported by Norway. No 2024 data."
    },
    "claimed": {
-    "value": 837.0,
+    "value": 838.0,
     "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-35383f71-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-35383f71",
-    "kind": "facility",
-    "name": "thyssenkrupp Steel Europe AG Kraftwerk Hamborn",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Duisburg",
-    "lat": 51.49125,
-    "lon": 6.72648,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-112000-100-0008504"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 834.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-50de77cf-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-50de77cf",
-    "kind": "facility",
-    "name": "Veolia Energia Poznań ZEC  Spółka Akcyjna EC II Karolin",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Poznań",
-    "lat": 52.43611,
-    "lon": 16.98889,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000268.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 833.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-b7777e54-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-b7777e54",
-    "kind": "facility",
-    "name": "SC AZOMURES SA",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "RO",
-    "city": "TARGU MURES",
-    "lat": 46.51515,
-    "lon": 24.50681,
-    "register": "EEA",
-    "register_id": "RO.CAED/115MS0001.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 827.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-bdee2f58-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-bdee2f58",
-    "kind": "facility",
-    "name": "Lenzing Aktiengesellschaft",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "AT",
-    "city": "Lenzing",
-    "lat": 47.979,
-    "lon": 13.616,
-    "register": "EEA",
-    "register_id": "AT.CAED/9008390705353.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 822.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-3b63dc77-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-3b63dc77",
-    "kind": "facility",
-    "name": "HEIDELBERGCEMENT ROMANIA SA",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "RO",
-    "city": "Tasca",
-    "lat": 46.89786,
-    "lon": 26.02959,
-    "register": "EEA",
-    "register_id": "RO.CAED/102NT0001.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 822.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-9b35dbe4-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-9b35dbe4",
-    "kind": "facility",
-    "name": "Heidelberg Materials Cement Sverige AB, Slitefabriken",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "SE",
-    "city": "SLITE",
-    "lat": 57.71172,
-    "lon": 18.80539,
-    "register": "EEA",
-    "register_id": "SE.CAED/10016795.Facility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 821.1,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-378bf744-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-378bf744",
-    "kind": "facility",
-    "name": "CENTRAL DIESEL EL PALMAR",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "ES",
-    "city": "SAN SEBASTIAN DE LA GOMERA",
-    "lat": 28.09222,
-    "lon": -17.11187,
-    "register": "EEA",
-    "register_id": "ES.CAED/006817000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 820.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f1b84630-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f1b84630",
-    "kind": "facility",
-    "name": "EDF Polska S.A. Oddział nr 1 w Krakowie",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Kraków",
-    "lat": 50.05347,
-    "lon": 20.01033,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000391.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 813.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-55051684-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-55051684",
-    "kind": "facility",
-    "name": "CABOT ITALIANA S.P.A.",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "IT",
-    "city": "RAVENNA",
-    "lat": 44.45,
-    "lon": 12.25,
-    "register": "EEA",
-    "register_id": "IT.CAED/481232012.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 808.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-5760a8b3-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-5760a8b3",
-    "kind": "facility",
-    "name": "Elektrociepłownia Gdańska",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Gdańsk",
-    "lat": 54.37774,
-    "lon": 18.64044,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000034.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 806.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-ffa4fdf2-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-ffa4fdf2",
-    "kind": "facility",
-    "name": "OMV Deutschland Operations GmbH & Co. KG, Werk Burghausen",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Burghausen",
-    "lat": 48.193,
-    "lon": 12.83653,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.by.inspire.pf.ied/S00108"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 806.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-74686294-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-74686294",
-    "kind": "facility",
-    "name": "Shell Deutschland GmbH, Shell Energy and Chemicals Park Rheinland Süd",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Wesseling",
-    "lat": 50.81411,
-    "lon": 7.00576,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-362040-300-0215443"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 805.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-5497a4c5-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-5497a4c5",
-    "kind": "facility",
-    "name": "SWM Heizkraftwerk Nord",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Unterföhring",
-    "lat": 48.1812,
-    "lon": 11.6398,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.by.inspire.pf.ied/S00041"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 804.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-d40a3072-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-d40a3072",
-    "kind": "facility",
-    "name": "UPM-Kymmene Oyj, Kaukaan tehtaat",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "FI",
-    "city": "Lappeenranta",
-    "lat": 61.06625,
-    "lon": 28.24899,
-    "register": "EEA",
-    "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001592.ProductionFacility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 802.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-a2ae8517-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-a2ae8517",
-    "kind": "facility",
-    "name": "OMV PETROM SA - Petrobrazi",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "RO",
-    "city": "comuna BRAZI",
-    "lat": 44.87652,
-    "lon": 26.01039,
-    "register": "EEA",
-    "register_id": "RO.CAED/106PH0001.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 800.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-2d2e1474-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-2d2e1474",
-    "kind": "facility",
-    "name": "STEAG Power GmbH",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Duisburg",
-    "lat": 51.526,
-    "lon": 6.71962,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-112000-100-0365906"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 800.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f2c60b18-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f2c60b18",
-    "kind": "facility",
-    "name": "BEW HKW Reuter-West",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Berlin",
-    "lat": 52.53526,
-    "lon": 13.24373,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.be.pf.lisa/166928"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 795.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-3b03f16a-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-3b03f16a",
-    "kind": "facility",
-    "name": "TAURON Wytwarzanie Spółka Akcyjna - Elektrownia Jaworzno III w Jaworznie - Elektrownia III",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Jaworzno",
-    "lat": 50.20389,
-    "lon": 19.21056,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000130.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 792.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-6fd414c3-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-6fd414c3",
-    "kind": "facility",
-    "name": "Gruvöns bruk",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "SE",
-    "city": "GRUMS",
-    "lat": 59.33827,
-    "lon": 13.12153,
-    "register": "EEA",
-    "register_id": "SE.CAED/10020389.Facility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 791.5,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-85bf59c0-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-85bf59c0",
-    "kind": "facility",
-    "name": "CENTRALE TERMOELETTRICA DI TARANTO",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "IT",
-    "city": "TARANTO",
-    "lat": 40.5108,
-    "lon": 17.2152,
-    "register": "EEA",
-    "register_id": "IT.CAED/741231003.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 789.9,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-d580ca14-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-d580ca14",
-    "kind": "facility",
-    "name": "Elektrownia Pątnów II",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Konin",
-    "lat": 52.30115,
-    "lon": 18.23683,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000705.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 788.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-942b83e6-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-942b83e6",
-    "kind": "facility",
-    "name": "Metsä Fibre Oy, Joutsenon tehdas",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "FI",
-    "city": "Lappeenranta",
-    "lat": 61.13091,
-    "lon": 28.45687,
-    "register": "EEA",
-    "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001269.ProductionFacility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 785.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-d3cadc34-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-d3cadc34",
-    "kind": "facility",
-    "name": "TITAN CEMENT S.A. - DREPANO PLANT",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "GR",
-    "city": "RION",
-    "lat": 38.33557,
-    "lon": 21.84543,
-    "register": "EEA",
-    "register_id": "EL.CAED/100075.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 784.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-324f0197-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-324f0197",
-    "kind": "facility",
-    "name": "KRONOSPAN POLSKA Sp. z o.o.",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "PL",
-    "city": "Szczecinek",
-    "lat": 53.69343,
-    "lon": 16.71364,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000331.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 784.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-ec734bfd-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-ec734bfd",
-    "kind": "facility",
-    "name": "FÁBRICA DE MONTCADA (LAFARGEHOLCIM ESPAÑA SAU)",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "ES",
-    "city": "Montcada i Reixac",
-    "lat": 41.47766,
-    "lon": 2.18654,
-    "register": "EEA",
-    "register_id": "ES.CAED/000144000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 781.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-3e549ed2-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-3e549ed2",
-    "kind": "facility",
-    "name": "Stora Enso Oyj, Uimaharjun tehdas",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "FI",
-    "city": "Joensuu",
-    "lat": 62.92722,
-    "lon": 30.22521,
-    "register": "EEA",
-    "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001111.ProductionFacility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 780.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-e2444102-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-e2444102",
-    "kind": "facility",
-    "name": "Shell Deutschland GmbH, Shell Energy and Chemicals Park Rheinland Nord",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Köln",
-    "lat": 50.85499,
-    "lon": 6.97685,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-315000-300-0213768"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 776.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-836329f2-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-836329f2",
-    "kind": "facility",
-    "name": "CEMENTOS PORTLAND VALDERRIVAS (FÁBRICA EL ALTO)",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "ES",
-    "city": "MORATA DE TAJUÑA",
-    "lat": 40.24483,
-    "lon": -3.47434,
-    "register": "EEA",
-    "register_id": "ES.CAED/001759000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 775.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f2307466-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f2307466",
-    "kind": "facility",
-    "name": "Gävle bruk",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "SE",
-    "city": "GÄVLE",
-    "lat": 60.6811,
-    "lon": 17.26746,
-    "register": "EEA",
-    "register_id": "SE.CAED/10022062.Facility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 769.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-ea597faf-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-ea597faf",
-    "kind": "facility",
-    "name": "Orion Engineered Carbons GmbH Werk Kalscheuren",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "DE",
-    "city": "Köln",
-    "lat": 50.8735,
-    "lon": 6.91846,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-315000-300-0214067"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 769.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-273ff7ff-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-273ff7ff",
-    "kind": "facility",
-    "name": "Uniper Benelux NV (Maasvlakte)",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "NL",
-    "city": "Maasvlakte Rotterdam",
-    "lat": 51.95906,
-    "lon": 4.02657,
-    "register": "EEA",
-    "register_id": "NL.RIVM/000012149.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 767.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-2891fded-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-2891fded",
-    "kind": "facility",
-    "name": "TOTALENERGIES MARKETING SERVICES",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "FR",
-    "city": "DONGES",
-    "lat": 47.37229,
-    "lon": -2.12805,
-    "register": "EEA",
-    "register_id": "FR.CAED/6705.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 766.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-61d91235-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-61d91235",
-    "kind": "facility",
-    "name": "Elektrociepłownia Żerań",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Warszawa",
-    "lat": 52.29539,
-    "lon": 20.99628,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000162.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 765.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-aa0bc748-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-aa0bc748",
-    "kind": "facility",
-    "name": "Ruhr Oel GmbH Werk Horst",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Gelsenkirchen",
-    "lat": 51.53961,
-    "lon": 7.0372,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-513000-500-0073211"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 759.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-d431141d-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-d431141d",
-    "kind": "facility",
-    "name": "Yara Suomi Oy, Uudenkaupungin tehtaat",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "FI",
-    "city": "Uusikaupunki",
-    "lat": 60.79479,
-    "lon": 21.34071,
-    "register": "EEA",
-    "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000002134.ProductionFacility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 755.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-b3c41297-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-b3c41297",
-    "kind": "facility",
-    "name": "stabilimento di Ferrera Erbognone",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "IT",
-    "city": "FERRERA ERBOGNONE",
-    "lat": 45.1002,
-    "lon": 8.8666,
-    "register": "EEA",
-    "register_id": "IT.CAED/270321001.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 749.8,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f9556a50-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f9556a50",
-    "kind": "facility",
-    "name": "Mercer Rosenthal GmbH",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "DE",
-    "city": "Rosenthal am Rennsteig",
-    "lat": 50.40753,
-    "lon": 11.69634,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.th/5bf25e39-19d5-4254-adac-63f1b1cec499/85012942"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 748.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-426a61b1-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-426a61b1",
-    "kind": "facility",
-    "name": "Lukoil Neftohim Burgas AD",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "BG",
-    "city": "Бургас",
-    "lat": 42.54544,
-    "lon": 27.33651,
-    "register": "EEA",
-    "register_id": "BG.CAED/002000008.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 745.3,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-72a8dda9-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-72a8dda9",
-    "kind": "facility",
-    "name": "SWISS KRONO TEX GmbH & Co. KG",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "DE",
-    "city": "Heiligengrabe",
-    "lat": 53.14874,
-    "lon": 12.38258,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.bb.inspire.pf.eureg/16012651"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 745.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-acd64e38-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-acd64e38",
-    "kind": "facility",
-    "name": "YARA Sluiskil BV",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "NL",
-    "city": "Sluiskil",
-    "lat": 51.27764,
-    "lon": 3.85005,
-    "register": "EEA",
-    "register_id": "NL.RIVM/000051105.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 737.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-02fb076b-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-02fb076b",
-    "kind": "facility",
-    "name": "RWE Power AG Veredlungsstandort Knapsacker Hügel",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Hürth",
-    "lat": 50.86356,
-    "lon": 6.84623,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-362028-800-0009877"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 734.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-e96e74fa-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-e96e74fa",
-    "kind": "facility",
-    "name": "International Paper - Kwidzyn Sp. z o.o.",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "PL",
-    "city": "Kwidzyn",
-    "lat": 53.69974,
-    "lon": 18.92169,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000072.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 730.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-e98b7c59-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-e98b7c59",
-    "kind": "facility",
-    "name": "Ogranak Termoelektrane Nikola Tesla - TE Kolubara",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "RS",
-    "city": "Beograd-Lazarevac",
-    "lat": 44.46643,
-    "lon": 20.28361,
-    "register": "EEA",
-    "register_id": "RS.SEPA.NRIZ/FACILITY.000000028"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 730.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-4920bbe8-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-4920bbe8",
-    "kind": "facility",
-    "name": "Trianel Kohlekraftwerk Lünen GmbH & Co. KG",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Lünen",
-    "lat": 51.61411,
-    "lon": 7.46524,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-978024-900-9141660"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 728.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-fda1ada4-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-fda1ada4",
-    "kind": "facility",
-    "name": "SC OMV Petrom SA Brazi (cogenerare)",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "RO",
-    "city": "sat Negoiesti, Comuna Brazi",
-    "lat": 44.88003,
-    "lon": 25.99879,
-    "register": "EEA",
-    "register_id": "RO.CAED/104PH0001.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 725.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-648877a5-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-648877a5",
-    "kind": "facility",
-    "name": "KOKSOWNIA RADLIN",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Radlin",
-    "lat": 50.03778,
-    "lon": 18.48667,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000021.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 724.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-87e566ec-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-87e566ec",
-    "kind": "facility",
-    "name": "PPC S.A. PTOLEMAIS V",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "GR",
-    "city": "PTOLEMAIS",
-    "lat": 40.48797,
-    "lon": 21.77415,
-    "register": "EEA",
-    "register_id": "EL.CAED/100748.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 722.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-d30bb3df-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-d30bb3df",
-    "kind": "facility",
-    "name": "VERESCENCE LA GRANJA, S.L.U.",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "ES",
-    "city": "SAN ILDEFONSO O LA GRANJA",
-    "lat": 40.90193,
-    "lon": -4.01132,
-    "register": "EEA",
-    "register_id": "ES.CAED/002163000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 719.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-4cb17ea3-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-4cb17ea3",
-    "kind": "facility",
-    "name": "ENERGA ELEKTROWNIE OSTROŁĘKA SPÓŁKA AKCYJNA",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "OSTROŁĘKA",
-    "lat": 53.10444,
-    "lon": 21.61203,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000009.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 713.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-c8f5c889-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-c8f5c889",
-    "kind": "facility",
-    "name": "EQIOM",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "FR",
-    "city": "LUMBRES",
-    "lat": 50.699,
-    "lon": 2.11284,
-    "register": "EEA",
-    "register_id": "FR.CAED/10785.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 706.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-45344efd-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-45344efd",
-    "kind": "facility",
-    "name": "Basell Polyolefine GmbH Werk Wesseling",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "DE",
-    "city": "Wesseling",
-    "lat": 50.84233,
-    "lon": 6.96312,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-362040-300-0215520"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 706.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-b406cc84-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-b406cc84",
-    "kind": "facility",
-    "name": "Duna-Dráva Cement Kft.",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "HU",
-    "city": "Vác",
-    "lat": 47.81132,
-    "lon": 19.1046,
-    "register": "EEA",
-    "register_id": "HU.OKIR/100401517.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 704.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-274c0339-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-274c0339",
-    "kind": "facility",
-    "name": "PALACIOS ALIMENTACIÓN, S.A.",
-    "operator": null,
-    "sector": "Animal and vegetable products from the food and beverage sector",
-    "country": "ES",
-    "city": "ALBELDA DE IREGUA",
-    "lat": 42.36577,
-    "lon": -2.48192,
-    "register": "EEA",
-    "register_id": "ES.CAED/005270000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 702.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-bddf69ca-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-bddf69ca",
-    "kind": "facility",
-    "name": "HEIDELBERG MATERIALS FRANCE CIMENTS",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "FR",
-    "city": "BEAUCAIRE",
-    "lat": 43.79239,
-    "lon": 4.53224,
-    "register": "EEA",
-    "register_id": "FR.CAED/8958.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 701.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f76eb359-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f76eb359",
-    "kind": "facility",
-    "name": "NEXE d.o.o.",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "HR",
-    "city": "Našice",
-    "lat": 45.45294,
-    "lon": 18.03978,
-    "register": "EEA",
-    "register_id": "HR.CAED/000000073.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 697.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-3380f766-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-3380f766",
-    "kind": "facility",
-    "name": "BURGO ARDENNES",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "BE",
-    "city": "Virton",
-    "lat": 49.5499,
-    "lon": 5.50424,
-    "register": "EEA",
-    "register_id": "BE.WA/103010000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 693.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-e8308db6-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-e8308db6",
-    "kind": "facility",
-    "name": "PETROINEOS MANUFACTURING FRANCE SAS",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "FR",
-    "city": "MARTIGUES",
-    "lat": 43.38403,
-    "lon": 5.02829,
-    "register": "EEA",
-    "register_id": "FR.CAED/7874.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 692.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-883005ee-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-883005ee",
-    "kind": "facility",
-    "name": "BASELL POLYOLEFINES FRANCE",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "FR",
-    "city": "BERRE L ETANG",
-    "lat": 43.50295,
-    "lon": 5.16206,
-    "register": "EEA",
-    "register_id": "FR.CAED/7633.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 691.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-c50ccc68-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-c50ccc68",
-    "kind": "facility",
-    "name": "Hamburger Energiewerke GmbH",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Wedel",
-    "lat": 53.56675,
-    "lon": 9.72575,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.sh/50083712"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 690.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-a8d11f0b-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-a8d11f0b",
-    "kind": "facility",
-    "name": "KG Deutsche Gasrußwerke GmbH & Co",
-    "operator": null,
-    "sector": "Chemical industry",
-    "country": "DE",
-    "city": "Dortmund",
-    "lat": 51.54511,
-    "lon": 7.43915,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-913000-900-0148555"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 687.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-ad976d61-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-ad976d61",
-    "kind": "facility",
-    "name": "Metsä Fibre Oy, Rauman tehdas",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "FI",
-    "city": "Rauma",
-    "lat": 61.1107,
-    "lon": 21.46621,
-    "register": "EEA",
-    "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001919.ProductionFacility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 684.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-be652252-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-be652252",
-    "kind": "facility",
-    "name": "VOTORANTIM CEMENTOS ESPAÑA, (TORAL DE LOS VADOS)",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "ES",
-    "city": "TORAL DE LOS VADOS",
-    "lat": 42.55361,
-    "lon": -6.76889,
-    "register": "EEA",
-    "register_id": "ES.CAED/001497000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 683.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-a269f57b-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-a269f57b",
-    "kind": "facility",
-    "name": "Helen Oy, Salmisaaren voimalaitokset",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "FI",
-    "city": "Helsinki",
-    "lat": 60.1604,
-    "lon": 24.90581,
-    "register": "EEA",
-    "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001170.ProductionFacility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 678.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-fade2521-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-fade2521",
-    "kind": "facility",
-    "name": "LOTOS ASfalt Sp. z o.o.",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Gdańsk",
-    "lat": 54.34993,
-    "lon": 18.72967,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000023.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 677.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-3ddf5bd4-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-3ddf5bd4",
-    "kind": "facility",
-    "name": "Euroglas Polska Sp. z o.o.",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "PL",
-    "city": "Ujazd",
-    "lat": 51.61978,
-    "lon": 19.93492,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000273.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 676.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-619d1f51-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-619d1f51",
-    "kind": "facility",
-    "name": "ELECTRICITE DE FRANCE",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "FR",
-    "city": "KOUROU",
-    "lat": 5.16016,
-    "lon": -52.66794,
-    "register": "EEA",
-    "register_id": "FR.CAED/10554.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 674.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f7e789e4-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f7e789e4",
-    "kind": "facility",
-    "name": "HEIDELBERG MATERIALS FRANCE CIMENTS",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "FR",
-    "city": "AIRVAULT",
-    "lat": 46.80705,
-    "lon": -0.1446,
-    "register": "EEA",
-    "register_id": "FR.CAED/11610.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 673.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-e593afaf-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-e593afaf",
-    "kind": "facility",
-    "name": "COLACEM S.P.A. - CEMENTERIA DI GHIGIANO",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "IT",
-    "city": "GUBBIO",
-    "lat": 43.2844,
-    "lon": 12.6178,
-    "register": "EEA",
-    "register_id": "IT.CAED/060242002.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 672.6,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-b55a039e-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-b55a039e",
-    "kind": "facility",
-    "name": "Irish Cement Limited (Limerick)",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "IE",
-    "city": "Limerick",
-    "lat": 52.64536,
-    "lon": -8.69381,
-    "register": "EEA",
-    "register_id": "IE.CAED/P0029.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 672.5,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-48548155-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-48548155",
-    "kind": "facility",
-    "name": "HEIDELBERG MATERIALS ITALIA CEMENTI S.p.A  (EX   ITALCEMENTI CEMENTERIA DI CALUSCO D`ADDA)",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "IT",
-    "city": "CALUSCO D'ADDA",
-    "lat": 45.6847,
-    "lon": 9.4667,
-    "register": "EEA",
-    "register_id": "IT.CAED/240332003.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 672.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f017f59b-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f017f59b",
-    "kind": "facility",
-    "name": "Stabilimento di Gubbio CEMENTERIE ALDO BARBETTI S.p.A.",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "IT",
-    "city": "GUBBIO",
-    "lat": 43.3636,
-    "lon": 12.5467,
-    "register": "EEA",
-    "register_id": "IT.CAED/060242001.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 671.8,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-d7731491-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-d7731491",
-    "kind": "facility",
-    "name": "TUDELA VEGUÍN - FÁBRICA DE CEMENTOS DE ABOÑO",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "ES",
-    "city": "ABOÑO",
-    "lat": 43.56012,
-    "lon": -5.72323,
-    "register": "EEA",
-    "register_id": "ES.CAED/001915000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 671.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-78cbaebb-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-78cbaebb",
-    "kind": "facility",
-    "name": "Skutskärs Bruk",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "SE",
-    "city": "SKUTSKÄR",
-    "lat": 60.64365,
-    "lon": 17.38983,
-    "register": "EEA",
-    "register_id": "SE.CAED/10014311.Facility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 666.9,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-9fa00c93-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-9fa00c93",
-    "kind": "facility",
-    "name": "ENIPOWER S.P.A. - Stabilimento di Brindisi",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "IT",
-    "city": "BRINDISI",
-    "lat": 40.6411,
-    "lon": 17.9919,
-    "register": "EEA",
-    "register_id": "IT.CAED/721001005.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 666.9,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-96fedceb-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-96fedceb",
-    "kind": "facility",
-    "name": "VICAT",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "FR",
-    "city": "BLAUSASC",
-    "lat": 43.76863,
-    "lon": 7.33352,
-    "register": "EEA",
-    "register_id": "FR.CAED/7444.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 666.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-0f7c0933-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-0f7c0933",
-    "kind": "facility",
-    "name": "HEIDELBERG MATERIALS ROMANIA SA - Sucursala Fieni",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "RO",
-    "city": "FIENI",
-    "lat": 45.12267,
-    "lon": 25.41759,
-    "register": "EEA",
-    "register_id": "RO.CAED/108DB0001.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 663.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-35785630-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-35785630",
-    "kind": "facility",
-    "name": "CARRIERES ET FOURS A CHAUX DUMONT WAUTIER",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "BE",
-    "city": "Saint-Georges-Sur-Meuse",
-    "lat": 50.57045,
-    "lon": 5.37034,
-    "register": "EEA",
-    "register_id": "BE.WA/033010000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 660.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-8f4167f0-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-8f4167f0",
-    "kind": "facility",
-    "name": "Enefit Power AS, Auvere elektrijaam",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "EE",
-    "city": "Auvere küla, Narva-Jõesuu linn",
-    "lat": 59.27047,
-    "lon": 27.89357,
-    "register": "EEA",
-    "register_id": "EE.KAUR.TTR/192.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 660.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-5d4d6de5-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-5d4d6de5",
-    "kind": "facility",
-    "name": "NAVIGATOR Setúbal (CI)",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "PT",
-    "city": "SETÚBAL",
-    "lat": 38.49332,
-    "lon": -8.80816,
-    "register": "EEA",
-    "register_id": "PT.CAED/PT.APA05765162.CI"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 654.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-15e630f4-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-15e630f4",
-    "kind": "facility",
-    "name": "Uniper Kraftwerk Scholven",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Gelsenkirchen",
-    "lat": 51.59736,
-    "lon": 7.00482,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-513000-500-0342658"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 654.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-a5e3915a-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-a5e3915a",
-    "kind": "facility",
-    "name": "Sappi Austria Produktions-GmbH & Co. KG",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "AT",
-    "city": "Forstviertel",
-    "lat": 47.13411,
-    "lon": 15.33406,
-    "register": "EEA",
-    "register_id": "AT.CAED/9008390537091.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 651.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-ad1fc8a8-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-ad1fc8a8",
-    "kind": "facility",
-    "name": "CEMEX ESPAÑA-ALICANTE (CEMENTO BLANCO)",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "ES",
-    "city": "ALICANTE/ALACANT",
-    "lat": 38.37861,
-    "lon": -0.54185,
-    "register": "EEA",
-    "register_id": "ES.CAED/002586000.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 649.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-9718d8a1-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-9718d8a1",
-    "kind": "facility",
-    "name": "Ogranak Panonske TE-TO - TE-TO Novi Sad",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "RS",
-    "city": "Novi Sad - grad",
-    "lat": 45.26919,
-    "lon": 19.88099,
-    "register": "EEA",
-    "register_id": "RS.SEPA.NRIZ/FACILITY.000000032"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 648.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-a8465188-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-a8465188",
-    "kind": "facility",
-    "name": "PPC S.A. - AES KALIMNOS",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "GR",
-    "city": "KALIMNOS",
-    "lat": 36.95219,
-    "lon": 26.9956,
-    "register": "EEA",
-    "register_id": "EL.CAED/100103.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 646.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-11d561c5-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-11d561c5",
-    "kind": "facility",
-    "name": "HELLENIC PETROLEUM R.S.S.O.P.P. S.A. –SOUTH REFINERIES COMPLEX – ELEFSIS INDUSTRIAL FACILITIES",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "GR",
-    "city": "ELEFSIS",
-    "lat": 38.04222,
-    "lon": 23.51083,
-    "register": "EEA",
-    "register_id": "EL.CAED/100058.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 643.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-53217576-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-53217576",
-    "kind": "facility",
-    "name": "RAFFINERIA DI TARANTO",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "IT",
-    "city": "TARANTO",
-    "lat": 40.4892,
-    "lon": 17.193,
-    "register": "EEA",
-    "register_id": "IT.CAED/741231002.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 641.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-0fbcf837-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-0fbcf837",
-    "kind": "facility",
-    "name": "TOTALEnergies Raffinerie Mitteldeutschland GmbH (Raffinerie, BB01)",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Spergau",
-    "lat": 51.28764,
-    "lon": 12.00012,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.st.lau.pf.anlagen-ied-euregistry/100194"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 639.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-59af5950-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-59af5950",
-    "kind": "facility",
-    "name": "Uniper Kraftwerke GmbH Kraftwerk Datteln IV",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Datteln",
-    "lat": 51.63309,
-    "lon": 7.34248,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2018-562008-500-0915123"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 636.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-fc3e75ad-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-fc3e75ad",
-    "kind": "facility",
-    "name": "GUARDIAN CZĘSTOCHOWA Sp. z o. o.",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "PL",
-    "city": "Częstochowa",
-    "lat": 50.78035,
-    "lon": 19.18999,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000741.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 631.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-0bc734f9-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-0bc734f9",
-    "kind": "facility",
-    "name": "Moravacem",
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "RS",
-    "city": "Paraćin",
-    "lat": 43.90655,
-    "lon": 21.50315,
-    "register": "EEA",
-    "register_id": "RS.SEPA.NRIZ/FACILITY.000000089"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 630.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-3a8c20ce-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-3a8c20ce",
-    "kind": "facility",
-    "name": "Södra Cell Mörrum",
-    "operator": null,
-    "sector": "Paper and wood production and processing",
-    "country": "SE",
-    "city": "MÖRRUM",
-    "lat": 56.16098,
-    "lon": 14.76467,
-    "register": "EEA",
-    "register_id": "SE.CAED/10017067.Facility"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 628.5,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-63da4331-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-63da4331",
-    "kind": "facility",
-    "name": "Elektrociepłownia EC-4",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Łódź",
-    "lat": 51.74708,
-    "lon": 19.54008,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000147.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 626.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-91d236ca-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-91d236ca",
-    "kind": "facility",
-    "name": "GKH - Gemeinschaftskraftwerk Hannover GmbH",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "DE",
-    "city": "Hannover, Landeshauptstadt",
-    "lat": 52.42032,
-    "lon": 9.6476,
-    "register": "EEA",
-    "register_id": "https://registry.gdi-de.org/id/de.ni.mu/06060316030"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 626.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-342f6712-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-342f6712",
-    "kind": "facility",
-    "name": "RHONE ENERGIES FOS-SUR-MER SAS",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "FR",
-    "city": "FOS SUR MER",
-    "lat": 43.44832,
-    "lon": 4.93111,
-    "register": "EEA",
-    "register_id": "FR.CAED/7646.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 623.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-f48f3020-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-f48f3020",
-    "kind": "facility",
-    "name": "PPC S.A. AES LHMNOY",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "GR",
-    "city": "LIMNOS",
-    "lat": 39.90037,
-    "lon": 25.07191,
-    "register": "EEA",
-    "register_id": "EL.CAED/100094.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 622.0,
-    "unit": "t NOx/yr",
-    "basis": null,
-    "source": "EEA Industrial Reporting database v16"
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null
-  },
-  {
-   "id": "ph-eu-faffad87-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-faffad87",
-    "kind": "facility",
-    "name": "Elektrociepłownia Wrocław",
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "PL",
-    "city": "Wrocław",
-    "lat": 51.12389,
-    "lon": 17.02444,
-    "register": "EEA",
-    "register_id": "PL.MŚ/000000461.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 622.0,
-    "unit": "t NOx/yr",
-    "basis": null,
+    "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
    "observed": null,
