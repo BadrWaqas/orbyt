@@ -1,0 +1,27 @@
+# data and build output (see PLAN.md section 2.4)
+/data/
+/dist/
+
+# node
+node_modules/
+web/dist/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# secrets and local config
+.env
+.env.*
+*.pem
+*service-account*.json
+
+# editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
