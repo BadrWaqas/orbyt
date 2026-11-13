@@ -93,3 +93,26 @@ candidates:
     noise_sigmas: 3
     # Same quarter as the source rule: another hotspot at a quarter of our own enhancement or more.
     frac: 0.25
+
+detect:
+  # Single-day plume test, PLAN.md 4.4. Wind-aligned grid in km, wide enough for the mirrored
+  # upwind box (minus box_max_km) and the part of the plume the flipbook shows.
+  x_km: {start: -60.0, stop: 100.0, step: 2.0}
+  # Downwind box length is the distance travelled in this many hours, capped at box_max_km.
+  box_hours: 2.0
+  box_max_km: 60.0
+  # Both boxes need at least this share of valid cells, otherwise the day is not tested.
+  min_valid_frac: 0.6
+  # Detected when z = (down - up) / noise reaches this.
+  z_min: 3.0
+  # Real TROPOMI pixel area, used to count independent pixels (PLAN.md 4.4). The download grid is finer.
+  pixel_area_km2: 19.0
+  flipbook:
+    # A day is a frame when this share of the shown image is valid.
+    min_valid_frac: 0.8
+    show_from_km: -20.0
+    # Colour ramp runs from 0 to this enhancement, the facility view range of PLAN.md 9.2.
+    full_scale_umol_m2: 100.0
+    scale_px: 3
+    label_px: 46
+    columns: 10

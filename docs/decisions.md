@@ -125,3 +125,19 @@ Checked with the real pipeline (extract, ERA5 100 m wind, observe), nothing tune
 - Maritsa East 2, `ph-eu-27eb1b72`: 138 of 171 days used, 39,871 t, interval 34,825 to 46,305, lifetime 1.0 h, fails `source_offset`. Ratio 12 against the single anchor facility (3,304 t). The lignite complex has other emitters inside the footprint and the anchor is only one of four, so the number is not a clean test of one source. Not used for the showcase.
 
 Showcase facility: Atherinolakkos. Caveats: one oil-fired plant on an island with a clean upwind sea, which is an easy scene and a weaker test than a continental coal plant. The 0.1 degree hotspot test sees only the annual mean and not the daily scene. `tests/test_candidates.py` covers geometry, city lookup, footprints and the hotspot test on synthetic windows.
+
+## M3.6 Single-day plume test and flipbook
+
+`detect.py` implements PLAN.md 4.4 and writes `detect.json`, `flipbook.png` and `flipbook.json` next to `estimate.json`. Constants are in `config.yaml` under `detect`, none tuned.
+
+- Each day is rotated onto a wind-aligned km grid (-60 to 100 km downwind), the same background plane as the estimate is subtracted, then the downwind box (0 to the smaller of 2 h of travel and 60 km, inside the fan) is compared with the mirrored upwind box. `z = (down - up) / noise`, noise is 1.4826 x MAD of the flank cells divided by the square root of the independent pixels (box area over 19 km2). Detected at z of 3 or more, and only when both boxes are at least 60% valid.
+- Flipbook: a day is a frame when 80% of the shown image (-20 to 100 km downwind) is valid. Frames are drawn on the plume ramp from 0 to 100 micromol/m2 with date, wind speed and direction, z, a compass arrow for where the wind blows to, and an outline when detected. The manifest holds the grid position of each frame for the player (M3.7).
+
+Atherinolakkos (`ph-eu-12a5336d`, 2024): plume detected on 182 of 209 testable days (255 days used), 213 frames, sheet 1830 x 6358 px, 1.3 MB.
+
+Reading that number honestly:
+
+- 87% is high. The same test run at three points 55 to 90 km from the plant (sea, mostly) flags 15 to 26% of days (56 of 220, 35 of 233, 53 of 187). Some of those are days when the real plume drifts into the box, but not all, so the false alarm rate on real scenes is probably above what z of 3 implies.
+- The likely reason is the independence assumption. The synthetic tests use noise smoothed to one real pixel and are clean. With noise correlated over a larger area (sigma of 3 grid cells, about 800 km2 per independent value) 5 of 20 empty scenes were flagged. Real scenes also carry regional structure the plane does not remove.
+- Not changed: the 19 km2 and z of 3 are from the plan. Set them from the null sites in M4 (V3), not from this plant. Until then say "plume visible on N of M days" with this caveat, and do not use the count as evidence for the estimate. The estimate does not use detect.py.
+- Shuffling the wind between days is not a null for this site, because the wind is mostly from one quarter and shuffled days often match the real one (120 of 211 detected).
