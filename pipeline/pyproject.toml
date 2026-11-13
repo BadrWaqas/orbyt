@@ -10,6 +10,7 @@ dependencies = [
     "numpy>=2.5.4",
     "pillow>=13.0.0",
     "rasterio>=1.5.2",
+    "scipy>=1.18.1",
 ]
 
 [dependency-groups]
@@ -31,3 +32,8 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# PLAN.md Appendix A, copied as written. plume() is defined inside the day loop and called in
+# the same iteration, so the loop variables it uses are always the current ones.
+"tests/test_core_math.py" = ["B023"]
