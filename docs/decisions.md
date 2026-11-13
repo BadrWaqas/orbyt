@@ -105,3 +105,23 @@ Result with the plane: 15,822 t NOx/yr, interval 10,013 to 97,293, lifetime 2.7 
 - What is robust: the near-source size. Every variant that keeps the first hours gives 11,000 to 16,000 t. What is not: the lifetime and so the upper end of the interval.
 - Not changed: fan, window, wind level, gates, conversion constants. Those are set by the US validation.
 - Isolation rule (PLAN.md 4.5) passes Belchatow and should not. It looks for register sources 20 to 60 km away and cities above 200,000 within 30 km. Lodz (about 650,000 people, 55 km) and Silesia (100 km) are inside the 6 h reach of the plume. The rule needs a check on large cities or NO2 hotspots out to about 100 km, to be decided with the candidate list in M2.
+
+## Isolation check for cities and NO2 hotspots, candidate ranking
+
+Why: the M3.5 result showed that the PLAN.md 4.5 rule passes Belchatow when it should not. The rule now has four parts, all set in `config.yaml` under `candidates`:
+
+- Footprint: facilities within 20 km of each other are one subject, and the register total of the group is what counts (2,000 t or more).
+- Sources: another register source above 25% of the footprint total, 20 to 60 km away, fails.
+- Cities (Natural Earth 1:10m populated places, `pop_max`, public domain): 200,000 within 30 km fails, 500,000 within 100 km fails. The 500,000 is provisional and is to be set by the null test (V3), not by this list.
+- Hotspots: on the 0.1 degree annual mean NO2 map for 2024, the background is the median of a 130 to 200 km ring, the facility's own enhancement is the highest cell within 12 km, and any other local maximum 20 to 100 km away above 25% of the own enhancement fails. A peak must also stand 3 robust sigmas (1.4826 x MAD of the ring) above the background, otherwise it is map noise.
+
+Result for 2024: 839 footprints, 97 of 2,000 t or more, 8 pass all four. Without the 3 sigma floor 0 passed and 95 of 97 failed the hotspot test, which was a useless rule, so the floor is a fix to a rule that had no noise term. No threshold was moved to rescue Belchatow, which still fails (Lodz at 57 km, and a hotspot).
+
+Passing: Atherinolakkos (Crete) 7,600 t, Maritsa East 2 (Bulgaria) 5,630 t, Los Guinchos (Tenerife) 4,020, Aalborg Portland 2,665, Dan F platform 2,643, Tornio 2,353, Thira 2,250, Eemshaven 2,020. Most are islands or weak-signal sites. Own enhancement is 4 to 12 micromol/m2 against a map noise of 1 to 5, and only Atherinolakkos and Los Guinchos are visible on the 0.1 degree map (`own_detectable`).
+
+Checked with the real pipeline (extract, ERA5 100 m wind, observe), nothing tuned:
+
+- Atherinolakkos, `ph-eu-12a5336d`: 255 of 272 days used, 9,124 t NOx/yr, interval 7,832 to 11,269, lifetime 1.9 h, no gate failed. Ratio to reported 1.20. The interval does not contain the reported 7,600 t, which is a fact to carry into the showcase, not something to fix.
+- Maritsa East 2, `ph-eu-27eb1b72`: 138 of 171 days used, 39,871 t, interval 34,825 to 46,305, lifetime 1.0 h, fails `source_offset`. Ratio 12 against the single anchor facility (3,304 t). The lignite complex has other emitters inside the footprint and the anchor is only one of four, so the number is not a clean test of one source. Not used for the showcase.
+
+Showcase facility: Atherinolakkos. Caveats: one oil-fired plant on an island with a clean upwind sea, which is an easy scene and a weaker test than a continental coal plant. The 0.1 degree hotspot test sees only the annual mean and not the daily scene. `tests/test_candidates.py` covers geometry, city lookup, footprints and the hotspot test on synthetic windows.

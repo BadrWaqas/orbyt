@@ -56,3 +56,40 @@ observe:
   seed: 0
   # PLAN.md 4.5 and Appendix A failed_gates(): the minimum number of days.
   min_days: 40
+
+candidates:
+  # PLAN.md 1.5 and 4.5: below this the satellite cannot see a source. Footprint total.
+  min_footprint_t: 2000
+  # PLAN.md 4.5, footprint accounting: facilities within this distance are one subject.
+  footprint_km: 20
+  # PLAN.md 4.5, isolation: no other register source above a quarter of this one, 20 to 60 km.
+  source_min_km: 20
+  source_max_km: 60
+  source_frac: 0.25
+  # PLAN.md 4.5, isolation: no city above 200,000 people within 30 km.
+  city_near_km: 30
+  city_near_pop: 200000
+  # Added after the M3.5 review of Belchatow (docs/decisions.md): the plume is followed for up to
+  # 6 h, about 100 km at 5 m/s, so a big city that far out reaches the fan. 500,000 is
+  # provisional: more than twice the near rule because a city matters less at three times the
+  # distance. The hotspot test below is the data-driven check, and the V3 null test (PLAN.md
+  # 4.9) is what finally sets this.
+  city_far_km: 100
+  city_far_pop: 500000
+  hotspot:
+    # Annual mean NO2 map (0.1 degree, 2024). Crop of this half-width around each facility.
+    window_km: 200
+    # Background is the median in this ring, outside the plume reach.
+    background_km: [130, 200]
+    # Own enhancement is the highest cell within this distance. One 0.1 degree cell is 7 to 11 km.
+    own_km: 12
+    # Other hotspots: a local maximum of this many cells square, inside this ring.
+    peak_cells: 5
+    min_km: 20
+    max_km: 100
+    # A peak counts as a hotspot only if it also stands this many robust standard deviations
+    # (1.4826 x MAD of the background ring) above the background. The same floor says whether the
+    # facility's own enhancement is visible at all. 3 is the usual cut.
+    noise_sigmas: 3
+    # Same quarter as the source rule: another hotspot at a quarter of our own enhancement or more.
+    frac: 0.25
