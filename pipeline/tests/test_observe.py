@@ -40,6 +40,33 @@ def test_select_days_drops_calm_and_missing_wind_and_counts_them():
     assert dropped == {"no_wind": 1, "calm": 1}
 
 
+def test_background_constants_reach_the_document():
+    assert CFG["flank_km"] == 60.0
+    assert CFG["upwind_box_km"] == [-70.0, -20.0]
+
+
+@pytest.mark.parametrize(
+    ("from_deg", "name"),
+    [(0.0, "N"), (44.9, "N"), (45.0, "E"), (134.9, "E"), (180.0, "S"), (270.0, "W"), (359.0, "N")],
+)
+def test_sector_of_covers_the_compass(from_deg, name):
+    assert observe.sector_of(from_deg) == name
+
+
+def test_sector_profiles_only_draw_quarters_with_enough_days():
+    t = observe.grid(CFG["travel_hours"])
+    yr = observe.grid(CFG["crosswind_km"])
+    days = [day(f"2024-05-{i + 1:02d}", 5.0) for i in range(4)]  # all from 270, the west
+    flux = np.ones((4, len(yr), len(t)))
+    hw = np.full(len(t), 20.0)
+    rows = {r["wind_from"]: r for r in observe.sector_profiles(flux, days, yr, hw, min_days=3)}
+    assert rows["W"]["n_days"] == 4 and rows["W"]["flux_mol_s"] is not None
+    assert rows["W"]["flux_mol_s"][0] == pytest.approx(21 * 2000.0)  # 21 cells of 2 km
+    assert rows["N"]["n_days"] == 0 and rows["N"]["flux_mol_s"] is None
+    none = observe.sector_profiles(flux, days, yr, hw, min_days=5)
+    assert all(r["flux_mol_s"] is None for r in none)
+
+
 def test_reported_tonnes_reads_the_subject_or_returns_none(tmp_path):
     path = tmp_path / "findings.json"
     assert observe.reported_tonnes("ph-eu-x", path) is None

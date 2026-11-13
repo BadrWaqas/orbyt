@@ -56,3 +56,52 @@ Newest first. One line per decision, with the reason.
 - First result for Belchatow 2024: 13,638 t NOx/yr, bootstrap interval 10,337 to 38,299, against 18,800 reported (ratio 0.73). Two gates fail: lifetime_out_of_range (the fitted lifetime sits on its 12 h upper bound) and low_signal_to_noise. It is not published as a number. M3.5 is where the cause is looked at.
 - What the figure shows: a clear plume that starts at the source, a sharp rise in the stacked flux over the first hour, then a flat plateau out to 6 h instead of a decay. A plateau like that means the background is not fully removed downwind or other sources add NO2 along the track, so the long tail is not the plant. The EMG fit r2 is 0.93, so a good r2 alone does not mean a good estimate.
 - Not changed: core_math.py, the 100 m wind level, the upwind background box.
+
+## 2026-11-13, M3.5
+
+Question: why the stacked flux for Belchatow stayed flat after the first hour, with the lifetime pinned at its 12 h bound.
+
+Answer: leftover background, not the plant. After the single upwind median, cells 60 to 80 km to the side of the plume still held 23 to 36 micromol/m/s downwind, against 5 upwind. At 4 h that pedestal times the 80 km wide fan is about 2.9 of the 3.7 mol/s in the curve. The surroundings explain it: the Silesian conurbation 100 km south, Lodz 55 km north, and a region that is dirtier to the west and south than to the east, with wind from the east or south on 87 of the 110 days. The one clean direction, wind from the west (18 days), already gave a decaying curve with the M3.4 method (lifetime 3.8 h).
+
+One change at a time, each from the M3.4 result. Nothing was chosen by its distance to the reported 18,800 t.
+
+| Change | Estimate, t NOx/yr | 95% interval | Lifetime, h | Gates failed |
+|---|---|---|---|---|
+| M3.4 as committed | 13,638 | 10,337 to 38,299 | 12.0 (bound) | lifetime, signal to noise |
+| Wind speed x1.2 (sensitivity) | 19,867 | 12,254 to 46,029 | 12.0 (bound) | lifetime, signal to noise |
+| Wind turned 10 degrees clockwise (sensitivity) | 21,994 | 11,468 to 40,870 | 12.0 (bound) | lifetime, signal to noise |
+| Wind turned 10 degrees anticlockwise (sensitivity) | 11,828 | 9,539 to 37,222 | 12.0 (bound) | lifetime, signal to noise |
+| Upwind box 20 to 120 km | 19,050 | 10,593 to 39,183 | 12.0 (bound) | lifetime, signal to noise |
+| Background from the flanks (60 to 80 km) at each travel time | 18,371 | 11,283 to 104,595 | 2.2 | signal to noise |
+| Background from flanks at 80 to 120 km | 12,501 | 8,687 to 50,275 | 3.0 | signal to noise |
+| Fan fixed at 20 km half-width | 11,730 | 9,984 to 14,576 | 5.6 | none |
+| Fan 20 km + 0.15 per km | 10,929 | 9,404 to 13,786 | 12.0 (bound) | lifetime |
+| Fan fixed at 40 km half-width | 15,143 | 12,376 to 21,085 | 9.5 | lifetime |
+| Fit to 3 h | 11,857 | 9,921 to 14,870 | 12.0 (bound) | lifetime |
+| Fit to 4 h | 12,466 | 10,297 to 17,577 | 12.0 (bound) | lifetime |
+| Fit to 8 h | 26,104 | 9,904 to 31,716 | 12.0 (bound) | fit, plume start, lifetime |
+| Fit to 10 h | 24,551 | 9,655 to 33,750 | 12.0 (bound) | fit, plume start, lifetime |
+| Background plane (adopted, see below) | 15,822 | 10,013 to 97,293 | 2.7 | signal to noise |
+
+What each test says:
+
+- Wind level. The 500 m wind could not be tested. The Earth Engine collection `ECMWF/ERA5/HOURLY_PRESSURE_LEVELS` holds 4,288 images, a few days in 1943 and June 2026 onward, and none for 2024. Real data needs the Copernicus CDS API. The rows above scale or turn the 100 m wind instead. Neither removes the plateau, so the wind level is not its cause. It still matters for the size of the number: 20% more speed gives 26 to 46% more emission. The plume axis drifts to the right of the 100 m wind with travel time, and the centreline is strongest with the wind turned about 10 degrees clockwise. A higher transport level would do that, and the stacks are 300 m tall, so the 500 m test is worth doing in M4.4.
+- Window. A shorter window does not help because the pedestal is there from the first half hour. A longer one makes it worse.
+- Fan. The narrower the fan, the less pedestal it collects. That is a symptom of the background, not a reason to pick a fan. Fan width stays as in the plan until the US validation (4.9, V4).
+- Background. Any rule that looks at both sides of the plume gives a curve that decays, with a lifetime of 2 to 3 h.
+- Neighbours. See the last two points below.
+
+Change made: the daily background in `core_math.py` is now a plane fitted to the upwind box and to both flanks of the scene (crosswind 60 km or more), with cells far from the plane clipped. `background_plane()` is new and `daily_flux_density()` uses it. This is the one departure from PLAN.md Appendix A, and section 4.3 step 4 and Appendix A in PLAN.md still describe the old rule.
+
+- Why it is justified without looking at the register: one upwind value assumes the background is the same on both sides of the source. With a regional gradient and a prevailing wind it is not, the difference stays in every downwind cell, and the widening fan multiplies it.
+- Synthetic proof, same scenes as the Appendix A tests plus a gradient of 12 micromol/m2 per 200 km and wind towards one side on 60% of days: the upwind median gave 2.95 and 7.78 times the truth for a 4,000 t source (lifetime at a bound) and 0.90 and 1.17 for a 20,000 t source, the second pair passing every gate. The plane gives 1.08 and 1.03, the same whichever way the gradient runs.
+- On the original Appendix A scenes the plane recovers 20,000 t within 3% and 4,000 t within 5%, and still rejects the empty site and pure noise. All five Appendix A tests pass unchanged. `tests/test_background.py` adds the gradient scenes.
+- A flank background per travel time was also tried. It is noisier (4,000 t recovered between 0.86 and 1.27 across seeds) and on Belchatow moves by 40% with the choice of flank, so the plane was kept.
+- `flank_km: 60` is in `config.yaml`. 50 and 70 km give 16,394 and 14,385 t. `method_version` is now `ph-emg-1.1`.
+
+Result with the plane: 15,822 t NOx/yr, interval 10,013 to 97,293, lifetime 2.7 h, r2 0.95, plume start 0.19 h. It fails `low_signal_to_noise` only and stays inconclusive.
+
+- The good-looking all-days curve hides a disagreement. The diagnostic figure now draws the curve per wind quarter. Wind from the east (53 days) and west (18 days) agree for the first two hours, peaking near 2.5 mol/s. Wind from the south (34 days) carries the plume towards Lodz and stays above 4 mol/s to 6 h. Wind from the east goes negative after 4 h, where the Silesian outflow sits in one flank and tilts the plane. The two errors partly cancel in the all-days curve.
+- What is robust: the near-source size. Every variant that keeps the first hours gives 11,000 to 16,000 t. What is not: the lifetime and so the upper end of the interval.
+- Not changed: fan, window, wind level, gates, conversion constants. Those are set by the US validation.
+- Isolation rule (PLAN.md 4.5) passes Belchatow and should not. It looks for register sources 20 to 60 km away and cities above 200,000 within 30 km. Lodz (about 650,000 people, 55 km) and Silesia (100 km) are inside the 6 h reach of the plume. The rule needs a check on large cities or NO2 hotspots out to about 100 km, to be decided with the candidate list in M2.

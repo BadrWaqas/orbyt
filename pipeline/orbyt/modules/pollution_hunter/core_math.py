@@ -1,6 +1,9 @@
 """Orbyt Earth, Pollution Hunter: core plume math (reference implementation).
 
 Units: columns in mol/m2, distances in km, wind in m/s, time in hours.
+
+This is PLAN.md Appendix A with one change made in M3.5: the daily background is a plane
+fitted outside the plume (background_plane) instead of one upwind median.
 """
 from __future__ import annotations
 
@@ -35,23 +38,66 @@ def rotate_scene(field, lats, lons, lat0, lon0, u, v, xr, yr):
     return interp(np.stack([lat.ravel(), lon.ravel()], axis=-1)).reshape(XR.shape)
 
 
+def background_plane(scene, up, x_scene_km, x_up_km, yr, flank_km=60.0, clip=3.0, iters=3):
+    """That day's background as a tilted plane, fitted to the cells outside the plume.
+
+    scene: [len(yr), len(x_scene_km)] columns downwind. up: [len(yr), len(x_up_km)] columns in
+    the upwind box. The fit uses the upwind box and both flanks of the scene (crosswind
+    distance of at least flank_km). Cells far from the plane (other sources, noise) are clipped
+    at ``clip`` robust standard deviations and the fit is repeated.
+    Returns the plane on the scene grid, or None if there are too few cells.
+
+    A single upwind value is not enough: where the region is dirtier on one side of the source
+    and the wind has a prevailing direction, the difference stays in every downwind cell and
+    grows with the width of the fan (M3.5, docs/decisions.md).
+    """
+    flank = np.abs(yr) >= flank_km
+    x = np.concatenate([np.broadcast_to(x_scene_km[None, :], scene.shape)[flank].ravel(),
+                        np.broadcast_to(x_up_km[None, :], up.shape).ravel()])
+    y = np.concatenate([np.broadcast_to(yr[:, None], scene.shape)[flank].ravel(),
+                        np.broadcast_to(yr[:, None], up.shape).ravel()])
+    z = np.concatenate([scene[flank].ravel(), up.ravel()])
+    ok = np.isfinite(z)
+    if ok.sum() < 50:
+        return None
+    x, y, z = x[ok], y[ok], z[ok]
+    keep = np.ones(len(z), dtype=bool)
+    coef = np.array([np.median(z), 0.0, 0.0])
+    for _ in range(iters):
+        if keep.sum() < 50:
+            break
+        A = np.column_stack([np.ones(keep.sum()), x[keep], y[keep]])
+        coef, *_ = np.linalg.lstsq(A, z[keep], rcond=None)
+        resid = z - (coef[0] + coef[1] * x + coef[2] * y)
+        centre = np.median(resid[keep])
+        spread = 1.4826 * np.median(np.abs(resid[keep] - centre))
+        if spread <= 0:
+            break
+        keep = np.abs(resid - centre) <= clip * spread
+    return coef[0] + coef[1] * x_scene_km[None, :] + coef[2] * yr[:, None]
+
+
 def daily_flux_density(field, lats, lons, lat0, lon0, u, v, t_hours, yr,
-                       upwind_km=(-70.0, -20.0)):
+                       upwind_km=(-70.0, -20.0), flank_km=60.0):
     """One day's plume on a travel-time axis, as flux density in mol per m per s.
 
-    Step 1: subtract that day's background (median of an upwind box).
-    Step 2: sample the scene at downwind distance x = wind * t, so every day
+    Step 1: sample the scene at downwind distance x = wind * t, so every day
             shares one clock whatever its wind speed.
+    Step 2: subtract that day's background: a plane fitted to the upwind box and
+            to both flanks of the scene (background_plane).
     Step 3: multiply by wind speed (column * speed = flux through a 1 m wide gate).
     """
     speed = float(np.hypot(u, v))
-    up = rotate_scene(field, lats, lons, lat0, lon0, u, v,
-                      np.arange(upwind_km[0], upwind_km[1] + 1, 2.0), yr)
+    x_up = np.arange(upwind_km[0], upwind_km[1] + 1, 2.0)
+    up = rotate_scene(field, lats, lons, lat0, lon0, u, v, x_up, yr)
     if np.isfinite(up).mean() < 0.3:
         return np.full((len(yr), len(t_hours)), np.nan)
     x_at_t = speed * np.asarray(t_hours) * 3.6               # km travelled after t hours
     scene = rotate_scene(field, lats, lons, lat0, lon0, u, v, x_at_t, yr)
-    return (scene - np.nanmedian(up)) * speed
+    background = background_plane(scene, up, x_at_t, x_up, np.asarray(yr), flank_km)
+    if background is None:
+        return np.full((len(yr), len(t_hours)), np.nan)
+    return (scene - background) * speed
 
 
 def fan_half_width(t_hours, mean_wind_ms, base_km=20.0, growth=0.3, cap_km=76.0):

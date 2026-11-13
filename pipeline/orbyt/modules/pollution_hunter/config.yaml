@@ -1,6 +1,6 @@
 # Pollution Hunter constants. Every value names its source (PLAN.md section), so there are no
 # magic numbers in code.
-method_version: ph-emg-1.0
+method_version: ph-emg-1.1
 
 extract:
   # PLAN.md 4.3 step 2: a 0.03 degree grid covering 180 km in every direction.
@@ -39,6 +39,15 @@ observe:
   # PLAN.md Appendix A, the outline of how observe.py uses core_math.py, and its tests.
   crosswind_km: {start: -80.0, stop: 80.0, step: 2.0}
   travel_hours: {start: -2.0, stop: 6.0, step: 0.1}
+  # Daily background: a plane fitted to the upwind box (PLAN.md 4.3 step 4, 20 to 70 km upwind)
+  # and to both flanks, the outer quarter of the crosswind grid. Added in M3.5 after a single
+  # upwind median left regional gradients in the stack (docs/decisions.md). Not tuned to any
+  # register value. 50 and 70 km move the Belchatow estimate by 4 and 9 percent. Final value
+  # comes from the US validation (PLAN.md 4.9, V4).
+  upwind_box_km: [-70.0, -20.0]
+  flank_km: 60.0
+  # Diagnostic only: a wind quarter needs this many days before its own curve is drawn.
+  sector_min_days: 10
   # PLAN.md 4.6 and Appendix A: NOx as a multiple of NO2, and the air mass factor correction.
   nox_to_no2: 1.38
   amf_correction: 1.61

@@ -68,6 +68,7 @@ def daily_fluxes(
     patch_dir: Path,
     t_hours: np.ndarray,
     yr_km: np.ndarray,
+    cfg: dict,
 ) -> np.ndarray:
     """[n_days, len(yr), len(t)] flux density in mol per m per s, one slice per day."""
     out = []
@@ -76,10 +77,57 @@ def daily_fluxes(
         field, lats, lons, _ = extract.load_patch(files[0])
         out.append(
             daily_flux_density(
-                field, lats, lons, subject.lat, subject.lon, d.u_ms, d.v_ms, t_hours, yr_km
+                field,
+                lats,
+                lons,
+                subject.lat,
+                subject.lon,
+                d.u_ms,
+                d.v_ms,
+                t_hours,
+                yr_km,
+                upwind_km=tuple(cfg["upwind_box_km"]),
+                flank_km=cfg["flank_km"],
             )
         )
     return np.array(out)
+
+
+SECTORS = (("N", 315.0, 45.0), ("E", 45.0, 135.0), ("S", 135.0, 225.0), ("W", 225.0, 315.0))
+
+
+def sector_of(from_deg: float) -> str:
+    """Which quarter of the compass the wind comes from."""
+    for name, lo, hi in SECTORS:
+        inside = (from_deg >= lo or from_deg < hi) if lo > hi else (lo <= from_deg < hi)
+        if inside:
+            return name
+    raise AssertionError("unreachable")
+
+
+def sector_profiles(
+    flux: np.ndarray,
+    days: list[era5.DayWind],
+    yr_km: np.ndarray,
+    half_width_km: np.ndarray,
+    min_days: int,
+) -> list[dict]:
+    """The stacked curve for each wind quarter with enough days, same fan as the estimate.
+
+    A source seen from four sides should give four similar curves. A quarter that stands out
+    points at another source or uneven background in that direction.
+    """
+    names = np.array([sector_of(d.from_deg) for d in days])
+    out = []
+    for name, _, _ in SECTORS:
+        idx = np.where(names == name)[0]
+        row: dict[str, Any] = {"wind_from": name, "n_days": len(idx), "flux_mol_s": None}
+        if len(idx) >= min_days:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", RuntimeWarning)
+                row["flux_mol_s"] = stack_profile(flux[idx], yr_km, half_width_km)
+        out.append(row)
+    return out
 
 
 def run_estimate(
@@ -136,6 +184,7 @@ def build_document(
     profile: np.ndarray,
     reported_t: float | None,
     cfg: dict,
+    sectors: list[dict] | None = None,
 ) -> dict:
     fit = None
     if est is not None:
@@ -147,7 +196,17 @@ def build_document(
             "subject_id": subject.subject_id,
             "name": subject.name,
             "method": load_config()["method_version"],
-            "constants": {k: cfg[k] for k in ("nox_to_no2", "amf_correction", "n_boot", "seed")},
+            "constants": {
+                k: cfg[k]
+                for k in (
+                    "nox_to_no2",
+                    "amf_correction",
+                    "n_boot",
+                    "seed",
+                    "upwind_box_km",
+                    "flank_km",
+                )
+            },
             "min_speed_ms": load_config()["wind"]["min_speed_ms"],
             "days": {"cached": all_days, "used": len(days), "dropped": dropped},
             "observed": None
@@ -164,6 +223,7 @@ def build_document(
             "ratio": None if est is None or not reported_t else est["nox_t_yr"] / reported_t,
             "gates_failed": gates,
             "profile": {"t_h": t_hours, "flux_mol_s": profile, "fit": fit},
+            "sectors": sectors or [],
             "day_list": [
                 {"date": d.day, "wind_ms": d.speed_ms, "wind_from_deg": d.from_deg} for d in days
             ],
@@ -179,7 +239,7 @@ def observe_subject(subject_id: str, out_dir: Path | None = None, log=print) -> 
     winds = era5.read_winds(era5.wind_path(out_dir, subject_id))
     days, dropped = select_days(winds, load_config()["wind"]["min_speed_ms"])
     t_hours, yr_km = grid(cfg["travel_hours"]), grid(cfg["crosswind_km"])
-    flux = daily_fluxes(subject, days, patch_dir, t_hours, yr_km)
+    flux = daily_fluxes(subject, days, patch_dir, t_hours, yr_km, cfg)
     speeds = [d.speed_ms for d in days]
     est, gates = run_estimate(flux, t_hours, yr_km, speeds, cfg)
     profile, hw = profile_of(flux, t_hours, yr_km, speeds)
@@ -194,6 +254,7 @@ def observe_subject(subject_id: str, out_dir: Path | None = None, log=print) -> 
         profile,
         reported_tonnes(subject_id),
         cfg,
+        sector_profiles(flux, days, yr_km, hw, cfg["sector_min_days"]),
     )
     path = patch_dir / "estimate.json"
     path.write_text(json.dumps(doc, indent=1), encoding="utf-8")
