@@ -30,3 +30,14 @@ Newest first. One line per decision, with the reason.
 - Countries without 2024 data keep their latest year. Each such finding has its real year in `period.label`, `start`, `end` and the id suffix, plus `period.note` ("Latest year reported by Czechia. No 2024 data."), and the file lists them in `latest_year_countries`. The UI must show that year wherever it shows the value. Old years (Norway 2017, the UK 2019) are not comparable with 2024 satellite data, so M2 must not pair a finding whose year is not 2024 unless the satellite year is matched to it.
 - Fallback years before 2022 are dropped, so the United Kingdom (2019), Norway (2017) and Iceland (2007) are not in `findings.json`. The list is refilled to 300 with the next largest reporters.
 - `findings.json` holds the 300 largest reporters (2024, or the country's latest year from 2022 on) that have coordinates, reported side only, at `web/public/data/v1/pollution-hunter/findings.json`. Facilities with withheld coordinates (confidential rows) are skipped. Ids come from a hash of the register id so they do not change when the ranking does.
+
+## 2026-11-13, M3.1 and M3.2
+
+- Test facility: Belchatow power station (`ph-eu-a43eff1e`), the largest reporter with no other large source within the isolation radius. It is the first facility run end to end, so a bad fit points at the method and not at a neighbour.
+- `core_math.py` is Appendix A block 1 copied unchanged, and `test_core_math.py` is block 2 with only the import path changed. Ruff rule B023 flags the plan's `plume()` closure in that test as a false positive, so it is ignored for that one file in `pyproject.toml` rather than editing the plan's code.
+- Constants for the module live in `pollution_hunter/config.yaml`, each with its source, and are read through `config.py`.
+- Overpass filter runs on the Earth Engine server, month by month: solar zenith 65 degrees or less, sensor zenith 56 degrees or less, and at least half of a 50 km disc valid. Where several images fall on one UTC day, the one with the smallest sensor zenith is kept.
+- 2024 gave 128 usable images on 117 days. November and December have none because the sun is too low at 51 degrees north.
+- Patches are 0.03 degree grids, 109 x 173 cells, 180 km each way from the source, cached as compressed NPZ under `data/interim/<subject id>/`. Re-running skips days already cached.
+- Measured cost of one facility-year: 144.7 EECU-seconds, or 0.04 EECU-hours, against the 150 hours a month of the community tier. The listing is almost all of it. Earth Engine did not return a profile for every call (10 of 12 listing calls and 103 of 117 patch calls), so the figure is scaled up by the share found.
+- Image start and end times are the window of about an hour of track, not the moment the satellite passed the source. M3.3 derives that moment from the solar zenith and azimuth at the source and checks it falls inside the window.

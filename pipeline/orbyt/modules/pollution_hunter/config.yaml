@@ -1,0 +1,19 @@
+# Pollution Hunter constants. Every value names its source (PLAN.md section), so there are no
+# magic numbers in code.
+method_version: ph-emg-1.0
+
+extract:
+  # PLAN.md 4.3 step 2: a 0.03 degree grid covering 180 km in every direction.
+  grid_step_deg: 0.03
+  half_extent_km: 180
+  # PLAN.md 4.3 step 2: the server-side filter that runs before anything is downloaded.
+  valid_radius_km: 50
+  min_valid_frac: 0.5
+  max_solar_zenith_deg: 65
+  max_sensor_zenith_deg: 56
+  # Native cell of the L3 collection, 0.01 degree. Used as the scale of the server-side stats.
+  reduce_scale_m: 1113.2
+
+quota:
+  # PLAN.md 1.5: Earth Engine Community tier, EECU-hours per month.
+  community_eecu_hours: 150
