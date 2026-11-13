@@ -17,3 +17,20 @@ extract:
 quota:
   # PLAN.md 1.5: Earth Engine Community tier, EECU-hours per month.
   community_eecu_hours: 150
+
+wind:
+  # PLAN.md 4.3 step 3 and section 2 (data sources): ERA5 hourly, 100 m wind, about 28 km grid.
+  collection: ECMWF/ERA5/HOURLY
+  u_band: u_component_of_wind_100m
+  v_band: v_component_of_wind_100m
+  # Native ERA5 cell, 0.25 degree.
+  scale_m: 27830
+  # Hours sampled per server call.
+  batch_hours: 100
+  # PLAN.md 4.3 step 3: the satellite passes at about 13:30 local solar time. Used only when
+  # the sun based pass time does not fall inside the image window.
+  fallback_solar_hour: 13.5
+  # The sun formulas are good to about a minute. Allow ten for the window edge check.
+  window_tolerance_min: 10
+  # PLAN.md 4.3 step 3: in calmer air the gas pools and has no direction.
+  min_speed_ms: 2.0

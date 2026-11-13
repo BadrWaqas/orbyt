@@ -41,3 +41,11 @@ Newest first. One line per decision, with the reason.
 - Patches are 0.03 degree grids, 109 x 173 cells, 180 km each way from the source, cached as compressed NPZ under `data/interim/<subject id>/`. Re-running skips days already cached.
 - Measured cost of one facility-year: 144.7 EECU-seconds, or 0.04 EECU-hours, against the 150 hours a month of the community tier. The listing is almost all of it. Earth Engine did not return a profile for every call (10 of 12 listing calls and 103 of 117 patch calls), so the figure is scaled up by the share found.
 - Image start and end times are the window of about an hour of track, not the moment the satellite passed the source. M3.3 derives that moment from the solar zenith and azimuth at the source and checks it falls inside the window.
+
+## 2026-11-13, M3.3
+
+- Wind comes from ERA5 hourly 100 m u and v, read from the 0.25 degree cell that holds the source, at the whole UTC hour nearest the pass. All 117 days of Belchatow 2024 had a wind value. Speeds run 1.1 to 9.7 m/s with a median of 4.6.
+- The pass time is worked out from the solar zenith angle and azimuth at the source (negative azimuth is west of south, so afternoon), the declination and the equation of time. 115 of 117 days land inside the image window. The other 2 use the plan's fixed 13:30 local solar time, and each day in wind.json records which one it used (pass_source).
+- Over Poland the satellite sees the source close to solar noon on many days (zenith angle within a degree or two of the noon value), not at 13:30. The fixed 13:30 rule would be about 1.5 to 2 hours late on those days, which is one to two ERA5 hours of wind change.
+- The 100 m level is the only level read so far. The plan's test of the 500 m level (pressure level collection) is left for M3.5.
+- The 2 m/s minimum wind is in config.yaml as wind.min_speed_ms and is applied in M3.4, so wind.json keeps every day.
