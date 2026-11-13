@@ -8,6 +8,9 @@ const BORDER = "#2A3440";
 const LABEL = "#8A94A3";
 const LABEL_MINOR = "#7D8794";
 
+/** Data layers are inserted below this one, so borders and labels stay on top of them. */
+export const FIRST_OVERLAY_LAYER_ID = "boundary-country";
+
 const TILES = "https://tiles.openfreemap.org";
 const placeName: ExpressionSpecification = ["coalesce", ["get", "name_en"], ["get", "name"]];
 

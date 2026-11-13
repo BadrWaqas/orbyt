@@ -1,16 +1,20 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useCallback, useState } from "react";
 
 import { Stars } from "../globe/Stars";
+import { Legend } from "../modules/pollution-hunter/Legend";
 
 // MapLibre is the heaviest dependency. Loading it as its own chunk lets the text paint first.
 const Globe = lazy(() => import("../globe/Globe").then((m) => ({ default: m.Globe })));
 
 export function App() {
+  const [no2Visible, setNo2Visible] = useState(false);
+  const showLegend = useCallback(() => setNo2Visible(true), []);
+
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-void text-text">
       <Stars />
       <Suspense fallback={null}>
-        <Globe />
+        <Globe onNo2Visible={showLegend} />
       </Suspense>
 
       <header
@@ -18,6 +22,8 @@ export function App() {
       >
         <span className="wordmark text-[18px] leading-6">Orbyt Earth</span>
       </header>
+
+      <Legend visible={no2Visible} />
 
       <section
         className="pointer-events-none absolute inset-x-0 bottom-[max(48px,env(safe-area-inset-bottom))] px-[var(--margin-outer)] text-center"

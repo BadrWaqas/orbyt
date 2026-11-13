@@ -66,6 +66,49 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* The one kind of depth (PLAN.md 9.4): dark glass with a hairline edge. No shadows. */
+.glass {
+  background: var(--panel-solid);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-panel);
+}
+
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .glass {
+    background: var(--panel);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* Table and axis text (PLAN.md 9.3): narrow, medium weight, tabular figures. */
+.axis-text {
+  font-family: var(--family-instrument);
+  font-stretch: 85%;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-3);
+}
+
+/* Chemical subscripts, as in NO2, without pushing the line height around. */
+sub {
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  position: relative;
+  bottom: -0.22em;
+}
+
+/* Legend colour bar. The hairline shows where the scale starts, since its low end is clear. */
+.legend-ramp {
+  height: 8px;
+  border-radius: var(--radius-chip);
+  outline: 1px solid var(--hairline);
+  outline-offset: 0;
+}
+
 /* MapLibre attribution, restyled for the dark theme. */
 .maplibregl-ctrl-attrib.maplibregl-compact {
   background: var(--panel-solid);
