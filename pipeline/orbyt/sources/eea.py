@@ -3,6 +3,7 @@
 M1.5: download the user friendly CSV bundle, load the facility air release table into DuckDB,
 build ``facilities``, ``reported`` and ``coverage``, and export the 300 largest 2024 reporters as
 ``findings.json`` with reported values only (nothing from satellites yet).
+M1.6: next to it, one ``finding/<id>.json`` per finding with every year that facility reported.
 
     uv run python -m orbyt.sources.eea
 
@@ -239,12 +240,59 @@ def build_findings(rows: list[dict], year: int) -> dict:
     }
 
 
+def reported_series(
+    con: duckdb.DuckDBPyConnection, register_ids: list[str]
+) -> dict[str, list[dict]]:
+    """Every reported year for the given facilities, oldest first. Years not reported are absent."""
+    rows = con.execute(
+        """
+        select facility_id, year, release_t
+        from reported
+        where facility_id in (select unnest(?))
+        order by facility_id, year
+        """,
+        [register_ids],
+    ).fetchall()
+    series: dict[str, list[dict]] = {rid: [] for rid in register_ids}
+    for register_id, year, release_t in rows:
+        series[register_id].append(
+            {"year": year, "value": round(release_t, 1), "basis": "unknown"}
+        )
+    return series
+
+
+def export_details(con: duckdb.DuckDBPyConnection, payload: dict, out_dir: Path) -> int:
+    """One ``<finding id>.json`` per finding with its reported series (PLAN.md Appendix B).
+
+    The panel fetches these one at a time, so findings.json stays small. Detail files left over
+    from an earlier export that are no longer in ``payload`` are removed.
+    """
+    findings = payload["findings"]
+    series = reported_series(con, [f["subject"]["register_id"] for f in findings])
+    out_dir.mkdir(parents=True, exist_ok=True)
+    wanted = {f"{f['id']}.json" for f in findings}
+    for stale in out_dir.glob("*.json"):
+        if stale.name not in wanted:
+            stale.unlink()
+    for f in findings:
+        detail = {
+            "id": f["id"],
+            "reported_series": series[f["subject"]["register_id"]],
+            "sources": [SOURCE],
+        }
+        text = json.dumps(detail, ensure_ascii=False, separators=(",", ":")) + "\n"
+        (out_dir / f"{f['id']}.json").write_text(text, encoding="utf-8")
+    return len(findings)
+
+
 def export_findings(
     con: duckdb.DuckDBPyConnection, year: int = 2024, n: int = 300, out: Path = DEFAULT_FINDINGS
 ) -> Path:
+    """Write findings.json and, next to it, the ``finding/`` folder of detail files."""
     payload = build_findings(top_reporters(con, year, n), year)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    export_details(con, payload, out.parent / "finding")
     return out
 
 

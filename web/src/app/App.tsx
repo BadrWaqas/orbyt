@@ -1,7 +1,10 @@
-import { lazy, Suspense, useCallback, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 
+import { useFindings } from "../data/findings";
 import { Stars } from "../globe/Stars";
 import { Legend } from "../modules/pollution-hunter/Legend";
+import { FacilityPanel } from "../panels/FacilityPanel";
+import { useSelection } from "./useSelection";
 
 // MapLibre is the heaviest dependency. Loading it as its own chunk lets the text paint first.
 const Globe = lazy(() => import("../globe/Globe").then((m) => ({ default: m.Globe })));
@@ -10,11 +13,43 @@ export function App() {
   const [no2Visible, setNo2Visible] = useState(false);
   const showLegend = useCallback(() => setNo2Visible(true), []);
 
+  const findings = useFindings();
+  const list = findings.status === "ready" ? findings.data.findings : null;
+  const [selectedId, select] = useSelection();
+  const selected = useMemo(
+    () => list?.find((f) => f.subject.id === selectedId) ?? null,
+    [list, selectedId],
+  );
+  const close = useCallback(() => select(null), [select]);
+
+  // A link can name a facility that is no longer in the data. Drop it from the address.
+  useEffect(() => {
+    if (list && selectedId && !selected) select(null);
+  }, [list, selectedId, selected, select]);
+
+  // The hero belongs to the opening view. It steps aside once the visitor zooms in or opens a
+  // facility, and a short prompt takes its place.
+  const [zoomedIn, setZoomedIn] = useState(false);
+  const [hasSelected, setHasSelected] = useState(selectedId !== null);
+  if (selectedId && !hasSelected) setHasSelected(true);
+  const explored = zoomedIn || hasSelected;
+  const noteZoom = useCallback(() => setZoomedIn(true), []);
+  const heroHidden = explored || findings.status === "error"; // the error notice takes its place
+
   return (
-    <main className="relative h-dvh w-full overflow-hidden bg-void text-text">
+    <main
+      className="relative h-dvh w-full overflow-hidden bg-void text-text"
+      data-panel={selected ? "open" : "closed"}
+    >
       <Stars />
       <Suspense fallback={null}>
-        <Globe onNo2Visible={showLegend} />
+        <Globe
+          findings={list}
+          selected={selected}
+          onSelect={select}
+          onNo2Visible={showLegend}
+          onExplore={noteZoom}
+        />
       </Suspense>
 
       <header
@@ -26,7 +61,10 @@ export function App() {
       <Legend visible={no2Visible} />
 
       <section
-        className="pointer-events-none absolute inset-x-0 bottom-[max(48px,env(safe-area-inset-bottom))] px-[var(--margin-outer)] text-center"
+        aria-hidden={heroHidden}
+        className={`pointer-events-none absolute inset-x-0 bottom-[max(48px,env(safe-area-inset-bottom))] px-[var(--margin-outer)] text-center motion-safe:transition-opacity motion-safe:duration-[240ms] ${
+          heroHidden ? "opacity-0" : "opacity-100"
+        }`}
       >
         <h1 className="text-[24px] leading-[30px] md:text-[36px] md:leading-[42px]">
           <span className="voice-record block">Reported on paper.</span>
@@ -36,6 +74,29 @@ export function App() {
           Fact-checking the world from space.
         </p>
       </section>
+
+      {findings.status === "error" ? (
+        <p className="glass absolute bottom-[max(48px,env(safe-area-inset-bottom))] left-1/2 w-max max-w-[calc(100%-2*var(--margin-outer))] -translate-x-1/2 px-4 py-1 text-[14px] leading-5 text-text-2">
+          Could not load the facilities.{" "}
+          <button type="button" className="text-button underline underline-offset-4" onClick={findings.retry}>
+            Try again
+          </button>
+        </p>
+      ) : (
+        explored &&
+        list &&
+        !selectedId && (
+          <p className="glass pointer-events-none absolute bottom-[max(48px,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 text-[14px] leading-5 text-text-2">
+            Pick a facility on the globe
+          </p>
+        )
+      )}
+
+      <FacilityPanel
+        finding={selected}
+        lastYear={findings.status === "ready" ? Number(findings.data.period) : 0}
+        onClose={close}
+      />
     </main>
   );
 }

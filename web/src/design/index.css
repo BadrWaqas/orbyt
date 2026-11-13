@@ -109,6 +109,267 @@ sub {
   outline-offset: 0;
 }
 
+/* Small labels inside panels: "Reported", "Satellite estimate", "Sources" (PLAN.md 9.9). */
+.label {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-2);
+}
+
+/* Source line under a reported number (PLAN.md 9.3): the record voice at reading size. */
+.record-source {
+  font-family: var(--family-record);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ledger);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Quiet text buttons. The padding brings the touch target to 44 px (PLAN.md 9.6). */
+.text-button {
+  min-height: 44px;
+  padding: 0 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-3);
+  border-radius: var(--radius-chip);
+  cursor: pointer;
+}
+
+.text-button:hover,
+.text-button[aria-pressed="true"] {
+  color: var(--text);
+}
+
+.text-button[aria-pressed="true"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 6px;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  color: var(--text-2);
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: var(--text);
+  background: var(--raised);
+}
+
+/* Facility panel. A bottom sheet on phones, a glass column at the right edge from 768 px up.
+   The numbers here are repeated in app/layout.ts, which the camera uses for its padding. */
+.facility-panel {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 56dvh;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  border-bottom: 0;
+  border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--raised) transparent;
+  outline: none;
+  animation: panel-in-up 240ms ease-out both;
+}
+
+.facility-panel[data-state="closing"] {
+  animation: panel-out-down 240ms ease-in both;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .facility-panel {
+    inset: 24px 24px auto auto;
+    width: 420px;
+    height: auto;
+    max-height: calc(100dvh - 24px - 56px); /* stays clear of the map attribution */
+    padding: 24px;
+    border-bottom: 1px solid var(--hairline);
+    border-radius: var(--radius-panel);
+    animation-name: panel-in-side;
+  }
+
+  .facility-panel[data-state="closing"] {
+    animation-name: panel-out-side;
+  }
+}
+
+@keyframes panel-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes panel-out-down {
+  to {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes panel-in-side {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+
+@keyframes panel-out-side {
+  to {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+
+/* Loading state: skeleton lines, no spinners (PLAN.md 9.6). */
+.skeleton-line {
+  height: 12px;
+  border-radius: var(--radius-chip);
+  background: var(--raised);
+}
+
+/* Chart text (PLAN.md 9.8): text tokens for words, colour for the marks. */
+.chart-axis {
+  font-family: var(--family-instrument);
+  font-stretch: 85%;
+  font-weight: 500;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  fill: var(--text-3);
+}
+
+.chart-value {
+  font-family: var(--family-record);
+  font-size: 13px;
+  font-variant-numeric: lining-nums tabular-nums;
+  fill: var(--ledger);
+  /* A panel-coloured outline, so grid lines and the series never run through the figures. */
+  paint-order: stroke;
+  stroke: var(--panel-solid);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+/* Hover label on a facility marker. */
+.marker-tip {
+  pointer-events: none;
+}
+
+.marker-tip .maplibregl-popup-content {
+  padding: 8px 12px;
+  background: var(--panel-solid);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-panel);
+  box-shadow: none;
+  color: var(--text);
+  font-family: var(--family-instrument);
+}
+
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .marker-tip .maplibregl-popup-content {
+    background: var(--panel);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+}
+
+.marker-tip .maplibregl-popup-tip {
+  display: none;
+}
+
+.marker-tip-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.marker-tip-reported {
+  font-family: var(--family-record);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ledger);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Selected facility: a single expanding ring on a 1.6 s loop (PLAN.md 9.6).
+   --r is the marker's current radius, set from the map's zoom. */
+.selected-ring {
+  --r: 8px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.selected-ring::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--r) * -1);
+  top: calc(var(--r) * -1);
+  box-sizing: border-box;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  border: 1.5px solid var(--ledger);
+  border-radius: 9999px;
+  animation: selected-ring 1.6s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+}
+
+@keyframes selected-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* While the sheet is open on a phone, the attribution button rides on top of it. */
+@media (max-width: 767px) {
+  .maplibregl-ctrl-bottom-right {
+    transition: transform 240ms ease-out;
+  }
+
+  main[data-panel="open"] .maplibregl-ctrl-bottom-right {
+    transform: translateY(-56dvh);
+  }
+}
+
+/* Reduced motion (PLAN.md 9.7): cross-fades and slides become cuts, and the ring holds still. */
+@media (prefers-reduced-motion: reduce) {
+  .facility-panel {
+    animation: none;
+  }
+
+  .facility-panel[data-state="closing"] {
+    display: none;
+  }
+
+  .selected-ring::after {
+    animation: none;
+    transform: scale(1.6);
+    opacity: 0.6;
+  }
+
+  .maplibregl-ctrl-bottom-right {
+    transition: none;
+  }
+}
+
 /* MapLibre attribution, restyled for the dark theme. */
 .maplibregl-ctrl-attrib.maplibregl-compact {
   background: var(--panel-solid);

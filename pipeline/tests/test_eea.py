@@ -120,6 +120,33 @@ def test_export_findings_writes_utf8_json(con, tmp_path):
     assert data["count"] == len(data["findings"]) == 2
 
 
+def test_reported_series_lists_every_reported_year_oldest_first(con):
+    series = eea.reported_series(con, [BELCHATOW, "CZ.MZP.U424/CZ44746297.FACILITY"])
+    assert series[BELCHATOW] == [
+        {"year": 2022, "value": 26600.0, "basis": "unknown"},
+        {"year": 2023, "value": 18800.0, "basis": "unknown"},
+        {"year": 2024, "value": 18800.0, "basis": "unknown"},
+    ]
+    assert series["CZ.MZP.U424/CZ44746297.FACILITY"] == [
+        {"year": 2022, "value": 4335.3, "basis": "unknown"}
+    ]
+
+
+def test_export_writes_one_detail_file_per_finding_and_removes_stale_ones(con, tmp_path):
+    out = tmp_path / "v1" / "findings.json"
+    stale = out.parent / "finding" / "ph-eu-00000000-2019.json"
+    stale.parent.mkdir(parents=True)
+    stale.write_text("{}", encoding="utf-8")
+    eea.export_findings(con, 2024, 10, out)
+    ids = [f["id"] for f in json.loads(out.read_text(encoding="utf-8"))["findings"]]
+    files = sorted(p.name for p in (out.parent / "finding").iterdir())
+    assert files == sorted(f"{i}.json" for i in ids) and not stale.exists()
+    detail = json.loads((out.parent / "finding" / f"{ids[0]}.json").read_text(encoding="utf-8"))
+    assert detail["id"] == ids[0] == f"{eea.subject_id(BELCHATOW)}-2024"
+    assert [p["year"] for p in detail["reported_series"]] == [2022, 2023, 2024]
+    assert detail["sources"] == ["EEA Industrial Reporting database v16"]
+
+
 def test_zip_check_rejects_missing_and_corrupt_files(tmp_path):
     assert not eea._zip_ok(tmp_path / "nope.zip")
     bad = tmp_path / "bad.zip"
