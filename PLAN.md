@@ -456,8 +456,8 @@ Step 3. Wind. Take the ERA5 100 m wind (u and v) at the source for the hour near
 
 Step 4. Rotate and convert to travel time. For each day:
 
-1. Subtract that day's background: the median column in a box 20 to 70 km upwind.
-2. Resample the image onto a grid whose x axis points downwind. Sample it at distances x = wind speed x t, for travel times t from minus 2 to plus 6 hours. Now every day shares one clock, whatever its wind speed.
+1. Resample the image onto a grid whose x axis points downwind. Sample it at distances x = wind speed x t, for travel times t from minus 2 to plus 6 hours. Now every day shares one clock, whatever its wind speed.
+2. Subtract that day's background: a tilted plane fitted to the cells outside the plume, which are the box 20 to 70 km upwind and both flanks of the scene (60 km or more across the wind). Cells far from the plane, such as other sources, are clipped at 3 robust standard deviations over 3 passes. A single upwind median was tried first and fails where the region is dirtier on one side and the wind has a prevailing direction: the difference stays in every downwind cell and grows with the fan (M3.5 in docs/decisions.md).
 3. Multiply by wind speed. Column times speed is a flux: moles per second crossing each metre of a line across the wind.
 
 Step 5. Stack and integrate. Average all days cell by cell (cloud gaps are simply skipped), then sum across the wind inside a fan that is 20 km wide at the source and widens downwind. You now have one curve F(t): the flux of NO2 through a gate at each travel time, in mol/s.
@@ -512,7 +512,7 @@ Quality gates:
 | Plume start | abs(t0) at most 0.5 h, and not at a bound | Catches neighbours |
 | Lifetime | tau between 1 and 8 h, and not at a bound | Published range is about 2 to 8 h |
 | Signal to noise | estimate at least 3 times its bootstrap standard error | |
-| Isolation | no other register source above 25% of this one between 20 and 60 km away, no city above 200,000 people within 30 km | Otherwise treat as a cluster or flag it |
+| Isolation | no other register source above 25% of this one between 20 and 60 km away, no city above 200,000 people within 30 km, no city above 500,000 within 100 km (provisional), no other NO2 hotspot 20 to 100 km away above 25% of this one's own enhancement and above 3 robust sigmas of the map | Otherwise treat as a cluster or flag it. Thresholds live in `config.yaml`, the 500,000 is set by the null test |
 | Terrain and coast | flag (do not fail) if elevation varies by more than 300 m within 30 km or the sea is within 15 km | Wind and brightness artefacts |
 
 Footprint accounting. The satellite cannot tell two stacks 5 km apart from one. So the comparison is always: satellite estimate for the subject against the sum of reported NOx from every register facility within 20 km. Show the list of facilities in that sum.
@@ -1232,6 +1232,8 @@ Record at 1080 x 1350 for LinkedIn, 60 frames per second, with the cursor visibl
 
 This is the numerical core of Pollution Hunter. It was written for this plan and run against synthetic plumes with a known emission, added noise, cloud gaps, a neighbouring source and deliberately wrong winds. It needs only NumPy and SciPy. The noise levels in the generator are assumptions, so real data will be harder. Treat these results as proof that the math is right, not as proof of real-world accuracy. That is what milestone 4 is for.
 
+One change was made after the first version (M3.5): the daily background is a plane fitted outside the plume (`background_plane`) instead of one upwind median. The code below is the current `core_math.py`, and the tests include gradient scenes (`tests/test_background.py`).
+
 Results, 12 random runs per row, 120 valid days unless stated:
 
 | Scenario | Estimate / truth (mean) | Spread (sd) | Runs passing all gates |
@@ -1294,23 +1296,66 @@ def rotate_scene(field, lats, lons, lat0, lon0, u, v, xr, yr):
     return interp(np.stack([lat.ravel(), lon.ravel()], axis=-1)).reshape(XR.shape)
 
 
+def background_plane(scene, up, x_scene_km, x_up_km, yr, flank_km=60.0, clip=3.0, iters=3):
+    """That day's background as a tilted plane, fitted to the cells outside the plume.
+
+    scene: [len(yr), len(x_scene_km)] columns downwind. up: [len(yr), len(x_up_km)] columns in
+    the upwind box. The fit uses the upwind box and both flanks of the scene (crosswind
+    distance of at least flank_km). Cells far from the plane (other sources, noise) are clipped
+    at ``clip`` robust standard deviations and the fit is repeated.
+    Returns the plane on the scene grid, or None if there are too few cells.
+
+    A single upwind value is not enough: where the region is dirtier on one side of the source
+    and the wind has a prevailing direction, the difference stays in every downwind cell and
+    grows with the width of the fan (M3.5, docs/decisions.md).
+    """
+    flank = np.abs(yr) >= flank_km
+    x = np.concatenate([np.broadcast_to(x_scene_km[None, :], scene.shape)[flank].ravel(),
+                        np.broadcast_to(x_up_km[None, :], up.shape).ravel()])
+    y = np.concatenate([np.broadcast_to(yr[:, None], scene.shape)[flank].ravel(),
+                        np.broadcast_to(yr[:, None], up.shape).ravel()])
+    z = np.concatenate([scene[flank].ravel(), up.ravel()])
+    ok = np.isfinite(z)
+    if ok.sum() < 50:
+        return None
+    x, y, z = x[ok], y[ok], z[ok]
+    keep = np.ones(len(z), dtype=bool)
+    coef = np.array([np.median(z), 0.0, 0.0])
+    for _ in range(iters):
+        if keep.sum() < 50:
+            break
+        A = np.column_stack([np.ones(keep.sum()), x[keep], y[keep]])
+        coef, *_ = np.linalg.lstsq(A, z[keep], rcond=None)
+        resid = z - (coef[0] + coef[1] * x + coef[2] * y)
+        centre = np.median(resid[keep])
+        spread = 1.4826 * np.median(np.abs(resid[keep] - centre))
+        if spread <= 0:
+            break
+        keep = np.abs(resid - centre) <= clip * spread
+    return coef[0] + coef[1] * x_scene_km[None, :] + coef[2] * yr[:, None]
+
+
 def daily_flux_density(field, lats, lons, lat0, lon0, u, v, t_hours, yr,
-                       upwind_km=(-70.0, -20.0)):
+                       upwind_km=(-70.0, -20.0), flank_km=60.0):
     """One day's plume on a travel-time axis, as flux density in mol per m per s.
 
-    Step 1: subtract that day's background (median of an upwind box).
-    Step 2: sample the scene at downwind distance x = wind * t, so every day
+    Step 1: sample the scene at downwind distance x = wind * t, so every day
             shares one clock whatever its wind speed.
+    Step 2: subtract that day's background: a plane fitted to the upwind box and
+            to both flanks of the scene (background_plane).
     Step 3: multiply by wind speed (column * speed = flux through a 1 m wide gate).
     """
     speed = float(np.hypot(u, v))
-    up = rotate_scene(field, lats, lons, lat0, lon0, u, v,
-                      np.arange(upwind_km[0], upwind_km[1] + 1, 2.0), yr)
+    x_up = np.arange(upwind_km[0], upwind_km[1] + 1, 2.0)
+    up = rotate_scene(field, lats, lons, lat0, lon0, u, v, x_up, yr)
     if np.isfinite(up).mean() < 0.3:
         return np.full((len(yr), len(t_hours)), np.nan)
     x_at_t = speed * np.asarray(t_hours) * 3.6               # km travelled after t hours
     scene = rotate_scene(field, lats, lons, lat0, lon0, u, v, x_at_t, yr)
-    return (scene - np.nanmedian(up)) * speed
+    background = background_plane(scene, up, x_at_t, x_up, np.asarray(yr), flank_km)
+    if background is None:
+        return np.full((len(yr), len(t_hours)), np.nan)
+    return (scene - background) * speed
 
 
 def fan_half_width(t_hours, mean_wind_ms, base_km=20.0, growth=0.3, cap_km=76.0):
