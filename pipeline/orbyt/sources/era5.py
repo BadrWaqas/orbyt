@@ -201,8 +201,15 @@ def build_day_winds(
             speed, from_deg = wind_speed_and_from(u, v)
         rows.append(
             DayWind(
-                day.isoformat(), meta["image_id"], _iso(pass_time), source, _iso(hour),
-                u, v, speed, from_deg,
+                day.isoformat(),
+                meta["image_id"],
+                _iso(pass_time),
+                source,
+                _iso(hour),
+                u,
+                v,
+                speed,
+                from_deg,
             )
         )
     return rows
@@ -269,8 +276,10 @@ def winds_for_subject(subject_id: str, out_dir: Path | None = None, log=print) -
     speeds = np.array([r.speed_ms for r in rows if r.speed_ms is not None])
     log(f"{len(rows)} days, {sun} with a sun based pass time, {missing} without wind")
     if len(speeds):
-        log(f"wind speed m/s: median {np.median(speeds):.1f}, min {speeds.min():.1f}, "
-            f"max {speeds.max():.1f}")
+        log(
+            f"wind speed m/s: median {np.median(speeds):.1f}, min {speeds.min():.1f}, "
+            f"max {speeds.max():.1f}"
+        )
     return path
 
 

@@ -92,9 +92,7 @@ def test_fixed_pass_time_matches_the_plan_example():
     assert (t.hour, t.minute) == (12, 14)
 
 
-@pytest.mark.parametrize(
-    ("minute", "hour"), [(0, 12), (29, 12), (30, 13), (59, 13)]
-)
+@pytest.mark.parametrize(("minute", "hour"), [(0, 12), (29, 12), (30, 13), (59, 13)])
 def test_nearest_hour_rounds_at_half_past(minute, hour):
     got = era5.nearest_hour(datetime(2024, 5, 30, 12, minute, 40, tzinfo=UTC))
     assert (got.hour, got.minute, got.second) == (hour, 0, 0)

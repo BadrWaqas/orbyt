@@ -34,3 +34,16 @@ wind:
   window_tolerance_min: 10
   # PLAN.md 4.3 step 3: in calmer air the gas pools and has no direction.
   min_speed_ms: 2.0
+
+observe:
+  # PLAN.md Appendix A, the outline of how observe.py uses core_math.py, and its tests.
+  crosswind_km: {start: -80.0, stop: 80.0, step: 2.0}
+  travel_hours: {start: -2.0, stop: 6.0, step: 0.1}
+  # PLAN.md 4.6 and Appendix A: NOx as a multiple of NO2, and the air mass factor correction.
+  nox_to_no2: 1.38
+  amf_correction: 1.61
+  # PLAN.md 4.3 step 8: bootstrap over days.
+  n_boot: 200
+  seed: 0
+  # PLAN.md 4.5 and Appendix A failed_gates(): the minimum number of days.
+  min_days: 40

@@ -49,3 +49,10 @@ Newest first. One line per decision, with the reason.
 - Over Poland the satellite sees the source close to solar noon on many days (zenith angle within a degree or two of the noon value), not at 13:30. The fixed 13:30 rule would be about 1.5 to 2 hours late on those days, which is one to two ERA5 hours of wind change.
 - The 100 m level is the only level read so far. The plan's test of the 500 m level (pressure level collection) is left for M3.5.
 - The 2 m/s minimum wind is in config.yaml as wind.min_speed_ms and is applied in M3.4, so wind.json keeps every day.
+
+## 2026-11-13, M3.4
+
+- observe.py runs the unchanged core_math on the 110 days with wind of at least 2 m/s (7 of 117 were calm), with the Appendix A grids (crosswind -80 to 80 km in 2 km steps, travel time -2 to 6 h in 0.1 h steps), NOx to NO2 1.38 and air mass correction 1.61. It writes estimate.json and diagnostic.png next to the patches.
+- First result for Belchatow 2024: 13,638 t NOx/yr, bootstrap interval 10,337 to 38,299, against 18,800 reported (ratio 0.73). Two gates fail: lifetime_out_of_range (the fitted lifetime sits on its 12 h upper bound) and low_signal_to_noise. It is not published as a number. M3.5 is where the cause is looked at.
+- What the figure shows: a clear plume that starts at the source, a sharp rise in the stacked flux over the first hour, then a flat plateau out to 6 h instead of a decay. A plateau like that means the background is not fully removed downwind or other sources add NO2 along the track, so the long tail is not the plant. The EMG fit r2 is 0.93, so a good r2 alone does not mean a good estimate.
+- Not changed: core_math.py, the 100 m wind level, the upwind background box.
