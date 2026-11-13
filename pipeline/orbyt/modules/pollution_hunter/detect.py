@@ -62,6 +62,31 @@ class DayTest:
     valid_up: float
 
 
+def day_plane(
+    field: np.ndarray,
+    lats: np.ndarray,
+    lons: np.ndarray,
+    lat0: float,
+    lon0: float,
+    u_ms: float,
+    v_ms: float,
+    x_km: np.ndarray,
+    yr_km: np.ndarray,
+    cfg: dict[str, Any],
+) -> tuple[np.ndarray, np.ndarray] | None:
+    """One day on a wind-aligned km grid and its background plane, both in mol/m2.
+
+    None if the upwind box is too cloudy or the plane cannot be fitted.
+    """
+    x_up = np.arange(cfg["upwind_box_km"][0], cfg["upwind_box_km"][1] + 1, 2.0)
+    up = rotate_scene(field, lats, lons, lat0, lon0, u_ms, v_ms, x_up, yr_km)
+    if np.isfinite(up).mean() < 0.3:
+        return None
+    scene = rotate_scene(field, lats, lons, lat0, lon0, u_ms, v_ms, x_km, yr_km)
+    plane = background_plane(scene, up, x_km, x_up, np.asarray(yr_km), cfg["flank_km"])
+    return None if plane is None else (scene, plane)
+
+
 def aligned_enhancement(
     field: np.ndarray,
     lats: np.ndarray,
@@ -75,13 +100,8 @@ def aligned_enhancement(
     cfg: dict[str, Any],
 ) -> np.ndarray | None:
     """One day on a wind-aligned km grid, background removed, in mol/m2. None if unusable."""
-    x_up = np.arange(cfg["upwind_box_km"][0], cfg["upwind_box_km"][1] + 1, 2.0)
-    up = rotate_scene(field, lats, lons, lat0, lon0, u_ms, v_ms, x_up, yr_km)
-    if np.isfinite(up).mean() < 0.3:
-        return None
-    scene = rotate_scene(field, lats, lons, lat0, lon0, u_ms, v_ms, x_km, yr_km)
-    plane = background_plane(scene, up, x_km, x_up, np.asarray(yr_km), cfg["flank_km"])
-    return None if plane is None else scene - plane
+    got = day_plane(field, lats, lons, lat0, lon0, u_ms, v_ms, x_km, yr_km, cfg)
+    return None if got is None else got[0] - got[1]
 
 
 def _box_masks(

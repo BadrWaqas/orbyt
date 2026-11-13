@@ -116,3 +116,30 @@ detect:
     scale_px: 3
     label_px: 46
     columns: 10
+
+evidence:
+  # Images for the panel (M3.7, PLAN.md 9.6). Colours are the plume ramp of PLAN.md 9.2 with its
+  # opacity, laid over the night ocean colour, so clean air is dark and the plume glows.
+  stack:
+    # Full scale of the wind-aligned plume image in micromol/m2: the smallest of these steps that
+    # holds this percentile of the cells, the usual display stretch. The few cells above it, at
+    # the source, take the top colour. A mean over a year of days is far weaker than one day, so
+    # it does not share the 0 to 100 range of the daily frames. The panel prints the range.
+    full_scale_steps_umol_m2: [5, 10, 20, 50, 100, 200]
+    full_scale_percentile: 99
+    # A cell is drawn when this share of the days saw it, the same rule as stack_profile.
+    min_days_frac: 0.3
+    width_px: 640
+    webp_quality: 95
+  flipbook:
+    # One north-up frame per clear day: a square of this half-width around the source, on the
+    # 2 km grid the estimate uses.
+    half_km: 80.0
+    step_km: 2.0
+    # A day is a frame when this share of the square is valid, as in detect.flipbook.
+    min_valid_frac: 0.8
+    # Facility view range of PLAN.md 9.2: enhancement above background from 0 to 100.
+    full_scale_umol_m2: 100.0
+    # Each 2 km cell is drawn this many pixels wide (bicubic), the browser scales the rest.
+    upscale: 2
+    webp_quality: 82

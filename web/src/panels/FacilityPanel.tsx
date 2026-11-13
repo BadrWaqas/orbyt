@@ -5,6 +5,7 @@ import { useFindingDetail } from "../data/findings";
 import { BASIS_LABEL, countryName, formatTonnes } from "../data/format";
 import type { Finding } from "../data/types";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
+import { Evidence } from "./Evidence";
 
 const EXIT_MS = 240; // PLAN.md 9.7: the panel slides and fades in 240 ms
 const REGISTER_FIRST_YEAR = 2007; // the EEA register covers reporting years from 2007 on
@@ -20,9 +21,9 @@ interface Props {
 }
 
 /**
- * First version of the VerdictPanel (PLAN.md 9.6). It carries the record's side only: what the
- * facility reported, year by year, and where that number comes from. The satellite's side is
- * shown as empty until the pipeline produces estimates.
+ * The VerdictPanel as far as it goes (PLAN.md 9.6): the number pair, the evidence tabs where a
+ * satellite estimate exists, the reported series and the sources. The gap bar, verdict and grade
+ * follow once the verdict rules are in place.
  */
 export function FacilityPanel({ finding, lastYear, onClose }: Props) {
   // Keep the last facility on screen while the panel slides out.
@@ -69,7 +70,7 @@ export function FacilityPanel({ finding, lastYear, onClose }: Props) {
 }
 
 function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding }) {
-  const { subject, period, claimed } = finding;
+  const { subject, period, claimed, observed } = finding;
   const detail = useFindingDetail(finding.id);
   const [view, setView] = useState<"chart" | "table">("chart");
 
@@ -113,10 +114,48 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
         </div>
         <div className="min-w-0">
           <p className="label">Satellite estimate</p>
-          <p className="mt-1 flex h-12 items-center text-text-3">No estimate yet</p>
+          {observed ? (
+            <>
+              <p className="observed-number mt-1 whitespace-nowrap">{formatTonnes(observed.value)} t</p>
+              <p className="instrument-note mt-2">
+                {formatTonnes(observed.lo)} to {formatTonnes(observed.hi)}
+              </p>
+              <p className="instrument-note">
+                95% interval{observed.interval_basis === "sampling" ? ", sampling noise only" : ""}
+              </p>
+              {observed.n_days !== undefined && (
+                <p className="instrument-note">
+                  {observed.n_days} clear days, {period.label}
+                </p>
+              )}
+            </>
+          ) : (
+            <p className="mt-1 flex h-12 items-center text-text-3">No estimate yet</p>
+          )}
         </div>
       </div>
       {period.note && <p className="record-source mt-2">{period.note}</p>}
+      {observed && (
+        <p className="mt-3 text-[12px] leading-4 text-text-3">
+          Satellite-based estimate, preliminary. The method has not yet been checked against stack monitors,
+          so the real uncertainty is wider than the interval shown.
+        </p>
+      )}
+
+      {observed &&
+        detail.status === "ready" &&
+        detail.data.id === finding.id &&
+        detail.data.evidence &&
+        detail.data.profile &&
+        detail.data.days && (
+          <Evidence
+            evidence={detail.data.evidence}
+            profile={detail.data.profile}
+            days={detail.data.days}
+            observed={observed}
+            year={period.label}
+          />
+        )}
 
       <section className="mt-5 border-t border-hairline pt-2">
         <div className="flex items-center justify-between gap-2">
@@ -189,8 +228,9 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
             </a>
           </li>
           <li>
-            NO<sub>2</sub> layer: {NO2_ATTRIBUTION}
+            NO<sub>2</sub> layer{observed ? " and plume images" : ""}: {NO2_ATTRIBUTION}
           </li>
+          {observed && <li>Wind: ERA5, Copernicus Climate Change Service</li>}
         </ul>
         <p className="axis-text mt-3 [overflow-wrap:anywhere]">Register ID {subject.register_id}</p>
       </section>

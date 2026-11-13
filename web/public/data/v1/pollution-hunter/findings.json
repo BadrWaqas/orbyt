@@ -293,7 +293,16 @@
     "basis": "unknown",
     "source": "EEA Industrial Reporting database v16"
    },
-   "observed": null,
+   "observed": {
+    "value": 9124,
+    "lo": 7832,
+    "hi": 11269,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.1",
+    "n_days": 255,
+    "lifetime_h": 1.9,
+    "interval_basis": "sampling"
+   },
    "ratio": null,
    "verdict": null,
    "grade": null

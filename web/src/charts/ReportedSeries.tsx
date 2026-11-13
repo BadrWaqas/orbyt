@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { PointerEvent } from "react";
 
 import { BASIS_LABEL, formatTonnes } from "../data/format";
 import type { ReportedPoint } from "../data/types";
+import { GUTTER_LEFT_PX, useWidth } from "./useWidth";
 
 // Reported annual values as steps in the ledger colour (PLAN.md 9.6, EstimateSeries, and 9.8).
 // One y axis that starts at zero, 2 px line, hover values, and a table view of the same data.
 
 const HEIGHT_PX = 176;
-const GUTTER_LEFT_PX = 44; // room for the y axis labels
 const MARGIN = { top: 26, right: 8, bottom: 24 };
 const DOT_RADIUS_PX = 4; // dots at least 8 px across
 const DOT_OUTLINE = { stroke: "var(--panel-solid)", strokeWidth: 2 }; // lifts the dot off the line
@@ -29,20 +29,6 @@ function yearTicks(first: number, last: number): number[] {
   if (ticks.every((y) => Math.abs(y - first) >= 2)) ticks.unshift(first);
   if (ticks.every((y) => Math.abs(y - last) >= 2)) ticks.push(last);
   return ticks;
-}
-
-function useWidth() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    setWidth(el.clientWidth);
-    const observer = new ResizeObserver(() => setWidth(el.clientWidth));
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return [ref, width] as const;
 }
 
 interface ChartProps {

@@ -16,6 +16,7 @@
   --color-ledger: var(--ledger);
   --color-focus: var(--focus);
   --color-no2: var(--hue-no2-glow);
+  --color-no2-mark: var(--hue-no2-mark);
   --font-sans: var(--family-instrument);
   --font-record: var(--family-record);
 }
@@ -56,6 +57,26 @@ body {
   font-stretch: 125%;
   letter-spacing: -0.02em;
   color: var(--hue-no2-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Observed number (PLAN.md 9.3): the instrument voice at 48 px, a little narrower than the hero. */
+.observed-number {
+  font-family: var(--family-instrument);
+  font-weight: 600;
+  font-stretch: 112%;
+  font-size: 48px;
+  line-height: 48px;
+  letter-spacing: -0.02em;
+  color: var(--hue-no2-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Small text under the observed number: the interval and what it rests on. */
+.instrument-note {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -258,6 +279,43 @@ sub {
   stroke: var(--panel-solid);
   stroke-width: 5px;
   stroke-linejoin: round;
+}
+
+/* Annotation inside a chart: what a mark means, in the primary text colour. */
+.chart-note {
+  font-family: var(--family-instrument);
+  font-weight: 500;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  fill: var(--text);
+  paint-order: stroke;
+  stroke: var(--panel-solid);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+/* Labels laid over a flipbook frame. A dark chip keeps them readable on a bright plume. */
+.flip-chip {
+  padding: 3px 6px;
+  background: rgba(4, 7, 11, 0.6);
+  border-radius: var(--radius-chip);
+}
+
+.flip-shadow {
+  text-shadow: 0 0 3px #04070b, 0 0 3px #04070b;
+}
+
+/* Flipbook scrubber. Native control, so keyboard and touch work as people expect. */
+.flip-scrub {
+  height: 44px;
+  accent-color: var(--hue-no2-mark);
+  cursor: pointer;
+}
+
+.icon-button:disabled,
+.flip-scrub:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 /* Hover label on a facility marker. */

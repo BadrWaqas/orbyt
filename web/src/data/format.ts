@@ -26,3 +26,32 @@ export const BASIS_LABEL: Record<Basis, string> = {
   stated: "Stated",
   unknown: "Not published",
 };
+
+/** One decimal, for hours, metres per second and mol per second. */
+const oneDecimal = new Intl.NumberFormat("en-GB", {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+
+export function formatOneDecimal(value: number): string {
+  return oneDecimal.format(value);
+}
+
+const dayMonthYear = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+/** "2024-05-14" to "14 May 2024". */
+export function formatDay(isoDate: string): string {
+  return dayMonthYear.format(new Date(`${isoDate}T00:00:00Z`));
+}
+
+const COMPASS = ["north", "north-east", "east", "south-east", "south", "south-west", "west", "north-west"];
+
+/** Compass direction in words for a bearing in degrees clockwise from north. */
+export function compassWord(deg: number): string {
+  return COMPASS[Math.round((((deg % 360) + 360) % 360) / 45) % 8];
+}
