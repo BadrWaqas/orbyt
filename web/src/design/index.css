@@ -70,6 +70,8 @@ body {
   letter-spacing: -0.02em;
   color: var(--hue-no2-glow);
   font-variant-numeric: tabular-nums;
+  /* The instrument voice glows (PLAN.md 9.1). Soft enough that the figures stay crisp. */
+  text-shadow: 0 0 0.5em rgba(255, 176, 46, 0.3);
 }
 
 /* Small text under the observed number: the interval and what it rests on. */

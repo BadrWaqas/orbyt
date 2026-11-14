@@ -23,7 +23,10 @@ const TONNES_AT_MAX_RADIUS = 20_000; // just above the largest reporter, so area
 // and the glow stays the loud thing. On the way down they open into rings.
 const ORBIT_ZOOM = 1;
 const FULL_SIZE_ZOOM = 5.5;
-const ORBIT_SCALE = 0.22;
+const ORBIT_SCALE = 0.16;
+// From orbit a dot is a faint point of paper white, well under the NO2 glow in brightness.
+const DOT_OPACITY = 0.5;
+const DOT_OPACITY_ASIDE = 0.3;
 const RING_FROM_ZOOM = 2.6;
 const RING_BY_ZOOM = 4.2;
 
@@ -77,7 +80,7 @@ function fillOpacity(aside: boolean): ExpressionSpecification {
   const rest = aside ? FILL_OPACITY_ASIDE : FILL_OPACITY;
   // Selected, the glass clears and takes a little of the ring's light: a lens, not a black dot.
   return dotToRing(
-    ["case", isLit, 1, aside ? 0.4 : 0.7],
+    ["case", isLit, 1, aside ? DOT_OPACITY_ASIDE : DOT_OPACITY],
     ["case", isSelected, 0.16, isHovered, FILL_OPACITY_HOVER, rest],
   );
 }

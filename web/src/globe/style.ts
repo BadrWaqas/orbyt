@@ -65,7 +65,13 @@ export const nightStyle: StyleSpecification = {
         "text-size": ["interpolate", ["linear"], ["zoom"], 1, 10, 5, 15],
         "text-max-width": 7,
       },
-      paint: { "text-color": LABEL, "text-halo-color": OCEAN, "text-halo-width": 1 },
+      paint: {
+        "text-color": LABEL,
+        "text-halo-color": OCEAN,
+        "text-halo-width": 1,
+        // From orbit the names step back, so the glow is the first thing seen.
+        "text-opacity": ["interpolate", ["linear"], ["zoom"], 1.2, 0.55, 3, 1],
+      },
     },
     {
       id: "label-country-minor",
@@ -74,7 +80,7 @@ export const nightStyle: StyleSpecification = {
       "source-layer": "place",
       minzoom: 3,
       maxzoom: 9,
-      filter: ["all", ["==", ["get", "class"], "country"], [">=", ["get", "rank"], 3]],
+      filter: ["all", ["==", ["get", "class"], "country"], [">=", ["get", "rank"], 3], ["<=", ["get", "rank"], 4]],
       layout: {
         "text-field": placeName,
         "text-font": ["Noto Sans Regular"],
@@ -82,6 +88,23 @@ export const nightStyle: StyleSpecification = {
         "text-max-width": 7,
       },
       paint: { "text-color": LABEL, "text-halo-color": OCEAN, "text-halo-width": 1 },
+    },
+    {
+      // The smallest states wait until there is room for them.
+      id: "label-country-small",
+      type: "symbol",
+      source: "openmaptiles",
+      "source-layer": "place",
+      minzoom: 5,
+      maxzoom: 9,
+      filter: ["all", ["==", ["get", "class"], "country"], [">=", ["get", "rank"], 5]],
+      layout: {
+        "text-field": placeName,
+        "text-font": ["Noto Sans Regular"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 10, 8, 13],
+        "text-max-width": 7,
+      },
+      paint: { "text-color": LABEL_MINOR, "text-halo-color": OCEAN, "text-halo-width": 1 },
     },
     {
       id: "label-city",
