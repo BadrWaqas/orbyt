@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 
 const STAR_COUNT_PER_MEGAPIXEL = 260;
+// A few stars are bright enough to carry a soft halo. They give the sky some depth.
+const BRIGHT_STAR_COUNT_PER_MEGAPIXEL = 7;
+// Star colours run from blue-white through white to a warm white, like the real sky.
+const TINTS = ["214, 226, 255", "226, 234, 255", "244, 246, 255", "255, 240, 222"];
 
 /** Small deterministic random generator, so the sky looks the same on every visit. */
 function mulberry32(seed: number) {
@@ -33,7 +37,8 @@ export function Stars() {
       ctx.clearRect(0, 0, w, h);
 
       const random = mulberry32(20261112);
-      const count = Math.round(((w * h) / 1_000_000) * STAR_COUNT_PER_MEGAPIXEL);
+      const megapixels = (w * h) / 1_000_000;
+      const count = Math.round(megapixels * STAR_COUNT_PER_MEGAPIXEL);
       for (let i = 0; i < count; i++) {
         const x = random() * w;
         const y = random() * h;
@@ -45,6 +50,25 @@ export function Stars() {
         ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fill();
       }
+
+      const bright = Math.max(3, Math.round(megapixels * BRIGHT_STAR_COUNT_PER_MEGAPIXEL));
+      for (let i = 0; i < bright; i++) {
+        const x = random() * w;
+        const y = random() * h;
+        const tint = TINTS[Math.floor(random() * TINTS.length)];
+        const reach = 3.5 + random() * 3.5;
+        const halo = ctx.createRadialGradient(x, y, 0, x, y, reach);
+        halo.addColorStop(0, `rgba(${tint}, 0.42)`);
+        halo.addColorStop(1, `rgba(${tint}, 0)`);
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(x, y, reach, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = `rgba(${tint}, 0.95)`;
+        ctx.beginPath();
+        ctx.arc(x, y, 0.9 + random() * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
     };
 
     draw();
@@ -53,5 +77,5 @@ export function Stars() {
     return () => observer.disconnect();
   }, []);
 
-  return <canvas ref={ref} className="absolute inset-0 h-full w-full" aria-hidden="true" />;
+  return <canvas ref={ref} className="stars absolute inset-0 h-full w-full" aria-hidden="true" />;
 }

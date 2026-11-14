@@ -87,6 +87,73 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* Hero lines (PLAN.md 9.3). They grow with the window and each stays on one line.
+   app/layout.ts repeats this size, so the globe can keep clear of the text. */
+.hero-title {
+  font-size: clamp(24px, min(6.4vw, 8vh), 64px);
+  line-height: 1.06;
+}
+
+/* The instrument voice glows (PLAN.md 9.1): a soft light in its own colour, no hard edge. */
+.hero-glow {
+  text-shadow: 0 0 0.55em rgba(255, 176, 46, 0.38);
+}
+
+/* The live map cross-fades in over the stars once it has drawn a complete frame. */
+.globe-layer {
+  opacity: 0;
+}
+
+main[data-globe="ready"] .globe-layer {
+  opacity: 1;
+}
+
+/* The intro (PLAN.md 9.7). The times each piece arrives at are set in app/App.tsx as --intro-at.
+   Outside the intro none of these rules apply, and everything is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  main[data-globe="ready"] .globe-layer {
+    transition: opacity 900ms ease-out;
+  }
+
+  main[data-intro-runs="true"] .stars {
+    animation: intro-fade 600ms ease-out both;
+  }
+
+  main[data-intro="waiting"] .intro-item {
+    opacity: 0;
+  }
+
+  main[data-intro="playing"] .intro-item {
+    animation: intro-rise 900ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--intro-at, 0ms) both;
+  }
+
+  /* Glass blurs what is behind it, so it must not be blurred itself on the way in. */
+  main[data-intro="playing"] .intro-item.glass {
+    animation-name: intro-lift;
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(6px);
+  }
+}
+
+@keyframes intro-lift {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
 /* The one kind of depth (PLAN.md 9.4): dark glass with a hairline edge. No shadows. */
 .glass {
   background: var(--panel-solid);
