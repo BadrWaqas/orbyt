@@ -44,10 +44,10 @@ wind:
     offset_hpa: 55
     levels_hpa: [1000, 975, 950, 925, 900, 875, 850, 825, 800]
     # Requests in flight at once. One request spends minutes in the CDS queue.
-    max_parallel: 3
+    max_parallel: 1
     # The CDS rejects a request while too many are queued for the dataset ("request data
     # sequentially"). Wait and ask again.
-    reject_wait_s: 90
+    reject_wait_s: 300
     reject_retries: 120
 observe:
   # PLAN.md Appendix A, the outline of how observe.py uses core_math.py, and its tests.
