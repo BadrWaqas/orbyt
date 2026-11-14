@@ -58,20 +58,21 @@ def _cell(lat: float, lon: float) -> tuple[float, float]:
     return round(lat * 4) / 4, round(lon * 4) / 4
 
 
-def fetch_month(
+def fetch_period(
     lat: float,
     lon: float,
     year: int,
-    month: int,
+    months: list[int],
     days: list[int],
     hours: list[int],
     target: Path,
     cfg: dict,
 ) -> Path:
-    """Download u and v on the pressure levels for the cell around the point, for given days.
+    """Download u and v on the pressure levels for the cell around the point.
 
-    One request per month with only the days and hours that are needed: the CDS refuses a
-    whole year of 14 levels as too large ("cost limits exceeded").
+    The request is the product of the given months, days and hours, so a quarter holds a few
+    thousand fields. The CDS refuses a whole year of 14 levels as too large ("cost limits
+    exceeded"), and a request spends minutes in the queue, so the period is a quarter.
     """
     if target.exists():
         return target
@@ -83,7 +84,7 @@ def fetch_month(
         "variable": ["u_component_of_wind", "v_component_of_wind"],
         "pressure_level": [str(p) for p in cfg["levels_hpa"]],
         "year": [str(year)],
-        "month": [f"{month:02d}"],
+        "month": [f"{m:02d}" for m in sorted(set(months))],
         "day": [f"{d:02d}" for d in sorted(set(days))],
         "time": [f"{h:02d}:00" for h in sorted(set(hours))],
         "data_format": "netcdf",
@@ -142,30 +143,30 @@ def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
             cfg=wcfg,
         )
     )
-    by_month: dict[tuple[int, int], list[datetime]] = {}
+    by_quarter: dict[tuple[int, int], list[datetime]] = {}
     for w in base:
         stamp = datetime.fromisoformat(w.era5_hour_utc.replace("Z", "+00:00"))
-        by_month.setdefault((stamp.year, stamp.month), []).append(stamp)
-    jobs = sorted(by_month.items())
+        by_quarter.setdefault((stamp.year, (stamp.month - 1) // 3 + 1), []).append(stamp)
+    jobs = sorted(by_quarter.items())
 
-    def get_month(job: tuple[tuple[int, int], list[datetime]]) -> Path:
-        (year, month), stamps = job
-        path = out_dir / subject_id / f"era5_pl_{year}-{month:02d}.nc"
-        log(f"{year}-{month:02d}: {len(stamps)} hours from the CDS")
-        return fetch_month(
+    def get_quarter(job: tuple[tuple[int, int], list[datetime]]) -> Path:
+        (year, quarter), stamps = job
+        path = out_dir / subject_id / f"era5_pl_{year}-Q{quarter}.nc"
+        log(f"{year} Q{quarter}: {len(stamps)} hours from the CDS")
+        return fetch_period(
             subject.lat,
             subject.lon,
             year,
-            month,
+            [s.month for s in stamps],
             [s.day for s in stamps],
             [s.hour for s in stamps],
             path,
             cfg,
         )
 
-    # The CDS queue, not the size of a request, sets the time, so months go in parallel.
+    # The CDS queue, not the size of a request, sets the time, so quarters go in parallel.
     with ThreadPoolExecutor(max_workers=cfg["max_parallel"]) as pool:
-        paths = list(pool.map(get_month, jobs))
+        paths = list(pool.map(get_quarter, jobs))
     profiles: dict[int, np.ndarray] = {}
     levels = np.array([])
     for path in paths:
