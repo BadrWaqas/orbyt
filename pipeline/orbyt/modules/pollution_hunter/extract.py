@@ -367,8 +367,23 @@ class ExtractResult:
     paths: list[Path]
 
 
+MODULE_DIR = Path(__file__).parent
+# Subjects that are not EEA facilities live in a JSON list next to this file, keyed by id prefix:
+# the US validation plants (M4.2) and the empty sites of the null test (M4.5).
+SUBJECT_FILES = {
+    "ph-us-": MODULE_DIR / "validation_plants.json",
+    "ph-null-": MODULE_DIR / "null_sites.json",
+}
+
+
 def load_subject(subject_id: str, db_path: Path = WAREHOUSE_DB) -> Subject:
-    """Find a facility by its published id (``ph-eu-...``) in the EEA warehouse."""
+    """Find a subject by its id: ``ph-eu-...`` in the EEA warehouse, the others in their file."""
+    for prefix, path in SUBJECT_FILES.items():
+        if subject_id.startswith(prefix):
+            for row in json.loads(path.read_text(encoding="utf-8")):
+                if row["subject_id"] == subject_id:
+                    return Subject(subject_id, row["name"], float(row["lat"]), float(row["lon"]))
+            raise KeyError(f"{subject_id} is not in {path.name}")
     con = duckdb.connect(str(db_path), read_only=True)
     try:
         rows = con.execute(

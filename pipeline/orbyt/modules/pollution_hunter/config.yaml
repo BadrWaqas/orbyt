@@ -115,6 +115,29 @@ validation:
   # separately. Fixed from the rules alone, before any US estimate exists.
   tier2_may_fail: [city_far, hotspot]
 
+null_test:
+  # M4.5, PLAN.md 4.9 V3: places with no source within 60 km. See null_sites.py for the design.
+  # A fixed seed, so the draw can be repeated. Chosen before any null-site estimate exists.
+  seed: 0
+  year: 2024
+  per_cell: 5
+  # A site is a small town, so it is on land and inhabited.
+  max_town_pop: 50000
+  # PLAN.md 4.9 V3: no source within 60 km. A source is a register entry of this size or more
+  # (EEA facility, or US power plant). 500 t is a quarter of the 2,000 t floor of PLAN.md 1.5, so
+  # nothing the satellite could plausibly see is left in the circle.
+  source_radius_km: 60
+  source_min_t: 500
+  # Strata. These are the city rules of candidates.py: 200,000 within 30 km fails city_near and
+  # 500,000 within 100 km fails city_far. "far" sites have no city of 200,000 within 100 km.
+  # "shadow" sites pass city_near and fail city_far, the case the provisional 500,000 is for.
+  city_near_km: 30
+  far_km: 100
+  far_pop: 200000
+  shadow_pop: 500000
+  # Sites closer than this share surroundings and would not be independent draws.
+  min_spacing_km: 150
+
 detect:
   # Single-day plume test, PLAN.md 4.4. Wind-aligned grid in km, wide enough for the mirrored
   # upwind box (minus box_max_km) and the part of the plume the flipbook shows.
