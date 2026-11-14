@@ -37,12 +37,14 @@ wind:
 
   # PLAN.md 4.3 step 3: the published catalogue uses wind at about 500 m above ground. Test that
   # level too (V4). ERA5 pressure levels from the CDS, taken at surface pressure minus 55 hPa
-  # (PLAN.md), interpolated in pressure. Levels cover surface pressures from sea level to about
-  # 3 km terrain. Nothing here is tuned to any validation result.
+  # (PLAN.md), interpolated in pressure. Levels cover surface pressures down to about 855 hPa
+  # (1.4 km terrain); days outside them are counted in the log. Nothing here is tuned to any validation result.
   pressure_levels:
     dataset: reanalysis-era5-pressure-levels
     offset_hpa: 55
-    levels_hpa: [1000, 975, 950, 925, 900, 875, 850, 825, 800, 775, 750, 700, 650, 600]
+    levels_hpa: [1000, 975, 950, 925, 900, 875, 850, 825, 800]
+    # Requests in flight at once. One month of one site takes minutes in the CDS queue.
+    max_parallel: 8
 observe:
   # PLAN.md Appendix A, the outline of how observe.py uses core_math.py, and its tests.
   crosswind_km: {start: -80.0, stop: 80.0, step: 2.0}

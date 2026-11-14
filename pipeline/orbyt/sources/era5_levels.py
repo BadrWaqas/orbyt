@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import math
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
@@ -57,12 +58,20 @@ def _cell(lat: float, lon: float) -> tuple[float, float]:
     return round(lat * 4) / 4, round(lon * 4) / 4
 
 
-def fetch_year(
-    lat: float, lon: float, year: int, hours: list[int], target: Path, cfg: dict
+def fetch_month(
+    lat: float,
+    lon: float,
+    year: int,
+    month: int,
+    days: list[int],
+    hours: list[int],
+    target: Path,
+    cfg: dict,
 ) -> Path:
-    """Download u and v on the pressure levels for the cell around the point, every day of a year.
+    """Download u and v on the pressure levels for the cell around the point, for given days.
 
-    Whole year and only the hours that are needed, so it is one request per subject and year.
+    One request per month with only the days and hours that are needed: the CDS refuses a
+    whole year of 14 levels as too large ("cost limits exceeded").
     """
     if target.exists():
         return target
@@ -74,8 +83,8 @@ def fetch_year(
         "variable": ["u_component_of_wind", "v_component_of_wind"],
         "pressure_level": [str(p) for p in cfg["levels_hpa"]],
         "year": [str(year)],
-        "month": [f"{m:02d}" for m in range(1, 13)],
-        "day": [f"{d:02d}" for d in range(1, 32)],
+        "month": [f"{month:02d}"],
+        "day": [f"{d:02d}" for d in sorted(set(days))],
         "time": [f"{h:02d}:00" for h in sorted(set(hours))],
         "data_format": "netcdf",
         "download_format": "unarchived",
@@ -133,23 +142,35 @@ def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
             cfg=wcfg,
         )
     )
-    years = sorted({int(w.day[:4]) for w in base})
+    by_month: dict[tuple[int, int], list[datetime]] = {}
+    for w in base:
+        stamp = datetime.fromisoformat(w.era5_hour_utc.replace("Z", "+00:00"))
+        by_month.setdefault((stamp.year, stamp.month), []).append(stamp)
+    jobs = sorted(by_month.items())
+
+    def get_month(job: tuple[tuple[int, int], list[datetime]]) -> Path:
+        (year, month), stamps = job
+        path = out_dir / subject_id / f"era5_pl_{year}-{month:02d}.nc"
+        log(f"{year}-{month:02d}: {len(stamps)} hours from the CDS")
+        return fetch_month(
+            subject.lat,
+            subject.lon,
+            year,
+            month,
+            [s.day for s in stamps],
+            [s.hour for s in stamps],
+            path,
+            cfg,
+        )
+
+    # The CDS queue, not the size of a request, sets the time, so months go in parallel.
+    with ThreadPoolExecutor(max_workers=cfg["max_parallel"]) as pool:
+        paths = list(pool.map(get_month, jobs))
     profiles: dict[int, np.ndarray] = {}
     levels = np.array([])
-    for year in years:
-        hours = sorted(
-            {
-                datetime.fromisoformat(w.era5_hour_utc.replace("Z", "+00:00")).hour
-                for w in base
-                if w.day.startswith(f"{year}-")
-            }
-        )
-        path = out_dir / subject_id / f"era5_pl_{year}.nc"
-        log(f"{year}: requesting levels at hours {hours} from the CDS")
-        fetch_year(subject.lat, subject.lon, year, hours, path, cfg)
+    for path in paths:
         prof, levels = read_profiles(path, subject.lat, subject.lon)
         profiles.update(prof)
-
     rows, extrapolated = [], 0
     for w in base:
         key = hour_ms(w)
