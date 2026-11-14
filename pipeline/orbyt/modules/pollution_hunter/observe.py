@@ -231,20 +231,30 @@ def build_document(
     )
 
 
-def estimate_name(year: int | None, stem: str = "estimate", suffix: str = ".json") -> str:
-    """``estimate.json`` for all cached days, ``estimate-2024.json`` for one calendar year."""
-    return f"{stem}{'' if year is None else f'-{year}'}{suffix}"
+def estimate_name(
+    year: int | None, stem: str = "estimate", suffix: str = ".json", level: str = "100m"
+) -> str:
+    """``estimate.json`` for all cached days, ``estimate-2024.json`` for one calendar year.
+
+    A wind level other than the default 100 m adds its name: ``estimate-2024-500m.json``.
+    """
+    tag = "" if level == "100m" else f"-{level}"
+    return f"{stem}{'' if year is None else f'-{year}'}{tag}{suffix}"
 
 
 def observe_subject(
-    subject_id: str, out_dir: Path | None = None, log=print, year: int | None = None
+    subject_id: str,
+    out_dir: Path | None = None,
+    log=print,
+    year: int | None = None,
+    level: str = "100m",
 ) -> Path:
     """Estimate one subject. ``year`` keeps only the cached days of that UTC calendar year."""
     out_dir = out_dir or extract.INTERIM_DIR
     cfg = load_config()["observe"]
     subject = extract.load_subject(subject_id)
     patch_dir = out_dir / subject_id
-    winds = era5.read_winds(era5.wind_path(out_dir, subject_id))
+    winds = era5.read_winds(era5.wind_path(out_dir, subject_id, level))
     if year is not None:
         winds = [w for w in winds if w.day.startswith(f"{year}-")]
         if not winds:
@@ -268,12 +278,13 @@ def observe_subject(
         cfg,
         sector_profiles(flux, days, yr_km, hw, cfg["sector_min_days"]),
     )
-    path = patch_dir / estimate_name(year)
+    doc["wind_level"] = level
+    path = patch_dir / estimate_name(year, level=level)
     path.write_text(json.dumps(doc, indent=1), encoding="utf-8")
     from orbyt.modules.pollution_hunter.diagnostic import draw_diagnostic
 
     draw_diagnostic(
-        patch_dir / estimate_name(year, "diagnostic", ".png"), doc, flux, t_hours, yr_km, hw
+        patch_dir / estimate_name(year, "diagnostic", ".png", level), doc, flux, t_hours, yr_km, hw
     )
     log(json.dumps({k: doc[k] for k in ("observed", "reported_t_yr", "ratio", "gates_failed")}))
     log(f"days used {len(days)} of {len(winds)} ({dropped})")
@@ -285,8 +296,10 @@ def main() -> None:
     parser.add_argument("--subject-id", required=True)
     parser.add_argument("--out-dir", type=Path, default=None)
     parser.add_argument("--window", type=int, help="calendar year; default is every cached day")
+    parser.add_argument("--level", default="100m", choices=["100m", "500m"], help="wind level")
     args = parser.parse_args()
-    print(f"wrote {observe_subject(args.subject_id, args.out_dir, year=args.window)}")
+    path = observe_subject(args.subject_id, args.out_dir, year=args.window, level=args.level)
+    print(f"wrote {path}")
 
 
 if __name__ == "__main__":

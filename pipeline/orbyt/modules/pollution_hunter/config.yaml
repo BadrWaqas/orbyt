@@ -35,6 +35,14 @@ wind:
   # PLAN.md 4.3 step 3: in calmer air the gas pools and has no direction.
   min_speed_ms: 2.0
 
+  # PLAN.md 4.3 step 3: the published catalogue uses wind at about 500 m above ground. Test that
+  # level too (V4). ERA5 pressure levels from the CDS, taken at surface pressure minus 55 hPa
+  # (PLAN.md), interpolated in pressure. Levels cover surface pressures from sea level to about
+  # 3 km terrain. Nothing here is tuned to any validation result.
+  pressure_levels:
+    dataset: reanalysis-era5-pressure-levels
+    offset_hpa: 55
+    levels_hpa: [1000, 975, 950, 925, 900, 875, 850, 825, 800, 775, 750, 700, 650, 600]
 observe:
   # PLAN.md Appendix A, the outline of how observe.py uses core_math.py, and its tests.
   crosswind_km: {start: -80.0, stop: 80.0, step: 2.0}

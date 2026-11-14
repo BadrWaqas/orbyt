@@ -152,7 +152,13 @@ def era5_winds(
     One server call per batch of hours. An hour ERA5 does not have maps to None.
     """
     cfg = cfg or load_config()["wind"]
-    bands = [cfg["u_band"], cfg["v_band"]]
+    return sample_bands(lat, lon, hours_ms, [cfg["u_band"], cfg["v_band"]], cfg=cfg)
+
+
+def sample_bands(
+    lat: float, lon: float, hours_ms: list[int], bands: list[str], *, cfg: dict[str, Any]
+) -> dict[int, tuple[float, float] | None]:
+    """Two ERA5 hourly bands at the cell holding the point, for each hour start in ms."""
     point = ee.Geometry.Point([lon, lat])
     collection = ee.ImageCollection(cfg["collection"])
     out: dict[int, tuple[float, float] | None] = {}
@@ -230,16 +236,25 @@ def _day_plan(
     return day, pass_time, source, nearest_hour(pass_time)
 
 
-def wind_path(out_dir: Path, subject_id: str) -> Path:
-    return out_dir / subject_id / "wind.json"
+def wind_path(out_dir: Path, subject_id: str, level: str = "100m") -> Path:
+    """``wind.json`` for the 100 m wind, ``wind-500m.json`` for the pressure-level wind."""
+    name = "wind.json" if level == "100m" else f"wind-{level}.json"
+    return out_dir / subject_id / name
 
 
-def write_winds(path: Path, subject_id: str, rows: list[DayWind], cfg: dict[str, Any]) -> Path:
+def write_winds(
+    path: Path,
+    subject_id: str,
+    rows: list[DayWind],
+    cfg: dict[str, Any],
+    source: dict[str, Any] | None = None,
+) -> Path:
     doc = {
         "subject_id": subject_id,
         "collection": cfg["collection"],
         "bands": [cfg["u_band"], cfg["v_band"]],
         "units": "m/s",
+        **(source or {}),
         "days": [asdict(r) for r in rows],
     }
     tmp = path.with_suffix(".part")
