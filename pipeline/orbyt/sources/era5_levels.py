@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import math
+import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from datetime import datetime
@@ -92,7 +93,14 @@ def fetch_period(
         "area": [clat + 0.25, clon - 0.25, clat - 0.25, clon + 0.25],
     }
     tmp = target.with_suffix(".part")
-    cdsapi.Client(quiet=True).retrieve(cfg["dataset"], request, str(tmp))
+    for attempt in range(cfg["reject_retries"]):
+        try:
+            cdsapi.Client(quiet=True).retrieve(cfg["dataset"], request, str(tmp))
+            break
+        except Exception as exc:  # the CDS rejects when too many requests are queued
+            if "queued requests" not in str(exc) or attempt == cfg["reject_retries"] - 1:
+                raise
+            time.sleep(cfg["reject_wait_s"])
     tmp.replace(target)
     return target
 
