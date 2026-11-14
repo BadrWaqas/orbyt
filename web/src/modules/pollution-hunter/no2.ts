@@ -22,6 +22,15 @@ export const NO2_TILES_PATH = `/tiles/no2-${NO2_YEAR}/{z}/{x}/{y}.png`;
 export const NO2_TILES_MAX_ZOOM = 4;
 export const NO2_ATTRIBUTION = `Contains modified Copernicus Sentinel data ${NO2_YEAR}`;
 
+// The glow (PLAN.md 9.6, PlumeLayer for M7). The tiles are added to the map as light, with
+// their opacity raised to this power first. Above 1 it dims the faint end of the ramp, so wide
+// areas of slightly raised NO2 stay dark and the plumes carry the picture.
+export const NO2_GLOW_GAMMA = 1.6;
+/** The blurred copy under the sharp layer. */
+export const NO2_HALO_OPACITY = 0.4;
+/** A second, much wider and fainter blur: the haze over a whole industrial region. */
+export const NO2_BLOOM_OPACITY = 0.3;
+
 /** Where a column value sits on the ramp, from 0 to 1. */
 export function no2RampPosition(umol: number): number {
   const lo = Math.sqrt(NO2_LO_UMOL);
@@ -35,8 +44,10 @@ function rgba(hex: string, alpha: number): string {
   return `rgba(${n >> 16}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
 }
 
-/** The ramp as a CSS gradient, with the same opacity steps the map tiles carry. */
+/** The ramp as a CSS gradient, with the same opacity curve the glow on the map has. */
 export function no2RampGradient(): string {
-  const stops = NO2_RAMP.map(([pos, hex, alpha]) => `${rgba(hex, alpha)} ${pos * 100}%`);
+  const stops = NO2_RAMP.map(
+    ([pos, hex, alpha]) => `${rgba(hex, Number((alpha ** NO2_GLOW_GAMMA).toFixed(3)))} ${pos * 100}%`,
+  );
   return `linear-gradient(to right, ${stops.join(", ")})`;
 }

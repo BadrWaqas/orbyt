@@ -13,6 +13,7 @@ import {
   addFacilityMarkers,
   type FacilityMarkers,
 } from "../modules/pollution-hunter/facilityMarkers";
+import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { addNo2Layer } from "../modules/pollution-hunter/no2Layer";
 import { FIRST_LABEL_LAYER_ID, FIRST_OVERLAY_LAYER_ID, nightStyle } from "./style";
 
@@ -144,9 +145,12 @@ export function Globe({ findings, selected, onSelect, onNo2Visible, onExplore }:
       minZoom: 0.5,
       maxPitch: 60,
       pixelRatio: Math.min(window.devicePixelRatio, 2),
-      attributionControl: { compact: true },
+      // The NO2 layer is drawn by deck.gl, which has no map source to carry its credit.
+      attributionControl: { compact: true, customAttribution: NO2_ATTRIBUTION },
     });
     mapRef.current = map;
+    // Dev server only: a handle on the map for the browser console. Not in production builds.
+    if (import.meta.env.DEV) (window as unknown as { __orbytMap?: maplibregl.Map }).__orbytMap = map;
     // Lift the globe's centre so it clears the hero text at the bottom of the screen.
     map.setPadding({ ...NO_PADDING, bottom: HERO_CLEARANCE_PX });
 
