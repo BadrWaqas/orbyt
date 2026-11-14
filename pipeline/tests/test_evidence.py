@@ -158,3 +158,11 @@ def test_failed_gates_are_not_published(tmp_path):
     with pytest.raises(SystemExit, match="inconclusive"):
         evidence.publish_subject("ph-eu-x", interim_dir=tmp_path, web_public=tmp_path)
     assert not (tmp_path / "img").exists()
+
+
+def test_showcase_is_named_only_once_it_has_an_estimate(tmp_path):
+    path = _contract(tmp_path)
+    evidence.merge_into_contract(path, "ph-eu-x", "2024", {"value": 1}, {}, showcase="ph-eu-z")
+    assert "showcase" not in json.loads(path.read_text("utf-8"))
+    evidence.merge_into_contract(path, "ph-eu-x", "2024", {"value": 1}, {}, showcase="ph-eu-x")
+    assert json.loads(path.read_text("utf-8"))["showcase"] == "ph-eu-x"

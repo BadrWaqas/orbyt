@@ -143,3 +143,7 @@ evidence:
     # Each 2 km cell is drawn this many pixels wide (bicubic), the browser scales the rest.
     upscale: 2
     webp_quality: 82
+  # The facility the site flies to when a visitor presses "Explore the globe" (PLAN.md 9.7,
+  # the first story facility). Atherinolakkos: the largest reporter that passes the isolation
+  # rule and every gate (docs/decisions.md).
+  showcase_subject_id: ph-eu-12a5336d

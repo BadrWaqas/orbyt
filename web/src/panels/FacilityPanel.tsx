@@ -48,11 +48,30 @@ export function FacilityPanel({ finding, lastYear, onClose }: Props) {
 
   // Move keyboard focus into the panel when it opens, and start each facility at the top.
   const panel = useRef<HTMLElement>(null);
+  const scroller = useRef<HTMLDivElement>(null);
   const shownId = shown?.id;
   useEffect(() => {
     if (!shownId) return;
     panel.current?.focus({ preventScroll: true });
-    panel.current?.scrollTo({ top: 0 });
+    scroller.current?.scrollTo({ top: 0 });
+  }, [shownId]);
+
+  // The panel is often taller than the window. While there is more below, its lower edge fades
+  // out, so a line is never left looking cut off.
+  const [more, setMore] = useState(false);
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el || !shownId) return;
+    const update = () => setMore(el.scrollTop + el.clientHeight < el.scrollHeight - 8);
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    if (el.firstElementChild) observer.observe(el.firstElementChild);
+    return () => {
+      el.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
   }, [shownId]);
 
   if (!shown) return null;
@@ -60,11 +79,15 @@ export function FacilityPanel({ finding, lastYear, onClose }: Props) {
     <aside
       ref={panel}
       tabIndex={-1}
-      aria-label={`Facility: ${shown.subject.name}`}
+      aria-label={`Facility: ${shown.subject.display_name ?? shown.subject.name}`}
       data-state={closing ? "closing" : "open"}
       className="glass facility-panel"
     >
-      <PanelBody key={shown.id} finding={shown} lastYear={lastYear} onClose={onClose} />
+      <div ref={scroller} className="facility-panel-scroll" data-more={more}>
+        <div>
+          <PanelBody key={shown.id} finding={shown} lastYear={lastYear} onClose={onClose} />
+        </div>
+      </div>
     </aside>
   );
 }
@@ -76,15 +99,18 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
 
   const place = [subject.city, countryName(subject.country)].filter(Boolean).join(", ");
   const meta = [subject.operator, subject.sector, place].filter(Boolean).join(" · ");
+  const title = subject.display_name ?? subject.name;
   const basis = claimed ? BASIS_LABEL[claimed.basis].toLowerCase() : "";
 
   return (
     <>
       <header className="flex items-start gap-2">
         <div className="min-w-0 flex-1">
-          <h2 className="text-[21px] font-semibold leading-[26px] [overflow-wrap:anywhere]">
-            {subject.name}
-          </h2>
+          <h2 className="text-[21px] font-semibold leading-[26px] [overflow-wrap:anywhere]">{title}</h2>
+          {/* The register's own name, in full, wherever the title is a short one. */}
+          {subject.display_name && (
+            <p className="mt-1 text-[12px] leading-4 text-text-3 [overflow-wrap:anywhere]">{subject.name}</p>
+          )}
           <p className="label mt-1.5">{meta}</p>
         </div>
         <button type="button" onClick={onClose} aria-label="Close" className="icon-button -mr-2.5 -mt-2.5">

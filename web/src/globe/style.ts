@@ -10,6 +10,8 @@ const LABEL_MINOR = "#7D8794";
 
 /** Data layers are inserted below this one, so borders and labels stay on top of them. */
 export const FIRST_OVERLAY_LAYER_ID = "boundary-country";
+/** Markers are inserted below this one, so place names are never covered by a marker. */
+export const FIRST_LABEL_LAYER_ID = "label-country-major";
 
 const TILES = "https://tiles.openfreemap.org";
 const placeName: ExpressionSpecification = ["coalesce", ["get", "name_en"], ["get", "name"]];

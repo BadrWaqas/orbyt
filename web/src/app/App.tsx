@@ -21,6 +21,7 @@ export function App() {
     [list, selectedId],
   );
   const close = useCallback(() => select(null), [select]);
+  const showcaseId = findings.status === "ready" ? (findings.data.showcase ?? null) : null;
 
   // A link can name a facility that is no longer in the data. Drop it from the address.
   useEffect(() => {
@@ -62,6 +63,7 @@ export function App() {
 
       <section
         aria-hidden={heroHidden}
+        inert={heroHidden}
         className={`pointer-events-none absolute inset-x-0 bottom-[max(48px,env(safe-area-inset-bottom))] px-[var(--margin-outer)] text-center motion-safe:transition-opacity motion-safe:duration-[240ms] ${
           heroHidden ? "opacity-0" : "opacity-100"
         }`}
@@ -73,6 +75,16 @@ export function App() {
         <p className="mt-3 text-[14px] leading-5 text-text-2">
           Fact-checking the world from space.
         </p>
+        {/* PLAN.md 9.7: a quiet button that flies to the first story facility. */}
+        {showcaseId && (
+          <button
+            type="button"
+            className={`glass quiet-button mt-4 ${heroHidden ? "" : "pointer-events-auto"}`}
+            onClick={() => select(showcaseId)}
+          >
+            Explore the globe
+          </button>
+        )}
       </section>
 
       {findings.status === "error" ? (

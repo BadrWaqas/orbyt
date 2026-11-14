@@ -14,11 +14,11 @@ import {
   type FacilityMarkers,
 } from "../modules/pollution-hunter/facilityMarkers";
 import { addNo2Layer } from "../modules/pollution-hunter/no2Layer";
-import { FIRST_OVERLAY_LAYER_ID, nightStyle } from "./style";
+import { FIRST_LABEL_LAYER_ID, FIRST_OVERLAY_LAYER_ID, nightStyle } from "./style";
 
 const SPIN_DEG_PER_S = 2; // PLAN.md 9.6
 const GLOBE_FILL = 0.72; // share of the shorter viewport side the globe should cover
-const HERO_CLEARANCE_PX = 120;
+const HERO_CLEARANCE_PX = 176; // the hero lines and the button under them
 const PHONE_MAX_WIDTH_PX = 768; // below Tailwind's md breakpoint
 const START: [number, number] = [14, 28]; // Europe and Africa facing the viewer
 
@@ -79,6 +79,7 @@ export function Globe({ findings, selected, onSelect, onNo2Visible, onExplore }:
     if (!map || !ready || !findings) return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const added = addFacilityMarkers(map, findings, {
+      beforeId: FIRST_LABEL_LAYER_ID,
       reducedMotion,
       onSelect: (subjectId) => callbacks.current.onSelect(subjectId),
     });

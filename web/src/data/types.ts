@@ -8,7 +8,10 @@ export type Verdict = "higher" | "consistent" | "lower" | "inconclusive" | "unpa
 export interface Subject {
   id: string;
   kind: "facility" | "cluster";
+  /** The facility's name exactly as the register has it. Often includes the operator. */
   name: string;
+  /** A short name for titles, where one has been written by hand. */
+  display_name: string | null;
   operator: string | null;
   sector: string;
   /** ISO 3166-1 alpha-2. */
@@ -68,6 +71,8 @@ export interface FindingsPayload {
   source: string;
   count: number;
   latest_year_countries: Record<string, number>;
+  /** The subject to open when a visitor asks to explore (PLAN.md 9.7). */
+  showcase?: string;
   findings: Finding[];
 }
 

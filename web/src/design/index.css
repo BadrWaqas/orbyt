@@ -169,6 +169,20 @@ sub {
   text-underline-offset: 6px;
 }
 
+/* Quiet button on the glass surface (PLAN.md 9.7). */
+.quiet-button {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.quiet-button:hover {
+  background: var(--raised);
+}
+
 .icon-button {
   display: grid;
   place-items: center;
@@ -191,15 +205,30 @@ sub {
   position: absolute;
   inset: auto 0 0 0;
   height: 56dvh;
-  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
   border-bottom: 0;
   border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+  overflow: hidden;
+  outline: none;
+  animation: panel-in-up 240ms ease-out both;
+}
+
+/* The part that scrolls. The glass edge stays put around it. */
+.facility-panel-scroll {
+  flex: 1;
+  min-height: 0;
+  padding: 16px 16px calc(24px + env(safe-area-inset-bottom));
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: var(--raised) transparent;
-  outline: none;
-  animation: panel-in-up 240ms ease-out both;
+}
+
+/* More below: the lower edge fades, so no line is left half shown. */
+.facility-panel-scroll[data-more="true"] {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent);
 }
 
 .facility-panel[data-state="closing"] {
@@ -213,7 +242,6 @@ sub {
     width: 420px;
     height: auto;
     max-height: calc(100dvh - 24px - 56px); /* stays clear of the map attribution */
-    padding: 24px;
     border-bottom: 1px solid var(--hairline);
     border-radius: var(--radius-panel);
     animation-name: panel-in-side;
@@ -221,6 +249,10 @@ sub {
 
   .facility-panel[data-state="closing"] {
     animation-name: panel-out-side;
+  }
+
+  .facility-panel-scroll {
+    padding: 24px 24px 28px;
   }
 }
 
@@ -352,6 +384,12 @@ sub {
   overflow: hidden;
   font-size: 14px;
   line-height: 20px;
+}
+
+.marker-tip-measured {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--hue-no2-glow);
 }
 
 .marker-tip-reported {

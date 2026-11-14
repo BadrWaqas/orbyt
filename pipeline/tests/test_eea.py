@@ -152,3 +152,21 @@ def test_zip_check_rejects_missing_and_corrupt_files(tmp_path):
     bad = tmp_path / "bad.zip"
     bad.write_bytes(b"not a zip")
     assert not eea._zip_ok(bad)
+
+
+def test_display_names_are_added_and_the_register_name_is_kept(con):
+    rows = eea.top_reporters(con, 2024, 5)
+    first = rows[0]["register_id"]
+    payload = eea.build_findings(rows, 2024, {first: "Short Name Power Station"})
+    subjects = [f["subject"] for f in payload["findings"]]
+    assert subjects[0]["display_name"] == "Short Name Power Station"
+    assert subjects[0]["name"] == rows[0]["name"]
+    assert all(s["display_name"] is None for s in subjects[1:])
+
+
+def test_display_name_file_is_well_formed():
+    names = eea.load_display_names()
+    assert len(names) >= 20
+    for register_id, name in names.items():
+        assert register_id.strip() == register_id and name.strip() == name and name
+        assert "\u2014" not in name

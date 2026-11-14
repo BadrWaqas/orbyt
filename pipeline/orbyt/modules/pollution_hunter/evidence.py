@@ -256,8 +256,13 @@ def merge_into_contract(
     year: str,
     observed: dict[str, Any],
     detail: dict[str, Any],
+    showcase: str | None = None,
 ) -> Path:
-    """Add the satellite side to findings.json and to the subject's detail file."""
+    """Add the satellite side to findings.json and to the subject's detail file.
+
+    ``showcase`` is the subject the site opens when a visitor asks to explore. It is written
+    into the payload only once that subject carries an estimate.
+    """
     payload = json.loads(findings_path.read_text(encoding="utf-8"))
     matches = [f for f in payload["findings"] if f["subject"]["id"] == subject_id]
     if not matches:
@@ -268,6 +273,10 @@ def merge_into_contract(
             f"estimate is for {year}, the reported value is for {finding['period']['label']}"
         )
     finding["observed"] = observed
+    if showcase and any(
+        f["subject"]["id"] == showcase and f["observed"] for f in payload["findings"]
+    ):
+        payload["showcase"] = showcase
     findings_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
     )
@@ -351,7 +360,9 @@ def publish_subject(
             "flipbook_sheet": sheet,
         },
     }
-    path = merge_into_contract(findings_path, subject_id, year, observed, detail)
+    path = merge_into_contract(
+        findings_path, subject_id, year, observed, detail, ecfg.get("showcase_subject_id")
+    )
     log(
         f"published {subject_id} {year}: {observed['value']} t ({observed['lo']} to "
         f"{observed['hi']}), {len(days)} days, {len(frames)} frames"

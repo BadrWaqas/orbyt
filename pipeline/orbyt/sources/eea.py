@@ -27,6 +27,7 @@ import zipfile
 from pathlib import Path
 
 import duckdb
+import yaml
 
 SOURCE = "EEA Industrial Reporting database v16"
 SHARE_TOKEN = "sptXqwkQr5g7Bp5"  # public EEA download share, used as the WebDAV user name
@@ -43,6 +44,7 @@ WAREHOUSE_DIR = REPO_ROOT / "data" / "warehouse"
 DEFAULT_FINDINGS = (
     REPO_ROOT / "web" / "public" / "data" / "v1" / "pollution-hunter" / "findings.json"
 )
+DISPLAY_NAMES = Path(__file__).with_name("eea_display_names.yaml")
 
 COUNTRY_ISO2 = {
     "Austria": "AT", "Belgium": "BE", "Bulgaria": "BG", "Croatia": "HR", "Cyprus": "CY",
@@ -185,12 +187,22 @@ def subject_id(register_id: str) -> str:
     return "ph-eu-" + hashlib.sha1(register_id.encode("utf-8")).hexdigest()[:8]
 
 
-def build_findings(rows: list[dict], year: int) -> dict:
+def load_display_names(path: Path = DISPLAY_NAMES) -> dict[str, str]:
+    """Hand-kept short names for the panel title, keyed by register id."""
+    return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+
+
+def build_findings(
+    rows: list[dict], year: int, display_names: dict[str, str] | None = None
+) -> dict:
     """findings.json payload (PLAN.md Appendix B) with the reported side only.
 
     ``year`` is the target year. A row from a country that has not reported it carries its own
     year in ``period`` and a note saying so, and the country is listed in ``latest_year_countries``.
+    ``display_names`` gives some subjects a short ``display_name``. ``name`` always stays the
+    register's own.
     """
+    display_names = display_names or {}
     findings = []
     latest_year_countries: dict[str, int] = {}
     for r in rows:
@@ -208,6 +220,7 @@ def build_findings(rows: list[dict], year: int) -> dict:
                     "id": subject_id(r["register_id"]),
                     "kind": "facility",
                     "name": r["name"],
+                    "display_name": display_names.get(r["register_id"]),
                     "operator": None,
                     "sector": r["sector"],
                     "country": iso,
@@ -289,7 +302,7 @@ def export_findings(
     con: duckdb.DuckDBPyConnection, year: int = 2024, n: int = 300, out: Path = DEFAULT_FINDINGS
 ) -> Path:
     """Write findings.json and, next to it, the ``finding/`` folder of detail files."""
-    payload = build_findings(top_reporters(con, year, n), year)
+    payload = build_findings(top_reporters(con, year, n), year, load_display_names())
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     export_details(con, payload, out.parent / "finding")

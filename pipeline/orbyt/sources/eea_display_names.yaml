@@ -1,0 +1,60 @@
+# Short display names for the panel title and the marker label, keyed by register id.
+#
+# Each one is a plain English rendering of the plant named in the register entry itself
+# (Elektrownia, Kraftwerk, Central, Termoelektrana: power station). The register name is still
+# shown in full under the title, as PLAN.md 7.2 rule 5 asks. A facility whose register entry
+# names only the operator has no entry here and keeps the register name as its title.
+# The comment above each line is the register name it was taken from.
+
+# PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Bełchatów
+"PL.MŚ/000000349.FACILITY": "Bełchatów Power Station"
+# Ogranak Termoelektrane Nikola Tesla - TENT B
+"RS.SEPA.NRIZ/FACILITY.000000026": "Nikola Tesla B Power Station"
+# Ogranak Termoelektrane Nikola Tesla - TENT A
+"RS.SEPA.NRIZ/FACILITY.000000025": "Nikola Tesla A Power Station"
+# Kraftwerk Boxberg
+"https://registry.gdi-de.org/id/de.sn.sax4inspire.pf/70015796": "Boxberg Power Station"
+# CENTRAL DIESEL DE PUNTA GRANDE
+"ES.CAED/001988000.FACILITY": "Punta Grande Diesel Power Station"
+# LEAG, Kraftwerk Jänschwalde
+"https://registry.gdi-de.org/id/de.bb.inspire.pf.eureg/45025564": "Jänschwalde Power Station"
+# PPC S.A. SES ATHERINOLAKKOY
+"EL.CAED/100037.FACILITY": "Atherinolakkos Power Station"
+# RWE Power AG Kraftwerk Niederaußem
+"https://registry.gdi-de.org/id/de.nw.inspire.pf.bube-eureg/arb-2017-362008-300-0326774": "Niederaußem Power Station"
+# CENTRAL DIESEL LAS SALINAS
+"ES.CAED/001987000.FACILITY": "Las Salinas Diesel Power Station"
+# CENTRAL TÉRMICA DE GRANADILLA
+"ES.CAED/001983000.FACILITY": "Granadilla Thermal Power Station"
+# PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Turów
+"PL.MŚ/000000350.FACILITY": "Turów Power Station"
+# CENTRAL DIESEL CEUTA
+"ES.CAED/006236000.FACILITY": "Ceuta Diesel Power Station"
+# PGE Górnictwo i Energetyka Konwencjonalna S.A. - Oddział Elektrownia Opole
+"PL.MŚ/000000260.FACILITY": "Opole Power Station"
+# PPC S.A. SOUTHERN RHODES TPP
+"EL.CAED/100626.FACILITY": "South Rhodes Power Station"
+# Elektrárna Počerady
+"CZ.MZP.U424/CZ44746297.FACILITY": "Počerady Power Station"
+# Ogranak Termoelektrane i kopovi Kostolac - TE Kostolac A
+"RS.SEPA.NRIZ/FACILITY.000000029": "Kostolac A Power Station"
+# PPC S.A. AES KOS
+"EL.CAED/100015.FACILITY": "Kos Power Station"
+# LEAG, Kraftwerk Schwarze Pumpe
+"https://registry.gdi-de.org/id/de.bb.inspire.pf.eureg/45025611": "Schwarze Pumpe Power Station"
+# CENTRAL DIESEL LOS GUINCHOS
+"ES.CAED/001982000.FACILITY": "Los Guinchos Diesel Power Station"
+# LEAG Lausitz Energie Kraftwerke AG  Kraftwerk Lippendorf
+"https://registry.gdi-de.org/id/de.sn.sax4inspire.pf/80011277": "Lippendorf Power Station"
+# Elektrárna Chvaletice
+"CZ.MZP.E532/CZ90841608.FACILITY": "Chvaletice Power Station"
+# Central Termoelétrica do Caldeirão
+"PT.CAED/100009180.FACILITY": "Caldeirão Thermal Power Station"
+# ENEA Elektrownia Połaniec Spółka Akcyjna
+"PL.MŚ/000000468.FACILITY": "Połaniec Power Station"
+# Ogranak Termoelektrane i kopovi Kostolac - TE Kostolac B
+"RS.SEPA.NRIZ/FACILITY.000000030": "Kostolac B Power Station"
+# Maritsa East 2 power station
+"BG.CAED/013000002.FACILITY": "Maritsa East 2 Power Station"
+# PPC S.A. AES LESVOS
+"EL.CAED/100093.FACILITY": "Lesvos Power Station"
