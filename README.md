@@ -1,35 +1,22 @@
 # Orbyt Earth
 
-Fact-checking the world from space. Each module puts what was officially reported next to what a satellite measured, and shows the gap on a 3D globe. Module 1 is Pollution Hunter: NOx emissions from large facilities, measured with Sentinel-5P.
+Orbyt Earth fact-checks the world from space. Each module puts what was officially reported next to what a satellite measured, then shows the gap on an interactive 3D globe. The first module, Pollution Hunter, compares the NOx emissions that European facilities report to the EU register with satellite-based estimates of the same plumes. Everything is public, map-based and built to be shared.
 
-Status: milestone M0, a dark spinning globe. The full plan is in [PLAN.md](PLAN.md).
+Live: https://orbyt-earth.pages.dev
 
-## Run the web app
+## How it works
 
-```
-cd web
-npm install
-npm run dev
-```
+- Sentinel-5P satellite data shows nitrogen dioxide plumes drifting away from large industrial sites.
+- Each day's image is rotated to follow the wind, then stacked over many clear days so the plume stands out from the noise.
+- A curve fit turns the stacked plume into an emission estimate with an uncertainty range.
+- That estimate is compared with the figure the facility reported to the official register.
 
-On Windows PowerShell use `npm.cmd` in place of `npm`.
+## Tech stack
 
-## Run the pipeline checks
+- Frontend: React, TypeScript, Vite, Tailwind CSS
+- Map and globe: MapLibre GL JS, deck.gl
+- Pipeline: Python, NumPy, SciPy, DuckDB, Parquet
+- Data: Google Earth Engine (Sentinel-5P, ERA5 wind), EEA Industrial Reporting database
+- Hosting: Cloudflare Pages
 
-```
-cd pipeline
-uv sync
-uv run ruff check .
-uv run pytest
-```
-
-## Layout
-
-- `web/` Vite, React, TypeScript, Tailwind, MapLibre GL JS v5
-- `pipeline/` Python package `orbyt`: data sources, modules, tests
-- `schemas/` JSON Schema for the published data contract
-- `docs/` decisions and diagrams
-
-## Licence
-
-Code is MIT. Data sources keep their own licences, listed in [DATA_LICENSES.md](DATA_LICENSES.md).
+Status: in progress
