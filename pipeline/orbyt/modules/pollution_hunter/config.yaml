@@ -94,6 +94,27 @@ candidates:
     # Same quarter as the source rule: another hotspot at a quarter of our own enhancement or more.
     frac: 0.25
 
+validation:
+  # M4.2, choosing the US plants (PLAN.md 4.9 V1 and V2). Chosen from the monitors alone, before
+  # any satellite estimate exists for them, so the choice cannot be tuned to the result.
+  # The two calendar years compared with the satellite (PLAN.md section 0).
+  years: [2023, 2024]
+  # PLAN.md 1.5: below this the satellite cannot see a source. Needed in each year.
+  min_footprint_t: 2000
+  # Ground truth quality, not in the plan: the share of the monitored tonnes whose measurement
+  # code is Measured (the rest is calculated from fuel use or substituted), and the largest share
+  # of operating unit hours with no NOx value. 0.9 and 0.01 are round numbers set before looking
+  # at the list, and the funnel in docs/decisions.md shows what each one removes.
+  min_measured_share: 0.9
+  max_operating_gap: 0.01
+  # PLAN.md 4.9 V1: 30 to 40 isolated plants. Only 13 US footprints pass every isolation check,
+  # so there are two tiers. Tier 1 passes all four checks, the population the site publishes.
+  # Tier 2 may also fail the two checks that were added after the M3.5 review (city_far, whose
+  # 500,000 the plan marks as provisional, and the hotspot check), but must still pass sources
+  # and city_near, the two checks of PLAN.md 4.5 as first written. M4.3 reports the tiers
+  # separately. Fixed from the rules alone, before any US estimate exists.
+  tier2_may_fail: [city_far, hotspot]
+
 detect:
   # Single-day plume test, PLAN.md 4.4. Wind-aligned grid in km, wide enough for the mirrored
   # upwind box (minus box_max_km) and the part of the plume the flipbook shows.

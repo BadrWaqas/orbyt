@@ -1,0 +1,678 @@
+[
+ {
+  "subject_id": "ph-us-2167",
+  "tier": 1,
+  "name": "New Madrid",
+  "county_state": "New Madrid, MO",
+  "lat": 36.5147,
+  "lon": -89.5617,
+  "plant_ids_eia": [
+   2167
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 9089,
+  "nox_t_2024": 9501,
+  "measured_share": 1.0,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6146",
+  "tier": 1,
+  "name": "Martin Lake",
+  "county_state": "Rusk, TX",
+  "lat": 32.2606,
+  "lon": -94.5706,
+  "plant_ids_eia": [
+   3476,
+   55176,
+   55664,
+   6146
+  ],
+  "n_plants": 4,
+  "nox_t_2023": 9138,
+  "nox_t_2024": 7738,
+  "measured_share": 0.999,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-1379",
+  "tier": 1,
+  "name": "Shawnee",
+  "county_state": "McCracken, KY",
+  "lat": 37.1517,
+  "lon": -88.775,
+  "plant_ids_eia": [
+   1379,
+   55232,
+   55308,
+   56556
+  ],
+  "n_plants": 4,
+  "nox_t_2023": 5712,
+  "nox_t_2024": 6024,
+  "measured_share": 0.996,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-6077",
+  "tier": 1,
+  "name": "Gerald Gentleman",
+  "county_state": "Lincoln, NE",
+  "lat": 41.0808,
+  "lon": -101.1408,
+  "plant_ids_eia": [
+   6077
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 6516,
+  "nox_t_2024": 5365,
+  "measured_share": 1.0,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-2168",
+  "tier": 1,
+  "name": "Thomas Hill",
+  "county_state": "Randolph, MO",
+  "lat": 39.5522,
+  "lon": -92.6381,
+  "plant_ids_eia": [
+   2168,
+   6651
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 7106,
+  "nox_t_2024": 5329,
+  "measured_share": 0.999,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-6641",
+  "tier": 1,
+  "name": "Independence Steam Electric Station",
+  "county_state": "Independence, AR",
+  "lat": 35.67844,
+  "lon": -91.40876,
+  "plant_ids_eia": [
+   6641
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 4312,
+  "nox_t_2024": 4824,
+  "measured_share": 1.0,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-6179",
+  "tier": 1,
+  "name": "Fayette Power Project",
+  "county_state": "Fayette, TX",
+  "lat": 29.9172,
+  "lon": -96.7506,
+  "plant_ids_eia": [
+   6179
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 4866,
+  "nox_t_2024": 4797,
+  "measured_share": 0.999,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-1001",
+  "tier": 1,
+  "name": "Cayuga",
+  "county_state": "Vermillion, IN",
+  "lat": 39.9242,
+  "lon": -87.4244,
+  "plant_ids_eia": [
+   1001,
+   55111
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 4268,
+  "nox_t_2024": 4586,
+  "measured_share": 1.0,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-10745",
+  "tier": 1,
+  "name": "Midland Cogeneration Venture",
+  "county_state": "Midland, MI",
+  "lat": 43.5861,
+  "lon": -84.2242,
+  "plant_ids_eia": [
+   10745,
+   880031
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 3240,
+  "nox_t_2024": 3553,
+  "measured_share": 1.0,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-6664",
+  "tier": 1,
+  "name": "Louisa",
+  "county_state": "Louisa, IA",
+  "lat": 41.3181,
+  "lon": -91.0931,
+  "plant_ids_eia": [
+   1167,
+   6664
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 3828,
+  "nox_t_2024": 2951,
+  "measured_share": 0.999,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6068",
+  "tier": 1,
+  "name": "Jeffrey Energy Center",
+  "county_state": "Pottawatomie, KS",
+  "lat": 39.28645,
+  "lon": -96.11723,
+  "plant_ids_eia": [
+   6068
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 2368,
+  "nox_t_2024": 2933,
+  "measured_share": 0.994,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-6190",
+  "tier": 1,
+  "name": "Brame Energy Center",
+  "county_state": "Rapides, LA",
+  "lat": 31.395,
+  "lon": -92.71667,
+  "plant_ids_eia": [
+   6190
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 3433,
+  "nox_t_2024": 2764,
+  "measured_share": 1.0,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-3490",
+  "tier": 1,
+  "name": "Graham",
+  "county_state": "Young, TX",
+  "lat": 33.1344,
+  "lon": -98.6117,
+  "plant_ids_eia": [
+   3490
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 2137,
+  "nox_t_2024": 2353,
+  "measured_share": 1.0,
+  "flags_failed": [],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-3470",
+  "tier": 2,
+  "name": "W A Parish",
+  "county_state": "Fort Bend, TX",
+  "lat": 29.4828,
+  "lon": -95.6311,
+  "plant_ids_eia": [
+   3470,
+   55357,
+   58378,
+   64383
+  ],
+  "n_plants": 4,
+  "nox_t_2023": 4685,
+  "nox_t_2024": 6702,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Houston (47 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6257",
+  "tier": 2,
+  "name": "Scherer",
+  "county_state": "Monroe, GA",
+  "lat": 33.0606,
+  "lon": -83.8075,
+  "plant_ids_eia": [
+   6257,
+   7829
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 5203,
+  "nox_t_2024": 6599,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "hotspot"
+  ],
+  "nearest_big_city": "",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-2103",
+  "tier": 2,
+  "name": "Labadie",
+  "county_state": "Franklin, MO",
+  "lat": 38.56224,
+  "lon": -90.83769,
+  "plant_ids_eia": [
+   2103
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 6582,
+  "nox_t_2024": 6088,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "St. Louis (52 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6034",
+  "tier": 2,
+  "name": "Belle River",
+  "county_state": "St. Clair, MI",
+  "lat": 42.7756,
+  "lon": -82.495,
+  "plant_ids_eia": [
+   55718,
+   6034,
+   62192
+  ],
+  "n_plants": 3,
+  "nox_t_2023": 6212,
+  "nox_t_2024": 5554,
+  "measured_share": 0.999,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Detroit (69 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-2712",
+  "tier": 2,
+  "name": "Roxboro",
+  "county_state": "Person, NC",
+  "lat": 36.4833,
+  "lon": -79.0731,
+  "plant_ids_eia": [
+   2712,
+   6250
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 3542,
+  "nox_t_2024": 5551,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Raleigh (83 km)",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-2727",
+  "tier": 2,
+  "name": "Marshall (NC)",
+  "county_state": "Catawba, NC",
+  "lat": 35.5975,
+  "lon": -80.9658,
+  "plant_ids_eia": [
+   2727,
+   7277
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 5696,
+  "nox_t_2024": 5425,
+  "measured_share": 0.999,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Charlotte (45 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-55856",
+  "tier": 2,
+  "name": "Prairie State Generating Station",
+  "county_state": "St. Clair, IL",
+  "lat": 38.27917,
+  "lon": -89.66694,
+  "plant_ids_eia": [
+   55856,
+   889
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 5446,
+  "nox_t_2024": 5298,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "St. Louis (64 km)",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-703",
+  "tier": 2,
+  "name": "Bowen",
+  "county_state": "Bartow, GA",
+  "lat": 34.1256,
+  "lon": -84.9222,
+  "plant_ids_eia": [
+   703
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 5157,
+  "nox_t_2024": 5247,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Atlanta (58 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6139",
+  "tier": 2,
+  "name": "Welsh",
+  "county_state": "Titus, TX",
+  "lat": 33.05522,
+  "lon": -94.83999,
+  "plant_ids_eia": [
+   6139
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 3644,
+  "nox_t_2024": 4493,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "hotspot"
+  ],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-1733",
+  "tier": 2,
+  "name": "Monroe (MI)",
+  "county_state": "Monroe, MI",
+  "lat": 41.8906,
+  "lon": -83.3464,
+  "plant_ids_eia": [
+   1733
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 3470,
+  "nox_t_2024": 3976,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Detroit (54 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6090",
+  "tier": 2,
+  "name": "Sherburne County",
+  "county_state": "Sherburne, MN",
+  "lat": 45.3808,
+  "lon": -93.8931,
+  "plant_ids_eia": [
+   2042,
+   6090
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 4412,
+  "nox_t_2024": 3834,
+  "measured_share": 0.999,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Minneapolis (67 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-3399",
+  "tier": 2,
+  "name": "Cumberland (TN)",
+  "county_state": "Stewart, TN",
+  "lat": 36.3903,
+  "lon": -87.6539,
+  "plant_ids_eia": [
+   3399
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 3179,
+  "nox_t_2024": 3780,
+  "measured_share": 0.992,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Nashville (82 km)",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-1710",
+  "tier": 2,
+  "name": "J H Campbell",
+  "county_state": "Ottawa, MI",
+  "lat": 42.9103,
+  "lon": -86.20074,
+  "plant_ids_eia": [
+   1710,
+   55087,
+   59093,
+   7268
+  ],
+  "n_plants": 4,
+  "nox_t_2023": 2682,
+  "nox_t_2024": 3421,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far"
+  ],
+  "nearest_big_city": "Grand Rapids (44 km)",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-6096",
+  "tier": 2,
+  "name": "Nebraska City",
+  "county_state": "Otoe, NE",
+  "lat": 40.6214,
+  "lon": -95.7764,
+  "plant_ids_eia": [
+   6096
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 3841,
+  "nox_t_2024": 3296,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Omaha (72 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6041",
+  "tier": 2,
+  "name": "H L Spurlock",
+  "county_state": "Mason, KY",
+  "lat": 38.7,
+  "lon": -83.8181,
+  "plant_ids_eia": [
+   6041
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 2747,
+  "nox_t_2024": 2847,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Cincinnati (76 km)",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-3459",
+  "tier": 2,
+  "name": "Sabine",
+  "county_state": "Orange, TX",
+  "lat": 30.0242,
+  "lon": -93.878,
+  "plant_ids_eia": [
+   10789,
+   3459,
+   50625
+  ],
+  "n_plants": 3,
+  "nox_t_2023": 2799,
+  "nox_t_2024": 2693,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "hotspot"
+  ],
+  "nearest_big_city": "",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6193",
+  "tier": 2,
+  "name": "Harrington",
+  "county_state": "Potter, TX",
+  "lat": 35.29816,
+  "lon": -101.74719,
+  "plant_ids_eia": [
+   3484,
+   6193
+  ],
+  "n_plants": 2,
+  "nox_t_2023": 2814,
+  "nox_t_2024": 2651,
+  "measured_share": 0.999,
+  "flags_failed": [
+   "hotspot"
+  ],
+  "nearest_big_city": "",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-6138",
+  "tier": 2,
+  "name": "Flint Creek",
+  "county_state": "Benton, AR",
+  "lat": 36.2561,
+  "lon": -94.5241,
+  "plant_ids_eia": [
+   6138
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 2336,
+  "nox_t_2024": 2527,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "hotspot"
+  ],
+  "nearest_big_city": "",
+  "own_detectable": false
+ },
+ {
+  "subject_id": "ph-us-1241",
+  "tier": 2,
+  "name": "La Cygne",
+  "county_state": "Linn, KS",
+  "lat": 38.3481,
+  "lon": -94.6456,
+  "plant_ids_eia": [
+   1241
+  ],
+  "n_plants": 1,
+  "nox_t_2023": 2449,
+  "nox_t_2024": 2154,
+  "measured_share": 0.995,
+  "flags_failed": [
+   "city_far",
+   "hotspot"
+  ],
+  "nearest_big_city": "Kansas City (85 km)",
+  "own_detectable": true
+ },
+ {
+  "subject_id": "ph-us-1393",
+  "tier": 2,
+  "name": "R S Nelson",
+  "county_state": "Calcasieu, LA",
+  "lat": 30.2844,
+  "lon": -93.2911,
+  "plant_ids_eia": [
+   1393,
+   55117,
+   55165,
+   60927
+  ],
+  "n_plants": 4,
+  "nox_t_2023": 2180,
+  "nox_t_2024": 2122,
+  "measured_share": 1.0,
+  "flags_failed": [
+   "hotspot"
+  ],
+  "nearest_big_city": "",
+  "own_detectable": true
+ }
+]
