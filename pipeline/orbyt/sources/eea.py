@@ -2,7 +2,8 @@
 
 M1.5: download the user friendly CSV bundle, load the facility air release table into DuckDB,
 build ``facilities``, ``reported`` and ``coverage``, and export the 300 largest 2024 reporters as
-``findings.json`` with reported values only (nothing from satellites yet).
+``findings.json`` with reported values. Satellite estimates already in the file are kept when it
+is re-exported.
 M1.6: next to it, one ``finding/<id>.json`` per finding with every year that facility reported.
 
     uv run python -m orbyt.sources.eea
@@ -288,21 +289,62 @@ def export_details(con: duckdb.DuckDBPyConnection, payload: dict, out_dir: Path)
         if stale.name not in wanted:
             stale.unlink()
     for f in findings:
-        detail = {
-            "id": f["id"],
-            "reported_series": series[f["subject"]["register_id"]],
-            "sources": [SOURCE],
-        }
+        path = out_dir / f"{f['id']}.json"
+        # Keep whatever the satellite side added (observed, profile, days, evidence, ...).
+        # Only the reported side is refreshed.
+        detail = _read_json(path) or {}
+        detail["id"] = f["id"]
+        detail["reported_series"] = series[f["subject"]["register_id"]]
+        detail["sources"] = list(dict.fromkeys([*detail.get("sources", []), SOURCE]))
         text = json.dumps(detail, ensure_ascii=False, separators=(",", ":")) + "\n"
-        (out_dir / f"{f['id']}.json").write_text(text, encoding="utf-8")
+        path.write_text(text, encoding="utf-8")
     return len(findings)
+
+
+def _read_json(path: Path) -> dict | None:
+    """The parsed file, or None when it is missing or not valid JSON."""
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+# Fields the satellite side writes into a finding. An EEA export only owns the reported side.
+SATELLITE_FIELDS = ("observed", "ratio", "verdict", "grade")
+
+
+def keep_satellite_side(payload: dict, previous: dict | None) -> dict:
+    """Carry the satellite estimates of an earlier findings.json into a fresh payload.
+
+    A finding is matched by id, which holds the subject and the year, so an estimate is only
+    kept next to the reported value for the same year. ``showcase`` is kept while its finding
+    still has an estimate. Findings that left the top list lose their estimate with them.
+    """
+    if not previous:
+        return payload
+    old = {f["id"]: f for f in previous.get("findings", []) if f.get("observed")}
+    for f in payload["findings"]:
+        if f["id"] in old:
+            for key in SATELLITE_FIELDS:
+                f[key] = old[f["id"]].get(key)
+    showcase = previous.get("showcase")
+    if showcase and any(
+        f["subject"]["id"] == showcase and f["observed"] for f in payload["findings"]
+    ):
+        payload["showcase"] = showcase
+    return payload
 
 
 def export_findings(
     con: duckdb.DuckDBPyConnection, year: int = 2024, n: int = 300, out: Path = DEFAULT_FINDINGS
 ) -> Path:
-    """Write findings.json and, next to it, the ``finding/`` folder of detail files."""
+    """Write findings.json and, next to it, the ``finding/`` folder of detail files.
+
+    Satellite estimates already in an existing findings.json and its detail files are kept, so
+    re-running the export never wipes them.
+    """
     payload = build_findings(top_reporters(con, year, n), year, load_display_names())
+    payload = keep_satellite_side(payload, _read_json(out))
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     export_details(con, payload, out.parent / "finding")

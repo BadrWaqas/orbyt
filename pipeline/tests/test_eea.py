@@ -170,3 +170,62 @@ def test_display_name_file_is_well_formed():
     for register_id, name in names.items():
         assert register_id.strip() == register_id and name.strip() == name and name
         assert "\u2014" not in name
+
+
+def _add_estimate(out, finding_id, subject_id):
+    """Pretend `evidence` has published an estimate, the way merge_into_contract does."""
+    observed = {"value": 9124, "lo": 7832, "hi": 11269, "unit": "t NOx/yr", "n_days": 255}
+    payload = json.loads(out.read_text(encoding="utf-8"))
+    for f in payload["findings"]:
+        if f["id"] == finding_id:
+            f["observed"] = observed
+    payload["showcase"] = subject_id
+    out.write_text(json.dumps(payload), encoding="utf-8")
+    detail_path = out.parent / "finding" / f"{finding_id}.json"
+    detail = json.loads(detail_path.read_text(encoding="utf-8"))
+    detail.update(observed=observed, profile={"fit": {"q": 6.8}}, evidence={"stack_image": "x"})
+    detail["sources"].append("Copernicus Sentinel-5P")
+    detail_path.write_text(json.dumps(detail), encoding="utf-8")
+    return observed
+
+
+def test_re_export_keeps_satellite_estimates(con, tmp_path):
+    out = tmp_path / "v1" / "findings.json"
+    eea.export_findings(con, 2024, 10, out)
+    fid, sid = f"{eea.subject_id(BELCHATOW)}-2024", eea.subject_id(BELCHATOW)
+    observed = _add_estimate(out, fid, sid)
+
+    eea.export_findings(con, 2024, 10, out)
+
+    data = json.loads(out.read_text(encoding="utf-8"))
+    kept = {f["id"]: f for f in data["findings"]}
+    assert kept[fid]["observed"] == observed
+    assert data["showcase"] == sid
+    other = [f for f in data["findings"] if f["id"] != fid][0]
+    assert other["observed"] is None
+    detail = json.loads((out.parent / "finding" / f"{fid}.json").read_text(encoding="utf-8"))
+    assert detail["observed"] == observed and detail["evidence"] == {"stack_image": "x"}
+    assert detail["profile"] == {"fit": {"q": 6.8}}
+    assert detail["sources"] == ["EEA Industrial Reporting database v16", "Copernicus Sentinel-5P"]
+    assert [p["year"] for p in detail["reported_series"]] == [2022, 2023, 2024]
+
+
+def test_re_export_drops_an_estimate_when_the_finding_year_changes(con, tmp_path):
+    out = tmp_path / "v1" / "findings.json"
+    eea.export_findings(con, 2024, 10, out)
+    sid = eea.subject_id(BELCHATOW)
+    _add_estimate(out, f"{sid}-2024", sid)
+
+    eea.export_findings(con, 2022, 10, out)  # same plant, now paired with its 2022 value
+
+    data = json.loads(out.read_text(encoding="utf-8"))
+    assert all(f["observed"] is None for f in data["findings"])
+    assert "showcase" not in data
+
+
+def test_export_survives_a_broken_findings_file(con, tmp_path):
+    out = tmp_path / "v1" / "findings.json"
+    out.parent.mkdir(parents=True)
+    out.write_text("{not json", encoding="utf-8")
+    eea.export_findings(con, 2024, 10, out)
+    assert json.loads(out.read_text(encoding="utf-8"))["count"] == 2
