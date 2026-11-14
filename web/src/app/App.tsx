@@ -1,9 +1,11 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
-import { useFindings } from "../data/findings";
+import { useFindingDetail, useFindings } from "../data/findings";
 import { Stars } from "../globe/Stars";
 import { Legend } from "../modules/pollution-hunter/Legend";
+import { plumeClock, plumeFrames } from "../modules/pollution-hunter/plumeClock";
+import type { SitePlumeSpec } from "../modules/pollution-hunter/sitePlume";
 import { FacilityPanel } from "../panels/FacilityPanel";
 import { STORY_FLIGHT_MS, STORY_PANEL_LEAD_MS } from "./layout";
 import { useSelection } from "./useSelection";
@@ -118,6 +120,30 @@ export function App() {
     select(null);
   }, [select]);
 
+  // A facility with a satellite estimate has a frame for each clear day. The globe draws them
+  // around the site, one day at a time, and the legend names the day on show.
+  const detail = useFindingDetail(selected?.observed ? selected.id : null);
+  const detailData = detail.status === "ready" ? detail.data : null;
+  const site = useMemo(() => {
+    if (!selected || detailData?.id !== selected.id) return null;
+    const { evidence, days } = detailData;
+    if (!evidence || !days) return null;
+    const frames = plumeFrames(days);
+    if (frames.length === 0) return null;
+    const plume: SitePlumeSpec = {
+      id: selected.id,
+      lat: selected.subject.lat,
+      lon: selected.subject.lon,
+      src: evidence.flipbook,
+      sheet: evidence.flipbook_sheet,
+      positions: frames.map((d) => d.frame as number),
+    };
+    return { plume, frames, fullScale: evidence.flipbook_sheet.full_scale_umol_m2 };
+  }, [selected, detailData]);
+  const siteId = site?.plume.id;
+  useEffect(() => plumeClock.rewind(), [siteId]);
+  const [sitePlumeShown, setSitePlumeShown] = useState(false);
+
   // The hero belongs to the opening view. It steps aside once the visitor zooms in or opens a
   // facility, and a short prompt takes its place.
   const [zoomedIn, setZoomedIn] = useState(false);
@@ -142,6 +168,8 @@ export function App() {
           selected={selected}
           storyId={storyId}
           intro={introRuns}
+          sitePlume={site?.plume ?? null}
+          onSitePlume={setSitePlumeShown}
           onSelect={select}
           onReady={showGlobe}
           onNo2Visible={showLegend}
@@ -156,7 +184,10 @@ export function App() {
         <span className="wordmark text-[18px] leading-6">Orbyt Earth</span>
       </header>
 
-      <Legend visible={no2Visible} />
+      <Legend
+        visible={no2Visible}
+        site={site && sitePlumeShown ? { frames: site.frames, fullScale: site.fullScale } : null}
+      />
 
       <section
         aria-hidden={heroHidden}

@@ -1,10 +1,26 @@
+import { formatDay } from "../../data/format";
+import type { DayRow } from "../../data/types";
 import { NO2_HI_UMOL, NO2_LO_UMOL, NO2_YEAR, no2RampGradient, no2RampPosition } from "./no2";
+import { usePlumeClock } from "./plumeClock";
 
 // Three labelled values (PLAN.md 9.6). The scale is square-root, so 100 sits near the middle.
 const TICKS_UMOL = [NO2_LO_UMOL, 100, NO2_HI_UMOL];
 
+interface SiteDays {
+  /** The days with a frame, in playing order. */
+  frames: DayRow[];
+  /** The value the brightest colour of a frame stands for, micromol/m2 above background. */
+  fullScale: number;
+}
+
+interface Props {
+  visible: boolean;
+  /** Set while the open facility's daily plume is drawn on the globe. */
+  site?: SiteDays | null;
+}
+
 /** Colour ramp for the NO2 layer with its units and one line saying what it shows. */
-export function Legend({ visible }: { visible: boolean }) {
+export function Legend({ visible, site = null }: Props) {
   return (
     <aside
       aria-label="Map legend"
@@ -40,6 +56,24 @@ export function Legend({ visible }: { visible: boolean }) {
           );
         })}
       </div>
+      {site && <SiteDay site={site} />}
     </aside>
+  );
+}
+
+/** Names the day whose plume is on the globe. It changes with the plume clock. */
+function SiteDay({ site }: { site: SiteDays }) {
+  const { index } = usePlumeClock();
+  const day = site.frames[Math.min(index, site.frames.length - 1)];
+  return (
+    // The date changes several times a second, so it is kept from screen readers. The flipbook
+    // in the panel says the same thing in a form they can step through.
+    <div className="mt-3 border-t border-hairline pt-3" aria-hidden="true">
+      <p className="text-[12px] leading-4 text-text-2">Around the open facility, one clear day at a time</p>
+      <p className="mt-1 text-[14px] leading-5 text-no2 [font-variant-numeric:tabular-nums]">{formatDay(day.date)}</p>
+      <p className="mt-1 hidden text-[12px] leading-4 text-text-3 lg:block">
+        NO<sub>2</sub> above background. Brightest at {site.fullScale} µmol/m² or more.
+      </p>
+    </div>
   );
 }

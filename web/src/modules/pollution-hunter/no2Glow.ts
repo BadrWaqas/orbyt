@@ -12,6 +12,9 @@ import {
   NO2_TILES_MAX_ZOOM,
   NO2_TILES_PATH,
 } from "./no2";
+import { plumeClock } from "./plumeClock";
+import { loadSitePlume, sitePlumeBounds } from "./sitePlume";
+import type { SitePlumeSpec } from "./sitePlume";
 
 // PlumeLayer for M7 (PLAN.md 9.6): deck.gl with additive blending, plus a blurred copy
 // underneath at 40% opacity as the halo.
@@ -79,6 +82,11 @@ function bloomShare(zoom: number): number {
 
 const HALO_FADE_MS = 900;
 const FIRST_TILES_WAIT_MS = 4000;
+
+// The open facility's own plume, one clear day at a time (sitePlume.ts). Two layers take turns:
+// each new day fades in on one while the day before fades out on the other.
+const SITE_FADE_IN_MS = 700;
+const SITE_CROSS_FADE_MS = 150;
 
 // A wide, dark gradient drawn in 8 bits shows as stripes. A little screen-space noise, half a
 // colour step either way, breaks the stripes up without being visible itself.
@@ -293,7 +301,25 @@ export interface No2Glow {
   ready: Promise<void>;
   /** Fade the whole glow to `level`, 0 to 1. */
   fadeTo(level: number, ms: number): void;
+  /**
+   * Draw one facility's daily plume around it, following the plume clock. Null takes it off.
+   * `onShown` reports when the plume is on the map and when it has gone.
+   */
+  setSitePlume(spec: SitePlumeSpec | null, onShown?: (shown: boolean) => void): void;
   remove(): void;
+}
+
+interface SitePlume {
+  spec: SitePlumeSpec;
+  bounds: [number, number, number, number];
+  /** The two images that take turns, and which of them is fading in. */
+  slots: [ImageData | null, ImageData | null];
+  front: 0 | 1;
+  /** Share of the front slot, 0 to 1. The back slot has the rest. */
+  mix: number;
+  level: number;
+  shownIndex: number;
+  stop: () => void;
 }
 
 /** Add the glow to a loaded map. Returns null where the map has no WebGL2 context. */
@@ -304,6 +330,7 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
   let level = 0;
   let haloLevel = 0;
   let soft: SoftLight | null = null;
+  let site: SitePlume | null = null;
   let removed = false;
   let stopFade = () => {};
   let stopHaloFade = () => {};
@@ -370,6 +397,24 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
         },
       }),
     );
+    if (site) {
+      for (const slot of [0, 1] as const) {
+        const image = site.slots[slot];
+        const share = slot === site.front ? site.mix : 1 - site.mix;
+        if (!image || share <= 0) continue;
+        list.push(
+          new SoftBitmapLayer({
+            ...place,
+            id: `no2-site-plume-${slot}`,
+            image,
+            bounds: site.bounds,
+            opacity: level * site.level * share,
+            textureParameters: SMOOTH,
+            parameters: ADDITIVE,
+          }),
+        );
+      }
+    }
     return list;
   };
 
@@ -412,8 +457,71 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
         draw();
       });
     },
+    setSitePlume(spec, onShown) {
+      if (spec?.id === site?.spec.id) return;
+      site?.stop();
+      site = null;
+      draw();
+      if (!spec || removed) return;
+
+      const mine: SitePlume = {
+        spec,
+        bounds: sitePlumeBounds(spec),
+        slots: [null, null],
+        front: 0,
+        mix: 1,
+        level: 0,
+        shownIndex: -1,
+        stop: () => {},
+      };
+      site = mine;
+      let stopped = false;
+      let stopCross = () => {};
+      let stopLevel = () => {};
+      let detach = () => {};
+      let unsubscribe = () => {};
+      mine.stop = () => {
+        stopped = true;
+        stopCross();
+        stopLevel();
+        detach();
+        unsubscribe();
+        onShown?.(false);
+      };
+
+      void loadSitePlume(spec)
+        .then((images) => {
+          if (stopped) return;
+          const show = (crossFadeMs: number) => {
+            const index = Math.min(plumeClock.get().index, spec.positions.length - 1);
+            if (index === mine.shownIndex) return;
+            mine.shownIndex = index;
+            stopCross();
+            // Whatever was fading in becomes the day before, and the new day takes the other slot.
+            mine.front = mine.front === 0 ? 1 : 0;
+            mine.slots[mine.front] = images.frame(spec.positions[index]);
+            stopCross = animate(crossFadeMs, (t) => {
+              mine.mix = t;
+              draw();
+            });
+          };
+          show(0);
+          unsubscribe = plumeClock.subscribe(() => show(SITE_CROSS_FADE_MS));
+          detach = plumeClock.attach(spec.positions.length);
+          stopLevel = animate(SITE_FADE_IN_MS, (t) => {
+            mine.level = t;
+            draw();
+          });
+          onShown?.(true);
+        })
+        .catch(() => {
+          // The sheet did not load. The panel's flipbook reports that, the globe just goes without.
+        });
+    },
     remove() {
       if (removed) return;
+      site?.stop();
+      site = null;
       removed = true;
       window.clearTimeout(readyTimer);
       stopFade();

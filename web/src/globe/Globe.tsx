@@ -16,7 +16,8 @@ import {
   type FacilityMarkers,
 } from "../modules/pollution-hunter/facilityMarkers";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
-import { addNo2Layer } from "../modules/pollution-hunter/no2Layer";
+import { addNo2Layer, type No2Layer } from "../modules/pollution-hunter/no2Layer";
+import type { SitePlumeSpec } from "../modules/pollution-hunter/sitePlume";
 import { FIRST_LABEL_LAYER_ID, FIRST_OVERLAY_LAYER_ID, nightStyle } from "./style";
 
 const SPIN_DEG_PER_S = 2; // PLAN.md 9.6
@@ -87,6 +88,10 @@ interface GlobeProps {
   onNo2Visible?: () => void;
   /** Called once, when the visitor zooms in from the opening view. */
   onExplore?: () => void;
+  /** The selected facility's daily plume frames, to be drawn around it. Null for none. */
+  sitePlume?: SitePlumeSpec | null;
+  /** Called when that plume appears on the map and when it goes. */
+  onSitePlume?: (shown: boolean) => void;
 }
 
 export function Globe({
@@ -94,10 +99,12 @@ export function Globe({
   selected,
   storyId = null,
   intro = false,
+  sitePlume = null,
   onSelect,
   onReady,
   onNo2Visible,
   onExplore,
+  onSitePlume,
 }: GlobeProps) {
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -107,8 +114,9 @@ export function Globe({
   const [markers, setMarkers] = useState<FacilityMarkers | null>(null);
 
   // Callbacks are kept in a ref so a new function from the parent never rebuilds the map.
-  const callbacks = useRef({ onSelect, onReady, onNo2Visible, onExplore });
-  callbacks.current = { onSelect, onReady, onNo2Visible, onExplore };
+  const callbacks = useRef({ onSelect, onReady, onNo2Visible, onExplore, onSitePlume });
+  callbacks.current = { onSelect, onReady, onNo2Visible, onExplore, onSitePlume };
+  const no2Ref = useRef<No2Layer | null>(null);
   const introRef = useRef(intro);
   const storyIdRef = useRef(storyId);
   storyIdRef.current = storyId;
@@ -135,6 +143,12 @@ export function Globe({
     markers?.setSelected(selected);
   }, [markers, selected]);
 
+  // So does its own plume, where the facility has daily frames.
+  useEffect(() => {
+    if (!ready) return;
+    no2Ref.current?.setSitePlume(sitePlume, (shown) => callbacks.current.onSitePlume?.(shown));
+  }, [ready, sitePlume]);
+
   // The camera follows it too.
   useEffect(() => {
     const map = mapRef.current;
@@ -154,7 +168,8 @@ export function Globe({
     hasFlownRef.current = true;
     const story = storyIdRef.current === selected.subject.id;
     const centre = new maplibregl.LngLat(selected.subject.lon, selected.subject.lat);
-    const zoom = Math.max(map.getZoom(), story ? STORY_ZOOM : ARRIVAL_ZOOM);
+    // A facility with a satellite estimate has its own plume to show, so the camera goes closer.
+    const zoom = Math.max(map.getZoom(), story || selected.observed ? STORY_ZOOM : ARRIVAL_ZOOM);
     const pitch = story ? STORY_PITCH_DEG : ARRIVAL_PITCH_DEG;
     const camera = { center: centre, zoom, pitch, padding: panelPadding(el) };
     if (reducedMotion) {
@@ -249,9 +264,8 @@ export function Globe({
     };
     map.on("zoom", noteExplore);
 
-    let removeNo2Layer = () => {};
     map.once("load", () => {
-      removeNo2Layer = addNo2Layer(map, {
+      no2Ref.current = addNo2Layer(map, {
         beforeId: FIRST_OVERLAY_LAYER_ID,
         reducedMotion,
         onVisible: () => callbacks.current.onNo2Visible?.(),
@@ -268,7 +282,8 @@ export function Globe({
     el.addEventListener("keydown", stopSpin);
 
     return () => {
-      removeNo2Layer();
+      no2Ref.current?.remove();
+      no2Ref.current = null;
       el.removeEventListener("pointerdown", stopSpin);
       el.removeEventListener("wheel", stopSpin);
       el.removeEventListener("keydown", stopSpin);

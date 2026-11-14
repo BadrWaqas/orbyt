@@ -2,6 +2,7 @@ import type { Map as MapLibreMap } from "maplibre-gl";
 
 import { NO2_HALO_OPACITY, NO2_TILES_MAX_ZOOM, NO2_TILES_PATH, NO2_YEAR } from "./no2";
 import type { No2Glow } from "./no2Glow";
+import type { SitePlumeSpec } from "./sitePlume";
 
 // The NO2 layer is drawn one of two ways.
 //
@@ -123,15 +124,26 @@ function addRaster(map: MapLibreMap, beforeId: string, reducedMotion: boolean): 
   };
 }
 
+export interface No2Layer {
+  /**
+   * Draw one facility's daily plume around it (sitePlume.ts). Null takes it off. Only the glow
+   * can draw it: with the raster fallback `onShown` is never called with true.
+   */
+  setSitePlume(spec: SitePlumeSpec | null, onShown?: (shown: boolean) => void): void;
+  remove(): void;
+}
+
 /**
  * Add the NO2 layer to a loaded map. It starts clear and fades in once its first tiles have
- * arrived, so it never pops in tile by tile. Returns a function that takes it off again.
+ * arrived, so it never pops in tile by tile.
  */
-export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisible }: Options) {
+export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisible }: Options): No2Layer {
   const fadeMs = reducedMotion ? 0 : FADE_IN_MS;
   let cancelled = false;
   let glow: No2Glow | null = null;
   let raster: RasterLayers | null = null;
+  // The site plume asked for last, kept so it can be handed to the glow when that arrives.
+  let sitePlume: { spec: SitePlumeSpec | null; onShown?: (shown: boolean) => void } = { spec: null };
 
   const showRaster = async () => {
     raster = addRaster(map, beforeId, reducedMotion);
@@ -151,7 +163,9 @@ export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisib
 
   const tryGlow = (mod: typeof import("./no2Glow")) => {
     try {
-      return mod.addNo2Glow(map, { beforeId, onFail });
+      const added = mod.addNo2Glow(map, { beforeId, onFail });
+      added?.setSitePlume(sitePlume.spec, sitePlume.onShown);
+      return added;
     } catch {
       return null;
     }
@@ -191,9 +205,15 @@ export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisib
   };
   void start();
 
-  return () => {
-    cancelled = true;
-    glow?.remove();
-    raster?.remove();
+  return {
+    setSitePlume(spec, onShown) {
+      sitePlume = { spec, onShown };
+      glow?.setSitePlume(spec, onShown);
+    },
+    remove() {
+      cancelled = true;
+      glow?.remove();
+      raster?.remove();
+    },
   };
 }

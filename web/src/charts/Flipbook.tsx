@@ -2,13 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 
 import { compassWord, formatDay, formatOneDecimal } from "../data/format";
 import type { DayRow, FlipbookSheet } from "../data/types";
+import { plumeClock, plumeFrames, usePlumeClock } from "../modules/pollution-hunter/plumeClock";
 import { RampKey } from "./RampKey";
 
 // Flipbook (PLAN.md 9.6): clear-day frames from a sprite sheet with the date and a wind arrow.
 // Play, pause, scrub. Frames are maps with north up, so the plume swings with the wind from day
 // to day. The detected or not mark of 9.6 waits for the single-day test to be validated (M4).
 
-const FRAMES_PER_SECOND = 6;
 const SCALE_BAR_KM = 50;
 
 interface Props {
@@ -21,15 +21,9 @@ interface Props {
 type Load = "loading" | "ready" | "error";
 
 export function Flipbook({ src, sheet, days, year }: Props) {
-  const frames = useMemo(
-    () => days.filter((d) => d.frame !== null).sort((a, b) => (a.frame as number) - (b.frame as number)),
-    [days],
-  );
-  const [index, setIndex] = useState(0);
-  // Opening the tab is the visitor asking to see it move, so it plays, unless they prefer stillness.
-  const [playing, setPlaying] = useState(
-    () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
+  const frames = useMemo(() => plumeFrames(days), [days]);
+  // The day on show is shared with the plume drawn on the globe, so both move together.
+  const { index, playing } = usePlumeClock();
   const [load, setLoad] = useState<Load>("loading");
   const [attempt, setAttempt] = useState(0);
 
@@ -46,14 +40,11 @@ export function Flipbook({ src, sheet, days, year }: Props) {
     };
   }, [src, attempt]);
 
+  // The clock runs while the frames are on screen.
   useEffect(() => {
-    if (!playing || load !== "ready") return;
-    const timer = window.setInterval(
-      () => setIndex((i) => (i + 1) % frames.length),
-      1000 / FRAMES_PER_SECOND,
-    );
-    return () => window.clearInterval(timer);
-  }, [playing, load, frames.length]);
+    if (load !== "ready" || frames.length === 0) return;
+    return plumeClock.attach(frames.length);
+  }, [load, frames.length]);
 
   if (frames.length === 0) return null;
   const day = frames[Math.min(index, frames.length - 1)];
@@ -156,7 +147,7 @@ export function Flipbook({ src, sheet, days, year }: Props) {
           className="icon-button -ml-2.5"
           aria-label={playing ? "Pause" : "Play"}
           disabled={load !== "ready"}
-          onClick={() => setPlaying((p) => !p)}
+          onClick={() => plumeClock.setPlaying(!playing)}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className="fill-current">
             {playing ? <path d="M4 3h3v10H4zM9 3h3v10H9z" /> : <path d="M5 3l8 5l-8 5z" />}
@@ -172,10 +163,7 @@ export function Flipbook({ src, sheet, days, year }: Props) {
           disabled={load !== "ready"}
           aria-label="Day"
           aria-valuetext={formatDay(day.date)}
-          onChange={(e) => {
-            setPlaying(false);
-            setIndex(Number(e.target.value));
-          }}
+          onChange={(e) => plumeClock.scrubTo(Number(e.target.value))}
         />
         <p className="axis-text w-[72px] text-right">
           {index + 1} of {frames.length}
