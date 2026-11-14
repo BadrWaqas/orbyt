@@ -45,10 +45,19 @@ def test_compare_stats_ratio_of_sums_and_correlation():
     assert abs(stats["log_scatter"]) < 1e-9  # constant ratio, no scatter in the log
 
 
-def test_compare_stats_ignores_missing_and_zero_references():
+def test_compare_stats_ignores_missing_estimates_and_zero_references():
     stats = validate.compare_stats([100.0, np.nan, 50.0, 80.0], [100.0, 10.0, 0.0, 80.0])
     assert stats["n"] == 2
     assert "pearson" not in stats  # fewer than three points
+
+
+def test_a_zero_estimate_counts_in_the_bias_but_not_in_the_log_scatter():
+    ref = [100.0, 200.0, 400.0, 800.0]
+    stats = validate.compare_stats([100.0, 200.0, 400.0, 0.0], ref)
+    assert stats["n"] == 4
+    assert stats["n_no_plume"] == 1
+    assert stats["bias_pct"] < -50
+    assert abs(stats["log_scatter"]) < 1e-9  # the three plumes found have a ratio of one
 
 
 def test_annual_reference_sums_the_plants_of_a_footprint(tmp_path):

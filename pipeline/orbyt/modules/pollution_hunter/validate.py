@@ -35,6 +35,9 @@ from orbyt.sources import campd, era5
 
 HOURS_BEFORE = 3
 HOURS_PER_YEAR = 8766.0  # 365.25 days
+LOG_MIN_SHARE = 0.01
+# Axis range of the figures, t NOx per year. Estimates below the bottom are drawn on the edge.
+AX_MIN, AX_MAX = 1_000.0, 200_000.0
 OUT_DIR = Path(__file__).resolve().parents[4] / "docs" / "validation"
 # Footprints where the sum of CEMS monitors may miss large non-power-plant NOx next door.
 # Named by Badr from his own knowledge of the sites, not found by the pipeline.
@@ -101,7 +104,7 @@ def _ranks(x: np.ndarray) -> np.ndarray:
 def compare_stats(est: list[float], ref: list[float]) -> dict[str, Any]:
     """Bias, correlation and scatter of estimates against a reference, same units."""
     e, r = np.asarray(est, dtype=float), np.asarray(ref, dtype=float)
-    ok = np.isfinite(e) & np.isfinite(r) & (e > 0) & (r > 0)
+    ok = np.isfinite(e) & np.isfinite(r) & (e >= 0) & (r > 0)
     e, r = e[ok], r[ok]
     n = len(e)
     out: dict[str, Any] = {"n": n}
@@ -112,7 +115,12 @@ def compare_stats(est: list[float], ref: list[float]) -> dict[str, Any]:
     if n >= 3 and e.std() > 0 and r.std() > 0:
         out["pearson"] = float(np.corrcoef(e, r)[0, 1])
         out["spearman"] = float(np.corrcoef(_ranks(e), _ranks(r))[0, 1])
-        out["log_scatter"] = float(np.std(np.log(e / r), ddof=1))
+        # A log ratio needs an estimate that is not zero. Estimates under 1 percent of the monitor
+        # (no plume found) count in the bias and the correlation, and are counted here, not logged.
+        keep = e >= LOG_MIN_SHARE * r
+        out["n_no_plume"] = int((~keep).sum())
+        if keep.sum() >= 3:
+            out["log_scatter"] = float(np.std(np.log(e[keep] / r[keep]), ddof=1))
     return out
 
 
@@ -211,15 +219,16 @@ def summary_markdown(summary: list[dict], rows: list[dict]) -> str:
                 f"## {comp}, wind {level}",
                 "",
                 "| group | subset | n | bias % | median ratio | Pearson r | Spearman r "
-                "| log scatter |",
-                "|---|---|---|---|---|---|---|---|",
+                "| log scatter | no plume |",
+                "|---|---|---|---|---|---|---|---|---|",
             ]
             for s in summary:
                 if s["level"] == level and s["comparison"] == comp:
                     lines.append(
                         f"| {s['group']} | {s['subset']} | {s['n']} | {_fmt(s.get('bias_pct'), 0)} "
                         f"| {_fmt(s.get('median_ratio'))} | {_fmt(s.get('pearson'))} "
-                        f"| {_fmt(s.get('spearman'))} | {_fmt(s.get('log_scatter'))} |"
+                        f"| {_fmt(s.get('spearman'))} | {_fmt(s.get('log_scatter'))} "
+                        f"| {s.get('n_no_plume', '')} |"
                     )
             lines.append("")
     flagged = sorted({r["name"] for r in rows if r["flag_unmonitored_industry"]})
@@ -256,15 +265,19 @@ def draw_figure(rows: list[dict], level: str, path: Path) -> Path:
         (("V1 like for like (3 h before overpass)", "v1_ref_t_yr"), ("V2 annual", "v2_ref_t_yr")),
         strict=True,
     ):
-        sel = [r for r in rows if r["level"] == level and r["est_t_yr"] and r[key]]
+        sel = [r for r in rows if r["level"] == level and r["est_t_yr"] is not None and r[key]]
         for r in sel:
             ok = passed(r)
-            yerr = [[r["est_t_yr"] - r["lo"]], [r["hi"] - r["est_t_yr"]]]
+            # An estimate under the bottom of the axis (no plume found) sits on the bottom edge.
+            below = r["est_t_yr"] < AX_MIN
+            y = max(r["est_t_yr"], AX_MIN)
+            lo = min(max(r["lo"], AX_MIN), y)
+            hi = max(r["hi"], y)
             ax.errorbar(
                 r[key],
-                r["est_t_yr"],
-                yerr=np.clip(yerr, 0, None),
-                fmt="o" if ok else "s",
+                y,
+                yerr=[[y - lo], [hi - y]],
+                fmt="v" if below else ("o" if ok else "s"),
                 ms=6,
                 color=colors[r["tier"]],
                 mfc=colors[r["tier"]] if ok else "white",
@@ -275,19 +288,16 @@ def draw_figure(rows: list[dict], level: str, path: Path) -> Path:
             if r["flag_unmonitored_industry"]:
                 ax.annotate(
                     r["name"].split()[0] + " " + str(r["year"])[2:],
-                    (r[key], r["est_t_yr"]),
+                    (r[key], y),
                     fontsize=7,
                     xytext=(4, 4),
                     textcoords="offset points",
                 )
-        both = [r[key] for r in sel] + [r["est_t_yr"] for r in sel]
-        if both:
-            lo, hi = min(both) / 1.5, max(both) * 1.5
-            ax.plot([lo, hi], [lo, hi], color="0.4", lw=1)
-            ax.plot([lo, hi], [lo * 0.8, hi * 0.8], color="0.7", lw=0.8, ls="--")
-            ax.plot([lo, hi], [lo * 1.2, hi * 1.2], color="0.7", lw=0.8, ls="--")
-            ax.set_xlim(lo, hi)
-            ax.set_ylim(lo, hi)
+        ax.plot([AX_MIN, AX_MAX], [AX_MIN, AX_MAX], color="0.4", lw=1)
+        ax.plot([AX_MIN, AX_MAX], [AX_MIN * 0.8, AX_MAX * 0.8], color="0.7", lw=0.8, ls="--")
+        ax.plot([AX_MIN, AX_MAX], [AX_MIN * 1.2, AX_MAX * 1.2], color="0.7", lw=0.8, ls="--")
+        ax.set_xlim(AX_MIN, AX_MAX)
+        ax.set_ylim(AX_MIN, AX_MAX)
         ax.set_xscale("log")
         ax.set_yscale("log")
         ax.set_xlabel("monitors (CEMS), t NOx per year")
@@ -298,6 +308,7 @@ def draw_figure(rows: list[dict], level: str, path: Path) -> Path:
         plt.Line2D([], [], marker="o", ls="", color=colors[1], label="tier 1"),
         plt.Line2D([], [], marker="o", ls="", color=colors[2], label="tier 2"),
         plt.Line2D([], [], marker="s", ls="", mfc="white", color="0.3", label="a gate failed"),
+        plt.Line2D([], [], marker="v", ls="", color="0.3", label="under 1,000 t/yr (no plume)"),
     ]
     axes[0].legend(handles=handles, loc="upper left", fontsize=8, frameon=False)
     fig.suptitle(f"Satellite estimates against US stack monitors, wind {level}", fontsize=11)
