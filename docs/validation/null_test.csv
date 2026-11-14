@@ -1,0 +1,21 @@
+subject_id,name,region,stratum,nearest_big_city,days_used,est_t_yr,gates_failed,n_gates_failed,passes_all_gates
+ph-null-01,"Tripoli, Greece",europe,far,Athens (130 km),142,2537.463088005874,"poor_fit,source_offset,lifetime_out_of_range,low_signal_to_noise",4,False
+ph-null-02,"Dumfries, United Kingdom",europe,far,Edinburgh (100 km),30,1.1184696486712129e-10,"too_few_days,poor_fit,source_offset,lifetime_out_of_range,low_signal_to_noise",5,False
+ph-null-03,"Nevers, France",europe,far,Lyon (185 km),61,4477.47374434242,"poor_fit,source_offset,lifetime_out_of_range,low_signal_to_noise",4,False
+ph-null-04,"Lovec, Bulgaria",europe,far,Sofia (125 km),122,9.743114575880116e-13,"poor_fit,source_offset,lifetime_out_of_range,low_signal_to_noise",4,False
+ph-null-05,"Olbia, Italy",europe,far,Rome (270 km),195,38154.15580831248,"source_offset,lifetime_out_of_range",2,False
+ph-null-06,"Diekirch, Luxembourg",europe,shadow,Saarbrucken (91 km),60,2864.785977645516,"poor_fit,source_offset,lifetime_out_of_range,low_signal_to_noise",4,False
+ph-null-07,"Aosta, Italy",europe,shadow,Turin (79 km),67,9810.083573259317,"poor_fit,source_offset,lifetime_out_of_range",3,False
+ph-null-08,"Vila Real, Portugal",europe,shadow,Braga (64 km),122,11469.912994551092,"source_offset,lifetime_out_of_range",2,False
+ph-null-09,"Appenzell, Switzerland",europe,shadow,Zurich (66 km),42,5838.799005293929,"poor_fit,lifetime_out_of_range,low_signal_to_noise",3,False
+ph-null-10,"Soro, Denmark",europe,shadow,Kobenhavn (68 km),107,3612.807078994656,"poor_fit,source_offset,low_signal_to_noise",3,False
+ph-null-11,"Kanab, United States of America",us,far,Las Vegas (258 km),186,2991.84977031298,"poor_fit,source_offset,lifetime_out_of_range",3,False
+ph-null-12,"Superior, United States of America",us,far,St. Paul (212 km),124,3497.220546866612,"poor_fit,low_signal_to_noise",2,False
+ph-null-13,"Big Spring, United States of America",us,far,Ft. Worth (392 km),218,11020.635896342139,"source_offset,lifetime_out_of_range,low_signal_to_noise",3,False
+ph-null-14,"Walla Walla, United States of America",us,far,Vancouver (336 km),148,7937.715901692991,"poor_fit,source_offset,lifetime_out_of_range",3,False
+ph-null-15,"Mendocino, United States of America",us,far,San Francisco (209 km),196,7448.860891963141,"poor_fit,source_offset,lifetime_out_of_range",3,False
+ph-null-16,"Faribault, United States of America",us,shadow,St. Paul (74 km),132,6272.607353331213,"poor_fit,source_offset,low_signal_to_noise",3,False
+ph-null-17,"Marion, United States of America",us,shadow,Indianapolis (100 km),145,3417.0912382459496,"poor_fit,source_offset,lifetime_out_of_range,low_signal_to_noise",4,False
+ph-null-18,"Brunswick, United States of America",us,shadow,Jacksonville (93 km),149,5820.809916174766,"poor_fit,lifetime_out_of_range,low_signal_to_noise",3,False
+ph-null-19,"Plattsburgh, United States of America",us,shadow,Montreal (90 km),103,5738.838487047931,"poor_fit,source_offset,lifetime_out_of_range,low_signal_to_noise",4,False
+ph-null-20,"Newport, United States of America",us,shadow,Providence (38 km),165,7014.10939552125,"source_offset,low_signal_to_noise",2,False
