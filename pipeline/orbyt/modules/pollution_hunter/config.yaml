@@ -166,6 +166,10 @@ europe:
   register_years: [2023, 2024]
   # PLAN.md section 0: satellite data from July 2022, one processor generation (v2.4 and later).
   first_day: "2022-07-01"
+  # M5.2 (PLAN.md 6, windows.py): rolling windows of this many whole months, stepped by one
+  # month from first_day to the last complete month of the data. 12 is the plan's rolling
+  # 12-month estimate. A window that is a calendar year can be paired with the register.
+  window_months: 12
 
 null_test:
   # M4.5, PLAN.md 4.9 V3: places with no source within 60 km. See null_sites.py for the design.
