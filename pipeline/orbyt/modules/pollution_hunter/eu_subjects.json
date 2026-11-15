@@ -1,0 +1,623 @@
+[
+ {
+  "subject_id": "ph-eu-12a5336d",
+  "register_id": "EL.CAED/100037.FACILITY",
+  "name": "PPC S.A. SES ATHERINOLAKKOY",
+  "city": "LEFKI",
+  "country": "Greece",
+  "sector": "Energy sector",
+  "lat": 35.00491,
+  "lon": 26.13804,
+  "n_facilities": 1,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 7600.0,
+  "reliable": true,
+  "own_detectable": true,
+  "own_enh_umol_m2": 7.058183655317407,
+  "map_noise_umol_m2": 1.5810430220881244,
+  "years": {
+   "2023": {
+    "footprint_t": 7600.0,
+    "members": [
+     {
+      "register_id": "EL.CAED/100037.FACILITY",
+      "name": "PPC S.A. SES ATHERINOLAKKOY",
+      "reported_t": 7600.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 7600.0,
+    "members": [
+     {
+      "register_id": "EL.CAED/100037.FACILITY",
+      "name": "PPC S.A. SES ATHERINOLAKKOY",
+      "reported_t": 7600.0
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-27eb1b72",
+  "register_id": "BG.CAED/013000002.FACILITY",
+  "name": "Maritsa East 2 power station",
+  "city": "Ковачево",
+  "country": "Bulgaria",
+  "sector": "Energy sector",
+  "lat": 42.25642,
+  "lon": 26.13201,
+  "n_facilities": 4,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 5629.7,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 11.92080344480928,
+  "map_noise_umol_m2": 4.103270214545773,
+  "years": {
+   "2023": {
+    "footprint_t": 6874.5,
+    "members": [
+     {
+      "register_id": "BG.CAED/013000002.FACILITY",
+      "name": "Maritsa East 2 power station",
+      "reported_t": 3189.7
+     },
+     {
+      "register_id": "BG.CAED/013000001.FACILITY",
+      "name": "Maritsa East 3 Kontur Global power station",
+      "reported_t": 1932.9
+     },
+     {
+      "register_id": "BG.CAED/013000041.FACILITY",
+      "name": "Maritsa East 1 power station",
+      "reported_t": 1296.2
+     },
+     {
+      "register_id": "BG.CAED/013000004.FACILITY",
+      "name": "Brikel power station",
+      "reported_t": 455.7
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 5629.7,
+    "members": [
+     {
+      "register_id": "BG.CAED/013000002.FACILITY",
+      "name": "Maritsa East 2 power station",
+      "reported_t": 3304.0
+     },
+     {
+      "register_id": "BG.CAED/013000041.FACILITY",
+      "name": "Maritsa East 1 power station",
+      "reported_t": 1464.8
+     },
+     {
+      "register_id": "BG.CAED/013000004.FACILITY",
+      "name": "Brikel power station",
+      "reported_t": 566.4
+     },
+     {
+      "register_id": "BG.CAED/013000001.FACILITY",
+      "name": "Maritsa East 3 Kontur Global power station",
+      "reported_t": 294.5
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-b143a6fb",
+  "register_id": "ES.CAED/001982000.FACILITY",
+  "name": "CENTRAL DIESEL LOS GUINCHOS",
+  "city": "BREÑA",
+  "country": "Spain",
+  "sector": "Energy sector",
+  "lat": 28.66298,
+  "lon": -17.79171,
+  "n_facilities": 1,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 4020.0,
+  "reliable": false,
+  "own_detectable": true,
+  "own_enh_umol_m2": 4.045298737764824,
+  "map_noise_umol_m2": 0.8588080369008821,
+  "years": {
+   "2023": {
+    "footprint_t": 3540.0,
+    "members": [
+     {
+      "register_id": "ES.CAED/001982000.FACILITY",
+      "name": "CENTRAL DIESEL LOS GUINCHOS",
+      "reported_t": 3540.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 4020.0,
+    "members": [
+     {
+      "register_id": "ES.CAED/001982000.FACILITY",
+      "name": "CENTRAL DIESEL LOS GUINCHOS",
+      "reported_t": 4020.0
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-13da8b3b",
+  "register_id": "ES.CAED/006240000.FACILITY",
+  "name": "CENTRAL DIESEL DE MELILLA",
+  "city": "MELILLA",
+  "country": "Spain",
+  "sector": "Energy sector",
+  "lat": 35.29044,
+  "lon": -2.93794,
+  "n_facilities": 1,
+  "selected_from_year": 2023,
+  "latest_register_year": 2023,
+  "latest_footprint_t": 3100.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 5.763437002315186,
+  "map_noise_umol_m2": 12.208524312336522,
+  "years": {
+   "2023": {
+    "footprint_t": 3100.0,
+    "members": [
+     {
+      "register_id": "ES.CAED/006240000.FACILITY",
+      "name": "CENTRAL DIESEL DE MELILLA",
+      "reported_t": 3100.0
+     }
+    ]
+   },
+   "2024": null
+  }
+ },
+ {
+  "subject_id": "ph-eu-4e72dea3",
+  "register_id": "DK.CAED/000105786.FACILITY",
+  "name": "Aalborg Portland A/S",
+  "city": "Aalborg Øst",
+  "country": "Denmark",
+  "sector": "Mineral industry",
+  "lat": 57.06324,
+  "lon": 9.97278,
+  "n_facilities": 8,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2665.1,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 8.752279427426402,
+  "map_noise_umol_m2": 3.110722149722278,
+  "years": {
+   "2023": {
+    "footprint_t": 2739.2,
+    "members": [
+     {
+      "register_id": "DK.CAED/000105786.FACILITY",
+      "name": "Aalborg Portland A/S",
+      "reported_t": 2414.0
+     },
+     {
+      "register_id": "DK.CAED/000105671.FACILITY",
+      "name": "Nordværk I/S - Energianlæg Aalborg",
+      "reported_t": 216.8
+     },
+     {
+      "register_id": "DK.CAED/000106229.FACILITY",
+      "name": "Nordjyllandsværket",
+      "reported_t": 94.2
+     },
+     {
+      "register_id": "DK.CAED/000098592.FACILITY",
+      "name": "Reservecentral Gasværksvej",
+      "reported_t": 10.8
+     },
+     {
+      "register_id": "DK.CAED/000098598.FACILITY",
+      "name": "Nørre Uttrup-Centralen",
+      "reported_t": 2.5
+     },
+     {
+      "register_id": "DK.CAED/000098597.FACILITY",
+      "name": "Lyngvej Centralen",
+      "reported_t": 0.6
+     },
+     {
+      "register_id": "DK.CAED/000103549.FACILITY",
+      "name": "Svendborgvej Varmecentral",
+      "reported_t": 0.3
+     },
+     {
+      "register_id": "DK.CAED/000074159.FACILITY",
+      "name": "Reservecentral Borgmester Jørgensens Vej",
+      "reported_t": 0.1
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2665.1,
+    "members": [
+     {
+      "register_id": "DK.CAED/000105786.FACILITY",
+      "name": "Aalborg Portland A/S",
+      "reported_t": 2335.0
+     },
+     {
+      "register_id": "DK.CAED/000105671.FACILITY",
+      "name": "Nordværk I/S - Energianlæg Aalborg",
+      "reported_t": 210.7
+     },
+     {
+      "register_id": "DK.CAED/000106229.FACILITY",
+      "name": "Nordjyllandsværket",
+      "reported_t": 99.3
+     },
+     {
+      "register_id": "DK.CAED/000098592.FACILITY",
+      "name": "Reservecentral Gasværksvej",
+      "reported_t": 9.4
+     },
+     {
+      "register_id": "DK.CAED/000098598.FACILITY",
+      "name": "Nørre Uttrup-Centralen",
+      "reported_t": 6.3
+     },
+     {
+      "register_id": "DK.CAED/000103549.FACILITY",
+      "name": "Svendborgvej Varmecentral",
+      "reported_t": 3.8
+     },
+     {
+      "register_id": "DK.CAED/000098597.FACILITY",
+      "name": "Lyngvej Centralen",
+      "reported_t": 0.3
+     },
+     {
+      "register_id": "DK.CAED/000074159.FACILITY",
+      "name": "Reservecentral Borgmester Jørgensens Vej",
+      "reported_t": 0.3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-ab4c9fef",
+  "register_id": "DK.CAED/000082966.FACILITY",
+  "name": "TOTAL E&P Danmark A/S - Dan F",
+  "city": "Esbjerg",
+  "country": "Denmark",
+  "sector": "Energy sector",
+  "lat": 55.4808,
+  "lon": 5.10885,
+  "n_facilities": 5,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2642.7,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 0.5320907803252339,
+  "map_noise_umol_m2": 5.601532578111801,
+  "years": {
+   "2023": {
+    "footprint_t": 2406.6,
+    "members": [
+     {
+      "register_id": "DK.CAED/000082966.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Dan F",
+      "reported_t": 1584.0
+     },
+     {
+      "register_id": "DK.CAED/000105110.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Gorm",
+      "reported_t": 568.5
+     },
+     {
+      "register_id": "DK.CAED/000104654.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Halfdan A",
+      "reported_t": 218.9
+     },
+     {
+      "register_id": "DK.CAED/000105124.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Halfdan B",
+      "reported_t": 33.6
+     },
+     {
+      "register_id": "DK.CAED/000104576.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Tyra E",
+      "reported_t": 1.6
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2642.7,
+    "members": [
+     {
+      "register_id": "DK.CAED/000082966.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Dan F",
+      "reported_t": 1699.8
+     },
+     {
+      "register_id": "DK.CAED/000105110.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Gorm",
+      "reported_t": 558.6
+     },
+     {
+      "register_id": "DK.CAED/000104654.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Halfdan A",
+      "reported_t": 274.1
+     },
+     {
+      "register_id": "DK.CAED/000104576.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Tyra E",
+      "reported_t": 79.6
+     },
+     {
+      "register_id": "DK.CAED/000105124.FACILITY",
+      "name": "TOTAL E&P Danmark A/S - Halfdan B",
+      "reported_t": 30.6
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-29d699dd",
+  "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000002110.ProductionFacility",
+  "name": "Outokumpu Chrome Oy, Tornion tehtaat",
+  "city": "Tornio",
+  "country": "Finland",
+  "sector": "Production and processing of metals",
+  "lat": 65.76894,
+  "lon": 24.19413,
+  "n_facilities": 3,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2353.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 6.399146059266059,
+  "map_noise_umol_m2": 2.5581385669738665,
+  "years": {
+   "2023": {
+    "footprint_t": 2001.0,
+    "members": [
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000002110.ProductionFacility",
+      "name": "Outokumpu Chrome Oy, Tornion tehtaat",
+      "reported_t": 1070.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001348.ProductionFacility",
+      "name": "Metsä Fibre Oy, Puunjalostusteollisuus",
+      "reported_t": 578.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0100334781.ProductionFacility",
+      "name": "Metsä Fibre Oy, Kemin biotuotetehdas",
+      "reported_t": 230.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0100184511.ProductionFacility",
+      "name": "Tornion Voima Oy, Röyttän teollisuusalueen voimalaitos ja kattilalai",
+      "reported_t": 123.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2353.0,
+    "members": [
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000002110.ProductionFacility",
+      "name": "Outokumpu Chrome Oy, Tornion tehtaat",
+      "reported_t": 1150.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0100334781.ProductionFacility",
+      "name": "Metsä Fibre Oy, Kemin biotuotetehdas",
+      "reported_t": 1050.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0100184511.ProductionFacility",
+      "name": "Tornion Voima Oy, Röyttän teollisuusalueen voimalaitos ja kattilalai",
+      "reported_t": 153.0
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-3eb9c6ad",
+  "register_id": "EL.CAED/100083.FACILITY",
+  "name": "PPC S.A. - AES THIRA",
+  "city": "THIRAS",
+  "country": "Greece",
+  "sector": "Energy sector",
+  "lat": 36.41309,
+  "lon": 25.47789,
+  "n_facilities": 1,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2250.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 6.649508577538654,
+  "map_noise_umol_m2": 5.241396058772807,
+  "years": {
+   "2023": {
+    "footprint_t": 2250.0,
+    "members": [
+     {
+      "register_id": "EL.CAED/100083.FACILITY",
+      "name": "PPC S.A. - AES THIRA",
+      "reported_t": 2250.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2250.0,
+    "members": [
+     {
+      "register_id": "EL.CAED/100083.FACILITY",
+      "name": "PPC S.A. - AES THIRA",
+      "reported_t": 2250.0
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-54e4378b",
+  "register_id": "NL.RIVM/000203273.FACILITY",
+  "name": "RWE Eemshaven Holding II B.V.",
+  "city": "Eemshaven",
+  "country": "Netherlands",
+  "sector": "Energy sector",
+  "lat": 53.44212,
+  "lon": 6.86172,
+  "n_facilities": 4,
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2020.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 0.42822648538276553,
+  "map_noise_umol_m2": 16.346922134107444,
+  "years": {
+   "2023": {
+    "footprint_t": 1981.0,
+    "members": [
+     {
+      "register_id": "NL.RIVM/000203273.FACILITY",
+      "name": "RWE Eemshaven Holding II B.V.",
+      "reported_t": 1000.0
+     },
+     {
+      "register_id": "NL.RIVM/000104001.FACILITY",
+      "name": "ENGIE Energie Nederland NV",
+      "reported_t": 465.0
+     },
+     {
+      "register_id": "NL.RIVM/000203228.FACILITY",
+      "name": "RWE Eemshaven Magnum B.V.",
+      "reported_t": 344.0
+     },
+     {
+      "register_id": "NL.RIVM/000104003.FACILITY",
+      "name": "Delesto B.V.",
+      "reported_t": 172.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2020.0,
+    "members": [
+     {
+      "register_id": "NL.RIVM/000203273.FACILITY",
+      "name": "RWE Eemshaven Holding II B.V.",
+      "reported_t": 1190.0
+     },
+     {
+      "register_id": "NL.RIVM/000104001.FACILITY",
+      "name": "ENGIE Energie Nederland NV",
+      "reported_t": 473.0
+     },
+     {
+      "register_id": "NL.RIVM/000104003.FACILITY",
+      "name": "Delesto B.V.",
+      "reported_t": 195.0
+     },
+     {
+      "register_id": "NL.RIVM/000203228.FACILITY",
+      "name": "RWE Eemshaven Magnum B.V.",
+      "reported_t": 162.0
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-75284d11",
+  "register_id": "EE.KAUR.TTR/75.FACILITY",
+  "name": "Enefit Power AS, Eesti elektrijaam",
+  "city": "Auvere küla, Narva-Jõesuu linn",
+  "country": "Estonia",
+  "sector": "Energy sector",
+  "lat": 59.27438,
+  "lon": 27.90123,
+  "n_facilities": 5,
+  "selected_from_year": 2023,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 1616.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 2.1320602172636427,
+  "map_noise_umol_m2": 9.162412904152006,
+  "years": {
+   "2023": {
+    "footprint_t": 2544.2,
+    "members": [
+     {
+      "register_id": "EE.KAUR.TTR/75.FACILITY",
+      "name": "Enefit Power AS, Eesti elektrijaam",
+      "reported_t": 856.0
+     },
+     {
+      "register_id": "EE.KAUR.TTR/74.FACILITY",
+      "name": "Enefit Power AS, Balti Elektrijaam\n    Enefit Power AS, Balti Elektrijaam\n    Enefit Power AS, Balti elektrijaam",
+      "reported_t": 726.0
+     },
+     {
+      "register_id": "EE.KAUR.TTR/192.FACILITY",
+      "name": "Enefit Power AS, Auvere elektrijaam",
+      "reported_t": 541.0
+     },
+     {
+      "register_id": "EE.KAUR.TTR/76.FACILITY",
+      "name": "Enefit Power AS, Enefit õlitööstus",
+      "reported_t": 341.0
+     },
+     {
+      "register_id": "EE.KAUR.TTR/38.FACILITY",
+      "name": "Silpower AS, Silpower Aktsiaselts",
+      "reported_t": 80.2
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 1616.0,
+    "members": [
+     {
+      "register_id": "EE.KAUR.TTR/192.FACILITY",
+      "name": "Enefit Power AS, Auvere elektrijaam",
+      "reported_t": 660.0
+     },
+     {
+      "register_id": "EE.KAUR.TTR/75.FACILITY",
+      "name": "Enefit Power AS, Eesti elektrijaam",
+      "reported_t": 465.0
+     },
+     {
+      "register_id": "EE.KAUR.TTR/76.FACILITY",
+      "name": "Enefit Power AS, Enefit õlitööstus",
+      "reported_t": 276.0
+     },
+     {
+      "register_id": "EE.KAUR.TTR/74.FACILITY",
+      "name": "Enefit Power AS, Balti Elektrijaam\n    Enefit Power AS, Balti Elektrijaam\n    Enefit Power AS, Balti elektrijaam",
+      "reported_t": 215.0
+     }
+    ]
+   }
+  }
+ }
+]

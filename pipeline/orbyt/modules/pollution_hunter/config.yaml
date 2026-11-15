@@ -157,6 +157,16 @@ verdict:
   # the scatter near 0.8. Set from US data only, never from Europe.
   u_sys: 0.35
 
+europe:
+  # M5.1 (PLAN.md 1.7 and 6, eu_set.py): the European subjects are the footprints that pass all
+  # four isolation checks of `candidates` and have at least candidates.min_footprint_t of
+  # reported NOx in one of these register years. Compared years are the calendar years in which
+  # the register and the satellite overlap (PLAN.md section 0). Chosen from the register, the
+  # city list and the 2024 NO2 map alone, before any European estimate exists.
+  register_years: [2023, 2024]
+  # PLAN.md section 0: satellite data from July 2022, one processor generation (v2.4 and later).
+  first_day: "2022-07-01"
+
 null_test:
   # M4.5, PLAN.md 4.9 V3: places with no source within 60 km. See null_sites.py for the design.
   # A fixed seed, so the draw can be repeated. Chosen before any null-site estimate exists.
