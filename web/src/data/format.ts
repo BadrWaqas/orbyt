@@ -55,3 +55,13 @@ const COMPASS = ["north", "north-east", "east", "south-east", "south", "south-we
 export function compassWord(deg: number): string {
   return COMPASS[Math.round((((deg % 360) + 360) % 360) / 45) % 8];
 }
+
+/** A ratio with one decimal and a multiplication sign: "1.1x" in the plan's wording (PLAN.md 9.9). */
+export function formatRatio(value: number): string {
+  return `${oneDecimal.format(value)}\u00d7`;
+}
+
+/** "1.1x reported (0.6 to 2.3)", the text beside the gap bar. */
+export function ratioText(r: { value: number; lo: number; hi: number }): string {
+  return `${formatRatio(r.value)} reported (${oneDecimal.format(r.lo)} to ${oneDecimal.format(r.hi)})`;
+}

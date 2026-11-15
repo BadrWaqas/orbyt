@@ -7,6 +7,7 @@ import type { Finding } from "../data/types";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Evidence } from "./Evidence";
 import { ClusterNote, DetectionNote, ValidationCheck } from "./ValidationCheck";
+import { VerdictBlock } from "./VerdictBlock";
 
 const EXIT_MS = 240; // PLAN.md 9.7: the panel slides and fades in 240 ms
 const REGISTER_FIRST_YEAR = 2007; // the EEA register covers reporting years from 2007 on
@@ -24,9 +25,8 @@ interface Props {
 }
 
 /**
- * The VerdictPanel as far as it goes (PLAN.md 9.6): the number pair, the evidence tabs where a
- * satellite estimate exists, the reported series and the sources. The gap bar, verdict and grade
- * follow once the verdict rules are in place.
+ * The VerdictPanel (PLAN.md 9.6): the number pair, the gap bar with the verdict and grade, the
+ * evidence tabs where a satellite estimate exists, the reported series and the sources.
  */
 export function FacilityPanel({ finding, lastYear, onClose }: Props) {
   // Keep the last facility on screen while the panel slides out.
@@ -172,6 +172,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
           monitors, estimates that pass every quality check scatter by about 35% more than that.
         </p>
       )}
+      <VerdictBlock finding={finding} />
       {finding.cluster && <ClusterNote cluster={finding.cluster} />}
       {finding.detection && <DetectionNote detection={finding.detection} />}
 
