@@ -733,6 +733,17 @@ main[data-view="home"] .earth-halo {
   box-shadow: inset 0 0 0 1px rgba(124, 196, 255, 0.14);
 }
 
+/* The poster (PLAN.md 2.7): a picture of the globe as the live map draws it in the home view,
+   made by scripts/make-poster.mjs. The continents are there at once, and the map cross-fades in
+   over them when its tiles have arrived. The picture is 1.12 times the globe across, so it holds
+   the haze round the limb. index.html draws the same picture before any script has run. */
+.earth-poster::after {
+  content: "";
+  position: absolute;
+  inset: calc(-6% - 1px);
+  background: url("/img/earth-poster.webp") center / 100% 100% no-repeat;
+}
+
 main[data-globe="ready"] .earth-poster {
   opacity: 0;
 }

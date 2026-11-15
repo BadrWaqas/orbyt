@@ -18,10 +18,50 @@
         margin: 0;
         background: #000;
       }
+
+      /* The poster of the Earth (PLAN.md 2.7), painted before any script has loaded. The app
+         draws the same picture in the same place when it starts (.earth-poster in
+         src/design/index.css), and the live map cross-fades in over it. */
+      #shell-earth {
+        position: fixed;
+        left: var(--globe-cx);
+        top: var(--globe-cy);
+        width: calc(var(--globe-d) * 1.12);
+        height: calc(var(--globe-d) * 1.12);
+        translate: -50% -50%;
+        background: url("/img/earth-poster.webp") center / 100% 100% no-repeat;
+      }
     </style>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Where the Earth sits on the home screen, worked out before the app has loaded. These
+      // are the globe's numbers from homeLayout() in src/app/layout.ts. Keep the two in step.
+      (function () {
+        if ((location.pathname.replace(/\/+$/, "") || "/") !== "/") return;
+        if (new URLSearchParams(location.search).get("f")) return; // a facility link opens the module
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var room = h - 72 - 150 - 32;
+        var d = Math.min(0.5 * h, 0.36 * w, room - 16);
+        var reach = d / 2 + Math.max(56, 0.17 * d);
+        var card = Math.min(280, Math.floor(w / 2 - reach - 24));
+        var cy = 72 + room / 2;
+        if (!(w >= 900 && room >= 3 * 132 && card >= 220)) {
+          d = Math.max(96, Math.min(0.68 * w, 0.34 * h, 300));
+          cy = 64 + d / 2;
+        }
+        var root = document.getElementById("root");
+        root.style.setProperty("--globe-cx", Math.round(w / 2) + "px");
+        root.style.setProperty("--globe-cy", Math.round(cy) + "px");
+        root.style.setProperty("--globe-d", Math.round(d) + "px");
+        var earth = document.createElement("div");
+        earth.id = "shell-earth";
+        earth.setAttribute("aria-hidden", "true");
+        root.appendChild(earth);
+      })();
+    </script>
     <noscript>Orbyt Earth needs JavaScript to draw the globe.</noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>

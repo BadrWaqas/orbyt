@@ -34,7 +34,8 @@ export const STORY_PANEL_LEAD_MS = 300;
 // window the cards stand either side of the globe on a shallow arc ("orbit"). Where there is no
 // room for that, they form a grid under it ("stack"). The camera (globe/Globe.tsx) and the page
 // (app/Home.tsx and design/index.css) both read these numbers, so the globe, its halo and the
-// cards always agree on where the Earth is.
+// cards always agree on where the Earth is. index.html repeats the globe's three numbers in a
+// few lines of script, to place the poster of the Earth before the app has loaded.
 
 const HOME_ORBIT_MIN_WIDTH_PX = 900;
 const HOME_ORBIT_TOP_PX = 72; // the header
