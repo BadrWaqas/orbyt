@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Leaderboard } from "../panels/Leaderboard";
+import { MethodBody } from "./MethodBody";
 import { Link } from "./Link";
 import type { PageView } from "./route";
 
@@ -18,35 +19,7 @@ export const PAGE_TITLES: Record<PageView, string> = {
 
 const BODIES: Record<PageView, ReactNode> = {
   leaderboard: <Leaderboard />,
-  method: (
-    <>
-      <p>Every satellite estimate on Orbyt Earth comes from the same five steps.</p>
-      <ol>
-        <li>
-          Collect every clear, windy day in a year of Sentinel-5P NO<sub>2</sub> images around the
-          source.
-        </li>
-        <li>
-          Rotate each day so the wind points the same way, and turn distance from the source into
-          travel time.
-        </li>
-        <li>
-          Average the days. The noise cancels and one curve is left: it jumps at the source and
-          fades downwind.
-        </li>
-        <li>
-          Fit that curve. Its height gives the emission rate, and its decay gives the lifetime of
-          NO<sub>2</sub> in the plume.
-        </li>
-        <li>
-          Convert NO<sub>2</sub> to NO<sub>x</sub>, correct for the satellite reading low near
-          point sources, and resample the days to get an interval. Only then is the estimate set
-          next to the reported figure.
-        </li>
-      </ol>
-      <p>The full method page, with every constant and its source, is on its way.</p>
-    </>
-  ),
+  method: <MethodBody />,
   about: (
     <>
       <p>

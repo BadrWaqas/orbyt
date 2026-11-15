@@ -1411,3 +1411,51 @@ main:not([data-view="home"]) .home-item {
   align-items: center;
   gap: 6px;
 }
+
+/* The method drawer inside the panel (PLAN.md 9.6) and its steps. */
+.method-drawer {
+  margin-top: 16px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-2);
+}
+
+.method-drawer summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.method-drawer summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.method-drawer ol {
+  padding-left: 1.4em;
+  list-style: decimal;
+}
+
+.method-drawer li + li {
+  margin-top: 8px;
+}
+
+.method-drawer strong {
+  color: var(--text);
+}
+
+.method-fact {
+  display: block;
+  margin-top: 2px;
+  color: var(--ledger);
+}
+
+.page-body ul {
+  padding-left: 1.2em;
+  list-style: disc;
+}

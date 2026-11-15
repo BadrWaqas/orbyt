@@ -6,6 +6,7 @@ import { BASIS_LABEL, countryName, formatTonnes } from "../data/format";
 import type { Finding } from "../data/types";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Evidence } from "./Evidence";
+import { MethodDrawer } from "./MethodDrawer";
 import { ClusterNote, DetectionNote, ValidationCheck } from "./ValidationCheck";
 import { SheetHandle, SNAP_CSS, type Snap } from "./SheetHandle";
 import { VerdictBlock } from "./VerdictBlock";
@@ -184,6 +185,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
       )}
       <VerdictBlock finding={finding} />
       {finding.cluster && <ClusterNote cluster={finding.cluster} />}
+      <MethodDrawer finding={finding} />
       {finding.detection && <DetectionNote detection={finding.detection} />}
 
       {us && detail.status === "ready" && detail.data.id === finding.id && detail.data.validation && (
