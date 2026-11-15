@@ -44,15 +44,15 @@ Every data source, free tier and library version in this plan was checked on 12 
 ### What the MVP is
 
 - A live public URL with a dark 3D globe and a monthly NO2 layer from July 2022 to the latest month.
-- At least 25 European facilities or clusters with a verdict for 2023 and 2024: reported tonnes, satellite estimate with interval, ratio, confidence grade.
-- A validation page: the same method against hourly stack monitors at 25 or more US power plants.
+- Three European facilities with a verdict (reported tonnes, satellite estimate with interval, ratio, confidence grade), and twelve more listed with the reason they have none: below the 6,000 t floor, or the quality gates failed. The first target of 25 was not reachable with this register and method, see section 1.7 and docs/decisions.md.
+- A validation page: the same method against hourly stack monitors at 13 US power plants. Seven of their estimates pass every quality gate.
 - A page per facility with a share card, a leaderboard, a method page and a corrections page.
 - It works on a phone.
 
 ### Three things to accept up front
 
 1. Most European results will come out "consistent with reported". Large EU plants have stack monitors and the best published satellite catalogue agrees with the German register within about 20% on average. The product is the check itself, shown beautifully. A scandal is not required for it to be good.
-2. Only large, isolated sources can be measured. The practical floor is about 2,000 to 3,500 tonnes of NOx a year. Facilities inside cities or dense industrial clusters cannot be separated.
+2. Only large, isolated sources can be measured. The practical floor is about 6,000 tonnes of NOx a year, measured on 13 US plants and confirmed on 15 European subjects: below that, almost no estimate passes the quality gates. Facilities inside cities or dense industrial clusters cannot be separated.
 3. A single facility estimate carries roughly 40% uncertainty until your own validation tightens it. With that, a gap has to be about 2.5 times before the site is allowed to flag it.
 
 ### Timeline
@@ -66,7 +66,7 @@ About 11 weeks at 8 to 10 hours a week. Internship hiring runs through the winte
 | M2 First paired numbers | 2 | Reported vs published satellite estimates, leaderboard v0 |
 | M3 Your own estimate | 3 to 4 | One facility measured end to end by your code |
 | M4 Validation | 5 to 6 | Scatter plot against US stack monitors |
-| M5 Europe at scale | 7 | 25 or more verdicts |
+| M5 Europe at scale | 7 | 15 subjects measured, 3 with a verdict (see 1.7) |
 | M6 Product UI | 8 to 9 | Side panel, time slider, share pages, mobile |
 | M7 Visual polish | 10 | Glow, cinematic intro, scroll story |
 | M8 Trust and launch | 11 | Domain, method page, launch clip |
@@ -164,6 +164,17 @@ Count the facilities and clusters in the EEA data that reported at least 2,000 t
 
 - 20 or more: proceed as planned.
 - Fewer than 20: keep going, but lower the bar to clusters (compare the satellite estimate with the summed reported emissions inside a 20 km footprint), and bring the US plants onto the public map as well as the validation page.
+
+**Outcome (2026-11-15).** The count was 10, so the fewer-than-20 branch applies. Clusters were added as the plan says: five more footprints that fail only the sources check, compared with the NOx summed inside 20 km, graded C. The 13 US plants are on the public map. The city and hotspot checks were kept, the US validation supports them.
+
+The real numbers:
+
+- 15 European subjects (10 isolated, 5 clusters) of at least 2,000 t in 2023 or 2024. Only one is at 6,000 t or more.
+- 3 have a verdict, all "consistent with reported": Atherinolakkos, Los Guinchos and Melilla. None is "higher" or "lower". The other 12 are inconclusive: no calendar year passes every quality gate.
+- The practical floor is 6,000 t, not 2,000 t. Both the US validation (M4.4) and the European run show it. Footprints below it stay on the site, labelled "below reliable detection".
+- The target of 25 European verdicts is dropped. Reaching it would take a larger register, a better method for small sources, or loosening the isolation checks, and the validation does not support the last. The leaderboard shows what exists: a few checks, the US test sites, and the inconclusive ones with their reasons.
+
+The choices behind this are in docs/decisions.md (M5.1 to M5.6, and the 2026-11-15 entry on the revised target).
 
 ---
 

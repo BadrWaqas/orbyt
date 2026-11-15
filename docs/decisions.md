@@ -293,3 +293,13 @@ Panel text: the line saying the method had not been checked against stack monito
 **Result.** All five are inconclusive: no calendar year passes every gate for any of them. Marinha Grande (2,144 t reported, 13,816 t estimated in 2023) and Figueira da Foz (2,511 t, 6,795 t) fail only the source offset gate, so they are not a finding. The plume does not start at the site, which is what a second source nearby would do. The verdict count stays at 3 (Atherinolakkos, Los Guinchos, Melilla), all consistent, none higher.
 
 **Code.** `eu_set.select` takes `failed_checks` and `neighbours_of`, `verdict.grade(..., cluster=True)` gives C, `compare.cluster_info` writes the label, `contracts.ClusterInfo` is new and optional, so the contract stays in v1.
+
+## 2026-11-15, The target is revised to the real numbers
+
+**Decision (Badr).** PLAN.md section 0 and 1.7 now say what the data support: 3 European verdicts (all consistent, none higher), 12 further European subjects that are inconclusive or below reliable detection, 13 validated US plants, and a practical floor of 6,000 t of NOx a year.
+
+**Why.** 10 isolated European footprints of at least 2,000 t (the plan's gate asks for 20) and 5 clusters that fail only the sources check. One of the 15 is at 6,000 t or more. In the US validation and in Europe, estimates below about 6,000 t almost never pass the quality gates. The city and hotspot checks stay, so they are not loosened to reach a count.
+
+**What changed in the plan.** The MVP list (25 European verdicts, 25 US plants), the second "accept up front" point (floor of 2,000 to 3,500 t), the M5 row of the milestone table, and a new outcome paragraph in 1.7. Nothing else was touched.
+
+**What it means for the product.** The site is a small set of honest checks plus the US test sites, with the unmeasured ones listed and labelled. The leaderboard keeps inconclusive rows, with the reason, rather than hiding them.
