@@ -25,10 +25,12 @@ interface Props {
   ratio: Ratio;
   /** Compact for the leaderboard rows: no ticks, no text. */
   mini?: boolean;
+  /** A test site: the gap is shown in grey, since it carries no verdict. */
+  neutral?: boolean;
 }
 
-export function GapBar({ ratio, mini = false }: Props) {
-  const colour = gapColour(ratio);
+export function GapBar({ ratio, mini = false, neutral = false }: Props) {
+  const colour = neutral ? "var(--gap-consistent)" : gapColour(ratio);
   const lo = at(ratio.lo);
   const hi = at(ratio.hi);
   const clipped = ratio.lo < AXIS_MIN || ratio.hi > AXIS_MAX;

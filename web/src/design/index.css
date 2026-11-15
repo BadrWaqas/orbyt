@@ -1264,3 +1264,102 @@ main:not([data-view="home"]) .home-item {
   text-decoration: none;
   cursor: help;
 }
+
+/* The leaderboard (PLAN.md 9.6). */
+.page-column-wide {
+  max-width: 1000px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-2);
+}
+
+.filters select {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-chip);
+  background: var(--panel-solid);
+  color: var(--text);
+  font: inherit;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-top: 1px solid var(--hairline);
+}
+
+.leaderboard {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 12px 12px 12px 0;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+  vertical-align: top;
+  color: var(--text-2);
+}
+
+.leaderboard thead th {
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+.leaderboard tbody th {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.leaderboard .num {
+  text-align: right;
+  white-space: nowrap;
+  padding-right: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.row-sub {
+  display: block;
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+.row-tag {
+  margin-left: 8px;
+  padding: 0 6px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-chip);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-2);
+}
+
+.ratio-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 130px;
+  white-space: nowrap;
+}
+
+.verdict-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
+import { Leaderboard } from "../panels/Leaderboard";
 import { Link } from "./Link";
 import type { PageView } from "./route";
 
@@ -16,18 +17,7 @@ export const PAGE_TITLES: Record<PageView, string> = {
 };
 
 const BODIES: Record<PageView, ReactNode> = {
-  leaderboard: (
-    <>
-      <p>
-        The leaderboard will list every checked source with its reported figure, the satellite
-        estimate and the gap between the two, sorted by the most cautious reading of that gap.
-      </p>
-      <p>
-        It opens once enough sources have a satellite estimate. Until then, every facility's
-        reported figure is on the globe.
-      </p>
-    </>
-  ),
+  leaderboard: <Leaderboard />,
   method: (
     <>
       <p>Every satellite estimate on Orbyt Earth comes from the same five steps.</p>
@@ -88,7 +78,7 @@ export function Page({ view }: { view: PageView }) {
 
   return (
     <article className="page" key={view}>
-      <div className="page-column">
+      <div className={view === "leaderboard" ? "page-column page-column-wide" : "page-column"}>
         <h1 ref={title} tabIndex={-1} className="page-title">
           {PAGE_TITLES[view]}
         </h1>
