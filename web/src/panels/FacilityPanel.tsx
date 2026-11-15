@@ -7,6 +7,7 @@ import type { Finding } from "../data/types";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Evidence } from "./Evidence";
 import { ClusterNote, DetectionNote, ValidationCheck } from "./ValidationCheck";
+import { SheetHandle, SNAP_CSS, type Snap } from "./SheetHandle";
 import { VerdictBlock } from "./VerdictBlock";
 
 const EXIT_MS = 240; // PLAN.md 9.7: the panel slides and fades in 240 ms
@@ -53,11 +54,18 @@ export function FacilityPanel({ finding, lastYear, onClose }: Props) {
   const panel = useRef<HTMLElement>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const shownId = shown?.id;
+  // On a phone the panel is a sheet with three snap points. Each facility opens at the middle one.
+  const [snap, setSnap] = useState<Snap>("half");
   useEffect(() => {
     if (!shownId) return;
     panel.current?.focus({ preventScroll: true });
     scroller.current?.scrollTo({ top: 0 });
+    setSnap("half");
   }, [shownId]);
+  // The globe's attribution button rides on top of the sheet, so it needs the sheet's height.
+  useEffect(() => {
+    panel.current?.parentElement?.style.setProperty("--sheet-height", SNAP_CSS[snap]);
+  }, [snap, shownId]);
 
   // The panel is often taller than the window. While there is more below, its lower edge fades
   // out, so a line is never left looking cut off.
@@ -84,8 +92,10 @@ export function FacilityPanel({ finding, lastYear, onClose }: Props) {
       tabIndex={-1}
       aria-label={`Facility: ${shown.subject.display_name ?? shown.subject.name}`}
       data-state={closing ? "closing" : "open"}
+      data-snap={snap}
       className="glass facility-panel"
     >
+      <SheetHandle sheet={panel} snap={snap} onSnap={setSnap} />
       <div ref={scroller} className="facility-panel-scroll" data-more={more}>
         <div>
           <PanelBody key={shown.id} finding={shown} lastYear={lastYear} onClose={onClose} />
