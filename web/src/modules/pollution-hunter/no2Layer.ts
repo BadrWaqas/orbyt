@@ -34,7 +34,9 @@ interface Options {
   /** Draw underneath this layer, so borders and labels stay readable on top of the glow. */
   beforeId: string;
   reducedMotion: boolean;
-  /** Called once, when the layer starts to show. */
+  /** Whether the layer shows from the start. On the home screen it waits, loaded but dark. */
+  shown: boolean;
+  /** Called once, when the layer is ready and starts to show, or would if it were asked to. */
   onVisible?: () => void;
 }
 
@@ -125,6 +127,8 @@ function addRaster(map: MapLibreMap, beforeId: string, reducedMotion: boolean): 
 }
 
 export interface No2Layer {
+  /** Fade the whole layer in or out over `ms`. Asked before the tiles are in, it is remembered. */
+  setShown(shown: boolean, ms: number): void;
   /**
    * Draw one facility's daily plume around it (sitePlume.ts). Null takes it off. Only the glow
    * can draw it: with the raster fallback `onShown` is never called with true.
@@ -137,11 +141,18 @@ export interface No2Layer {
  * Add the NO2 layer to a loaded map. It starts clear and fades in once its first tiles have
  * arrived, so it never pops in tile by tile.
  */
-export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisible }: Options): No2Layer {
+export function addNo2Layer(
+  map: MapLibreMap,
+  { beforeId, reducedMotion, shown, onVisible }: Options,
+): No2Layer {
   const fadeMs = reducedMotion ? 0 : FADE_IN_MS;
   let cancelled = false;
   let glow: No2Glow | null = null;
   let raster: RasterLayers | null = null;
+  // The level the layer should be at, 0 or 1. Whichever way it is drawn follows this.
+  let want = shown ? 1 : 0;
+  let glowLive = false; // the glow has its first tiles and is the layer on show
+  let rasterLive = false; // the same for the raster fallback
   // The site plume asked for last, kept so it can be handed to the glow when that arrives.
   let sitePlume: { spec: SitePlumeSpec | null; onShown?: (shown: boolean) => void } = { spec: null };
 
@@ -149,7 +160,8 @@ export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisib
     raster = addRaster(map, beforeId, reducedMotion);
     await raster.ready;
     if (cancelled) return;
-    raster.setOpacity(1, fadeMs);
+    rasterLive = true;
+    raster.setOpacity(want, fadeMs);
   };
 
   /** deck.gl failed after it was added: take it off and make sure the raster is there instead. */
@@ -157,8 +169,11 @@ export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisib
     if (cancelled) return;
     glow?.remove();
     glow = null;
-    if (raster) raster.setOpacity(1, 0);
-    else void showRaster();
+    glowLive = false;
+    if (raster) {
+      rasterLive = true;
+      raster.setOpacity(want, 0);
+    } else void showRaster();
   };
 
   const tryGlow = (mod: typeof import("./no2Glow")) => {
@@ -178,7 +193,10 @@ export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisib
     if (glow) {
       await glow.ready;
       if (cancelled) return;
-      glow?.fadeTo(1, fadeMs);
+      if (glow) {
+        glowLive = true;
+        glow.fadeTo(want, fadeMs);
+      }
       onVisible?.();
       return;
     }
@@ -196,7 +214,9 @@ export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisib
     await glow.ready;
     if (cancelled || !glow) return;
     const swapMs = reducedMotion ? 0 : SWAP_MS;
-    glow.fadeTo(1, swapMs);
+    glowLive = true;
+    rasterLive = false;
+    glow.fadeTo(want, swapMs);
     raster?.setOpacity(0, swapMs);
     await wait(swapMs + 100);
     if (cancelled || !glow) return; // the glow failed during the swap, the raster is back
@@ -206,6 +226,12 @@ export function addNo2Layer(map: MapLibreMap, { beforeId, reducedMotion, onVisib
   void start();
 
   return {
+    setShown(next, ms) {
+      want = next ? 1 : 0;
+      if (cancelled) return;
+      if (glowLive) glow?.fadeTo(want, ms);
+      if (rasterLive) raster?.setOpacity(want, ms);
+    },
     setSitePlume(spec, onShown) {
       sitePlume = { spec, onShown };
       glow?.setSitePlume(spec, onShown);

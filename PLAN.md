@@ -332,7 +332,7 @@ Naming note: "Drought water thieves" accuses people of a crime in the title. Use
 
 - One page, one map. A single MapLibre instance lives for the whole session. The intro, the story and the explore view all drive the same camera, so nothing reloads between them.
 - The URL is the state: `/explore?m=pollution-hunter&f=<id>&t=2024-06`. Every view is a shareable link. Zustand holds only short-lived UI state.
-- Routes: `/` (intro, story, globe), `/explore`, `/leaderboard`, `/method`, `/validation`, `/data`, `/corrections`, `/about`.
+- Routes: `/` (home screen: the Earth with the six modules around it), `/explore` (a module: intro, story, globe), `/leaderboard`, `/method`, `/validation`, `/data`, `/corrections`, `/about`. A link with `f=<id>` opens Pollution Hunter on that facility from any path.
 - Share pages: a small build script writes `/f/<slug>/index.html` for every finding. Each is a copy of the app shell with that facility's title, description and share image in the meta tags, so links unfurl properly on LinkedIn.
 - First paint: the HTML shell contains the hero text and a poster image of the globe. They appear immediately. The map loads behind and cross-fades in when ready. deck.gl is a separate chunk loaded when idle.
 - Modules register a descriptor (2.6). The app reads `manifest.json`, shows the modules it finds, and loads a module's code on demand.
