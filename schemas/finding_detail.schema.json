@@ -1,0 +1,897 @@
+{
+  "$defs": {
+    "Basis": {
+      "description": "How a reported number was obtained, as the register says.",
+      "enum": [
+        "measured",
+        "calculated",
+        "estimated",
+        "stated",
+        "unknown"
+      ],
+      "title": "Basis",
+      "type": "string"
+    },
+    "Comparison": {
+      "additionalProperties": false,
+      "properties": {
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "periods": {
+          "items": {
+            "$ref": "#/$defs/PeriodComparison"
+          },
+          "type": "array"
+        },
+        "u_sys": {
+          "type": "number"
+        },
+        "verdict_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "u_sys",
+        "verdict_reason",
+        "flags",
+        "periods"
+      ],
+      "title": "Comparison",
+      "type": "object"
+    },
+    "DayRow": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "frame": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wind_dir_deg": {
+          "type": "number"
+        },
+        "wind_ms": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "date",
+        "wind_ms",
+        "wind_dir_deg",
+        "frame"
+      ],
+      "title": "DayRow",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "flipbook": {
+          "type": "string"
+        },
+        "flipbook_sheet": {
+          "$ref": "#/$defs/FlipbookSheet"
+        },
+        "stack": {
+          "$ref": "#/$defs/StackGeometry"
+        },
+        "stack_image": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "stack_image",
+        "flipbook",
+        "stack",
+        "flipbook_sheet"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "FlipbookSheet": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "type": "integer"
+        },
+        "frame_h": {
+          "type": "integer"
+        },
+        "frame_w": {
+          "type": "integer"
+        },
+        "full_scale_umol_m2": {
+          "type": "number"
+        },
+        "half_km": {
+          "type": "number"
+        },
+        "n_frames": {
+          "type": "integer"
+        },
+        "rows": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "frame_w",
+        "frame_h",
+        "columns",
+        "rows",
+        "n_frames",
+        "half_km",
+        "full_scale_umol_m2"
+      ],
+      "title": "FlipbookSheet",
+      "type": "object"
+    },
+    "FootprintMember": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "register_id": {
+          "type": "string"
+        },
+        "reported_t": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "register_id",
+        "name",
+        "reported_t"
+      ],
+      "title": "FootprintMember",
+      "type": "object"
+    },
+    "IntervalBasis": {
+      "description": "What ``lo`` and ``hi`` cover. ``sampling`` is the bootstrap over days only (PLAN.md 4.7).",
+      "enum": [
+        "sampling",
+        "total"
+      ],
+      "title": "IntervalBasis",
+      "type": "string"
+    },
+    "Observed": {
+      "additionalProperties": false,
+      "properties": {
+        "hi": {
+          "type": "number"
+        },
+        "interval_basis": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IntervalBasis"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "lifetime_h": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "lo": {
+          "type": "number"
+        },
+        "method": {
+          "type": "string"
+        },
+        "n_days": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "lo",
+        "hi",
+        "unit",
+        "method"
+      ],
+      "title": "Observed",
+      "type": "object"
+    },
+    "PeriodComparison": {
+      "additionalProperties": false,
+      "description": "One register year against its calendar-year estimate. Numbers only when it passed.",
+      "properties": {
+        "gates_failed": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/FootprintMember"
+          },
+          "type": "array"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PeriodObserved"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ratio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ratio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reported_t": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "reported_t",
+        "members",
+        "status",
+        "reason",
+        "observed",
+        "ratio",
+        "gates_failed"
+      ],
+      "title": "PeriodComparison",
+      "type": "object"
+    },
+    "PeriodObserved": {
+      "additionalProperties": false,
+      "properties": {
+        "hi": {
+          "type": "number"
+        },
+        "lifetime_h": {
+          "type": "number"
+        },
+        "lo": {
+          "type": "number"
+        },
+        "n_days": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "lo",
+        "hi",
+        "n_days",
+        "lifetime_h"
+      ],
+      "title": "PeriodObserved",
+      "type": "object"
+    },
+    "PlumeFit": {
+      "additionalProperties": false,
+      "properties": {
+        "b": {
+          "type": "number"
+        },
+        "q": {
+          "type": "number"
+        },
+        "r2": {
+          "type": "number"
+        },
+        "sigma": {
+          "type": "number"
+        },
+        "t0": {
+          "type": "number"
+        },
+        "tau": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "q",
+        "tau",
+        "sigma",
+        "t0",
+        "b",
+        "r2"
+      ],
+      "title": "PlumeFit",
+      "type": "object"
+    },
+    "PlumeProfileData": {
+      "additionalProperties": false,
+      "description": "The stacked curve F(t) and its EMG fit (PLAN.md 4.3).",
+      "properties": {
+        "fit": {
+          "$ref": "#/$defs/PlumeFit"
+        },
+        "fit_mol_s": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "flux_mol_s": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "t_h": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "t_h",
+        "flux_mol_s",
+        "fit_mol_s",
+        "fit"
+      ],
+      "title": "PlumeProfileData",
+      "type": "object"
+    },
+    "Ratio": {
+      "additionalProperties": false,
+      "properties": {
+        "hi": {
+          "type": "number"
+        },
+        "lo": {
+          "type": "number"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "lo",
+        "hi"
+      ],
+      "title": "Ratio",
+      "type": "object"
+    },
+    "ReportedPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/Basis"
+        },
+        "value": {
+          "type": "number"
+        },
+        "year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "value",
+        "basis"
+      ],
+      "title": "ReportedPoint",
+      "type": "object"
+    },
+    "RollingWindow": {
+      "additionalProperties": false,
+      "description": "The estimate for one rolling 12-month window. Not paired with the register.",
+      "properties": {
+        "calendar_year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "end": {
+          "type": "string"
+        },
+        "gates_failed": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "hi": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "lo": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "n_days": {
+          "type": "integer"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "start": {
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "label",
+        "calendar_year",
+        "n_days",
+        "passed",
+        "value",
+        "lo",
+        "hi",
+        "gates_failed"
+      ],
+      "title": "RollingWindow",
+      "type": "object"
+    },
+    "StackGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "crosswind_km": {
+          "items": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "fan_half_width_km": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "full_scale_umol_m2": {
+          "type": "number"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "mean_wind_ms": {
+          "type": "number"
+        },
+        "n_days": {
+          "type": "integer"
+        },
+        "t_h": {
+          "items": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "width": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "width",
+        "height",
+        "t_h",
+        "crosswind_km",
+        "full_scale_umol_m2",
+        "mean_wind_ms",
+        "fan_half_width_km",
+        "n_days"
+      ],
+      "title": "StackGeometry",
+      "type": "object"
+    },
+    "ValidationDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "tier": {
+          "type": "integer"
+        },
+        "u_sys": {
+          "type": "number"
+        },
+        "unmonitored_largest": {
+          "type": "string"
+        },
+        "unmonitored_t": {
+          "type": "number"
+        },
+        "years": {
+          "items": {
+            "$ref": "#/$defs/ValidationYear"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "tier",
+        "unmonitored_t",
+        "unmonitored_largest",
+        "u_sys",
+        "years"
+      ],
+      "title": "ValidationDetail",
+      "type": "object"
+    },
+    "ValidationYear": {
+      "additionalProperties": false,
+      "properties": {
+        "days": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "estimate_t": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "footprint_t": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gates_failed": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "hi": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lo": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "monitors_at_pass_t": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "monitors_t": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "ratio_at_pass": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ratio_footprint": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "estimate_t",
+        "lo",
+        "hi",
+        "passed",
+        "gates_failed",
+        "days",
+        "monitors_at_pass_t",
+        "monitors_t",
+        "footprint_t",
+        "ratio_at_pass",
+        "ratio_footprint"
+      ],
+      "title": "ValidationYear",
+      "type": "object"
+    },
+    "Verdict": {
+      "enum": [
+        "higher",
+        "consistent",
+        "lower",
+        "inconclusive",
+        "unpaired"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "$id": "https://orbytearth.com/schemas/v1/finding_detail.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "comparison": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Comparison"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "days": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/DayRow"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "evidence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Evidence"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "id": {
+      "type": "string"
+    },
+    "observed": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Observed"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "profile": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlumeProfileData"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reported_series": {
+      "items": {
+        "$ref": "#/$defs/ReportedPoint"
+      },
+      "type": "array"
+    },
+    "rolling": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/RollingWindow"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "sources": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "validation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ValidationDetail"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "id",
+    "reported_series",
+    "sources"
+  ],
+  "title": "FindingDetail",
+  "type": "object"
+}

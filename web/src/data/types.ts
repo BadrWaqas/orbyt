@@ -1,188 +1,365 @@
-// The data contract the pipeline publishes under /data/v1 (PLAN.md 2.5 and Appendix B).
-// Written by hand for now. Milestone M5.5 replaces this file with types generated from the
-// pipeline's JSON Schema.
+/* The data contract of /data/v1 (PLAN.md 2.5 and Appendix B).
 
-export type Basis = "measured" | "calculated" | "estimated" | "stated" | "unknown";
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Verdict".
+ */
 export type Verdict = "higher" | "consistent" | "lower" | "inconclusive" | "unpaired";
+/**
+ * What ``lo`` and ``hi`` cover. ``sampling`` is the bootstrap over days only (PLAN.md 4.7).
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "IntervalBasis".
+ */
+export type IntervalBasis = "sampling" | "total";
+/**
+ * How a reported number was obtained, as the register says.
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Basis".
+ */
+export type Basis = "measured" | "calculated" | "estimated" | "stated" | "unknown";
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Grade".
+ */
+export type Grade = "A" | "B" | "C";
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "SubjectKind".
+ */
+export type SubjectKind = "facility" | "cluster";
 
-export interface Subject {
+/**
+ * Every public document, so one schema file holds every definition.
+ */
+export interface Contract {
+  finding_detail: FindingDetail;
+  findings: FindingsPayload;
+  manifest: Manifest;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "FindingDetail".
+ */
+export interface FindingDetail {
+  comparison?: Comparison | null;
+  days?: DayRow[] | null;
+  evidence?: Evidence | null;
   id: string;
-  kind: "facility" | "cluster";
-  /** The facility's name exactly as the register has it. Often includes the operator. */
-  name: string;
-  /** A short name for titles, where one has been written by hand. */
-  display_name: string | null;
-  operator: string | null;
-  sector: string;
-  /** ISO 3166-1 alpha-2. */
-  country: string;
-  city: string | null;
-  lat: number;
-  lon: number;
-  register: string;
-  register_id: string;
+  observed?: Observed | null;
+  profile?: PlumeProfileData | null;
+  reported_series: ReportedPoint[];
+  rolling?: RollingWindow[] | null;
+  sources: string[];
+  validation?: ValidationDetail | null;
 }
-
-export interface Period {
-  label: string;
-  start: string;
-  end: string;
-  /** Set when the year differs from the dataset's target year. */
-  note?: string;
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Comparison".
+ */
+export interface Comparison {
+  flags: string[];
+  periods: PeriodComparison[];
+  u_sys: number;
+  verdict_reason: string | null;
 }
-
-export interface Claimed {
-  value: number;
-  unit: string;
-  basis: Basis;
-  source: string;
-}
-
-export interface Observed {
-  value: number;
-  lo: number;
-  hi: number;
-  unit: string;
-  method: string;
-  /** Days in the stack. */
-  n_days?: number;
-  /** Lifetime of NO2 in the plume from the fit, hours. */
-  lifetime_h?: number;
-  /** What `lo` and `hi` cover. "sampling" is the bootstrap over days only (PLAN.md 4.7). */
-  interval_basis?: "sampling" | "total";
-}
-
-/** Whether the footprint is big enough for the method to measure reliably (METHODS.md 7). */
-export interface Detection {
-  /** NOx reported (or, for US plants, monitored plus inventory) within the footprint, tonnes. */
-  footprint_t: number;
-  footprint_km: number;
-  min_reliable_t: number;
-  /** False means "below reliable detection": few estimates this small pass the quality checks. */
-  reliable: boolean;
-}
-
-export interface Finding {
-  id: string;
-  module: string;
-  subject: Subject;
-  period: Period;
-  claimed: Claimed | null;
-  observed: Observed | null;
-  ratio: { value: number; lo: number; hi: number } | null;
-  verdict: Verdict | null;
-  grade: "A" | "B" | "C" | null;
-  detection?: Detection;
-  /** A US power plant from the validation against stack monitors (PLAN.md 1.7). */
-  validation_site?: boolean;
-}
-
-export interface FindingsPayload {
-  module: string;
-  /** The target year. Some findings carry an earlier one, see `Period.note`. */
-  period: string;
-  source: string;
-  count: number;
-  latest_year_countries: Record<string, number>;
-  /** The subject to open when a visitor asks to explore (PLAN.md 9.7). */
-  showcase?: string;
-  findings: Finding[];
-}
-
-export interface ReportedPoint {
+/**
+ * One register year against its calendar-year estimate. Numbers only when it passed.
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "PeriodComparison".
+ */
+export interface PeriodComparison {
+  gates_failed: string[];
+  members: FootprintMember[];
+  observed: PeriodObserved | null;
+  ratio: Ratio | null;
+  reason: string | null;
+  reported_t: number | null;
+  status: Verdict;
   year: number;
-  /** Tonnes of NOx, expressed as NO2. */
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "FootprintMember".
+ */
+export interface FootprintMember {
+  name: string;
+  register_id: string;
+  reported_t: number;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "PeriodObserved".
+ */
+export interface PeriodObserved {
+  hi: number;
+  lifetime_h: number;
+  lo: number;
+  n_days: number | null;
   value: number;
-  basis: Basis;
 }
-
-/** The stacked curve F(t) and its EMG fit (PLAN.md 4.3). Null where the stack has no data. */
-export interface PlumeProfileData {
-  t_h: number[];
-  flux_mol_s: (number | null)[];
-  fit_mol_s: (number | null)[];
-  fit: { q: number; tau: number; sigma: number; t0: number; b: number; r2: number };
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Ratio".
+ */
+export interface Ratio {
+  hi: number;
+  lo: number;
+  value: number;
 }
-
-/** One day in the stack. */
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "DayRow".
+ */
 export interface DayRow {
   date: string;
-  wind_ms: number;
-  /** Compass direction the wind blows from, degrees clockwise from north. */
-  wind_dir_deg: number;
-  /** Position of the day's frame in the flipbook sheet, or null if the day was too cloudy. */
   frame: number | null;
+  wind_dir_deg: number;
+  wind_ms: number;
 }
-
-export interface StackGeometry {
-  width: number;
-  height: number;
-  /** First and last travel time across the image, hours. */
-  t_h: [number, number];
-  /** Bottom and top of the image across the wind, km. */
-  crosswind_km: [number, number];
-  full_scale_umol_m2: number;
-  mean_wind_ms: number;
-  /** Half-width of the band the estimate integrates, one value per profile time. */
-  fan_half_width_km: number[];
-  n_days: number;
-}
-
-export interface FlipbookSheet {
-  frame_w: number;
-  frame_h: number;
-  columns: number;
-  rows: number;
-  n_frames: number;
-  /** Each frame is a north-up square reaching this far from the source, km. */
-  half_km: number;
-  full_scale_umol_m2: number;
-}
-
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Evidence".
+ */
 export interface Evidence {
-  stack_image: string;
   flipbook: string;
-  stack: StackGeometry;
   flipbook_sheet: FlipbookSheet;
+  stack: StackGeometry;
+  stack_image: string;
 }
-
-/** One year of a US plant's satellite estimate against its stack monitors. */
-export interface ValidationYear {
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "FlipbookSheet".
+ */
+export interface FlipbookSheet {
+  columns: number;
+  frame_h: number;
+  frame_w: number;
+  full_scale_umol_m2: number;
+  half_km: number;
+  n_frames: number;
+  rows: number;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "StackGeometry".
+ */
+export interface StackGeometry {
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  crosswind_km: [number, number];
+  fan_half_width_km: number[];
+  full_scale_umol_m2: number;
+  height: number;
+  mean_wind_ms: number;
+  n_days: number;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  t_h: [number, number];
+  width: number;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Observed".
+ */
+export interface Observed {
+  hi: number;
+  interval_basis?: IntervalBasis | null;
+  lifetime_h?: number | null;
+  lo: number;
+  method: string;
+  n_days?: number | null;
+  unit: string;
+  value: number;
+}
+/**
+ * The stacked curve F(t) and its EMG fit (PLAN.md 4.3).
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "PlumeProfileData".
+ */
+export interface PlumeProfileData {
+  fit: PlumeFit;
+  fit_mol_s: (number | null)[];
+  flux_mol_s: (number | null)[];
+  t_h: number[];
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "PlumeFit".
+ */
+export interface PlumeFit {
+  b: number;
+  q: number;
+  r2: number;
+  sigma: number;
+  t0: number;
+  tau: number;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "ReportedPoint".
+ */
+export interface ReportedPoint {
+  basis: Basis;
+  value: number;
   year: number;
-  estimate_t: number | null;
-  lo: number | null;
-  hi: number | null;
-  /** True when the estimate passed every quality gate. */
-  passed: boolean;
-  gates_failed: string[];
-  days: number | null;
-  /** Monitor NOx over the 3 hours before each pass, as tonnes per year. */
-  monitors_at_pass_t: number | null;
-  /** Calendar-year monitor total. */
-  monitors_t: number | null;
-  /** Monitors plus NOx the monitors cannot see in the footprint (EPA NEI 2023). */
-  footprint_t: number | null;
-  ratio_at_pass: number | null;
-  ratio_footprint: number | null;
 }
-
+/**
+ * The estimate for one rolling 12-month window. Not paired with the register.
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "RollingWindow".
+ */
+export interface RollingWindow {
+  calendar_year: number | null;
+  end: string;
+  gates_failed: string[];
+  hi: number | null;
+  label: string;
+  lo: number | null;
+  n_days: number;
+  passed: boolean;
+  start: string;
+  value: number | null;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "ValidationDetail".
+ */
 export interface ValidationDetail {
   tier: number;
-  unmonitored_t: number;
-  unmonitored_largest: string;
   u_sys: number;
+  unmonitored_largest: string;
+  unmonitored_t: number;
   years: ValidationYear[];
 }
-
-export interface FindingDetail {
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "ValidationYear".
+ */
+export interface ValidationYear {
+  days: number | null;
+  estimate_t: number | null;
+  footprint_t: number | null;
+  gates_failed: string[];
+  hi: number | null;
+  lo: number | null;
+  monitors_at_pass_t: number | null;
+  monitors_t: number | null;
+  passed: boolean;
+  ratio_at_pass: number | null;
+  ratio_footprint: number | null;
+  year: number;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "FindingsPayload".
+ */
+export interface FindingsPayload {
+  count: number;
+  findings: Finding[];
+  latest_year_countries: {
+    [k: string]: number;
+  };
+  module: string;
+  period: string;
+  showcase?: string | null;
+  source: string;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Finding".
+ */
+export interface Finding {
+  claimed: Claimed | null;
+  detection?: Detection | null;
+  grade: Grade | null;
   id: string;
-  reported_series: ReportedPoint[];
-  sources: string[];
-  /** US validation plants only. */
-  validation?: ValidationDetail;
-  /** The satellite side. Present only where an estimate passed every gate. */
-  observed?: Observed;
-  profile?: PlumeProfileData;
-  days?: DayRow[];
-  evidence?: Evidence;
+  module: string;
+  observed: Observed | null;
+  period: Period;
+  ratio: Ratio | null;
+  subject: Subject;
+  validation_site?: boolean | null;
+  verdict: Verdict | null;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Claimed".
+ */
+export interface Claimed {
+  basis: Basis;
+  n_facilities?: number | null;
+  source: string;
+  unit: string;
+  value: number;
+}
+/**
+ * Whether the footprint is big enough for the method to measure reliably (METHODS.md 7).
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Detection".
+ */
+export interface Detection {
+  footprint_km: number;
+  footprint_t: number;
+  min_reliable_t: number;
+  reliable: boolean;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Period".
+ */
+export interface Period {
+  end: string;
+  label: string;
+  note?: string | null;
+  start: string;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Subject".
+ */
+export interface Subject {
+  city: string | null;
+  country: string;
+  display_name: string | null;
+  id: string;
+  kind: SubjectKind;
+  lat: number;
+  lon: number;
+  name: string;
+  operator: string | null;
+  register: string;
+  register_id: string;
+  sector: string;
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "Manifest".
+ */
+export interface Manifest {
+  built_at: string;
+  commit: string;
+  data_version: string;
+  modules: ModuleEntry[];
+}
+/**
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "ModuleEntry".
+ */
+export interface ModuleEntry {
+  base: string;
+  hue: string;
+  id: string;
+  method_version: string;
+  status: string;
+  title: string;
 }

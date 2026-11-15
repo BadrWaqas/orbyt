@@ -1,0 +1,15 @@
+{
+  "built_at": "2026-11-15T20:28:15Z",
+  "data_version": "2026-11",
+  "commit": "294e610",
+  "modules": [
+    {
+      "id": "pollution-hunter",
+      "title": "Pollution Hunter",
+      "hue": "amber",
+      "status": "live",
+      "method_version": "ph-emg-1.1",
+      "base": "/data/v1/pollution-hunter"
+    }
+  ]
+}

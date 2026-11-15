@@ -1,0 +1,65 @@
+{
+  "$defs": {
+    "ModuleEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "type": "string"
+        },
+        "hue": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "method_version": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "hue",
+        "status",
+        "method_version",
+        "base"
+      ],
+      "title": "ModuleEntry",
+      "type": "object"
+    }
+  },
+  "$id": "https://orbytearth.com/schemas/v1/manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "built_at": {
+      "type": "string"
+    },
+    "commit": {
+      "type": "string"
+    },
+    "data_version": {
+      "type": "string"
+    },
+    "modules": {
+      "items": {
+        "$ref": "#/$defs/ModuleEntry"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "built_at",
+    "data_version",
+    "commit",
+    "modules"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

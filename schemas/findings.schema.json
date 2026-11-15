@@ -1,0 +1,460 @@
+{
+  "$defs": {
+    "Basis": {
+      "description": "How a reported number was obtained, as the register says.",
+      "enum": [
+        "measured",
+        "calculated",
+        "estimated",
+        "stated",
+        "unknown"
+      ],
+      "title": "Basis",
+      "type": "string"
+    },
+    "Claimed": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/Basis"
+        },
+        "n_facilities": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "basis",
+        "source"
+      ],
+      "title": "Claimed",
+      "type": "object"
+    },
+    "Detection": {
+      "additionalProperties": false,
+      "description": "Whether the footprint is big enough for the method to measure reliably (METHODS.md 7).",
+      "properties": {
+        "footprint_km": {
+          "type": "number"
+        },
+        "footprint_t": {
+          "type": "number"
+        },
+        "min_reliable_t": {
+          "type": "number"
+        },
+        "reliable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "footprint_t",
+        "footprint_km",
+        "min_reliable_t",
+        "reliable"
+      ],
+      "title": "Detection",
+      "type": "object"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "claimed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Claimed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "detection": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Detection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "grade": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Grade"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "module": {
+          "type": "string"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Observed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "period": {
+          "$ref": "#/$defs/Period"
+        },
+        "ratio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ratio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subject": {
+          "$ref": "#/$defs/Subject"
+        },
+        "validation_site": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verdict": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Verdict"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "module",
+        "subject",
+        "period",
+        "claimed",
+        "observed",
+        "ratio",
+        "verdict",
+        "grade"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "Grade": {
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ],
+      "title": "Grade",
+      "type": "string"
+    },
+    "IntervalBasis": {
+      "description": "What ``lo`` and ``hi`` cover. ``sampling`` is the bootstrap over days only (PLAN.md 4.7).",
+      "enum": [
+        "sampling",
+        "total"
+      ],
+      "title": "IntervalBasis",
+      "type": "string"
+    },
+    "Observed": {
+      "additionalProperties": false,
+      "properties": {
+        "hi": {
+          "type": "number"
+        },
+        "interval_basis": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IntervalBasis"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "lifetime_h": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "lo": {
+          "type": "number"
+        },
+        "method": {
+          "type": "string"
+        },
+        "n_days": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "lo",
+        "hi",
+        "unit",
+        "method"
+      ],
+      "title": "Observed",
+      "type": "object"
+    },
+    "Period": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "start": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "start",
+        "end"
+      ],
+      "title": "Period",
+      "type": "object"
+    },
+    "Ratio": {
+      "additionalProperties": false,
+      "properties": {
+        "hi": {
+          "type": "number"
+        },
+        "lo": {
+          "type": "number"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "lo",
+        "hi"
+      ],
+      "title": "Ratio",
+      "type": "object"
+    },
+    "Subject": {
+      "additionalProperties": false,
+      "properties": {
+        "city": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "country": {
+          "type": "string"
+        },
+        "display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/SubjectKind"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "operator": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "register": {
+          "type": "string"
+        },
+        "register_id": {
+          "type": "string"
+        },
+        "sector": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "name",
+        "display_name",
+        "operator",
+        "sector",
+        "country",
+        "city",
+        "lat",
+        "lon",
+        "register",
+        "register_id"
+      ],
+      "title": "Subject",
+      "type": "object"
+    },
+    "SubjectKind": {
+      "enum": [
+        "facility",
+        "cluster"
+      ],
+      "title": "SubjectKind",
+      "type": "string"
+    },
+    "Verdict": {
+      "enum": [
+        "higher",
+        "consistent",
+        "lower",
+        "inconclusive",
+        "unpaired"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "$id": "https://orbytearth.com/schemas/v1/findings.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "count": {
+      "type": "integer"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/Finding"
+      },
+      "type": "array"
+    },
+    "latest_year_countries": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "type": "object"
+    },
+    "module": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "showcase": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "source": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "module",
+    "period",
+    "source",
+    "count",
+    "latest_year_countries",
+    "findings"
+  ],
+  "title": "FindingsPayload",
+  "type": "object"
+}

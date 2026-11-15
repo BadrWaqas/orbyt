@@ -273,3 +273,13 @@ Panel text: the line saying the method had not been checked against stack monito
 **Held for review.** A subject with a "higher" call in any period is not published as such until its id is in `higher_review.json` (`approved`). The review list goes to `data/interim/review/`, which is outside git. No subject has a higher call at this point, so nothing is held.
 
 **Result.** Atherinolakkos 2024: 9,124 t against 7,600, consistent, grade C (coast and terrain). Los Guinchos 2024: 6,055 against 4,020, consistent, C. Melilla 2023: 8,115 against 3,100, ratio 2.62 with an interval of 1.25 to 5.49, consistent because the lower end sits at the bar and only one year has a register value (the 2024 estimate of 8,273 t has no register row to pair with). The other seven are inconclusive on gates in their headline year.
+
+## 2026-11-15, M5.5 Data contract v1
+
+**Decision.** The contract lives in `core/contracts.py` as Pydantic models that refuse unknown keys. `core/publish.py` validates every published file against them, writes `manifest.json`, exports `schemas/*.schema.json` and generates `web/src/data/types.ts` with `json-schema-to-typescript` through `npx`, so no dependency was added to the web app. `docs/contract.md` has the rules for changing it. `pydantic` is the one new Python dependency.
+
+**Choices.** The `register` key is the attribute `register_` with an alias, because `register` is a method of Pydantic's base class. Property titles are dropped from the exported schema and tuples written as `items`, otherwise the generator invents one type alias per field and reads the tuples as unknown. Optional keys stay out of the JSON when empty. Added to v1 as optional keys: `claimed.n_facilities`, `comparison` and `rolling` in the detail file. That is an addition, so it stays in v1.
+
+**Check.** All 315 findings and their detail files validate. `npm run typecheck` and `npm run build` pass with the generated types. `test_contracts.py` fails when the committed schemas are out of date.
+
+**Against the exit criterion.** `findings.json` validates against its schema. The plan's 25 or more European subjects with a verdict is not reachable with the isolation rule as written (10 isolated candidates, 3 with a verdict, none "higher"). See the M5.1 entry for the choice that is open.
