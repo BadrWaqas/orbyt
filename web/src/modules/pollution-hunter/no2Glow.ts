@@ -5,13 +5,9 @@ import { BitmapLayer } from "@deck.gl/layers";
 import { MapboxOverlay } from "@deck.gl/mapbox";
 import type { Map as MapLibreMap } from "maplibre-gl";
 
-import {
-  NO2_BLOOM_OPACITY,
-  NO2_GLOW_GAMMA,
-  NO2_HALO_OPACITY,
-  NO2_TILES_MAX_ZOOM,
-  NO2_TILES_PATH,
-} from "./no2";
+import { NO2_BLOOM_OPACITY, NO2_GLOW_GAMMA, NO2_HALO_OPACITY } from "./no2";
+import { loadTile } from "./no2Tiles";
+import type { TileSet } from "./no2Tiles";
 import { plumeClock } from "./plumeClock";
 import { loadSitePlume, sitePlumeBounds } from "./sitePlume";
 import type { SitePlumeSpec } from "./sitePlume";
@@ -57,9 +53,9 @@ const SMOOTH = {
 /** Web Mercator's whole world, the extent the stitched halo image covers. */
 const WORLD_BOUNDS: [number, number, number, number] = [-180, -85.051129, 180, 85.051129];
 
-// The halo and bloom are built in the browser from the zoom 2 tiles: 16 small images, stitched,
+// The halo and bloom are built in the browser from the zoom 1 tiles: four images, stitched,
 // turned into light and blurred. The numbers are pixels of that stitched image.
-const HALO_TILE_ZOOM = 2;
+const HALO_TILE_ZOOM = 1;
 const HALO_SIZE_PX = 512; // 0.7 degrees per pixel
 const HALO_BLUR_RADIUS_PX = 1; // three box passes, about 1 degree across at the equator
 const BLOOM_SHRINK = 4; // the bloom image is this many times smaller
@@ -78,6 +74,31 @@ const BLOOM_LOW_SHARE = 0.25;
 function bloomShare(zoom: number): number {
   const t = Math.min(1, Math.max(0, (zoom - BLOOM_FULL_ZOOM) / (BLOOM_LOW_ZOOM - BLOOM_FULL_ZOOM)));
   return 1 - (1 - BLOOM_LOW_SHARE) * t;
+}
+
+// The sharp layer holds what the satellite resolves: its deepest tiles are about 1 km a pixel
+// over Europe, one pixel a screen pixel near zoom 6. Deeper than that the camera only enlarges
+// them, so the layer steps back, and the soft halo is what stays. It never ends as squares.
+const DEEP_FADE_FROM_ZOOM = 8;
+const DEEP_FADE_TO_ZOOM = 10;
+const DEEP_SHARE = 0.25;
+// Around an open facility that has daily frames, its own plume is the picture (sitePlume.ts).
+// There the mean steps back sooner, as the camera comes down to the facility.
+const SITE_FADE_FROM_ZOOM = 6.25;
+const SITE_FADE_TO_ZOOM = 7.5;
+const SITE_SHARE = 0.3;
+const SITE_DIM_MS = 500;
+
+const smoothstep = (lo: number, hi: number, v: number) => {
+  const t = Math.min(1, Math.max(0, (v - lo) / (hi - lo)));
+  return t * t * (3 - 2 * t);
+};
+
+/** Share of the sharp mean layer at a zoom. `siteDim` is 1 while a facility's plume is drawn. */
+function meanShare(zoom: number, siteDim: number): number {
+  const deep = 1 - (1 - DEEP_SHARE) * smoothstep(DEEP_FADE_FROM_ZOOM, DEEP_FADE_TO_ZOOM, zoom);
+  const site = 1 - (1 - SITE_SHARE) * smoothstep(SITE_FADE_FROM_ZOOM, SITE_FADE_TO_ZOOM, zoom);
+  return deep + (Math.min(deep, site) - deep) * siteDim;
 }
 
 const HALO_FADE_MS = 900;
@@ -138,21 +159,6 @@ class SoftBitmapLayer extends BitmapLayer {
       },
     };
   }
-}
-
-function tileUrl(z: number, x: number, y: number): string {
-  const path = NO2_TILES_PATH.replace("{z}", String(z)).replace("{x}", String(x)).replace("{y}", String(y));
-  return `${window.location.origin}${path}`;
-}
-
-function loadImage(url: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.decoding = "async";
-    image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error(`Could not load ${url}`));
-    image.src = url;
-  });
 }
 
 /** One pass of a box blur along x. The image wraps around the date line. */
@@ -227,17 +233,18 @@ interface SoftLight {
   bloom: ImageData;
 }
 
-/** Stitch the coarse tiles, turn colour and opacity into light, and blur it twice. */
-async function buildSoftLight(): Promise<SoftLight> {
+/** Stitch a layer's coarse tiles, turn colour and opacity into light, and blur it twice. */
+async function buildSoftLight(set: TileSet): Promise<SoftLight> {
   const across = 2 ** HALO_TILE_ZOOM;
   const cell = HALO_SIZE_PX / across;
-  const jobs: Promise<{ image: HTMLImageElement; x: number; y: number }>[] = [];
+  const jobs: Promise<{ image: ImageBitmap | null; x: number; y: number }>[] = [];
   for (let x = 0; x < across; x++) {
     for (let y = 0; y < across; y++) {
-      jobs.push(loadImage(tileUrl(HALO_TILE_ZOOM, x, y)).then((image) => ({ image, x, y })));
+      jobs.push(loadTile(set, HALO_TILE_ZOOM, x, y).then((image) => ({ image, x, y })));
     }
   }
   const tiles = await Promise.all(jobs);
+  if (tiles.every((tile) => !tile.image)) throw new Error(`No tiles for ${set.period}`);
 
   const canvas = document.createElement("canvas");
   canvas.width = HALO_SIZE_PX;
@@ -245,7 +252,7 @@ async function buildSoftLight(): Promise<SoftLight> {
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   if (!ctx) throw new Error("No 2D canvas");
   ctx.imageSmoothingQuality = "high";
-  for (const { image, x, y } of tiles) ctx.drawImage(image, x * cell, y * cell, cell, cell);
+  for (const { image, x, y } of tiles) if (image) ctx.drawImage(image, x * cell, y * cell, cell, cell);
   const { data } = ctx.getImageData(0, 0, HALO_SIZE_PX, HALO_SIZE_PX);
 
   // The same curve the sharp layer applies in its shader.
@@ -289,7 +296,10 @@ function animate(ms: number, step: (t: number) => void): () => void {
   return () => cancelAnimationFrame(frame);
 }
 
+
 interface Options {
+  /** The layer the glow starts with. */
+  tiles: TileSet;
   /** Draw underneath this map layer, so borders and labels stay readable on top of the glow. */
   beforeId: string;
   /** deck.gl reported an error. The caller falls back to the plain raster layer. */
@@ -301,6 +311,14 @@ export interface No2Glow {
   ready: Promise<void>;
   /** Fade the whole glow to `level`, 0 to 1. */
   fadeTo(level: number, ms: number): void;
+  /**
+   * Change to another layer: the annual mean or a month. Its tiles are loaded unseen for the
+   * part of the globe on screen, then it cross-fades in over `ms`. Resolves true once it has
+   * taken over, and false if a later call came first.
+   */
+  show(tiles: TileSet, ms: number): Promise<boolean>;
+  /** Load another layer's tiles unseen, ahead of the change to it. Null drops them. */
+  preload(tiles: TileSet | null): void;
   /**
    * Draw one facility's daily plume around it, following the plume clock. Null takes it off.
    * `onShown` reports when the plume is on the map and when it has gone.
@@ -322,81 +340,147 @@ interface SitePlume {
   stop: () => void;
 }
 
+/** A layer on the globe: its tiles, its halo once built, and which pair of halo layers it uses. */
+interface Shown {
+  set: TileSet;
+  soft: SoftLight | null;
+  slot: 0 | 1;
+}
+
+const SOFT_CACHE_SIZE = 8;
+const INCOMING_WAIT_MS = 5000; // cross-fade to a new layer anyway if its tiles are this slow
+
 /** Add the glow to a loaded map. Returns null where the map has no WebGL2 context. */
-export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2Glow | null {
+export function addNo2Glow(map: MapLibreMap, { tiles, beforeId, onFail }: Options): No2Glow | null {
   // deck.gl 9 draws into the map's own context and needs WebGL2 for that.
   if (!map.getCanvas().getContext("webgl2")) return null;
 
   let level = 0;
   let haloLevel = 0;
-  let soft: SoftLight | null = null;
+  let current: Shown = { set: tiles, soft: null, slot: 0 };
+  let incoming: Shown | null = null; // the layer a cross-fade is bringing in
+  let preloaded: TileSet | null = null;
+  let mix = 0; // share of `incoming`, 0 to 1
+  let showToken = 0;
   let site: SitePlume | null = null;
+  let siteDim = 0; // 1 while a facility's own plume is drawn, see meanShare
   let removed = false;
   let stopFade = () => {};
   let stopHaloFade = () => {};
+  let stopMix = () => {};
+  let stopDim = () => {};
   let markReady = () => {};
   const ready = new Promise<void>((resolve) => {
     markReady = resolve;
   });
   const readyTimer = window.setTimeout(markReady, FIRST_TILES_WAIT_MS);
 
+  // Which layers have their tiles for the part of the globe on screen.
+  const loaded = new Set<string>();
+  const waiting = new Map<string, (() => void)[]>();
+  const markLoaded = (period: string) => {
+    loaded.add(period);
+    if (period === tiles.period) markReady();
+    for (const resolve of waiting.get(period) ?? []) resolve();
+    waiting.delete(period);
+  };
+  const whenLoaded = (period: string) =>
+    new Promise<void>((resolve) => {
+      if (loaded.has(period)) {
+        resolve();
+        return;
+      }
+      waiting.set(period, [...(waiting.get(period) ?? []), resolve]);
+      window.setTimeout(resolve, INCOMING_WAIT_MS);
+    });
+  /** A layer that is no longer drawn loses its tiles, so it is no longer counted as loaded. */
+  const prune = () => {
+    const kept = new Set([current.set.period, incoming?.set.period, preloaded?.period]);
+    for (const period of loaded) if (!kept.has(period)) loaded.delete(period);
+  };
+
+  // Halos already built, newest last.
+  const softCache = new Map<string, Promise<SoftLight | null>>();
+  const softFor = (set: TileSet): Promise<SoftLight | null> => {
+    let request = softCache.get(set.period);
+    if (request) softCache.delete(set.period);
+    else {
+      request = buildSoftLight(set).catch(() => null); // no halo, the sharp layer still glows
+      if (softCache.size >= SOFT_CACHE_SIZE) softCache.delete(softCache.keys().next().value as string);
+    }
+    softCache.set(set.period, request);
+    return request;
+  };
+
   // `beforeId` places a deck.gl layer in the map's layer stack. It is not part of the layer
   // prop types, so it is passed alongside them.
   const place = { beforeId } as object;
 
-  const layers = (): Layer[] => {
-    const list: Layer[] = [];
-    if (soft && haloLevel > 0) {
-      list.push(
-        new SoftBitmapLayer({
-          ...place,
-          id: "no2-glow-bloom",
-          image: soft.bloom,
-          bounds: WORLD_BOUNDS,
+  const sharp = (set: TileSet, opacity: number) =>
+    new TileLayer<ImageBitmap | null>({
+      ...place,
+      id: `no2-glow-sharp-${set.period}`,
+      getTileData: (tile) => loadTile(set, tile.index.z, tile.index.x, tile.index.y, tile.signal),
+      minZoom: 0,
+      maxZoom: set.maxZoom, // deeper zooms stretch these tiles, which reads as soft light
+      tileSize: set.tileSize,
+      // Light adds up, so a parent tile must never be drawn under its children.
+      refinementStrategy: "no-overlap",
+      opacity,
+      parameters: ADDITIVE,
+      onViewportLoad: () => markLoaded(set.period),
+      renderSubLayers: (props) => {
+        // The tile's image arrives as `data`. A bitmap layer takes it as `image`.
+        const { data: image, ...rest } = props;
+        if (!image) return null;
+        const [[west, south], [east, north]] = props.tile.boundingBox;
+        return new GlowBitmapLayer(rest as object, {
+          image,
+          bounds: [west, south, east, north],
           _imageCoordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
-          opacity: NO2_BLOOM_OPACITY * level * haloLevel * bloomShare(map.getZoom()),
           textureParameters: SMOOTH,
           parameters: ADDITIVE,
-        }),
-        new SoftBitmapLayer({
-          ...place,
-          id: "no2-glow-halo",
-          image: soft.halo,
-          bounds: WORLD_BOUNDS,
-          _imageCoordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
-          opacity: NO2_HALO_OPACITY * level * haloLevel,
-          textureParameters: SMOOTH,
-          parameters: ADDITIVE,
-        }),
-      );
-    }
-    list.push(
-      new TileLayer<ImageBitmap>({
+        });
+      },
+    });
+
+  const soft = (item: Shown, share: number, zoom: number): Layer[] => {
+    if (!item.soft || share <= 0) return [];
+    return [
+      new SoftBitmapLayer({
         ...place,
-        id: "no2-glow-sharp",
-        data: `${window.location.origin}${NO2_TILES_PATH}`,
-        minZoom: 0,
-        maxZoom: NO2_TILES_MAX_ZOOM, // deeper zooms stretch these tiles, which reads as soft light
-        tileSize: 256,
-        // Light adds up, so a parent tile must never be drawn under its children.
-        refinementStrategy: "no-overlap",
-        opacity: level,
+        id: `no2-glow-bloom-${item.slot}`,
+        image: item.soft.bloom,
+        bounds: WORLD_BOUNDS,
+        _imageCoordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
+        opacity: NO2_BLOOM_OPACITY * level * haloLevel * share * bloomShare(zoom),
+        textureParameters: SMOOTH,
         parameters: ADDITIVE,
-        onViewportLoad: markReady,
-        renderSubLayers: (props) => {
-          const [[west, south], [east, north]] = props.tile.boundingBox;
-          // The tile's image arrives as `data`. A bitmap layer takes it as `image`.
-          const { data: image, ...rest } = props;
-          return new GlowBitmapLayer(rest as object, {
-            image,
-            bounds: [west, south, east, north],
-            _imageCoordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
-            textureParameters: SMOOTH,
-            parameters: ADDITIVE,
-          });
-        },
       }),
-    );
+      new SoftBitmapLayer({
+        ...place,
+        id: `no2-glow-halo-${item.slot}`,
+        image: item.soft.halo,
+        bounds: WORLD_BOUNDS,
+        _imageCoordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
+        opacity: NO2_HALO_OPACITY * level * haloLevel * share,
+        textureParameters: SMOOTH,
+        parameters: ADDITIVE,
+      }),
+    ];
+  };
+
+  const layers = (): Layer[] => {
+    const zoom = map.getZoom();
+    const mean = level * meanShare(zoom, siteDim);
+    // During a cross-fade the two layers share the light, so the sum stays level.
+    const parts: [Shown, number][] = incoming ? [[current, 1 - mix], [incoming, mix]] : [[current, 1]];
+    const list: Layer[] = [];
+    if (haloLevel > 0) for (const [item, share] of parts) list.push(...soft(item, share, zoom));
+    for (const [item, share] of parts) list.push(sharp(item.set, mean * share));
+    if (preloaded && parts.every(([item]) => item.set.period !== preloaded?.period)) {
+      list.push(sharp(preloaded, 0));
+    }
     if (site) {
       for (const slot of [0, 1] as const) {
         const image = site.slots[slot];
@@ -430,22 +514,28 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
   const draw = () => {
     if (!removed) overlay.setProps({ layers: layers() });
   };
-  map.on("zoom", draw); // the bloom follows the zoom
+  map.on("zoom", draw); // the bloom and the sharp layer follow the zoom
 
   // The halo is built once the sharp tiles are in, so it never competes with them for the network.
-  void ready
-    .then(buildSoftLight)
-    .then((built) => {
-      if (removed) return;
-      soft = built;
-      stopHaloFade = animate(level > 0 ? HALO_FADE_MS : 0, (t) => {
-        haloLevel = t;
-        draw();
-      });
-    })
-    .catch(() => {
-      // No halo. The sharp layer still glows.
+  void ready.then(async () => {
+    const first = current;
+    const built = await softFor(first.set);
+    if (removed || !built) return;
+    first.soft = built;
+    stopHaloFade = animate(level > 0 ? HALO_FADE_MS : 0, (t) => {
+      haloLevel = t;
+      draw();
     });
+  });
+
+  const dimFor = (target: number) => {
+    stopDim();
+    const from = siteDim;
+    stopDim = animate(SITE_DIM_MS, (t) => {
+      siteDim = from + (target - from) * t;
+      draw();
+    });
+  };
 
   return {
     ready,
@@ -456,6 +546,51 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
         level = from + (target - from) * t;
         draw();
       });
+    },
+    async show(set, ms) {
+      const token = ++showToken;
+      stopMix(); // ends a cross-fade that is under way, and its call resolves false
+      // Of the two layers of that cross-fade, the one with more of the light stays.
+      if (incoming && mix >= 0.5) current = incoming;
+      incoming = null;
+      mix = 0;
+      if (set.period === current.set.period) {
+        prune();
+        draw();
+        return true;
+      }
+      const item: Shown = { set, soft: null, slot: current.slot === 0 ? 1 : 0 };
+      incoming = item;
+      prune();
+      draw();
+      const [built] = await Promise.all([softFor(set), whenLoaded(set.period)]);
+      if (removed || token !== showToken) return false;
+      item.soft = built;
+      const finished = await new Promise<boolean>((resolve) => {
+        stopMix = () => resolve(false);
+        const stop = animate(ms, (t) => {
+          mix = t;
+          draw();
+          if (t >= 1) resolve(true);
+        });
+        stopMix = () => {
+          stop();
+          resolve(false);
+        };
+      });
+      if (!finished || removed || token !== showToken) return false;
+      stopMix = () => {};
+      current = item;
+      incoming = null;
+      mix = 0;
+      prune();
+      draw();
+      return true;
+    },
+    preload(set) {
+      preloaded = set;
+      prune();
+      draw();
     },
     setSitePlume(spec, onShown) {
       if (spec?.id === site?.spec.id) return;
@@ -486,6 +621,7 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
         stopLevel();
         detach();
         unsubscribe();
+        dimFor(0);
         onShown?.(false);
       };
 
@@ -512,6 +648,7 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
             mine.level = t;
             draw();
           });
+          dimFor(1);
           onShown?.(true);
         })
         .catch(() => {
@@ -526,6 +663,8 @@ export function addNo2Glow(map: MapLibreMap, { beforeId, onFail }: Options): No2
       window.clearTimeout(readyTimer);
       stopFade();
       stopHaloFade();
+      stopMix();
+      stopDim();
       map.off("zoom", draw);
       map.removeControl(overlay);
     },

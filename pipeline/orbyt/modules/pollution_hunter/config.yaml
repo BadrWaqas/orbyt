@@ -215,6 +215,39 @@ null_test:
   # Sites closer than this share surroundings and would not be independent draws.
   min_spacing_km: 150
 
+layers:
+  # The NO2 map layers (PLAN.md 9.6 PlumeLayer, M1.3 and M6.2): one annual mean and one mean per
+  # month, each cut into map tiles. Nothing here feeds an estimate.
+  annual_year: 2024
+  # PLAN.md section 0: one processor generation from July 2022 on.
+  first_month: "2022-07"
+  # The whole world on the grid of M1.2. One cell is about one pixel of the deepest global tile.
+  global_step_deg: 0.1
+  # Europe on a finer grid: west, south, east, north. It holds every mainland facility of the
+  # register with room for the 80 km plume square around it. The collection is gridded at
+  # 0.01 degree (PLAN.md 1.5) from pixels of 5.5 x 3.5 km, so 0.02 keeps what the instrument
+  # resolves. A month has a thirtieth of the overpasses of a year, so its grid is coarser.
+  region_bounds_deg: [-12.0, 33.0, 36.0, 70.0]
+  region_step_annual_deg: 0.02
+  region_step_monthly_deg: 0.04
+  # Gaussian smoothing before the tiles are cut, one sigma. A change from one cell to the next
+  # on a grid finer than the real pixel is retrieval noise, and enlarged on screen it shows as
+  # squares. 2.5 km is a full width at half maximum of 5.9 km, about one real pixel. A month is
+  # noisier, so it gets twice that, and its global grid one cell.
+  smooth_sigma_annual_region_km: 2.5
+  smooth_sigma_monthly_region_km: 5.0
+  smooth_sigma_monthly_global_deg: 0.1
+  # The region's tiles blend into the global grid over this distance inside its edge.
+  feather_deg: 1.0
+  # 512 px tiles. Zoom 3 is 0.088 degree a pixel, the global grid. Zoom 6 is 0.011 degree a
+  # pixel, about 1.2 km, the grid of the collection itself.
+  tile_size_px: 512
+  global_max_zoom: 3
+  region_max_zoom_annual: 6
+  region_max_zoom_monthly: 4
+  # Earth Engine cost is read for this many grids of a run, then scaled (PLAN.md 3.3).
+  measure_grids: 4
+
 detect:
   # Single-day plume test, PLAN.md 4.4. Wind-aligned grid in km, wide enough for the mirrored
   # upwind box (minus box_max_km) and the part of the plume the flipbook shows.

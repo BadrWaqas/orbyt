@@ -13,6 +13,7 @@ import hashlib
 import time
 from collections.abc import Callable, Iterator
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import AbstractContextManager
 from pathlib import Path
 
 import ee
@@ -39,6 +40,14 @@ def init(project: str = PROJECT) -> None:
     ee.Initialize(project=project)
 
 
+def set_deadline(seconds: float) -> None:
+    """Give up on a server call that has not answered after ``seconds``.
+
+    Without it a call whose connection dropped waits for ever.
+    """
+    ee.data.setDeadline(int(seconds * 1000))
+
+
 def annual_mean_no2(year: int) -> ee.Image:
     """Mean tropospheric NO2 column over one calendar year, in mol/m2."""
     return (
@@ -47,6 +56,30 @@ def annual_mean_no2(year: int) -> ee.Image:
         .select(BAND)
         .mean()
     )
+
+
+def mean_no2(start: str, end: str, bilinear: bool = False) -> ee.Image:
+    """Mean tropospheric NO2 column from ``start`` up to, not including, ``end``, in mol/m2.
+
+    Dates are ISO strings. With ``bilinear`` each overpass is interpolated between its cells
+    when it is read on another grid, in place of taking the nearest cell, so the mean has no
+    steps at cell edges.
+    """
+    images = ee.ImageCollection(COLLECTION).filterDate(start, end).select(BAND)
+    if bilinear:
+        images = images.map(lambda image: image.resample("bilinear"))
+    return images.mean()
+
+
+def image_count(start: str, end: str) -> int:
+    """Number of overpass images from ``start`` up to, not including, ``end``."""
+    return int(ee.ImageCollection(COLLECTION).filterDate(start, end).size().getInfo())
+
+
+def latest_image_date() -> str:
+    """ISO date (UTC) of the newest image in the collection."""
+    newest = ee.ImageCollection(COLLECTION).limit(1, "system:time_start", False).first()
+    return str(newest.date().format("YYYY-MM-dd").getInfo())
 
 
 def grid_shape(bounds: tuple[float, float, float, float], step: float) -> tuple[int, int]:
@@ -147,6 +180,44 @@ def fetch_grid(
             if log is not None:
                 log(f"window {i}/{len(windows)}")
     return out
+
+
+def download_image(
+    image: ee.Image,
+    bounds: tuple[float, float, float, float],
+    step: float,
+    *,
+    chunk: int = 300,
+    workers: int = 8,
+    cache_dir: Path | None = None,
+    cache_key: str = "",
+    around: Callable[[], AbstractContextManager] | None = None,
+    log: Callable[[str], None] | None = None,
+) -> np.ndarray:
+    """One single band image on a ``step`` degree grid covering ``bounds``, north row first.
+
+    ``around`` gives a context manager that is entered around every server call, in the thread
+    that makes it. The cost meter of the extract step is hooked in this way.
+    """
+    width, height = grid_shape(bounds, step)
+    fetch = _with_retries(_ee_fetch(image, bounds, step))
+    if around is not None:
+        inner = fetch
+
+        def fetch(col: int, row: int, w: int, h: int) -> np.ndarray:
+            with around():
+                return inner(col, row, w, h)
+
+    return fetch_grid(
+        fetch,
+        width,
+        height,
+        chunk=chunk,
+        workers=workers,
+        cache_dir=cache_dir,
+        cache_key=cache_key,
+        log=log,
+    )
 
 
 def save_geotiff(

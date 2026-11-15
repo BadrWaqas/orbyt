@@ -1,0 +1,81 @@
+{
+ "module": "pollution-hunter",
+ "tiles": "/tiles/no2/{period}/{z}/{x}/{y}.png",
+ "tile_size": 512,
+ "units": "micromol/m2",
+ "scale": {
+  "kind": "sqrt",
+  "lo": 20.0,
+  "hi": 250.0
+ },
+ "ramp": [
+  [
+   0.0,
+   "#4F1C00",
+   0.0
+  ],
+  [
+   0.15,
+   "#7D3501",
+   0.35
+  ],
+  [
+   0.35,
+   "#AF5504",
+   0.6
+  ],
+  [
+   0.55,
+   "#D97A05",
+   0.8
+  ],
+  [
+   0.75,
+   "#F5A420",
+   0.9
+  ],
+  [
+   0.9,
+   "#FCD583",
+   0.95
+  ],
+  [
+   1.0,
+   "#FDF6D8",
+   1.0
+  ]
+ ],
+ "global_max_zoom": 3,
+ "region_bounds": [
+  -12.0,
+  33.0,
+  36.0,
+  70.0
+ ],
+ "annual": {
+  "period": "2024",
+  "max_zoom": 6,
+  "region_tiles": {
+   "4": [
+    7,
+    3,
+    9,
+    6
+   ],
+   "5": [
+    14,
+    7,
+    19,
+    12
+   ],
+   "6": [
+    29,
+    14,
+    38,
+    25
+   ]
+  }
+ },
+ "monthly": null,
+ "attribution": "Contains modified Copernicus Sentinel data 2024"
+}

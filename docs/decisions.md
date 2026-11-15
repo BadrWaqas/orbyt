@@ -303,3 +303,21 @@ Panel text: the line saying the method had not been checked against stack monito
 **What changed in the plan.** The MVP list (25 European verdicts, 25 US plants), the second "accept up front" point (floor of 2,000 to 3,500 t), the M5 row of the milestone table, and a new outcome paragraph in 1.7. Nothing else was touched.
 
 **What it means for the product.** The site is a small set of honest checks plus the US test sites, with the unmeasured ones listed and labelled. The leaderboard keeps inconclusive rows, with the reason, rather than hiding them.
+
+## 2026-11-15, The NO2 map layer: finer over Europe, smooth at every zoom
+
+**Problem.** Zoomed in, the annual NO2 layer showed squares. Its tiles stopped at 0.088 degree a pixel, cut from the 0.1 degree grid of M1.2, and the map enlarged them up to sixteen times.
+
+**Decision.** A layer now has two parts (`layers.py`, `config.yaml` under `layers`). The whole world stays on the 0.1 degree grid, zoom 0 to 3 in 512 px tiles. Europe (12 W to 36 E, 33 N to 70 N, every mainland facility of the register with room for its plume square) gets its own grid at 0.02 degree, read from Earth Engine with bilinear resampling, and tiles from zoom 4 to zoom 6, which is 0.011 degree or about 1.2 km a pixel. These are the tiles a 256 px scheme calls zoom 5 to 7. The region's tiles blend into the global grid over one degree inside its edge.
+
+**Why 0.02 degree and a 2.5 km blur.** The collection is gridded at 0.01 degree, but a TROPOMI pixel is 5.5 x 3.5 km, so a change from one fine cell to the next is retrieval noise. The Europe grid is smoothed with a Gaussian of 2.5 km (full width at half maximum 5.9 km, about one real pixel) before the tiles are cut. Nothing here feeds an estimate: the estimates read their own patches.
+
+**Outside Europe.** The site makes deeper tiles in the browser from the zoom 3 tile above, enlarged with smoothing and with a rim taken from the neighbouring tiles, so the picture is soft there but never square (`no2Tiles.ts`).
+
+**Deep zoom.** Past zoom 8 the sharp layer steps back to a quarter by zoom 10, and around an open facility that has daily frames it steps back sooner, from zoom 6.25, so the facility's own plume takes over (`no2Glow.ts`, `meanShare`).
+
+**Tiles.** 8 bit palette PNG. Colour and opacity are one function of the ramp position, so 256 entries hold the ramp without loss. The annual layer is 253 tiles and 3.8 MB. `layers.json` (PLAN.md 2.5) lists the layers and the region's tile ranges.
+
+**Hosting.** PLAN.md 3.1 puts the tiles on R2 as PMTiles. There is no R2 bucket yet, and Cloudflare Pages answers a range request with the whole file (checked on the live site), so PMTiles cannot be read from the Pages bundle. The tiles are plain files in the bundle for now, the fallback the plan names. With the monthly layers the bundle stays under the 20,000 file limit of Pages.
+
+**Earth Engine cost.** Measured from the call profiles (`data/raw/no2_grids/eecu_log.jsonl`): one month costs about 1,070 EECU-seconds for the global grid and 170 for Europe at 0.04 degree, 0.34 EECU-hours together.

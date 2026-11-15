@@ -1,7 +1,9 @@
 import type { Map as MapLibreMap } from "maplibre-gl";
 
-import { NO2_HALO_OPACITY, NO2_TILES_MAX_ZOOM, NO2_TILES_PATH, NO2_YEAR } from "./no2";
+import { loadNo2Layers, NO2_HALO_OPACITY, NO2_YEAR } from "./no2";
 import type { No2Glow } from "./no2Glow";
+import { annualTileSet } from "./no2Tiles";
+import type { TileSet } from "./no2Tiles";
 import type { SitePlumeSpec } from "./sitePlume";
 
 // The NO2 layer is drawn one of two ways.
@@ -14,6 +16,8 @@ import type { SitePlumeSpec } from "./sitePlume";
 // which is while the map is still fetching its style, so on most connections the glow is ready
 // before the first fade and the raster layer is never added.
 const glowModule = import("./no2Glow").catch(() => null);
+// The list of layers and their tiles is asked for at the same moment, for the same reason.
+const layersManifest = loadNo2Layers().catch(() => null);
 
 const SOURCE_ID = `no2-${NO2_YEAR}`;
 export const NO2_LAYER_ID = `no2-${NO2_YEAR}`;
@@ -22,7 +26,7 @@ const HALO_LAYER_ID = `no2-${NO2_YEAR}-halo`;
 
 // Raster fallback: the halo reads the same tiles but only down to a coarse zoom, and stretching
 // those gives the soft copy.
-const RASTER_HALO_MAX_ZOOM = 2;
+const RASTER_HALO_MAX_ZOOM = 1;
 const RASTER_SATURATION = 0.25;
 
 const FADE_IN_MS = 2400; // PLAN.md 9.7: the layer fades in from 0 to full
@@ -50,19 +54,20 @@ interface RasterLayers {
 }
 
 /** The pre-coloured NO2 tiles as MapLibre raster layers (PLAN.md 9.6, PlumeLayer for M1). */
-function addRaster(map: MapLibreMap, beforeId: string, reducedMotion: boolean): RasterLayers {
-  const tiles = [`${window.location.origin}${NO2_TILES_PATH}`];
+function addRaster(map: MapLibreMap, set: TileSet, beforeId: string, reducedMotion: boolean): RasterLayers {
+  const tiles = [set.template];
   map.addSource(SOURCE_ID, {
     type: "raster",
     tiles,
-    tileSize: 256,
+    tileSize: set.tileSize,
     minzoom: 0,
-    maxzoom: NO2_TILES_MAX_ZOOM, // deeper zooms stretch these tiles, which reads as a soft glow
+    // The tiles the whole world has. Deeper zooms stretch them, which reads as a soft glow.
+    maxzoom: set.globalMaxZoom,
   });
   map.addSource(HALO_SOURCE_ID, {
     type: "raster",
     tiles,
-    tileSize: 256,
+    tileSize: set.tileSize,
     minzoom: 0,
     maxzoom: RASTER_HALO_MAX_ZOOM,
   });
@@ -156,8 +161,12 @@ export function addNo2Layer(
   // The site plume asked for last, kept so it can be handed to the glow when that arrives.
   let sitePlume: { spec: SitePlumeSpec | null; onShown?: (shown: boolean) => void } = { spec: null };
 
+  // The annual mean, the layer everything starts with. Set once the manifest has arrived.
+  let annual: TileSet | null = null;
+
   const showRaster = async () => {
-    raster = addRaster(map, beforeId, reducedMotion);
+    if (!annual) return;
+    raster = addRaster(map, annual, beforeId, reducedMotion);
     await raster.ready;
     if (cancelled) return;
     rasterLive = true;
@@ -177,8 +186,9 @@ export function addNo2Layer(
   };
 
   const tryGlow = (mod: typeof import("./no2Glow")) => {
+    if (!annual) return null;
     try {
-      const added = mod.addNo2Glow(map, { beforeId, onFail });
+      const added = mod.addNo2Glow(map, { tiles: annual, beforeId, onFail });
       added?.setSitePlume(sitePlume.spec, sitePlume.onShown);
       return added;
     } catch {
@@ -187,8 +197,10 @@ export function addNo2Layer(
   };
 
   const start = async () => {
-    const early = await Promise.race([glowModule, wait(GLOW_WAIT_MS)]);
+    const [early, manifest] = await Promise.all([Promise.race([glowModule, wait(GLOW_WAIT_MS)]), layersManifest]);
     if (cancelled) return;
+    annual = manifest ? annualTileSet(manifest) : null;
+    if (!annual) return; // the manifest is missing or names no annual mean: there is nothing to draw
     if (early) glow = tryGlow(early);
     if (glow) {
       await glow.ready;
