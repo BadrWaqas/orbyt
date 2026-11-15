@@ -38,6 +38,22 @@ const BODIES: Record<PageView, ReactNode> = {
         Orbyt Earth is an independent student research project. Estimates are uncertain and are
         not findings of non-compliance.
       </p>
+      <h2>Who built it</h2>
+      <p>Built by Badr Waqas, Data Science student at National College of Ireland.</p>
+      <ul className="page-links">
+        <li>
+          GitHub:{" "}
+          <a className="page-link" href="https://github.com/BadrWaqas" target="_blank" rel="noopener noreferrer">
+            github.com/BadrWaqas
+          </a>
+        </li>
+        <li>
+          LinkedIn:{" "}
+          <a className="page-link" href="https://www.linkedin.com/in/badrw" target="_blank" rel="noopener noreferrer">
+            linkedin.com/in/badrw
+          </a>
+        </li>
+      </ul>
       <h2>Data</h2>
       <p>
         Satellite NO<sub>2</sub>: {NO2_ATTRIBUTION}. Reported emissions: EEA Industrial Reporting

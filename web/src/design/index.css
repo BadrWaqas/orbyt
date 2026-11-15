@@ -1521,3 +1521,21 @@ main:not([data-view="home"]) .home-item {
   color: var(--text);
   white-space: nowrap;
 }
+
+/* Links in a page's text, and the short list of them on the About page. */
+.page-link {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--text-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.page-link:hover {
+  text-decoration-color: var(--text);
+}
+
+.page-body ul.page-links {
+  padding-left: 0;
+  list-style: none;
+}
