@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Leaderboard } from "../panels/Leaderboard";
+import { DataBody } from "./DataBody";
 import { MethodBody } from "./MethodBody";
 import { Link } from "./Link";
 import type { PageView } from "./route";
@@ -14,12 +15,14 @@ import type { PageView } from "./route";
 export const PAGE_TITLES: Record<PageView, string> = {
   leaderboard: "Leaderboard",
   method: "Method",
+  data: "Data",
   about: "About",
 };
 
 const BODIES: Record<PageView, ReactNode> = {
   leaderboard: <Leaderboard />,
   method: <MethodBody />,
+  data: <DataBody />,
   about: (
     <>
       <p>

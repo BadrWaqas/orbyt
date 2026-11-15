@@ -40,7 +40,7 @@ const INTRO_TAIL_MS = 900; // the last piece's own animation
 const INTRO_SEEN_KEY = "orbyt:intro-seen";
 const GLOBE_MAX_WAIT_MS = 5000; // show whatever the map has by then, tiles or not
 
-const NAV: readonly PageView[] = ["leaderboard", "method", "about"];
+const NAV: readonly PageView[] = ["leaderboard", "method", "data", "about"];
 
 type Intro = "waiting" | "playing" | "done";
 

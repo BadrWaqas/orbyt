@@ -1,7 +1,7 @@
 {
-  "built_at": "2026-11-15T21:04:45Z",
+  "built_at": "2026-11-15T22:02:00Z",
   "data_version": "2026-11",
-  "commit": "efcf906",
+  "commit": "fef8c29",
   "modules": [
     {
       "id": "pollution-hunter",

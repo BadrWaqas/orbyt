@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from orbyt.core import contracts as c
+from orbyt.core import exports
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DATA_ROOT = REPO_ROOT / "web" / "public" / "data" / "v1"
@@ -185,6 +186,8 @@ def publish(data_root: Path = DATA_ROOT, schemas: bool = False, log=print) -> c.
     for module_dir in sorted(p for p in data_root.iterdir() if (p / "findings.json").exists()):
         counts[module_dir.name] = validate_module(module_dir)
         log(f"{module_dir.name}: {counts[module_dir.name]} valid")
+        exports.write_exports(module_dir)
+        log(f"{module_dir.name}: findings.csv and findings.parquet written")
     manifest = build_manifest(
         cfg["method_version"], datetime.now(UTC).strftime("%Y-%m"), git_commit()
     )

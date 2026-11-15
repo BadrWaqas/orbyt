@@ -1459,3 +1459,54 @@ main:not([data-view="home"]) .home-item {
   padding-left: 1.2em;
   list-style: disc;
 }
+
+/* The data page. */
+.download-list {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+
+.download-list a {
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-chip);
+  color: var(--text);
+}
+
+.download-list a:hover {
+  border-color: var(--text-3);
+}
+
+.download-list span {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-2);
+}
+
+.fields {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.fields th,
+.fields td {
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+  vertical-align: top;
+}
+
+.fields th {
+  font-weight: 400;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap;
+}

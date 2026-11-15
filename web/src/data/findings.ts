@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import type { FindingDetail, FindingsPayload } from "./types";
+import type { FindingDetail, FindingsPayload, Manifest } from "./types";
 
 const BASE = "/data/v1/pollution-hunter";
 
@@ -44,4 +44,19 @@ export function useFindings() {
 /** Full detail for the panel. Small, and cached by the browser after the first visit. */
 export function useFindingDetail(findingId: string | null) {
   return useJson<FindingDetail>(findingId ? `${BASE}/finding/${findingId}.json` : null);
+}
+
+export interface FieldDescription {
+  name: string;
+  description: string;
+}
+
+/** The columns of the CSV and Parquet downloads, written next to them by the publish step. */
+export function useFields() {
+  return useJson<FieldDescription[]>(`${BASE}/fields.json`);
+}
+
+/** Data version, method version and build time. */
+export function useManifest() {
+  return useJson<Manifest>("/data/v1/manifest.json");
 }

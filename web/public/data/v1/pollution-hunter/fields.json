@@ -1,0 +1,118 @@
+[
+  {
+    "name": "finding_id",
+    "description": "Id of the finding, also the name of its detail file"
+  },
+  {
+    "name": "subject_id",
+    "description": "Id of the facility or cluster"
+  },
+  {
+    "name": "kind",
+    "description": "facility, or cluster when the reported total sums several facilities"
+  },
+  {
+    "name": "name",
+    "description": "Name as the register gives it"
+  },
+  {
+    "name": "operator",
+    "description": "Operator, where the register gives one"
+  },
+  {
+    "name": "sector",
+    "description": "Sector, as the register gives it"
+  },
+  {
+    "name": "country",
+    "description": "Two-letter country code"
+  },
+  {
+    "name": "city",
+    "description": "City or town, where known"
+  },
+  {
+    "name": "lat",
+    "description": "Latitude of the site, degrees"
+  },
+  {
+    "name": "lon",
+    "description": "Longitude of the site, degrees"
+  },
+  {
+    "name": "register",
+    "description": "Where the reported figure comes from"
+  },
+  {
+    "name": "register_id",
+    "description": "Id in that register"
+  },
+  {
+    "name": "period",
+    "description": "Calendar year the finding covers"
+  },
+  {
+    "name": "reported_t",
+    "description": "Reported NOx in tonnes a year, as NO2 mass"
+  },
+  {
+    "name": "reported_basis",
+    "description": "How the reported value was obtained: measured, calculated, estimated, stated"
+  },
+  {
+    "name": "estimate_t",
+    "description": "Satellite-based estimate of NOx in tonnes a year, as NO2 mass"
+  },
+  {
+    "name": "estimate_lo",
+    "description": "Lower end of the 95% interval"
+  },
+  {
+    "name": "estimate_hi",
+    "description": "Upper end of the 95% interval"
+  },
+  {
+    "name": "interval_basis",
+    "description": "sampling when the interval covers sampling noise only"
+  },
+  {
+    "name": "n_days",
+    "description": "Clear, windy days used"
+  },
+  {
+    "name": "lifetime_h",
+    "description": "Fitted NO2 lifetime in the plume, hours"
+  },
+  {
+    "name": "ratio",
+    "description": "Estimate divided by reported. Empty for sources with no verdict"
+  },
+  {
+    "name": "ratio_lo",
+    "description": "Lower end of the ratio's 95% interval, with the systematic uncertainty"
+  },
+  {
+    "name": "ratio_hi",
+    "description": "Upper end of the ratio's 95% interval, with the systematic uncertainty"
+  },
+  {
+    "name": "verdict",
+    "description": "higher, consistent, lower or inconclusive. Empty when not compared"
+  },
+  {
+    "name": "grade",
+    "description": "A, B or C. Empty when there is no verdict"
+  },
+  {
+    "name": "us_test_site",
+    "description": "True for the US power plants used to test the method"
+  },
+  {
+    "name": "below_reliable_detection",
+    "description": "True when the footprint is under the size the method measures reliably"
+  },
+  {
+    "name": "cluster_facilities",
+    "description": "Number of facilities in the reported total, for clusters"
+  }
+]
