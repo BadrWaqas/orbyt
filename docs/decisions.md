@@ -261,3 +261,15 @@ Panel text: the line saying the method had not been checked against stack monito
 **Why most fail.** The failures are the ones the US validation (M4.4) predicted below about 6,000 t: poor fit, plume start away from the site (source offset), signal to noise, and a lifetime outside 1 to 8 h. Thira fails on lifetime and fit in both years. None of them is read as a finding about the operator. They are "inconclusive" and labelled below reliable detection.
 
 **Rolling windows are not paired.** The register reports calendar years, so only a window that is a calendar year can be compared with it. The other windows are published as the satellite estimate over time, with no ratio and no verdict.
+
+## 2026-11-15, M5.3 Verdicts, grades and the coast and terrain flags
+
+**Rules.** `core/verdict.py` implements PLAN.md 4.8 with no input or output. `s_boot = (ln hi - ln lo) / 3.92`, `s_total = sqrt(s_boot^2 + u_sys^2)` with `verdict.u_sys` 0.35 from config, `R = observed / register footprint total`, `R_lo` and `R_hi` at 1.96 `s_total`. Higher needs `R_lo` above 1.25, lower needs `R_hi` below 0.80, both from config. `compare.py` pairs each register year with its calendar-year estimate and writes findings.json and the detail files. Rolling windows are published as estimates only.
+
+**Interpretations of the plan text, to confirm.** (1) "Two separate periods" are the register years 2023 and 2024, and both must pass every gate and exceed in the same direction. (2) If the headline period (the newest with a register value) exceeds and no second period confirms it, the verdict is "inconclusive", not "consistent": the interval already excludes consistency in one year, so "consistent" would say more than the data do. (3) A consistent headline stands whatever the other period says. (4) Two flags give grade C, the plan only says one flag gives B. (5) A subject with no register value in the newest year is judged on its newest paired year and says so in the period note.
+
+**Flags.** `site_flags.py` computes the two PLAN.md 4.5 flags: sea within 15 km (Natural Earth 1:10m coastline) and an elevation range over 300 m within 30 km (Copernicus DEM GLO30, 250 m grid, water masked). Flags only lower the grade. Results in `eu_site_flags.json`. Nearly every European candidate is coastal, so most can reach grade B at best, and with terrain as well they are C.
+
+**Held for review.** A subject with a "higher" call in any period is not published as such until its id is in `higher_review.json` (`approved`). The review list goes to `data/interim/review/`, which is outside git. No subject has a higher call at this point, so nothing is held.
+
+**Result.** Atherinolakkos 2024: 9,124 t against 7,600, consistent, grade C (coast and terrain). Los Guinchos 2024: 6,055 against 4,020, consistent, C. Melilla 2023: 8,115 against 3,100, ratio 2.62 with an interval of 1.25 to 5.49, consistent because the lower end sits at the bar and only one year has a register value (the 2024 estimate of 8,273 t has no register row to pair with). The other seven are inconclusive on gates in their headline year.

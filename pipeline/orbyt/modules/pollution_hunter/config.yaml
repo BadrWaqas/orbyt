@@ -156,6 +156,21 @@ verdict:
   # 0.35, the plan's placeholder, and not lowered: 7 points put the one-sided 95% upper bound of
   # the scatter near 0.8. Set from US data only, never from Europe.
   u_sys: 0.35
+  # PLAN.md 4.8: a period is higher than reported when the lower end of its ratio is above
+  # higher_min_ratio, lower when the upper end is below lower_max_ratio. Both need
+  # min_periods separate periods that pass every gate (core/verdict.py). Plan values.
+  higher_min_ratio: 1.25
+  lower_max_ratio: 0.80
+  min_periods: 2
+  grade:
+    # PLAN.md 4.8: A needs this many days and no flag. The floor of 40 days is the
+    # too_few_days gate (observe.min_days).
+    a_min_days: 80
+    # PLAN.md 4.5, terrain and coast: flag, do not fail, when the elevation range within
+    # 30 km is more than 300 m or the sea is within 15 km (site_flags.py).
+    terrain_radius_km: 30
+    terrain_range_m: 300
+    coast_km: 15
 
 europe:
   # M5.1 (PLAN.md 1.7 and 6, eu_set.py): the European subjects are the footprints that pass all

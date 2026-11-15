@@ -1,0 +1,103 @@
+{
+ "source": "Natural Earth 1:10m coastline, Copernicus DEM GLO30",
+ "rules": {
+  "a_min_days": 80,
+  "terrain_radius_km": 30,
+  "terrain_range_m": 300,
+  "coast_km": 15
+ },
+ "sites": {
+  "ph-eu-12a5336d": {
+   "coast_km": 0.5,
+   "elevation_min_m": 0.07283536344766617,
+   "elevation_max_m": 1436.8079833984375,
+   "elevation_range_m": 1437,
+   "flags": [
+    "coast",
+    "terrain"
+   ]
+  },
+  "ph-eu-27eb1b72": {
+   "coast_km": 111.2,
+   "elevation_min_m": 34.98970413208008,
+   "elevation_max_m": 740.504150390625,
+   "elevation_range_m": 706,
+   "flags": [
+    "terrain"
+   ]
+  },
+  "ph-eu-b143a6fb": {
+   "coast_km": 3.0,
+   "elevation_min_m": 0.5809722542762756,
+   "elevation_max_m": 2395.86474609375,
+   "elevation_range_m": 2395,
+   "flags": [
+    "coast",
+    "terrain"
+   ]
+  },
+  "ph-eu-13da8b3b": {
+   "coast_km": 1.2,
+   "elevation_min_m": -0.2900545001029968,
+   "elevation_max_m": 851.593994140625,
+   "elevation_range_m": 852,
+   "flags": [
+    "coast",
+    "terrain"
+   ]
+  },
+  "ph-eu-4e72dea3": {
+   "coast_km": 0.9,
+   "elevation_min_m": -2.199690580368042,
+   "elevation_max_m": 138.70330810546875,
+   "elevation_range_m": 141,
+   "flags": [
+    "coast"
+   ]
+  },
+  "ph-eu-ab4c9fef": {
+   "coast_km": 188.3,
+   "elevation_min_m": null,
+   "elevation_max_m": null,
+   "elevation_range_m": null,
+   "flags": []
+  },
+  "ph-eu-29d699dd": {
+   "coast_km": 1.2,
+   "elevation_min_m": -113.85482025146484,
+   "elevation_max_m": 89.15821838378906,
+   "elevation_range_m": 203,
+   "flags": [
+    "coast"
+   ]
+  },
+  "ph-eu-3eb9c6ad": {
+   "coast_km": 0.5,
+   "elevation_min_m": 0.12498129159212112,
+   "elevation_max_m": 519.8648681640625,
+   "elevation_range_m": 520,
+   "flags": [
+    "coast",
+    "terrain"
+   ]
+  },
+  "ph-eu-54e4378b": {
+   "coast_km": 0.4,
+   "elevation_min_m": -3.9100847244262695,
+   "elevation_max_m": 23.129112243652344,
+   "elevation_range_m": 27,
+   "flags": [
+    "coast"
+   ]
+  },
+  "ph-eu-75284d11": {
+   "coast_km": 14.9,
+   "elevation_min_m": 0.13828127086162567,
+   "elevation_max_m": 135.33201599121094,
+   "elevation_range_m": 135,
+   "flags": [
+    "coast"
+   ]
+  }
+ }
+}

@@ -2,7 +2,7 @@
  "module": "pollution-hunter",
  "period": "2024",
  "source": "EEA Industrial Reporting database v16",
- "count": 313,
+ "count": 315,
  "latest_year_countries": {
   "CY": 2023,
   "CZ": 2022,
@@ -348,7 +348,8 @@
     "value": 7600.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 1
    },
    "observed": {
     "value": 9124,
@@ -360,9 +361,13 @@
     "lifetime_h": 1.9,
     "interval_basis": "sampling"
    },
-   "ratio": null,
-   "verdict": null,
-   "grade": null,
+   "ratio": {
+    "value": 1.2,
+    "lo": 0.59,
+    "hi": 2.44
+   },
+   "verdict": "consistent",
+   "grade": "C",
    "detection": {
     "footprint_t": 7600.0,
     "footprint_km": 20,
@@ -1061,12 +1066,26 @@
     "value": 4020.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 1
    },
-   "observed": null,
-   "ratio": null,
-   "verdict": null,
-   "grade": null,
+   "observed": {
+    "value": 6055,
+    "lo": 5258,
+    "hi": 7239,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.1",
+    "n_days": 230,
+    "lifetime_h": 1.1,
+    "interval_basis": "sampling"
+   },
+   "ratio": {
+    "value": 1.51,
+    "lo": 0.74,
+    "hi": 3.05
+   },
+   "verdict": "consistent",
+   "grade": "C",
    "detection": {
     "footprint_t": 4020.0,
     "footprint_km": 20,
@@ -1470,7 +1489,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-27eb1b72",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "Maritsa East 2 power station",
     "display_name": "Maritsa East 2 Power Station",
     "operator": null,
@@ -1488,17 +1507,18 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 3304.0,
+    "value": 5629.7,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 4
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
-    "footprint_t": 3598.5,
+    "footprint_t": 5629.7,
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
@@ -2254,7 +2274,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-4e72dea3",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "Aalborg Portland A/S",
     "display_name": null,
     "operator": null,
@@ -2272,14 +2292,15 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 2335.0,
+    "value": 2665.1,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 8
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 2665.1,
@@ -2393,11 +2414,12 @@
     "value": 2250.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 1
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 2250.0,
@@ -3584,7 +3606,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-ab4c9fef",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "TOTAL E&P Danmark A/S - Dan F",
     "display_name": null,
     "operator": null,
@@ -3602,17 +3624,18 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 1699.8,
+    "value": 2642.7,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 5
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
-    "footprint_t": 2004.5,
+    "footprint_t": 2642.7,
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
@@ -5971,7 +5994,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-54e4378b",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "RWE Eemshaven Holding II B.V.",
     "display_name": null,
     "operator": null,
@@ -5989,14 +6012,15 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 1190.0,
+    "value": 2020.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 4
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 2020.0,
@@ -6284,7 +6308,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-29d699dd",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "Outokumpu Chrome Oy, Tornion tehtaat",
     "display_name": null,
     "operator": null,
@@ -6302,14 +6326,15 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 1150.0,
+    "value": 2353.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 3
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 2353.0,
@@ -12307,6 +12332,100 @@
     "reliable": false
    },
    "validation_site": true
+  },
+  {
+   "id": "ph-eu-13da8b3b-2023",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-13da8b3b",
+    "kind": "facility",
+    "name": "CENTRAL DIESEL DE MELILLA",
+    "display_name": null,
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "ES",
+    "city": "MELILLA",
+    "lat": 35.29044,
+    "lon": -2.93794,
+    "register": "EEA",
+    "register_id": "ES.CAED/006240000.FACILITY"
+   },
+   "period": {
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31",
+    "note": "No 2024 value in the register for this facility. Latest year reported: 2023."
+   },
+   "claimed": {
+    "value": 3100.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 1
+   },
+   "observed": {
+    "value": 8115,
+    "lo": 6463,
+    "hi": 11256,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.1",
+    "n_days": 250,
+    "lifetime_h": 2.6,
+    "interval_basis": "sampling"
+   },
+   "ratio": {
+    "value": 2.62,
+    "lo": 1.25,
+    "hi": 5.49
+   },
+   "verdict": "consistent",
+   "grade": "C",
+   "detection": {
+    "footprint_t": 3100.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
+  },
+  {
+   "id": "ph-eu-75284d11-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-75284d11",
+    "kind": "cluster",
+    "name": "Enefit Power AS, Eesti elektrijaam",
+    "display_name": null,
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "EE",
+    "city": "Auvere küla, Narva-Jõesuu linn",
+    "lat": 59.27438,
+    "lon": 27.90123,
+    "register": "EEA",
+    "register_id": "EE.KAUR.TTR/75.FACILITY"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 1616.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 4
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": "inconclusive",
+   "grade": null,
+   "detection": {
+    "footprint_t": 1616.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   }
  ],
  "showcase": "ph-eu-12a5336d"
