@@ -114,6 +114,22 @@ class Detection(Model):
     reliable: bool  # false means "below reliable detection"
 
 
+class ClusterNeighbour(Model):
+    """The largest register source 20 to 60 km away. It is not in the footprint total."""
+
+    name: str
+    reported_t: float
+    distance_km: float
+
+
+class ClusterInfo(Model):
+    """Set on a finding whose subject is a cluster: the reported total sums several facilities,
+    or a source just outside the 20 km footprint was left out (PLAN.md 1.7 fallback)."""
+
+    n_facilities: int
+    neighbour: ClusterNeighbour | None = None
+
+
 class Finding(Model):
     id: str
     module: str
@@ -125,6 +141,7 @@ class Finding(Model):
     verdict: Verdict | None
     grade: Grade | None
     detection: Detection | None = None
+    cluster: ClusterInfo | None = None
     validation_site: bool | None = None  # a US plant from the validation (PLAN.md 1.7)
 
 

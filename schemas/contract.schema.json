@@ -48,6 +48,53 @@
       "title": "Claimed",
       "type": "object"
     },
+    "ClusterInfo": {
+      "additionalProperties": false,
+      "description": "Set on a finding whose subject is a cluster: the reported total sums several facilities,\nor a source just outside the 20 km footprint was left out (PLAN.md 1.7 fallback).",
+      "properties": {
+        "n_facilities": {
+          "type": "integer"
+        },
+        "neighbour": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ClusterNeighbour"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "n_facilities"
+      ],
+      "title": "ClusterInfo",
+      "type": "object"
+    },
+    "ClusterNeighbour": {
+      "additionalProperties": false,
+      "description": "The largest register source 20 to 60 km away. It is not in the footprint total.",
+      "properties": {
+        "distance_km": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "reported_t": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "reported_t",
+        "distance_km"
+      ],
+      "title": "ClusterNeighbour",
+      "type": "object"
+    },
     "Comparison": {
       "additionalProperties": false,
       "properties": {
@@ -181,6 +228,17 @@
               "type": "null"
             }
           ]
+        },
+        "cluster": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ClusterInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "detection": {
           "anyOf": [

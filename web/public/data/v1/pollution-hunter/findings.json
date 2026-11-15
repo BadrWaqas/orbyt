@@ -2,7 +2,7 @@
  "module": "pollution-hunter",
  "period": "2024",
  "source": "EEA Industrial Reporting database v16",
- "count": 315,
+ "count": 316,
  "latest_year_countries": {
   "CY": 2023,
   "CZ": 2022,
@@ -1372,7 +1372,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-c349e455",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "ENEA Elektrownia Połaniec Spółka Akcyjna",
     "display_name": "Połaniec Power Station",
     "operator": null,
@@ -1390,20 +1390,29 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 3480.0,
+    "value": 3997.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 3
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 3997.0,
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 3,
+    "neighbour": {
+     "name": "Grupa Azoty Spółka Akcyjna",
+     "reported_t": 4390.0,
+     "distance_km": 54.8
+    }
    }
   },
   {
@@ -1522,6 +1531,9 @@
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 4
    }
   },
   {
@@ -2307,6 +2319,9 @@
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 8
    }
   },
   {
@@ -3060,7 +3075,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-acddd3f2",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "Grupa Ożarów S.A.",
     "display_name": null,
     "operator": null,
@@ -3078,20 +3093,29 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 1790.0,
+    "value": 2013.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 2
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 2013.0,
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 2,
+    "neighbour": {
+     "name": "ENEA Elektrownia Połaniec Spółka Akcyjna",
+     "reported_t": 3480.0,
+     "distance_km": 59.7
+    }
    }
   },
   {
@@ -3639,6 +3663,9 @@
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 5
    }
   },
   {
@@ -6027,6 +6054,9 @@
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 4
    }
   },
   {
@@ -6341,6 +6371,9 @@
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 3
    }
   },
   {
@@ -7951,7 +7984,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-610df3bc",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
     "display_name": null,
     "operator": null,
@@ -7969,20 +8002,29 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 965.0,
+    "value": 2357.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 6
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 2357.0,
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 6,
+    "neighbour": {
+     "name": "CIMPOR - Industria de Cimentos, S.A. - C.P.Souselas (CI)",
+     "reported_t": 944.0,
+     "distance_km": 46.9
+    }
    }
   },
   {
@@ -9712,7 +9754,7 @@
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-eu-d40a3072",
-    "kind": "facility",
+    "kind": "cluster",
     "name": "UPM-Kymmene Oyj, Kaukaan tehtaat",
     "display_name": null,
     "operator": null,
@@ -9730,20 +9772,29 @@
     "end": "2024-12-31"
    },
    "claimed": {
-    "value": 802.0,
+    "value": 2290.0,
     "unit": "t NOx/yr",
     "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16"
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 4
    },
    "observed": null,
    "ratio": null,
-   "verdict": null,
+   "verdict": "inconclusive",
    "grade": null,
    "detection": {
     "footprint_t": 2290.0,
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 4,
+    "neighbour": {
+     "name": "Stora Enso Oyj, Imatran tehtaat",
+     "reported_t": 1570.0,
+     "distance_km": 38.5
+    }
    }
   },
   {
@@ -12425,6 +12476,57 @@
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 5
+   }
+  },
+  {
+   "id": "ph-eu-5c2821b3-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-5c2821b3",
+    "kind": "cluster",
+    "name": "Santos Barosa vidros SA (CI)",
+    "display_name": null,
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "PT",
+    "city": "Marinha Grande",
+    "lat": 39.73671,
+    "lon": -8.91975,
+    "register": "EEA",
+    "register_id": "PT.CAED/PT.APA05764442.CI"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 2016.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 6
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": "inconclusive",
+   "grade": null,
+   "detection": {
+    "footprint_t": 2016.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 6,
+    "neighbour": {
+     "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
+     "reported_t": 965.0,
+     "distance_km": 35.5
+    }
    }
   }
  ],

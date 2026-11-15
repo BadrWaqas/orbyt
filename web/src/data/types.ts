@@ -279,6 +279,7 @@ export interface FindingsPayload {
  */
 export interface Finding {
   claimed: Claimed | null;
+  cluster?: ClusterInfo | null;
   detection?: Detection | null;
   grade: Grade | null;
   id: string;
@@ -300,6 +301,28 @@ export interface Claimed {
   source: string;
   unit: string;
   value: number;
+}
+/**
+ * Set on a finding whose subject is a cluster: the reported total sums several facilities,
+ * or a source just outside the 20 km footprint was left out (PLAN.md 1.7 fallback).
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "ClusterInfo".
+ */
+export interface ClusterInfo {
+  n_facilities: number;
+  neighbour?: ClusterNeighbour | null;
+}
+/**
+ * The largest register source 20 to 60 km away. It is not in the footprint total.
+ *
+ * This interface was referenced by `Contract`'s JSON-Schema
+ * via the `definition` "ClusterNeighbour".
+ */
+export interface ClusterNeighbour {
+  distance_km: number;
+  name: string;
+  reported_t: number;
 }
 /**
  * Whether the footprint is big enough for the method to measure reliably (METHODS.md 7).

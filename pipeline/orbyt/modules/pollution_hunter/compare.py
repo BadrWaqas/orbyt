@@ -36,6 +36,27 @@ REVIEW_JSON = Path(__file__).parent / "higher_review.json"
 DEFAULT_REVIEW_DIR = extract.INTERIM_DIR / "review"
 
 
+def is_cluster(subject: dict) -> bool:
+    """A footprint kept as a cluster: it failed the sources check only (PLAN.md 1.7)."""
+    return subject.get("selection") == "cluster"
+
+
+def cluster_info(subject: dict) -> dict[str, Any] | None:
+    """What the site says about a cluster: how many facilities, and the neighbour left out."""
+    if not is_cluster(subject) and subject["n_facilities"] <= 1:
+        return None
+    info: dict[str, Any] = {"n_facilities": subject["n_facilities"]}
+    near = subject.get("neighbours") or []
+    if near:
+        n = near[0]
+        info["neighbour"] = {
+            "name": n["name"],
+            "reported_t": n["reported_t"],
+            "distance_km": n["distance_km"],
+        }
+    return info
+
+
 def approved_ids(path: Path = REVIEW_JSON) -> set[str]:
     """Subject ids whose "higher" result has been reviewed and may be published."""
     if not path.exists():
@@ -99,7 +120,14 @@ def evaluate(
     paired = [p for p in periods if p["call"].status != "unpaired"]
     head = paired[-1] if paired else None
     grade = (
-        vd.grade(verdict, head["n_days"], subject["n_facilities"], flags["flags"], rules)
+        vd.grade(
+            verdict,
+            head["n_days"],
+            subject["n_facilities"],
+            flags["flags"],
+            rules,
+            cluster=is_cluster(subject),
+        )
         if head
         else None
     )
@@ -197,14 +225,15 @@ def build_finding(
         "register": "EEA",
         "register_id": s["register_id"],
     }
-    subject = {**subject, "kind": "cluster" if s["n_facilities"] > 1 else "facility"}
+    info = cluster_info(s)
+    subject = {**subject, "kind": "cluster" if info else "facility"}
     period = {"label": str(year), "start": f"{year}-01-01", "end": f"{year}-12-31"}
     if year != target_year:
         period["note"] = (
             f"No {target_year} value in the register for this facility. "
             f"Latest year reported: {year}."
         )
-    return {
+    finding = {
         "id": f"{s['subject_id']}-{year}",
         "module": "pollution-hunter",
         "subject": subject,
@@ -224,6 +253,9 @@ def build_finding(
             fp["footprint_t"], ccfg["footprint_km"], ccfg["reliable_min_t"]
         ),
     }
+    if info:
+        finding["cluster"] = info
+    return finding
 
 
 def footprint_series(con: duckdb.DuckDBPyConnection, register_id: str, radius_km: float) -> list:

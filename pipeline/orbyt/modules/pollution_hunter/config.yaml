@@ -185,6 +185,12 @@ europe:
   # month from first_day to the last complete month of the data. 12 is the plan's rolling
   # 12-month estimate. A window that is a calendar year can be paired with the register.
   window_months: 12
+  # PLAN.md 1.7 fallback: a footprint that fails only these isolation checks is still a
+  # subject, as a cluster. Its estimate is compared with the reported NOx summed inside
+  # the 20 km footprint (the other register source, 20 to 60 km away, is not in the
+  # total), it is labelled a cluster, and its grade is C. The city and hotspot checks
+  # stay in force: the US validation supports them.
+  cluster_flags: [sources]
 
 null_test:
   # M4.5, PLAN.md 4.9 V3: places with no source within 60 km. See null_sites.py for the design.

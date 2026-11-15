@@ -36,6 +36,13 @@
     "terrain"
    ]
   },
+  "ph-eu-c349e455": {
+   "coast_km": 464.8,
+   "elevation_min_m": 137.02499389648438,
+   "elevation_max_m": 372.2249450683594,
+   "elevation_range_m": 235,
+   "flags": []
+  },
   "ph-eu-13da8b3b": {
    "coast_km": 1.2,
    "elevation_min_m": -0.2900545001029968,
@@ -62,6 +69,16 @@
    "elevation_range_m": null,
    "flags": []
   },
+  "ph-eu-610df3bc": {
+   "coast_km": 2.1,
+   "elevation_min_m": -3.3178904056549072,
+   "elevation_max_m": 433.55108642578125,
+   "elevation_range_m": 437,
+   "flags": [
+    "coast",
+    "terrain"
+   ]
+  },
   "ph-eu-29d699dd": {
    "coast_km": 1.2,
    "elevation_min_m": -113.85482025146484,
@@ -70,6 +87,13 @@
    "flags": [
     "coast"
    ]
+  },
+  "ph-eu-d40a3072": {
+   "coast_km": 43.5,
+   "elevation_min_m": -53.97211837768555,
+   "elevation_max_m": 139.0501708984375,
+   "elevation_range_m": 193,
+   "flags": []
   },
   "ph-eu-3eb9c6ad": {
    "coast_km": 0.5,
@@ -89,6 +113,23 @@
    "flags": [
     "coast"
    ]
+  },
+  "ph-eu-5c2821b3": {
+   "coast_km": 10.0,
+   "elevation_min_m": 0.3502941429615021,
+   "elevation_max_m": 602.7166137695312,
+   "elevation_range_m": 602,
+   "flags": [
+    "coast",
+    "terrain"
+   ]
+  },
+  "ph-eu-acddd3f2": {
+   "coast_km": 423.4,
+   "elevation_min_m": 123.01785278320312,
+   "elevation_max_m": 350.8580627441406,
+   "elevation_range_m": 228,
+   "flags": []
   },
   "ph-eu-75284d11": {
    "coast_km": 14.9,

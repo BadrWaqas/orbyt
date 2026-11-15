@@ -6,7 +6,7 @@ import { BASIS_LABEL, countryName, formatTonnes } from "../data/format";
 import type { Finding } from "../data/types";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Evidence } from "./Evidence";
-import { DetectionNote, ValidationCheck } from "./ValidationCheck";
+import { ClusterNote, DetectionNote, ValidationCheck } from "./ValidationCheck";
 
 const EXIT_MS = 240; // PLAN.md 9.7: the panel slides and fades in 240 ms
 const REGISTER_FIRST_YEAR = 2007; // the EEA register covers reporting years from 2007 on
@@ -172,6 +172,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
           monitors, estimates that pass every quality check scatter by about 35% more than that.
         </p>
       )}
+      {finding.cluster && <ClusterNote cluster={finding.cluster} />}
       {finding.detection && <DetectionNote detection={finding.detection} />}
 
       {us && detail.status === "ready" && detail.data.id === finding.id && detail.data.validation && (

@@ -1,5 +1,5 @@
 import { formatOneDecimal, formatTonnes } from "../data/format";
-import type { Detection, ValidationDetail } from "../data/types";
+import type { ClusterInfo, Detection, ValidationDetail } from "../data/types";
 
 /** Plain words for the quality gates (METHODS.md 4). */
 const GATE_LABEL: Record<string, string> = {
@@ -21,6 +21,34 @@ export function DetectionNote({ detection }: { detection: Detection }) {
         {detection.footprint_km} km. In our check against US stack monitors, almost no estimate under{" "}
         {formatTonnes(detection.min_reliable_t)} t passed the quality checks, so a satellite number here is
         unlikely and would be uncertain.
+      </p>
+    </div>
+  );
+}
+
+/**
+ * A cluster: the reported total sums several facilities, or a source just outside the 20 km
+ * footprint was left out (PLAN.md 1.7). The estimate is compared with the summed total and the
+ * grade is never above C.
+ */
+export function ClusterNote({ cluster }: { cluster: ClusterInfo }) {
+  const { n_facilities: n, neighbour } = cluster;
+  return (
+    <div className="mt-4 rounded-[2px] border border-dashed border-hairline px-3 py-2">
+      <p className="label">Cluster</p>
+      <p className="mt-1 text-[12px] leading-4 text-text-3">
+        {n > 1
+          ? `The reported figure adds up ${n} facilities within 20 km, and the satellite sees them as one plume.`
+          : "The reported figure is one facility, kept as a cluster because of a second source nearby."}
+        {neighbour && (
+          <>
+            {" "}
+            {neighbour.name} reported about {formatTonnes(neighbour.reported_t)} t of NO<sub>x</sub>{" "}
+            {Math.round(neighbour.distance_km)} km away. It is outside the footprint and not in the
+            reported figure, so its plume may add to the estimate.
+          </>
+        )}{" "}
+        A comparison for a cluster is graded C at best.
       </p>
     </div>
   );

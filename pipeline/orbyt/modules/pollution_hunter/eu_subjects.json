@@ -9,6 +9,9 @@
   "lat": 35.00491,
   "lon": 26.13804,
   "n_facilities": 1,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 7600.0,
@@ -49,6 +52,9 @@
   "lat": 42.25642,
   "lon": 26.13201,
   "n_facilities": 4,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 5629.7,
@@ -119,6 +125,9 @@
   "lat": 28.66298,
   "lon": -17.79171,
   "n_facilities": 1,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 4020.0,
@@ -150,6 +159,84 @@
   }
  },
  {
+  "subject_id": "ph-eu-c349e455",
+  "register_id": "PL.MŚ/000000468.FACILITY",
+  "name": "ENEA Elektrownia Połaniec Spółka Akcyjna",
+  "city": "Połaniec",
+  "country": "Poland",
+  "sector": "Energy sector",
+  "lat": 50.43809,
+  "lon": 21.3368,
+  "n_facilities": 3,
+  "selection": "cluster",
+  "failed_checks": [
+   "sources"
+  ],
+  "neighbours": [
+   {
+    "register_id": "PL.MŚ/000000346.FACILITY",
+    "name": "Grupa Azoty Spółka Akcyjna",
+    "reported_t": 4390.0,
+    "distance_km": 54.8
+   },
+   {
+    "register_id": "PL.MŚ/000000053.FACILITY",
+    "name": "Grupa Ożarów S.A.",
+    "reported_t": 1790.0,
+    "distance_km": 59.7
+   }
+  ],
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 3997.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 15.107696526683867,
+  "map_noise_umol_m2": 9.20454149163561,
+  "years": {
+   "2023": {
+    "footprint_t": 4098.0,
+    "members": [
+     {
+      "register_id": "PL.MŚ/000000468.FACILITY",
+      "name": "ENEA Elektrownia Połaniec Spółka Akcyjna",
+      "reported_t": 3660.0
+     },
+     {
+      "register_id": "PL.MŚ/000000212.FACILITY",
+      "name": "Kronospan Mielec Sp. z o.o.",
+      "reported_t": 284.0
+     },
+     {
+      "register_id": "PL.MŚ/000000267.FACILITY",
+      "name": "Elektrociepłownia Mielec Spółka z o.o.",
+      "reported_t": 154.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 3997.0,
+    "members": [
+     {
+      "register_id": "PL.MŚ/000000468.FACILITY",
+      "name": "ENEA Elektrownia Połaniec Spółka Akcyjna",
+      "reported_t": 3480.0
+     },
+     {
+      "register_id": "PL.MŚ/000000212.FACILITY",
+      "name": "Kronospan Mielec Sp. z o.o.",
+      "reported_t": 351.0
+     },
+     {
+      "register_id": "PL.MŚ/000000267.FACILITY",
+      "name": "Elektrociepłownia Mielec Spółka z o.o.",
+      "reported_t": 166.0
+     }
+    ]
+   }
+  }
+ },
+ {
   "subject_id": "ph-eu-13da8b3b",
   "register_id": "ES.CAED/006240000.FACILITY",
   "name": "CENTRAL DIESEL DE MELILLA",
@@ -159,6 +246,9 @@
   "lat": 35.29044,
   "lon": -2.93794,
   "n_facilities": 1,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2023,
   "latest_register_year": 2023,
   "latest_footprint_t": 3100.0,
@@ -190,6 +280,9 @@
   "lat": 57.06324,
   "lon": 9.97278,
   "n_facilities": 8,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 2665.1,
@@ -300,6 +393,9 @@
   "lat": 55.4808,
   "lon": 5.10885,
   "n_facilities": 5,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 2642.7,
@@ -371,6 +467,113 @@
   }
  },
  {
+  "subject_id": "ph-eu-610df3bc",
+  "register_id": "PT.CAED/PT.APA05774482.CI",
+  "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
+  "city": "Figueira da Foz",
+  "country": "Portugal",
+  "sector": "Paper and wood production and processing",
+  "lat": 40.05357,
+  "lon": -8.87359,
+  "n_facilities": 6,
+  "selection": "cluster",
+  "failed_checks": [
+   "sources"
+  ],
+  "neighbours": [
+   {
+    "register_id": "PT.CAED/PT.APA05766522.CI",
+    "name": "CIMPOR - Industria de Cimentos, S.A. - C.P.Souselas (CI)",
+    "reported_t": 944.0,
+    "distance_km": 46.9
+   }
+  ],
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2357.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 5.889827662031166,
+  "map_noise_umol_m2": 4.004307205468649,
+  "years": {
+   "2023": {
+    "footprint_t": 2511.0,
+    "members": [
+     {
+      "register_id": "PT.CAED/PT.APA05774482.CI",
+      "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
+      "reported_t": 956.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05765222.CI",
+      "name": "Navigator Figueira (CI)",
+      "reported_t": 558.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05770582.CI",
+      "name": "VERALLIA PORTUGAL, S.A (CI)",
+      "reported_t": 301.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05770962.CI",
+      "name": "Central Termoeléctrica a Biomassa da Figueira da Foz (CI)",
+      "reported_t": 240.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05763522.CI",
+      "name": "Central Termoeléctrica de Lares (CI)",
+      "reported_t": 169.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA07272643.CI",
+      "name": "Central Termoelétrica a Biomassa (CI)",
+      "reported_t": 150.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05769882.CI",
+      "name": "Campoaves - Unidade de Transformação de Subprodutos (CI)",
+      "reported_t": 137.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2357.0,
+    "members": [
+     {
+      "register_id": "PT.CAED/PT.APA05774482.CI",
+      "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
+      "reported_t": 965.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05765222.CI",
+      "name": "Navigator Figueira (CI)",
+      "reported_t": 616.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05770582.CI",
+      "name": "VERALLIA PORTUGAL, S.A (CI)",
+      "reported_t": 262.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05770962.CI",
+      "name": "Central Termoeléctrica a Biomassa da Figueira da Foz (CI)",
+      "reported_t": 190.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA07272643.CI",
+      "name": "Central Termoelétrica a Biomassa (CI)",
+      "reported_t": 173.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05763522.CI",
+      "name": "Central Termoeléctrica de Lares (CI)",
+      "reported_t": 151.0
+     }
+    ]
+   }
+  }
+ },
+ {
   "subject_id": "ph-eu-29d699dd",
   "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000002110.ProductionFacility",
   "name": "Outokumpu Chrome Oy, Tornion tehtaat",
@@ -380,6 +583,9 @@
   "lat": 65.76894,
   "lon": 24.19413,
   "n_facilities": 3,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 2353.0,
@@ -436,6 +642,88 @@
   }
  },
  {
+  "subject_id": "ph-eu-d40a3072",
+  "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001592.ProductionFacility",
+  "name": "UPM-Kymmene Oyj, Kaukaan tehtaat",
+  "city": "Lappeenranta",
+  "country": "Finland",
+  "sector": "Paper and wood production and processing",
+  "lat": 61.06625,
+  "lon": 28.24899,
+  "n_facilities": 4,
+  "selection": "cluster",
+  "failed_checks": [
+   "sources"
+  ],
+  "neighbours": [
+   {
+    "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001254.ProductionFacility",
+    "name": "Stora Enso Oyj, Imatran tehtaat",
+    "reported_t": 1570.0,
+    "distance_km": 38.5
+   }
+  ],
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2290.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 3.007813575095497,
+  "map_noise_umol_m2": 7.086345832067309,
+  "years": {
+   "2023": {
+    "footprint_t": 2612.0,
+    "members": [
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001592.ProductionFacility",
+      "name": "UPM-Kymmene Oyj, Kaukaan tehtaat",
+      "reported_t": 967.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001269.ProductionFacility",
+      "name": "Metsä Fibre Oy, Joutsenon tehdas",
+      "reported_t": 892.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000002577.ProductionFacility",
+      "name": "Finnsementti Oy, Lappeenrannan sementtitehdas",
+      "reported_t": 411.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000063404.ProductionFacility",
+      "name": "Kaukaan Voima Oy, Energiantuotanto",
+      "reported_t": 342.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2290.0,
+    "members": [
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001592.ProductionFacility",
+      "name": "UPM-Kymmene Oyj, Kaukaan tehtaat",
+      "reported_t": 802.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000001269.ProductionFacility",
+      "name": "Metsä Fibre Oy, Joutsenon tehdas",
+      "reported_t": 785.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000002577.ProductionFacility",
+      "name": "Finnsementti Oy, Lappeenrannan sementtitehdas",
+      "reported_t": 451.0
+     },
+     {
+      "register_id": "http://paikkatiedot.fi/so/1002031/pf/ProductionFacility/0000063404.ProductionFacility",
+      "name": "Kaukaan Voima Oy, Energiantuotanto",
+      "reported_t": 252.0
+     }
+    ]
+   }
+  }
+ },
+ {
   "subject_id": "ph-eu-3eb9c6ad",
   "register_id": "EL.CAED/100083.FACILITY",
   "name": "PPC S.A. - AES THIRA",
@@ -445,6 +733,9 @@
   "lat": 36.41309,
   "lon": 25.47789,
   "n_facilities": 1,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 2250.0,
@@ -485,6 +776,9 @@
   "lat": 53.44212,
   "lon": 6.86172,
   "n_facilities": 4,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2024,
   "latest_register_year": 2024,
   "latest_footprint_t": 2020.0,
@@ -546,6 +840,182 @@
   }
  },
  {
+  "subject_id": "ph-eu-5c2821b3",
+  "register_id": "PT.CAED/PT.APA05764442.CI",
+  "name": "Santos Barosa vidros SA (CI)",
+  "city": "Marinha Grande",
+  "country": "Portugal",
+  "sector": "Mineral industry",
+  "lat": 39.73671,
+  "lon": -8.91975,
+  "n_facilities": 6,
+  "selection": "cluster",
+  "failed_checks": [
+   "sources"
+  ],
+  "neighbours": [
+   {
+    "register_id": "PT.CAED/PT.APA05774482.CI",
+    "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
+    "reported_t": 965.0,
+    "distance_km": 35.5
+   },
+   {
+    "register_id": "PT.CAED/PT.APA05765222.CI",
+    "name": "Navigator Figueira (CI)",
+    "reported_t": 616.0,
+    "distance_km": 36.2
+   }
+  ],
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2016.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 8.908131349016912,
+  "map_noise_umol_m2": 4.038238766952418,
+  "years": {
+   "2023": {
+    "footprint_t": 2144.0,
+    "members": [
+     {
+      "register_id": "PT.CAED/PT.APA05764442.CI",
+      "name": "Santos Barosa vidros SA (CI)",
+      "reported_t": 540.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05766002.CI",
+      "name": "BA GLASS PORTUGAL, SA - Unidade Fabril da Marinha Grande (CI)",
+      "reported_t": 536.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05764262.CI",
+      "name": "Fábrica Maceira-Liz (CI)",
+      "reported_t": 398.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05764242.CI",
+      "name": "Fábrica Cibra-Pataias (CI)",
+      "reported_t": 240.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05766802.CI",
+      "name": "CRISAL - Cristalaria Automática, SA (CI)",
+      "reported_t": 219.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05765342.CI",
+      "name": "GALLOVIDRO, S.A. (CI)",
+      "reported_t": 211.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2016.0,
+    "members": [
+     {
+      "register_id": "PT.CAED/PT.APA05764442.CI",
+      "name": "Santos Barosa vidros SA (CI)",
+      "reported_t": 500.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05764262.CI",
+      "name": "Fábrica Maceira-Liz (CI)",
+      "reported_t": 450.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05766002.CI",
+      "name": "BA GLASS PORTUGAL, SA - Unidade Fabril da Marinha Grande (CI)",
+      "reported_t": 372.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05765342.CI",
+      "name": "GALLOVIDRO, S.A. (CI)",
+      "reported_t": 303.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05764242.CI",
+      "name": "Fábrica Cibra-Pataias (CI)",
+      "reported_t": 252.0
+     },
+     {
+      "register_id": "PT.CAED/PT.APA05766802.CI",
+      "name": "CRISAL - Cristalaria Automática, SA (CI)",
+      "reported_t": 139.0
+     }
+    ]
+   }
+  }
+ },
+ {
+  "subject_id": "ph-eu-acddd3f2",
+  "register_id": "PL.MŚ/000000053.FACILITY",
+  "name": "Grupa Ożarów S.A.",
+  "city": "Karsy",
+  "country": "Poland",
+  "sector": "Mineral industry",
+  "lat": 50.93043,
+  "lon": 21.6765,
+  "n_facilities": 2,
+  "selection": "cluster",
+  "failed_checks": [
+   "sources"
+  ],
+  "neighbours": [
+   {
+    "register_id": "PL.MŚ/000000468.FACILITY",
+    "name": "ENEA Elektrownia Połaniec Spółka Akcyjna",
+    "reported_t": 3480.0,
+    "distance_km": 59.7
+   },
+   {
+    "register_id": "PL.MŚ/000000615.FACILITY",
+    "name": "Pilkington Polska Sp. z o.o.",
+    "reported_t": 605.0,
+    "distance_km": 30.0
+   }
+  ],
+  "selected_from_year": 2024,
+  "latest_register_year": 2024,
+  "latest_footprint_t": 2013.0,
+  "reliable": false,
+  "own_detectable": false,
+  "own_enh_umol_m2": 10.050986929854844,
+  "map_noise_umol_m2": 7.5856295308767585,
+  "years": {
+   "2023": {
+    "footprint_t": 2004.0,
+    "members": [
+     {
+      "register_id": "PL.MŚ/000000053.FACILITY",
+      "name": "Grupa Ożarów S.A.",
+      "reported_t": 1810.0
+     },
+     {
+      "register_id": "PL.MŚ/000000136.FACILITY",
+      "name": "Celsa \"Huta Ostrowiec\" Sp.o.o.",
+      "reported_t": 194.0
+     }
+    ]
+   },
+   "2024": {
+    "footprint_t": 2013.0,
+    "members": [
+     {
+      "register_id": "PL.MŚ/000000053.FACILITY",
+      "name": "Grupa Ożarów S.A.",
+      "reported_t": 1790.0
+     },
+     {
+      "register_id": "PL.MŚ/000000136.FACILITY",
+      "name": "Celsa \"Huta Ostrowiec\" Sp.o.o.",
+      "reported_t": 223.0
+     }
+    ]
+   }
+  }
+ },
+ {
   "subject_id": "ph-eu-75284d11",
   "register_id": "EE.KAUR.TTR/75.FACILITY",
   "name": "Enefit Power AS, Eesti elektrijaam",
@@ -555,6 +1025,9 @@
   "lat": 59.27438,
   "lon": 27.90123,
   "n_facilities": 5,
+  "selection": "isolated",
+  "failed_checks": [],
+  "neighbours": [],
   "selected_from_year": 2023,
   "latest_register_year": 2024,
   "latest_footprint_t": 1616.0,

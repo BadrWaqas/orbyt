@@ -121,3 +121,19 @@ def test_manifest_lists_the_module():
     m = publish.build_manifest("ph-emg-1.1", "2026-11", "abc1234")
     assert m.modules[0].id == "pollution-hunter"
     assert m.modules[0].base == "/data/v1/pollution-hunter"
+
+
+def test_cluster_info_validates_and_is_optional():
+    f = c.Finding.model_validate(
+        {
+            **FINDING,
+            "cluster": {
+                "n_facilities": 1,
+                "neighbour": {"name": "N", "reported_t": 3.0, "distance_km": 40.0},
+            },
+        }
+    )
+    assert f.cluster.neighbour.name == "N"
+    assert c.Finding.model_validate(FINDING).cluster is None
+    with pytest.raises(ValidationError):
+        c.Finding.model_validate({**FINDING, "cluster": {"n_facilities": 1, "extra": 1}})

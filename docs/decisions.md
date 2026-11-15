@@ -283,3 +283,13 @@ Panel text: the line saying the method had not been checked against stack monito
 **Check.** All 315 findings and their detail files validate. `npm run typecheck` and `npm run build` pass with the generated types. `test_contracts.py` fails when the committed schemas are out of date.
 
 **Against the exit criterion.** `findings.json` validates against its schema. The plan's 25 or more European subjects with a verdict is not reachable with the isolation rule as written (10 isolated candidates, 3 with a verdict, none "higher"). See the M5.1 entry for the choice that is open.
+
+## 2026-11-15, M5.6 Cluster subjects (PLAN.md 1.7 fallback)
+
+**Decision (Badr).** City checks and the hotspot check stay as they are, the US validation supports them. Footprints that fail only the sources check are added as cluster subjects (`europe.cluster_flags: [sources]`). Their estimate is compared with the register NOx summed inside the 20 km footprint, the source 20 to 60 km away is not in that total, the grade is C, and they are labelled clusters in the data (`subject.kind`, `finding.cluster` with the neighbour that was left out) and in the facility panel.
+
+**Found.** Five footprints fail only the sources check at 2,000 t or more: Polaniec, Figueira da Foz, Lappeenranta, Marinha Grande and Karsy. None is at 6,000 t or more, all are below reliable detection. The 10 isolated subjects are unchanged. 15 subjects in total.
+
+**Result.** All five are inconclusive: no calendar year passes every gate for any of them. Marinha Grande (2,144 t reported, 13,816 t estimated in 2023) and Figueira da Foz (2,511 t, 6,795 t) fail only the source offset gate, so they are not a finding. The plume does not start at the site, which is what a second source nearby would do. The verdict count stays at 3 (Atherinolakkos, Los Guinchos, Melilla), all consistent, none higher.
+
+**Code.** `eu_set.select` takes `failed_checks` and `neighbours_of`, `verdict.grade(..., cluster=True)` gives C, `compare.cluster_info` writes the label, `contracts.ClusterInfo` is new and optional, so the contract stays in v1.

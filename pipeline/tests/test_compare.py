@@ -129,3 +129,29 @@ def test_approved_ids_reads_the_review_file(tmp_path):
     assert compare.approved_ids(path) == set()
     path.write_text(json.dumps({"approved": ["ph-eu-a"]}), encoding="utf-8")
     assert compare.approved_ids(path) == {"ph-eu-a"}
+
+
+def test_cluster_info_for_a_neighbour_cluster_and_a_merged_one():
+    near = {
+        "selection": "cluster",
+        "n_facilities": 1,
+        "neighbours": [{"name": "Big Plant", "reported_t": 3000.0, "distance_km": 41.2}],
+    }
+    assert compare.is_cluster(near)
+    assert compare.cluster_info(near) == {
+        "n_facilities": 1,
+        "neighbour": {"name": "Big Plant", "reported_t": 3000.0, "distance_km": 41.2},
+    }
+    merged = {"selection": "isolated", "n_facilities": 4}
+    assert not compare.is_cluster(merged)
+    assert compare.cluster_info(merged) == {"n_facilities": 4}
+    assert compare.cluster_info({"selection": "isolated", "n_facilities": 1}) is None
+
+
+def test_a_neighbour_cluster_is_graded_c_even_with_one_facility(tmp_path):
+    for y in (2023, 2024):
+        _write(tmp_path, y, _estimate(10_000))
+    subject = {**_subject({2023: 10_000.0, 2024: 10_000.0}), "selection": "cluster"}
+    r = compare.evaluate(subject, {"flags": []}, tmp_path, RULES, CFG)
+    assert r["verdict"] == "consistent"
+    assert r["grade"] == "C"

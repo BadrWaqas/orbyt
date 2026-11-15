@@ -71,6 +71,50 @@ def footprint_in_year(rows: list[dict], anchor_id: str, radius_km: float) -> dic
     return None
 
 
+CHECKS = ("sources", "city_near", "city_far", "hotspot")
+
+
+def failed_checks(scored: dict) -> set[str]:
+    """The isolation checks a scored footprint fails."""
+    return {k for k in CHECKS if scored.get(f"flag_{k}")}
+
+
+def neighbours_of(rows: list[dict], anchor_id: str, ccfg: dict[str, Any]) -> list[dict]:
+    """Register sources outside the footprint that made the sources check fail.
+
+    Same rule as candidates.score: 20 to 60 km from the anchor and above a quarter of the
+    footprint's reported total. Largest first, with the distance.
+    """
+    group = next(
+        (
+            g
+            for g in candidates.footprints(rows, ccfg["footprint_km"])
+            if any(rows[i]["register_id"] == anchor_id for i in g)
+        ),
+        None,
+    )
+    if group is None:
+        return []
+    anchor = max(group, key=lambda i: rows[i]["release_t"])
+    total = sum(rows[i]["release_t"] for i in group)
+    inside = set(group)
+    out = []
+    for i, r in enumerate(rows):
+        if i in inside or r["release_t"] <= ccfg["source_frac"] * total:
+            continue
+        d = haversine_km(rows[anchor]["lat"], rows[anchor]["lon"], r["lat"], r["lon"])
+        if ccfg["source_min_km"] <= d <= ccfg["source_max_km"]:
+            out.append(
+                {
+                    "register_id": r["register_id"],
+                    "name": r["name"],
+                    "reported_t": round(r["release_t"], 1),
+                    "distance_km": round(d, 1),
+                }
+            )
+    return sorted(out, key=lambda n: -n["reported_t"])
+
+
 def select(
     con: duckdb.DuckDBPyConnection, cfg: dict[str, Any] | None = None, log=print, **kw
 ) -> list[dict]:
@@ -81,21 +125,39 @@ def select(
     """
     cfg = cfg or load_config()
     ccfg, years = cfg["candidates"], sorted(cfg["europe"]["register_years"])
+    cluster_ok = set(cfg["europe"].get("cluster_flags", []))
     chosen: list[dict] = []
     for year in reversed(years):
         scored = candidates.rank(con, year, ccfg, log=log, **kw)
         for r in scored:
-            if not r["isolated"]:
+            failed = failed_checks(r)
+            if failed and not (failed <= cluster_ok):
+                continue
+            if not failed and not r["isolated"]:
                 continue
             if any(
                 haversine_km(r["lat"], r["lon"], c["lat"], c["lon"]) <= ccfg["footprint_km"]
                 for c in chosen
             ):
                 continue
-            chosen.append({**r, "selected_from_year": year})
+            chosen.append(
+                {
+                    **r,
+                    "selected_from_year": year,
+                    "selection": "cluster" if failed else "isolated",
+                    "failed_checks": sorted(failed),
+                }
+            )
     rows_by_year = {y: year_rows(con, y) for y in years}
     out = []
     for c in chosen:
+        near = (
+            neighbours_of(
+                eea.top_reporters(con, c["selected_from_year"], 100_000), c["subject_anchor"], ccfg
+            )
+            if "sources" in c["failed_checks"]
+            else []
+        )
         per_year = {
             str(y): footprint_in_year(rows_by_year[y], c["subject_anchor"], ccfg["footprint_km"])
             for y in years
@@ -113,6 +175,11 @@ def select(
                 "lat": round(c["lat"], 5),
                 "lon": round(c["lon"], 5),
                 "n_facilities": c["n_facilities"],
+                # "isolated" passed all four checks. "cluster" failed only checks named in
+                # europe.cluster_flags (PLAN.md 1.7 fallback) and is graded C.
+                "selection": c["selection"],
+                "failed_checks": c["failed_checks"],
+                "neighbours": near,
                 "selected_from_year": c["selected_from_year"],
                 "latest_register_year": latest,
                 "latest_footprint_t": total,
@@ -137,7 +204,11 @@ def main() -> None:
     subjects = select(con)
     args.out.write_text(json.dumps(subjects, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     n_rel = sum(s["reliable"] for s in subjects)
-    print(f"{len(subjects)} isolated footprints, {n_rel} at or above the reliable size. {args.out}")
+    n_cl = sum(s["selection"] == "cluster" for s in subjects)
+    print(
+        f"{len(subjects)} subjects ({len(subjects) - n_cl} isolated, {n_cl} clusters that fail "
+        f"only the sources check), {n_rel} at or above the reliable size. {args.out}"
+    )
     for s in subjects:
         yrs = ", ".join(
             f"{y}: {v['footprint_t']:,.0f} t" if v else f"{y}: none" for y, v in s["years"].items()

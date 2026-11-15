@@ -147,3 +147,9 @@ def test_grade_only_for_a_verdict_that_carries_a_number():
         assert v.grade(verdict, 120, 1, [], RULES) is None
     assert v.grade("higher", 120, 1, [], RULES) == "A"
     assert v.grade("lower", 120, 1, [], RULES) == "A"
+
+
+def test_cluster_subject_is_graded_c_whatever_else_is_clean():
+    assert v.grade("consistent", 200, 1, [], RULES, cluster=True) == "C"
+    assert v.grade("consistent", 200, 1, [], RULES, cluster=False) == "A"
+    assert v.grade("inconclusive", 200, 1, [], RULES, cluster=True) is None

@@ -140,17 +140,23 @@ def combine(calls: list[PeriodCall], rules: Rules) -> tuple[str, str | None]:
 
 
 def grade(
-    verdict: str, n_days: int | None, n_facilities: int, flags: list[str], rules: Rules
+    verdict: str,
+    n_days: int | None,
+    n_facilities: int,
+    flags: list[str],
+    rules: Rules,
+    cluster: bool = False,
 ) -> str | None:
     """A, B or C for a verdict that carries a number, else None.
 
     A: every gate passes, at least ``grade_a_min_days`` days and no flag. B: one flag, or fewer
-    days (the gate floor is 40). C: a cluster of facilities. Two flags also give C, the plan does
-    not say what two flags give and C is the cautious reading.
+    days (the gate floor is 40). C: a cluster, that is several facilities summed or a footprint
+    that failed the sources check and was kept as a cluster (``cluster``). Two flags also give C,
+    the plan does not say what two flags give and C is the cautious reading.
     """
     if verdict not in CALLS:
         return None
-    if n_facilities > 1 or len(flags) >= 2:
+    if cluster or n_facilities > 1 or len(flags) >= 2:
         return "C"
     if flags or n_days is None or n_days < rules.grade_a_min_days:
         return "B"
