@@ -74,6 +74,11 @@ observe:
 candidates:
   # PLAN.md 1.5 and 4.5: below this the satellite cannot see a source. Footprint total.
   min_footprint_t: 2000
+  # M4.4 (docs/decisions.md): in the US validation no estimate passed every gate with a footprint
+  # under 4,000 t, 1 of 20 did at 4,000 to 6,000 t and 6 of 21 at 6,000 t or more. Footprints
+  # under this stay candidates (the 2,000 t floor above is kept) but are labelled "below reliable
+  # detection" in findings.json and the panel. Set from US data only.
+  reliable_min_t: 6000
   # PLAN.md 4.5, footprint accounting: facilities within this distance are one subject.
   footprint_km: 20
   # PLAN.md 4.5, isolation: no other register source above a quarter of this one, 20 to 60 km.
@@ -139,6 +144,9 @@ validation:
   # PLAN.md 4.5. Set before the flags were computed.
   nei:
     flag_frac: 0.25
+  # PLAN.md 1.7 fallback, decided 15 Nov 2026: the US plants go on the public map with their
+  # validation comparison (us_public.py). Tier 1 only, the population the site would publish.
+  publish_tiers: [1]
 
 verdict:
   # PLAN.md 4.8, the systematic uncertainty added to each estimate's own bootstrap interval.

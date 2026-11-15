@@ -229,3 +229,46 @@ def test_export_survives_a_broken_findings_file(con, tmp_path):
     out.write_text("{not json", encoding="utf-8")
     eea.export_findings(con, 2024, 10, out)
     assert json.loads(out.read_text(encoding="utf-8"))["count"] == 2
+
+
+def test_detection_label_uses_the_reliable_floor():
+    assert eea.detection_label(6000.0, 20, 6000)["reliable"]
+    below = eea.detection_label(5999.0, 20, 6000)
+    assert not below["reliable"] and below["footprint_t"] == 5999.0 and below["footprint_km"] == 20
+
+
+def test_export_labels_every_finding_with_its_footprint(con, tmp_path):
+    out = tmp_path / "v1" / "findings.json"
+    eea.export_findings(con, 2024, 10, out)
+    data = json.loads(out.read_text(encoding="utf-8"))
+    for f in data["findings"]:
+        d = f["detection"]
+        assert d["footprint_t"] >= f["claimed"]["value"]
+        assert d["reliable"] == (d["footprint_t"] >= d["min_reliable_t"])
+    belchatow = next(f for f in data["findings"] if f["subject"]["register_id"] == BELCHATOW)
+    assert belchatow["detection"]["reliable"]  # 18,800 t
+
+
+def test_re_export_keeps_findings_from_other_registers(con, tmp_path):
+    out = tmp_path / "v1" / "findings.json"
+    eea.export_findings(con, 2024, 10, out)
+    payload = json.loads(out.read_text(encoding="utf-8"))
+    us = {
+        "id": "ph-us-1-2024",
+        "subject": {"id": "ph-us-1", "register": "EPA CAMPD"},
+        "observed": None,
+    }
+    payload["findings"].append(us)
+    out.write_text(json.dumps(payload), encoding="utf-8")
+    us_detail = out.parent / "finding" / "ph-us-1-2024.json"
+    us_detail.write_text('{"id": "ph-us-1-2024", "validation": {}}', encoding="utf-8")
+
+    eea.export_findings(con, 2024, 10, out)
+
+    data = json.loads(out.read_text(encoding="utf-8"))
+    assert any(f["id"] == "ph-us-1-2024" for f in data["findings"])
+    assert data["count"] == len(data["findings"])
+    assert json.loads(us_detail.read_text(encoding="utf-8")) == {
+        "id": "ph-us-1-2024",
+        "validation": {},
+    }

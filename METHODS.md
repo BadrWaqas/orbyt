@@ -110,7 +110,7 @@ Null test (M4.5, V3): 0 of 20 empty sites pass every gate.
 
 ## 8. Wind level
 
-The 100 m wind is used. PLAN.md asks for the 500 m wind (ERA5 pressure levels at surface pressure minus 55 hPa) to be tested and the better level kept. That run reads from the Copernicus Climate Data Store one quarter at a time and has been held up for days by the store's queue limit. On 15 November 2026 it had finished one plant-year: Martin Lake 2023, where the 500 m wind at the overpass hours is 1.21 times the 100 m wind (median of 140 days, 1.23 as a ratio of means) and turns by only 1 degree.
+The 100 m wind is used. PLAN.md asks for the 500 m wind (ERA5 pressure levels at surface pressure minus 55 hPa) to be tested and the better level kept. The hourly pressure-level data comes from the Copernicus Climate Data Store, now as one request per quarter for a box around all US plants (8 requests instead of 264, same data, docs/decisions.md). The faster point-optimised ERA5 copies are 6-hourly with only 1000, 925 and 850 hPa near the ground, which would change the wind's timing as well as its height, so they are not used. On 15 November 2026 one plant-year was in: Martin Lake 2023, where the 500 m wind at the overpass hours is 1.21 times the 100 m wind (median of 140 days, 1.23 as a ratio of means) and turns by only 1 degree.
 
 What that implies, to be confirmed when the run finishes: the estimates would rise by about 20%, the gated tier 1 estimates would read about 1.2 times their monitors, and keeping them unbiased would need c of about 1.34, which is inside the published 1.61 +/- 0.32. The level is to be chosen by the lower scatter against the monitors (V4), and c refit at that level only if the bias is significant. The bias shows no dependence on mean wind speed across the tier 1 estimates that do not fail `poor_fit` or `source_offset` (correlation 0.04, 12 estimates).
 
@@ -119,7 +119,8 @@ What that implies, to be confirmed when the run finishes: the estimates would ri
 - One look a day at about 13:30, clear and windy days only, spring to autumn at higher latitudes.
 - One average air mass correction instead of a per-pixel one. It is the largest simplification, and it cannot be told apart from a wind-speed error with stack monitors.
 - Wind from a 28 km reanalysis grid at a single level.
-- Subjects under about 6,000 t/yr rarely pass the gates on real data.
+- Subjects under about 6,000 t/yr rarely pass the gates on real data. They stay candidates (the floor is 2,000 t) but are labelled "below reliable detection" (`candidates.reliable_min_t`, `detection` in findings.json).
+- The 13 tier 1 US plants are on the public map as test sites, with the stack monitor total as the record and both years of the comparison in the panel (PLAN.md 1.7 fallback).
 - The fan widens to 76 km, so a city or industrial area 40 to 90 km away can enter it. The isolation checks and the plume-start gate guard against this, and the US validation shows they are needed.
 - Seven gated US estimates fix u_sys only loosely. More US plants above 6,000 t, or the 500 m wind run, will tighten it.
 - The US unmonitored reference is a single inventory year (2023) and is itself an estimate.

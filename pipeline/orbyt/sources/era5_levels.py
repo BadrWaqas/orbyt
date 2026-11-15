@@ -59,6 +59,26 @@ def _cell(lat: float, lon: float) -> tuple[float, float]:
     return round(lat * 4) / 4, round(lon * 4) / 4
 
 
+REPO_ROOT = Path(__file__).resolve().parents[3]
+REGION_DIR = REPO_ROOT / "data" / "raw" / "era5_pl"
+
+
+def region_path(name: str, year: int, quarter: int, raw_dir: Path = REGION_DIR) -> Path:
+    return raw_dir / f"{name}_{year}-Q{quarter}.nc"
+
+
+def region_box(points: list[tuple[float, float]], margin_deg: float = 0.5) -> list[float]:
+    """CDS area [north, west, south, east] on the 0.25 degree grid, holding every point's cell."""
+    cells = [_cell(lat, lon) for lat, lon in points]
+    lats, lons = [c[0] for c in cells], [c[1] for c in cells]
+    return [
+        max(lats) + margin_deg,
+        min(lons) - margin_deg,
+        min(lats) - margin_deg,
+        max(lons) + margin_deg,
+    ]
+
+
 def fetch_period(
     lat: float,
     lon: float,
@@ -68,12 +88,16 @@ def fetch_period(
     hours: list[int],
     target: Path,
     cfg: dict,
+    area: list[float] | None = None,
 ) -> Path:
     """Download u and v on the pressure levels for the cell around the point.
 
     The request is the product of the given months, days and hours, so a quarter holds a few
     thousand fields. The CDS refuses a whole year of 14 levels as too large ("cost limits
     exceeded"), and a request spends minutes in the queue, so the period is a quarter.
+    ``area`` replaces the one cell with a box ([north, west, south, east]). The CDS charges by
+    the number of fields, not the area, so one box for many plants costs about as much queue
+    time as one plant (M4.4: about 1.5 h per request).
     """
     if target.exists():
         return target
@@ -90,8 +114,9 @@ def fetch_period(
         "time": [f"{h:02d}:00" for h in sorted(set(hours))],
         "data_format": "netcdf",
         "download_format": "unarchived",
-        "area": [clat + 0.25, clon - 0.25, clat - 0.25, clon + 0.25],
+        "area": area or [clat + 0.25, clon - 0.25, clat - 0.25, clon + 0.25],
     }
+    target.parent.mkdir(parents=True, exist_ok=True)
     tmp = target.with_suffix(".part")
     for attempt in range(cfg["reject_retries"]):
         try:
@@ -122,6 +147,49 @@ def read_profiles(path: Path, lat: float, lon: float) -> tuple[dict[int, np.ndar
     finally:
         ds.close()
     return {int(t): np.stack([u[i], v[i]]) for i, t in enumerate(times)}, levels
+
+
+def region_covers(path: Path, lat: float, lon: float, stamps: list[datetime]) -> bool:
+    """True when a regional file holds the point's cell and every hour asked for."""
+    import xarray as xr
+
+    clat, clon = _cell(lat, lon)
+    ds = xr.open_dataset(path, engine="h5netcdf")
+    try:
+        lats, lons = ds["latitude"].values, ds["longitude"].values
+        if not (np.isclose(lats, clat).any() and np.isclose(lons, clon).any()):
+            return False
+        tdim = "valid_time" if "valid_time" in ds.dims else "time"
+        have = set(ds[tdim].values.astype("datetime64[s]").astype("int64").tolist())
+    finally:
+        ds.close()
+    need = {int(s.timestamp()) for s in stamps}
+    return need <= have
+
+
+def fetch_region(
+    name: str,
+    points: list[tuple[float, float]],
+    hours: list[int],
+    year: int,
+    quarter: int,
+    cfg: dict,
+    raw_dir: Path = REGION_DIR,
+) -> Path:
+    """One CDS request for a quarter, every day, the given hours, over a box around the points."""
+    months = [3 * (quarter - 1) + m for m in (1, 2, 3)]
+    lat, lon = points[0]
+    return fetch_period(
+        lat,
+        lon,
+        year,
+        months,
+        list(range(1, 32)),
+        hours,
+        region_path(name, year, quarter, raw_dir),
+        cfg,
+        area=region_box(points),
+    )
 
 
 def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
@@ -159,6 +227,10 @@ def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
 
     def get_quarter(job: tuple[tuple[int, int], list[datetime]]) -> Path:
         (year, quarter), stamps = job
+        for region in sorted(REGION_DIR.glob(f"*_{year}-Q{quarter}.nc")):
+            if region_covers(region, subject.lat, subject.lon, stamps):
+                log(f"{year} Q{quarter}: from {region.name}")
+                return region
         path = out_dir / subject_id / f"era5_pl_{year}-Q{quarter}.nc"
         log(f"{year} Q{quarter}: {len(stamps)} hours from the CDS")
         return fetch_period(
@@ -217,12 +289,47 @@ def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
     return path
 
 
+def fetch_us_region(years: list[int], log=print) -> list[Path]:
+    """Every quarter of the given years over a box around the US validation plants.
+
+    The hours are the ERA5 hours that the plants' 100 m winds use (18 to 21 UTC in M4.3).
+    One request per quarter instead of one per plant and quarter: 8 requests for 2023 and 2024
+    instead of 264, with the same data.
+    """
+    import json
+
+    from orbyt.modules.pollution_hunter import extract, validation_set
+
+    plants = json.loads(validation_set.PLANTS_JSON.read_text(encoding="utf-8"))
+    points = [(p["lat"], p["lon"]) for p in plants]
+    hours: set[int] = set()
+    for p in plants:
+        for w in era5.read_winds(era5.wind_path(extract.INTERIM_DIR, p["subject_id"])):
+            hours.add(int(w.era5_hour_utc[11:13]))
+    cfg = load_config()["wind"]["pressure_levels"]
+    log(f"box {region_box(points)}, hours {sorted(hours)}")
+    out = []
+    for year in years:
+        for quarter in (1, 2, 3, 4):
+            t0 = time.time()
+            out.append(fetch_region("us", points, sorted(hours), year, quarter, cfg))
+            log(f"{year} Q{quarter}: {out[-1].name} ({(time.time() - t0) / 60:.0f} min)")
+    return out
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="ERA5 wind at about 500 m, per day")
-    parser.add_argument("--subject-id", required=True)
+    parser.add_argument("--subject-id")
+    parser.add_argument("--us-region", action="store_true", help="fetch the US box by quarter")
+    parser.add_argument("--years", type=int, nargs="+", default=[2023, 2024])
     parser.add_argument("--out-dir", type=Path, default=None)
     args = parser.parse_args()
-    print(f"wrote {winds_500m(args.subject_id, args.out_dir)}")
+    if args.us_region:
+        fetch_us_region(args.years)
+    elif args.subject_id:
+        print(f"wrote {winds_500m(args.subject_id, args.out_dir)}")
+    else:
+        parser.error("give --subject-id or --us-region")
 
 
 if __name__ == "__main__":

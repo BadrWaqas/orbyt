@@ -2,7 +2,7 @@
  "module": "pollution-hunter",
  "period": "2024",
  "source": "EEA Industrial Reporting database v16",
- "count": 300,
+ "count": 313,
  "latest_year_countries": {
   "CY": 2023,
   "CZ": 2022,
@@ -41,7 +41,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 18800.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-647de70d-2024",
@@ -74,7 +80,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 22200.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-496e37d5-2024",
@@ -107,7 +119,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 22200.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-6ffe5878-2024",
@@ -140,7 +158,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 9855.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-dd8199b7-2024",
@@ -173,7 +197,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 9370.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-5fee838b-2024",
@@ -206,7 +236,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 9230.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-57c0cb24-2024",
@@ -239,7 +275,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 18005.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-9c381c8a-2024",
@@ -272,7 +314,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 7650.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-12a5336d-2024",
@@ -314,7 +362,13 @@
    },
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 7600.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-cf27f906-2024",
@@ -347,7 +401,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 18880.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-b95bf372-2024",
@@ -380,7 +440,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 7500.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-4e8652da-2024",
@@ -413,7 +479,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 7367.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-5eadec40-2024",
@@ -446,7 +518,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5690.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ae54cd6c-2024",
@@ -479,7 +557,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5250.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-374ddda7-2024",
@@ -512,7 +596,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6621.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-f55d8721-2024",
@@ -545,7 +635,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 8458.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-397e092e-2024",
@@ -578,7 +674,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4900.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5cf9c206-2024",
@@ -611,7 +713,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5134.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-106f4f28-2024",
@@ -644,7 +752,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4600.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e9c76b23-2024",
@@ -677,7 +791,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4390.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c485cf28-2022",
@@ -711,7 +831,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 10080.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-ea3a5453-2022",
@@ -745,7 +871,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5635.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-347c8cef-2024",
@@ -778,7 +910,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 16071.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-c134ee7a-2024",
@@ -811,7 +949,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 7600.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-d9f97891-2024",
@@ -844,7 +988,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4786.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-04eb4ec4-2024",
@@ -877,7 +1027,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4429.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b143a6fb-2024",
@@ -910,7 +1066,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4020.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ce50e730-2024",
@@ -943,7 +1105,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4368.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-28c54e51-2022",
@@ -977,7 +1145,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5227.8,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a41f0d1d-2024",
@@ -1010,7 +1184,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6551.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-7a8d89b7-2024",
@@ -1043,7 +1223,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3720.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ea8f756b-2024",
@@ -1076,7 +1262,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3700.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-0eb435c4-2024",
@@ -1109,7 +1301,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5011.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5fb83b86-2024",
@@ -1142,7 +1340,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5834.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c349e455-2024",
@@ -1175,7 +1379,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3997.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-89f99674-2024",
@@ -1208,7 +1418,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11048.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-a3101a55-2024",
@@ -1241,7 +1457,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 7600.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-27eb1b72-2024",
@@ -1274,7 +1496,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3598.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-50a08f6d-2024",
@@ -1307,7 +1535,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3200.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f1dd46d3-2024",
@@ -1340,7 +1574,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3406.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-6336d872-2024",
@@ -1373,7 +1613,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 8771.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-e2ad0971-2024",
@@ -1406,7 +1652,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4454.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-cc86fcd3-2024",
@@ -1439,7 +1691,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5296.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-109b35b9-2024",
@@ -1472,7 +1730,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2950.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-7fd85abd-2024",
@@ -1505,7 +1769,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2940.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-04040aed-2024",
@@ -1538,7 +1808,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 15047.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-8acf8033-2024",
@@ -1571,7 +1847,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3466.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b059ab7f-2024",
@@ -1604,7 +1886,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2850.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-753ab353-2024",
@@ -1637,7 +1925,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2690.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-11fa935d-2024",
@@ -1670,7 +1964,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2660.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-43ac6245-2024",
@@ -1703,7 +2003,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2530.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-80d72598-2022",
@@ -1737,7 +2043,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5040.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-7501bcf1-2022",
@@ -1771,7 +2083,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4915.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4e6680fa-2022",
@@ -1805,7 +2123,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2589.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-dafec47a-2022",
@@ -1839,7 +2163,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11309.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-d24a3bac-2024",
@@ -1872,7 +2202,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5332.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-53b9f9d7-2024",
@@ -1905,7 +2241,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3086.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4e72dea3-2024",
@@ -1938,7 +2280,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2665.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-fff6ec49-2022",
@@ -1972,7 +2320,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5865.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-1fd7ff7b-2024",
@@ -2005,7 +2359,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2270.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3eb9c6ad-2024",
@@ -2038,7 +2398,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2250.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b5c5866f-2023",
@@ -2072,7 +2438,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4004.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-48c49c3b-2024",
@@ -2105,7 +2477,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6200.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-755f46ff-2024",
@@ -2138,7 +2516,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3753.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2f9c1efe-2022",
@@ -2172,7 +2556,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11774.9,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-c9b1c449-2024",
@@ -2205,7 +2595,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2090.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-23ca4cbe-2024",
@@ -2238,7 +2634,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3426.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-8969e4e1-2024",
@@ -2271,7 +2673,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4606.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d8009cb0-2024",
@@ -2304,7 +2712,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1970.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-6cb02040-2024",
@@ -2337,7 +2751,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1910.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-dc2c72ad-2024",
@@ -2370,7 +2790,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1880.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2514b0d3-2024",
@@ -2403,7 +2829,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1879.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-779da263-2024",
@@ -2436,7 +2868,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1850.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-1107d39d-2024",
@@ -2469,7 +2907,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6551.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-4dd0c357-2024",
@@ -2502,7 +2946,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2574.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-56a7aa47-2022",
@@ -2536,7 +2986,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3439.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-88a25687-2024",
@@ -2569,7 +3025,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2454.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-acddd3f2-2024",
@@ -2602,7 +3064,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2013.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2ab103bd-2024",
@@ -2635,7 +3103,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2081.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-51b2a07d-2024",
@@ -2668,7 +3142,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1770.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f874b9e6-2024",
@@ -2701,7 +3181,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 16071.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-72e787d1-2024",
@@ -2734,7 +3220,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6192.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-1702e3b3-2024",
@@ -2767,7 +3259,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2478.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a10dedba-2024",
@@ -2800,7 +3298,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 8372.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-029e4a32-2024",
@@ -2833,7 +3337,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3760.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c18fe1cc-2024",
@@ -2866,7 +3376,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2675.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d395e986-2024",
@@ -2899,7 +3415,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4606.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-0a5d3e3f-2024",
@@ -2932,7 +3454,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2226.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-702ae3dc-2024",
@@ -2965,7 +3493,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1720.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-cd0c2b5e-2024",
@@ -2998,7 +3532,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1710.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-edbf23b1-2024",
@@ -3031,7 +3571,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2709.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ab4c9fef-2024",
@@ -3064,7 +3610,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2004.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-54b8deb7-2024",
@@ -3097,7 +3649,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1802.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4bac04b4-2024",
@@ -3130,7 +3688,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1670.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-1ba28999-2024",
@@ -3163,7 +3727,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2503.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-857150ad-2024",
@@ -3196,7 +3766,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1660.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f3f7fcb8-2024",
@@ -3229,7 +3805,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6969.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-80adbad1-2023",
@@ -3263,7 +3845,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4004.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-80fbba46-2024",
@@ -3296,7 +3884,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1639.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2a53e532-2024",
@@ -3329,7 +3923,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1630.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-57e3d2ef-2024",
@@ -3362,7 +3962,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11232.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-dfb64bf4-2024",
@@ -3395,7 +4001,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1794.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f2790405-2024",
@@ -3428,7 +4040,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2661.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d5aff011-2022",
@@ -3462,7 +4080,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1895.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c89d59e7-2024",
@@ -3495,7 +4119,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1580.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-8038f49c-2024",
@@ -3528,7 +4158,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1580.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-bdf837ba-2023",
@@ -3562,7 +4198,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1570.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2b120ce9-2024",
@@ -3595,7 +4237,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1974.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-df1e1d71-2024",
@@ -3628,7 +4276,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1570.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-adfb454f-2022",
@@ -3662,7 +4316,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1560.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-768a7e65-2024",
@@ -3695,7 +4355,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1550.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a3a57f36-2024",
@@ -3728,7 +4394,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2733.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-6ab51a4d-2024",
@@ -3761,7 +4433,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2587.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-13f90425-2022",
@@ -3795,7 +4473,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1767.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-555049d3-2024",
@@ -3828,7 +4512,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2913.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5ae47f0f-2024",
@@ -3861,7 +4551,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1505.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e10cf6ae-2024",
@@ -3894,7 +4590,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11748.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-e5499fe9-2024",
@@ -3927,7 +4629,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1500.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c896de33-2024",
@@ -3960,7 +4668,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1722.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-1f3d873f-2024",
@@ -3993,7 +4707,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3760.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e51a39db-2024",
@@ -4026,7 +4746,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2325.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-204421c0-2024",
@@ -4059,7 +4785,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5842.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5206f392-2022",
@@ -4093,7 +4825,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1566.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-6ed90fbc-2022",
@@ -4127,7 +4865,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2081.6,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-44796ac6-2024",
@@ -4160,7 +4904,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1430.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ba5a07ee-2024",
@@ -4193,7 +4943,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2132.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-0d2fdb57-2024",
@@ -4226,7 +4982,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6481.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-f5853baa-2024",
@@ -4259,7 +5021,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1390.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-62723e88-2024",
@@ -4292,7 +5060,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3656.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ff266b43-2024",
@@ -4325,7 +5099,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2571.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2f603801-2024",
@@ -4358,7 +5138,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 8771.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-965f57e4-2024",
@@ -4391,7 +5177,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1659.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-00106096-2024",
@@ -4424,7 +5216,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1451.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ab4526bb-2024",
@@ -4457,7 +5255,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2597.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-39fd394d-2024",
@@ -4490,7 +5294,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11048.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-9a07c395-2024",
@@ -4523,7 +5333,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1304.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ed8db5d6-2024",
@@ -4556,7 +5372,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2480.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-77915203-2024",
@@ -4589,7 +5411,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1300.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ce5baf63-2024",
@@ -4622,7 +5450,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2190.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f53ea333-2024",
@@ -4655,7 +5489,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1300.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f32472be-2024",
@@ -4688,7 +5528,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1512.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a691ddb8-2024",
@@ -4721,7 +5567,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1290.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-054f62ca-2022",
@@ -4755,7 +5607,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1284.9,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c90e1dc6-2024",
@@ -4788,7 +5646,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3494.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a6958751-2024",
@@ -4821,7 +5685,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2650.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-973b159d-2024",
@@ -4854,7 +5724,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1258.6,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-997616b4-2024",
@@ -4887,7 +5763,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1250.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-dadeea1d-2024",
@@ -4920,7 +5802,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1518.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a4bb918b-2024",
@@ -4953,7 +5841,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2243.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4d92b21d-2024",
@@ -4986,7 +5880,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2606.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-1599140f-2024",
@@ -5019,7 +5919,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 8910.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-c3d803e3-2024",
@@ -5052,7 +5958,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1200.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-54e4378b-2024",
@@ -5085,7 +5997,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2020.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-25d1fc7e-2024",
@@ -5118,7 +6036,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1184.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-36bd3bc8-2024",
@@ -5151,7 +6075,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2707.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-aa1c5bf2-2024",
@@ -5184,7 +6114,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2650.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a0afb940-2024",
@@ -5217,7 +6153,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1177.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-6d0a01df-2024",
@@ -5250,7 +6192,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2069.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c75d065d-2024",
@@ -5283,7 +6231,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1160.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-04dedc83-2022",
@@ -5317,7 +6271,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1278.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-29d699dd-2024",
@@ -5350,7 +6310,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2353.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d9ce013d-2024",
@@ -5383,7 +6349,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1146.8,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-0690e4ac-2024",
@@ -5416,7 +6388,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1140.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-af8ad613-2024",
@@ -5449,7 +6427,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1140.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-9a72618b-2024",
@@ -5482,7 +6466,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1875.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-37d1570e-2024",
@@ -5515,7 +6505,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1368.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b361d83e-2024",
@@ -5548,7 +6544,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3201.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5709279d-2024",
@@ -5581,7 +6583,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1250.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-121d1ceb-2024",
@@ -5614,7 +6622,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1120.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ba5ed90b-2022",
@@ -5648,7 +6662,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6545.4,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-045124fb-2024",
@@ -5681,7 +6701,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1555.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-63108469-2024",
@@ -5714,7 +6740,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4742.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e693a244-2024",
@@ -5747,7 +6779,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4889.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3bf8ef09-2024",
@@ -5780,7 +6818,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1090.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-1922a831-2024",
@@ -5813,7 +6857,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1082.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2c100df2-2024",
@@ -5846,7 +6896,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1977.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-aaeeca59-2024",
@@ -5879,7 +6935,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2221.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-882c7451-2024",
@@ -5912,7 +6974,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2044.6,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-8e74ba47-2024",
@@ -5945,7 +7013,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1060.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a0dac223-2024",
@@ -5978,7 +7052,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6200.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-db444297-2024",
@@ -6011,7 +7091,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11785.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-ca61aefc-2024",
@@ -6044,7 +7130,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1060.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-9556ea6c-2024",
@@ -6077,7 +7169,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 20483.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-1f2728cf-2024",
@@ -6110,7 +7208,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1821.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-6e680cad-2024",
@@ -6143,7 +7247,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1638.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a3448e04-2024",
@@ -6176,7 +7286,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2353.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5edd487a-2024",
@@ -6209,7 +7325,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5332.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-0598eb7e-2024",
@@ -6242,7 +7364,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1199.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f7c98f7c-2024",
@@ -6275,7 +7403,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1212.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-65f137dc-2024",
@@ -6308,7 +7442,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1839.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-cde2643b-2024",
@@ -6341,7 +7481,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1010.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-58f19271-2024",
@@ -6374,7 +7520,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1181.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b20a96aa-2022",
@@ -6408,7 +7560,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2195.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-48f38a3c-2024",
@@ -6441,7 +7599,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2336.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-045b8684-2024",
@@ -6474,7 +7638,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1495.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4f077532-2024",
@@ -6507,7 +7677,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 992.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f696f6a4-2024",
@@ -6540,7 +7716,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1208.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2daccf8d-2024",
@@ -6573,7 +7755,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2571.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-7947adf5-2024",
@@ -6606,7 +7794,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 980.4,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f496bc61-2024",
@@ -6639,7 +7833,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1133.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5aea920c-2022",
@@ -6673,7 +7873,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5107.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c0b3ee38-2022",
@@ -6707,7 +7913,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2769.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-610df3bc-2024",
@@ -6740,7 +7952,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2357.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-53a0a3dc-2024",
@@ -6773,7 +7991,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 956.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f44f11fe-2024",
@@ -6806,7 +8030,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 945.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2e6b26ed-2024",
@@ -6839,7 +8069,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 944.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-20bdca5b-2022",
@@ -6873,7 +8109,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5635.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-11819eb2-2024",
@@ -6906,7 +8148,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1585.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4c457ac0-2024",
@@ -6939,7 +8187,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5714.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-9af5f07c-2024",
@@ -6972,7 +8226,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1402.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-94878d47-2024",
@@ -7005,7 +8265,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1563.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-dfa86834-2024",
@@ -7038,7 +8304,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 911.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-51b725cb-2024",
@@ -7071,7 +8343,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1319.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f8dbc5e1-2022",
@@ -7105,7 +8383,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2195.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-54419984-2024",
@@ -7138,7 +8422,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1226.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-de04a0e1-2024",
@@ -7171,7 +8461,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1123.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-7199dcba-2022",
@@ -7205,7 +8501,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 9955.4,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-2ef06a31-2024",
@@ -7238,7 +8540,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 896.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d8389db5-2024",
@@ -7271,7 +8579,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1450.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-fd9ed025-2024",
@@ -7304,7 +8618,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1188.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3a12d533-2024",
@@ -7337,7 +8657,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2287.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-6404adab-2024",
@@ -7370,7 +8696,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 870.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-33185438-2024",
@@ -7403,7 +8735,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1345.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-64711b49-2024",
@@ -7436,7 +8774,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 865.8,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3912019c-2024",
@@ -7469,7 +8813,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2727.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-debe8ac4-2024",
@@ -7502,7 +8852,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 861.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-1f46ea2a-2024",
@@ -7535,7 +8891,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 860.6,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-fdb718cb-2024",
@@ -7568,7 +8930,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 860.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2ebf13c1-2022",
@@ -7602,7 +8970,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 859.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5cd2c1f2-2024",
@@ -7635,7 +9009,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3214.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e87547c4-2022",
@@ -7669,7 +9049,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1739.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2378db96-2024",
@@ -7702,7 +9088,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1376.4,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-21eb6450-2024",
@@ -7735,7 +9127,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 837.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-35383f71-2024",
@@ -7768,7 +9166,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 16071.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-50de77cf-2024",
@@ -7801,7 +9205,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1316.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f01e99a0-2022",
@@ -7835,7 +9245,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 829.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b7777e54-2024",
@@ -7868,7 +9284,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 827.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-bdee2f58-2024",
@@ -7901,7 +9323,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1307.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3b63dc77-2024",
@@ -7934,7 +9362,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 822.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-9b35dbe4-2024",
@@ -7967,7 +9401,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 821.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-378bf744-2024",
@@ -8000,7 +9440,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 820.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f1b84630-2024",
@@ -8033,7 +9479,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1633.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-55051684-2024",
@@ -8066,7 +9518,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2727.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5760a8b3-2024",
@@ -8099,7 +9557,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1483.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ffa4fdf2-2024",
@@ -8132,7 +9596,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1443.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-74686294-2024",
@@ -8165,7 +9635,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5164.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-5497a4c5-2024",
@@ -8198,7 +9674,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1012.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d40a3072-2024",
@@ -8231,7 +9713,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2290.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a2ae8517-2024",
@@ -8264,7 +9752,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2108.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2d2e1474-2024",
@@ -8297,7 +9791,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 16071.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-f2c60b18-2024",
@@ -8330,7 +9830,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2354.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3b03f16a-2024",
@@ -8363,7 +9869,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 11748.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-6fd414c3-2024",
@@ -8396,7 +9908,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1260.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-85bf59c0-2024",
@@ -8429,7 +9947,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4454.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d580ca14-2024",
@@ -8462,7 +9986,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1845.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-942b83e6-2024",
@@ -8495,7 +10025,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2290.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d3cadc34-2024",
@@ -8528,7 +10064,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 784.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-324f0197-2024",
@@ -8561,7 +10103,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 784.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ec734bfd-2024",
@@ -8594,7 +10142,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3361.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3e549ed2-2024",
@@ -8627,7 +10181,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 780.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e2444102-2024",
@@ -8660,7 +10220,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5817.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-836329f2-2024",
@@ -8693,7 +10259,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1126.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f2307466-2024",
@@ -8726,7 +10298,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1436.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ea597faf-2024",
@@ -8759,7 +10337,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6156.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-273ff7ff-2024",
@@ -8792,7 +10376,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3542.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-2891fded-2024",
@@ -8825,7 +10415,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 766.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-61d91235-2024",
@@ -8858,7 +10454,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2709.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-aa0bc748-2024",
@@ -8891,7 +10493,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6969.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-d431141d-2024",
@@ -8924,7 +10532,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 755.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b3c41297-2024",
@@ -8957,7 +10571,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2597.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f9556a50-2024",
@@ -8990,7 +10610,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 748.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-8b34a0b0-2022",
@@ -9024,7 +10650,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5469.9,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-426a61b1-2024",
@@ -9057,7 +10689,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 903.9,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-72a8dda9-2024",
@@ -9090,7 +10728,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 745.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-acd64e38-2024",
@@ -9123,7 +10767,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 8091.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-02fb076b-2024",
@@ -9156,7 +10806,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 13176.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-e96e74fa-2024",
@@ -9189,7 +10845,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 730.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e98b7c59-2024",
@@ -9222,7 +10884,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 929.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4920bbe8-2024",
@@ -9255,7 +10923,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2836.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-fda1ada4-2024",
@@ -9288,7 +10962,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2108.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-648877a5-2024",
@@ -9321,7 +11001,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2684.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-87e566ec-2024",
@@ -9354,7 +11040,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2132.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d8dd0e22-2022",
@@ -9388,7 +11080,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 4910.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-d30bb3df-2024",
@@ -9421,7 +11119,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 719.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-444df071-2022",
@@ -9455,7 +11159,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 851.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-4cb17ea3-2024",
@@ -9488,7 +11198,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 816.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c8f5c889-2024",
@@ -9521,7 +11237,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1103.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-45344efd-2024",
@@ -9554,7 +11276,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5533.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-b406cc84-2024",
@@ -9587,7 +11315,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 704.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-274c0339-2024",
@@ -9620,7 +11354,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 893.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-bddf69ca-2024",
@@ -9653,7 +11393,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1083.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-f76eb359-2024",
@@ -9686,7 +11432,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 697.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-3380f766-2024",
@@ -9719,7 +11471,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 693.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-e8308db6-2024",
@@ -9752,7 +11510,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 6200.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   }
   },
   {
    "id": "ph-eu-883005ee-2024",
@@ -9785,7 +11549,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 5952.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-c50ccc68-2024",
@@ -9818,7 +11588,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 1562.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a8d11f0b-2024",
@@ -9851,7 +11627,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 3937.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-ad976d61-2024",
@@ -9884,7 +11666,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 880.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-be652252-2024",
@@ -9917,7 +11705,13 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 683.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
   },
   {
    "id": "ph-eu-a269f57b-2024",
@@ -9950,7 +11744,569 @@
    "observed": null,
    "ratio": null,
    "verdict": null,
-   "grade": null
+   "grade": null,
+   "detection": {
+    "footprint_t": 2388.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
+  },
+  {
+   "id": "ph-us-2167-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-2167",
+    "kind": "facility",
+    "name": "New Madrid",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "New Madrid, MO",
+    "lat": 36.5147,
+    "lon": -89.5617,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 2167"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 9501.1,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": {
+    "value": 7849,
+    "lo": 5309,
+    "hi": 12383,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.1",
+    "n_days": 166,
+    "lifetime_h": 5.9,
+    "interval_basis": "sampling"
+   },
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 9531.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-6146-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-6146",
+    "kind": "cluster",
+    "name": "Martin Lake",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Rusk, TX",
+    "lat": 32.2606,
+    "lon": -94.5706,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 3476, 55176, 55664, 6146"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 7738.1,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": {
+    "value": 8674,
+    "lo": 6834,
+    "hi": 16299,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.1",
+    "n_days": 126,
+    "lifetime_h": 2.6,
+    "interval_basis": "sampling"
+   },
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 8025.4,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-1379-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-1379",
+    "kind": "cluster",
+    "name": "Shawnee",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "McCracken, KY",
+    "lat": 37.1517,
+    "lon": -88.775,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 1379, 55232, 55308, 56556"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 6024.0,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 6809.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-6077-2023",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-6077",
+    "kind": "facility",
+    "name": "Gerald Gentleman",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Lincoln, NE",
+    "lat": 41.0808,
+    "lon": -101.1408,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 6077"
+   },
+   "period": {
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31"
+   },
+   "claimed": {
+    "value": 6516.2,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": {
+    "value": 11447,
+    "lo": 8399,
+    "hi": 17933,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.1",
+    "n_days": 189,
+    "lifetime_h": 2.0,
+    "interval_basis": "sampling"
+   },
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 6535.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-2168-2023",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-2168",
+    "kind": "cluster",
+    "name": "Thomas Hill",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Randolph, MO",
+    "lat": 39.5522,
+    "lon": -92.6381,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 2168, 6651"
+   },
+   "period": {
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31"
+   },
+   "claimed": {
+    "value": 7105.7,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": {
+    "value": 4242,
+    "lo": 3118,
+    "hi": 8112,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.1",
+    "n_days": 154,
+    "lifetime_h": 5.3,
+    "interval_basis": "sampling"
+   },
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 7110.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-6641-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-6641",
+    "kind": "facility",
+    "name": "Independence Steam Electric Station",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Independence, AR",
+    "lat": 35.67844,
+    "lon": -91.40876,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 6641"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 4824.3,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 5217.1,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-6179-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-6179",
+    "kind": "facility",
+    "name": "Fayette Power Project",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Fayette, TX",
+    "lat": 29.9172,
+    "lon": -96.7506,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 6179"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 4796.6,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 5057.5,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-1001-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-1001",
+    "kind": "cluster",
+    "name": "Cayuga",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Vermillion, IN",
+    "lat": 39.9242,
+    "lon": -87.4244,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 1001, 55111"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 4586.3,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 4625.8,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-10745-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-10745",
+    "kind": "cluster",
+    "name": "Midland Cogeneration Venture",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Midland, MI",
+    "lat": 43.5861,
+    "lon": -84.2242,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 10745, 880031"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 3552.8,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 6673.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": true
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-6664-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-6664",
+    "kind": "cluster",
+    "name": "Louisa",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Louisa, IA",
+    "lat": 41.3181,
+    "lon": -91.0931,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 1167, 6664"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 2951.2,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 3452.2,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-6068-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-6068",
+    "kind": "facility",
+    "name": "Jeffrey Energy Center",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Pottawatomie, KS",
+    "lat": 39.28645,
+    "lon": -96.11723,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 6068"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 2933.0,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 2939.7,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-6190-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-6190",
+    "kind": "facility",
+    "name": "Brame Energy Center",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Rapides, LA",
+    "lat": 31.395,
+    "lon": -92.71667,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 6190"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 2764.4,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 3056.4,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "validation_site": true
+  },
+  {
+   "id": "ph-us-3490-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-us-3490",
+    "kind": "facility",
+    "name": "Graham",
+    "display_name": null,
+    "operator": null,
+    "sector": "Power generation",
+    "country": "US",
+    "city": "Young, TX",
+    "lat": 33.1344,
+    "lon": -98.6117,
+    "register": "EPA CAMPD",
+    "register_id": "EIA plant 3490"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 2352.8,
+    "unit": "t NOx/yr",
+    "basis": "measured",
+    "source": "EPA CAMPD hourly stack monitors (CEMS)"
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": null,
+   "grade": null,
+   "detection": {
+    "footprint_t": 2354.3,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "validation_site": true
   }
  ],
  "showcase": "ph-eu-12a5336d"

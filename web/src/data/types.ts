@@ -52,6 +52,16 @@ export interface Observed {
   interval_basis?: "sampling" | "total";
 }
 
+/** Whether the footprint is big enough for the method to measure reliably (METHODS.md 7). */
+export interface Detection {
+  /** NOx reported (or, for US plants, monitored plus inventory) within the footprint, tonnes. */
+  footprint_t: number;
+  footprint_km: number;
+  min_reliable_t: number;
+  /** False means "below reliable detection": few estimates this small pass the quality checks. */
+  reliable: boolean;
+}
+
 export interface Finding {
   id: string;
   module: string;
@@ -62,6 +72,9 @@ export interface Finding {
   ratio: { value: number; lo: number; hi: number } | null;
   verdict: Verdict | null;
   grade: "A" | "B" | "C" | null;
+  detection?: Detection;
+  /** A US power plant from the validation against stack monitors (PLAN.md 1.7). */
+  validation_site?: boolean;
 }
 
 export interface FindingsPayload {
@@ -133,10 +146,40 @@ export interface Evidence {
   flipbook_sheet: FlipbookSheet;
 }
 
+/** One year of a US plant's satellite estimate against its stack monitors. */
+export interface ValidationYear {
+  year: number;
+  estimate_t: number | null;
+  lo: number | null;
+  hi: number | null;
+  /** True when the estimate passed every quality gate. */
+  passed: boolean;
+  gates_failed: string[];
+  days: number | null;
+  /** Monitor NOx over the 3 hours before each pass, as tonnes per year. */
+  monitors_at_pass_t: number | null;
+  /** Calendar-year monitor total. */
+  monitors_t: number | null;
+  /** Monitors plus NOx the monitors cannot see in the footprint (EPA NEI 2023). */
+  footprint_t: number | null;
+  ratio_at_pass: number | null;
+  ratio_footprint: number | null;
+}
+
+export interface ValidationDetail {
+  tier: number;
+  unmonitored_t: number;
+  unmonitored_largest: string;
+  u_sys: number;
+  years: ValidationYear[];
+}
+
 export interface FindingDetail {
   id: string;
   reported_series: ReportedPoint[];
   sources: string[];
+  /** US validation plants only. */
+  validation?: ValidationDetail;
   /** The satellite side. Present only where an estimate passed every gate. */
   observed?: Observed;
   profile?: PlumeProfileData;

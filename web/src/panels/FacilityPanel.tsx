@@ -6,11 +6,14 @@ import { BASIS_LABEL, countryName, formatTonnes } from "../data/format";
 import type { Finding } from "../data/types";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Evidence } from "./Evidence";
+import { DetectionNote, ValidationCheck } from "./ValidationCheck";
 
 const EXIT_MS = 240; // PLAN.md 9.7: the panel slides and fades in 240 ms
 const REGISTER_FIRST_YEAR = 2007; // the EEA register covers reporting years from 2007 on
+const MONITORS_FIRST_YEAR = 2023; // the US validation covers 2023 and 2024
 const REGISTER_URL =
   "https://www.eea.europa.eu/en/datahub/datahubitem-view/9405f714-8015-4b5b-a63c-280b82861b3d";
+const CAMPD_URL = "https://campd.epa.gov/";
 
 interface Props {
   /** The facility to show. Null closes the panel. */
@@ -101,6 +104,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
   const meta = [subject.operator, subject.sector, place].filter(Boolean).join(" · ");
   const title = subject.display_name ?? subject.name;
   const basis = claimed ? BASIS_LABEL[claimed.basis].toLowerCase() : "";
+  const us = finding.validation_site === true;
 
   return (
     <>
@@ -112,6 +116,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
             <p className="mt-1 text-[12px] leading-4 text-text-3 [overflow-wrap:anywhere]">{subject.name}</p>
           )}
           <p className="label mt-1.5">{meta}</p>
+          {us && <p className="label mt-1">Test site for the method</p>}
         </div>
         <button type="button" onClick={onClose} aria-label="Close" className="icon-button -mr-2.5 -mt-2.5">
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
@@ -122,7 +127,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
 
       <div className="mt-6 grid grid-cols-2 gap-x-6">
         <div className="min-w-0">
-          <p className="label">Reported</p>
+          <p className="label">{us ? "Stack monitors" : "Reported"}</p>
           {claimed ? (
             <>
               <p className="voice-record mt-1 whitespace-nowrap text-[48px] leading-[48px]">
@@ -163,9 +168,14 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
       {period.note && <p className="record-source mt-2">{period.note}</p>}
       {observed && (
         <p className="mt-3 text-[12px] leading-4 text-text-3">
-          Satellite-based estimate, preliminary. The method has not yet been checked against stack monitors,
-          so the real uncertainty is wider than the interval shown.
+          Satellite-based estimate. The interval covers sampling noise only. Checked against US stack
+          monitors, estimates that pass every quality check scatter by about 35% more than that.
         </p>
+      )}
+      {finding.detection && <DetectionNote detection={finding.detection} />}
+
+      {us && detail.status === "ready" && detail.data.id === finding.id && detail.data.validation && (
+        <ValidationCheck validation={detail.data.validation} />
       )}
 
       {observed &&
@@ -186,7 +196,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
       <section className="mt-5 border-t border-hairline pt-2">
         <div className="flex items-center justify-between gap-2">
           <h3 className="label">
-            Reported NO<sub>x</sub> by year, tonnes
+            {us ? "Monitored" : "Reported"} NO<sub>x</sub> by year, tonnes
           </h3>
           <div role="group" aria-label="Show as" className="-mr-2 flex">
             <button
@@ -229,7 +239,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
             {view === "chart" ? (
               <ReportedSeriesChart
                 series={detail.data.reported_series}
-                firstYear={REGISTER_FIRST_YEAR}
+                firstYear={us ? MONITORS_FIRST_YEAR : REGISTER_FIRST_YEAR}
                 lastYear={lastYear}
                 highlightYear={Number(period.label)}
               />
@@ -239,8 +249,9 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
           </>
         )}
         <p className="mt-3 text-[12px] leading-4 text-text-3">
-          The register flags each value as measured, calculated or estimated. The public data
-          files for this release leave that flag out.
+          {us
+            ? "Hourly stack measurements summed over the calendar year, for every monitored power plant within 20 km."
+            : "The register flags each value as measured, calculated or estimated. The public data files for this release leave that flag out."}
         </p>
       </section>
 
@@ -248,17 +259,25 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
         <h3 className="label">Sources</h3>
         <ul className="mt-2 space-y-1 text-[14px] leading-5 text-text-2">
           <li>
-            Reported emissions:{" "}
-            <a href={REGISTER_URL} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-text">
+            {us ? "Stack monitors" : "Reported emissions"}:{" "}
+            <a
+              href={us ? CAMPD_URL : REGISTER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-4 hover:text-text"
+            >
               {claimed?.source ?? "EEA Industrial Reporting database"}
             </a>
           </li>
+          {us && <li>Other sources in the footprint: EPA National Emissions Inventory 2023</li>}
           <li>
             NO<sub>2</sub> layer{observed ? " and plume images" : ""}: {NO2_ATTRIBUTION}
           </li>
           {observed && <li>Wind: ERA5, Copernicus Climate Change Service</li>}
         </ul>
-        <p className="axis-text mt-3 [overflow-wrap:anywhere]">Register ID {subject.register_id}</p>
+        <p className="axis-text mt-3 [overflow-wrap:anywhere]">
+          {us ? subject.register_id : `Register ID ${subject.register_id}`}
+        </p>
       </section>
     </>
   );

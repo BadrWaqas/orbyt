@@ -30,7 +30,7 @@ from orbyt.modules.pollution_hunter import detect, extract
 from orbyt.modules.pollution_hunter.config import load_config
 from orbyt.modules.pollution_hunter.core_math import fan_half_width, rotate_scene
 from orbyt.modules.pollution_hunter.layers import RAMP
-from orbyt.modules.pollution_hunter.observe import daily_fluxes, grid, select_days
+from orbyt.modules.pollution_hunter.observe import daily_fluxes, estimate_name, grid, select_days
 from orbyt.sources import era5
 
 WEB_PUBLIC = extract.gee.REPO_ROOT / "web" / "public"
@@ -296,12 +296,18 @@ def publish_subject(
     web_public: Path = WEB_PUBLIC,
     findings_path: Path = FINDINGS,
     log=print,
+    year: int | None = None,
 ) -> Path:
+    """Publish one subject's evidence. ``year`` uses ``estimate-<year>.json`` and that year's days.
+
+    Without ``year`` the subject's cached days must all fall in one calendar year (the European
+    subjects). The US validation subjects hold two years, so they are published by year.
+    """
     interim_dir = interim_dir or extract.INTERIM_DIR
     all_cfg = load_config()
     cfg, dcfg, ecfg = all_cfg["observe"], all_cfg["detect"], all_cfg["evidence"]
     patch_dir = interim_dir / subject_id
-    est = json.loads((patch_dir / "estimate.json").read_text(encoding="utf-8"))
+    est = json.loads((patch_dir / estimate_name(year)).read_text(encoding="utf-8"))
     if est["gates_failed"] or est["observed"] is None:
         raise SystemExit(
             f"{subject_id} fails {est['gates_failed'] or ['no_fit']}: inconclusive, not published"
@@ -311,6 +317,8 @@ def publish_subject(
 
     subject = extract.load_subject(subject_id)
     winds = era5.read_winds(era5.wind_path(interim_dir, subject_id))
+    if year is not None:
+        winds = [w for w in winds if w.day.startswith(f"{year}-")]
     days, _ = select_days(winds, all_cfg["wind"]["min_speed_ms"])
     years = {d.day[:4] for d in days}
     if len(years) != 1:
@@ -373,8 +381,9 @@ def publish_subject(
 def main() -> None:
     p = argparse.ArgumentParser(description="Publish the panel evidence for one subject")
     p.add_argument("--subject-id", required=True)
+    p.add_argument("--year", type=int, default=None, help="for subjects with several years")
     a = p.parse_args()
-    publish_subject(a.subject_id)
+    publish_subject(a.subject_id, year=a.year)
 
 
 if __name__ == "__main__":

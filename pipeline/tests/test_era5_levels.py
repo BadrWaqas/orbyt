@@ -55,3 +55,27 @@ def test_wind_covers_checks_the_years(tmp_path: Path):
     path.write_text(json.dumps({"days": [{"day": "2024-05-01"}]}), encoding="utf-8")
     assert batch._wind_covers(path, [2024])
     assert not batch._wind_covers(path, [2023, 2024])
+
+
+def test_region_box_holds_every_cell_with_a_margin():
+    box = era5_levels.region_box([(32.26, -94.57), (45.38, -79.07)], margin_deg=0.5)
+    assert box == [45.5 + 0.5, -94.5 - 0.5, 32.25 - 0.5, -79.0 + 0.5]
+
+
+def test_region_covers_checks_the_cell_and_the_hours(tmp_path):
+    from datetime import UTC, datetime
+
+    import xarray as xr
+
+    times = np.array(["2023-01-04T19:00", "2023-01-05T20:00"], dtype="datetime64[ns]")
+    ds = xr.Dataset(
+        {"u": (("valid_time", "latitude", "longitude"), np.zeros((2, 2, 2)))},
+        coords={"valid_time": times, "latitude": [32.5, 32.25], "longitude": [-94.75, -94.5]},
+    )
+    path = tmp_path / "us_2023-Q1.nc"
+    ds.to_netcdf(path, engine="h5netcdf")
+    have = [datetime(2023, 1, 4, 19, tzinfo=UTC)]
+    assert era5_levels.region_covers(path, 32.26, -94.57, have)
+    assert not era5_levels.region_covers(path, 40.0, -94.57, have)  # cell outside the box
+    missing = [datetime(2023, 1, 6, 19, tzinfo=UTC)]
+    assert not era5_levels.region_covers(path, 32.26, -94.57, missing)

@@ -254,6 +254,54 @@ def build_findings(
     }
 
 
+def detection_label(footprint_t: float, footprint_km: float, min_reliable_t: float) -> dict:
+    """Whether the footprint is big enough for the method to measure reliably (M4.4).
+
+    In the US validation no estimate passed every gate with a footprint under 4,000 t and 1 of
+    20 did at 4,000 to 6,000 t, so below ``min_reliable_t`` a subject is labelled
+    "below reliable detection". It is still a candidate (the 2,000 t floor stays).
+    """
+    return {
+        "footprint_t": round(footprint_t, 1),
+        "footprint_km": footprint_km,
+        "min_reliable_t": min_reliable_t,
+        "reliable": footprint_t >= min_reliable_t,
+    }
+
+
+def add_detection(
+    con: duckdb.DuckDBPyConnection, payload: dict, footprint_km: float, min_reliable_t: float
+) -> dict:
+    """Give every EEA finding the reported total of its footprint and the detection label.
+
+    The footprint total is the sum of NOx reported for the finding's year by every register
+    facility within ``footprint_km`` (PLAN.md 4.5, footprint accounting).
+    """
+    import numpy as np
+
+    from orbyt.core.geo import haversine_km
+
+    by_year: dict[int, tuple] = {}
+    for f in payload["findings"]:
+        if f["subject"]["register"] != "EEA" or not f["claimed"]:
+            continue
+        year = int(f["period"]["label"])
+        if year not in by_year:
+            rows = con.execute(
+                """
+                select f.lat, f.lon, r.release_t from reported r join facilities f
+                using (facility_id) where r.year = ? and f.lat is not null and f.lon is not null
+                """,
+                [year],
+            ).fetchall()
+            by_year[year] = tuple(np.array([r[i] for r in rows], dtype=float) for i in range(3))
+        lat, lon, tonnes = by_year[year]
+        near = haversine_km(f["subject"]["lat"], f["subject"]["lon"], lat, lon) <= footprint_km
+        total = max(float(tonnes[near].sum()), float(f["claimed"]["value"]))
+        f["detection"] = detection_label(total, footprint_km, min_reliable_t)
+    return payload
+
+
 def reported_series(
     con: duckdb.DuckDBPyConnection, register_ids: list[str]
 ) -> dict[str, list[dict]]:
@@ -269,9 +317,7 @@ def reported_series(
     ).fetchall()
     series: dict[str, list[dict]] = {rid: [] for rid in register_ids}
     for register_id, year, release_t in rows:
-        series[register_id].append(
-            {"year": year, "value": round(release_t, 1), "basis": "unknown"}
-        )
+        series[register_id].append({"year": year, "value": round(release_t, 1), "basis": "unknown"})
     return series
 
 
@@ -281,10 +327,12 @@ def export_details(con: duckdb.DuckDBPyConnection, payload: dict, out_dir: Path)
     The panel fetches these one at a time, so findings.json stays small. Detail files left over
     from an earlier export that are no longer in ``payload`` are removed.
     """
-    findings = payload["findings"]
+    wanted = {f"{f['id']}.json" for f in payload["findings"]}
+    # Only EEA findings get their reported side from the register. Others (the US validation
+    # plants, PLAN.md 1.7) keep the detail files their own module wrote.
+    findings = [f for f in payload["findings"] if f["subject"]["register"] == "EEA"]
     series = reported_series(con, [f["subject"]["register_id"] for f in findings])
     out_dir.mkdir(parents=True, exist_ok=True)
-    wanted = {f"{f['id']}.json" for f in findings}
     for stale in out_dir.glob("*.json"):
         if stale.name not in wanted:
             stale.unlink()
@@ -322,6 +370,10 @@ def keep_satellite_side(payload: dict, previous: dict | None) -> dict:
     """
     if not previous:
         return payload
+    # Findings from other registers (the US plants) are not the EEA export's to drop.
+    others = [f for f in previous.get("findings", []) if f["subject"].get("register") != "EEA"]
+    payload["findings"] = [*payload["findings"], *others]
+    payload["count"] = len(payload["findings"])
     old = {f["id"]: f for f in previous.get("findings", []) if f.get("observed")}
     for f in payload["findings"]:
         if f["id"] in old:
@@ -343,7 +395,11 @@ def export_findings(
     Satellite estimates already in an existing findings.json and its detail files are kept, so
     re-running the export never wipes them.
     """
+    from orbyt.modules.pollution_hunter.config import load_config
+
+    ccfg = load_config()["candidates"]
     payload = build_findings(top_reporters(con, year, n), year, load_display_names())
+    payload = add_detection(con, payload, ccfg["footprint_km"], ccfg["reliable_min_t"])
     payload = keep_satellite_side(payload, _read_json(out))
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
