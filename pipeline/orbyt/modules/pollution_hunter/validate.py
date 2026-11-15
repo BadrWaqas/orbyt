@@ -15,6 +15,13 @@ V2  annual. The same estimate against the calendar-year monitor total of the foo
 Statistics are computed for tier 1, tier 2 and both pooled, for all footprints and for the ones
 whose estimate passed every gate. The monitor total is the sum over the plants of the footprint.
 Nothing here changes the method or its constants.
+
+M4.4 adds the footprint reference (V1f, V2f): the monitor total plus the NOx that the monitors
+cannot see, from the EPA 2023 National Emissions Inventory (sources/nei.py): every non-power
+facility within the footprint radius, plus NEI power plants above the CEMS total. This is the
+footprint accounting of PLAN.md 4.5, the same as the European comparison, where the register
+holds industry as well as power plants. A footprint is flagged when that unmonitored NOx is at
+least ``validation.nei.flag_frac`` of the monitor total.
 """
 
 from __future__ import annotations
@@ -31,7 +38,8 @@ import duckdb
 import numpy as np
 
 from orbyt.modules.pollution_hunter import extract, observe, validation_set
-from orbyt.sources import campd, era5
+from orbyt.modules.pollution_hunter.config import load_config
+from orbyt.sources import campd, era5, nei
 
 HOURS_BEFORE = 3
 HOURS_PER_YEAR = 8766.0  # 365.25 days
@@ -39,13 +47,29 @@ LOG_MIN_SHARE = 0.01
 # Axis range of the figures, t NOx per year. Estimates below the bottom are drawn on the edge.
 AX_MIN, AX_MAX = 1_000.0, 200_000.0
 OUT_DIR = Path(__file__).resolve().parents[4] / "docs" / "validation"
-# Footprints where the sum of CEMS monitors may miss large non-power-plant NOx next door.
-# Named by Badr from his own knowledge of the sites, not found by the pipeline.
-UNMONITORED_INDUSTRY = ("Midland", "Sabine", "R S Nelson", "W A Parish")
+# Comparison name, reference column, and what the reference is.
+COMPARISONS = (
+    ("V1", "v1_ref_t_yr", "monitors, 3 h before each pass"),
+    ("V2", "v2_ref_t_yr", "monitors, calendar year"),
+    ("V1f", "v1_fp_ref_t_yr", "footprint (monitors + NEI unmonitored), 3 h before each pass"),
+    ("V2f", "v2_fp_ref_t_yr", "footprint (monitors + NEI unmonitored), calendar year"),
+)
+# Footprint size classes for the pass-rate table, t NOx per year (monitors + NEI unmonitored).
+SIZE_CLASSES = ((0.0, 4000.0), (4000.0, 6000.0), (6000.0, math.inf))
+GATES = (
+    "too_few_days",
+    "poor_fit",
+    "source_offset",
+    "lifetime_out_of_range",
+    "low_signal_to_noise",
+)
 
 
-def is_flagged(name: str) -> bool:
-    return any(name.startswith(n) for n in UNMONITORED_INDUSTRY)
+def is_flagged(unmonitored_t: float | None, monitor_t: float | None, frac: float) -> bool:
+    """True when the NOx the monitors miss is at least ``frac`` of what they see."""
+    if unmonitored_t is None or not monitor_t:
+        return False
+    return unmonitored_t >= frac * monitor_t
 
 
 def _naive(moment: datetime) -> datetime:
@@ -124,10 +148,71 @@ def compare_stats(est: list[float], ref: list[float]) -> dict[str, Any]:
     return out
 
 
+def boot_log_sd(lo: float | None, hi: float | None) -> float | None:
+    """The bootstrap interval as one log standard deviation, as in PLAN.md 4.8 (s_boot)."""
+    if lo is None or hi is None or not (lo > 0 and hi > lo):
+        return None
+    return (math.log(hi) - math.log(lo)) / 3.92
+
+
+def systematic_scatter(rows: list[dict], key: str) -> dict[str, Any]:
+    """Scatter of ln(estimate / reference) beyond what the bootstrap explains (u_sys, 4.8).
+
+    ``observed`` is the standard deviation of the log ratio, ``boot`` the root mean square of
+    each estimate's s_boot, ``excess`` the square root of the difference (never below zero).
+    The verdict rule adds u_sys to each estimate's own s_boot, so the excess is what u_sys
+    stands for. ``upper95`` is the one-sided 95% upper bound of ``observed`` from the chi-square
+    distribution, to show how little a handful of points pins it down.
+    """
+    pairs = [
+        (r["est_t_yr"] / r[key], boot_log_sd(r["lo"], r["hi"]))
+        for r in rows
+        if r["est_t_yr"] and r.get(key) and r["est_t_yr"] >= LOG_MIN_SHARE * r[key]
+    ]
+    pairs = [(x, s) for x, s in pairs if s is not None]
+    n = len(pairs)
+    if n < 3:
+        return {"n": n}
+    from scipy.stats import chi2
+
+    lr = np.log([x for x, _ in pairs])
+    sb2 = float(np.mean([s * s for _, s in pairs]))
+    var = float(np.var(lr, ddof=1))
+    return {
+        "n": n,
+        "mean_log_ratio": float(lr.mean()),
+        "observed": math.sqrt(var),
+        "boot": math.sqrt(sb2),
+        "excess": math.sqrt(max(0.0, var - sb2)),
+        "upper95": math.sqrt(var * (n - 1) / chi2.ppf(0.05, n - 1)),
+    }
+
+
+def nei_by_subject(entries: list[dict], radius_km: float) -> dict[str, dict]:
+    """Unmonitored NOx per footprint, against the CEMS total of the inventory year."""
+    fac = nei.load_facilities(nei.fetch())
+    return {
+        e["subject_id"]: nei.footprint(
+            fac, e["lat"], e["lon"], radius_km, float(e[f"nox_t_{nei.NEI_YEAR}"])
+        )
+        for e in entries
+    }
+
+
 def estimate_row(
-    entry: dict, year: int, level: str, out_dir: Path, hourly: Path, annual: Path, con
+    entry: dict,
+    year: int,
+    level: str,
+    out_dir: Path,
+    hourly: Path,
+    annual: Path,
+    con,
+    nei_fp: dict | None = None,
+    flag_frac: float = 0.25,
 ) -> dict[str, Any]:
     sid = entry["subject_id"]
+    v2 = annual_reference(annual, entry["plant_ids_eia"], year)
+    unmon = None if nei_fp is None else nei_fp["unmonitored_t"]
     row: dict[str, Any] = {
         "subject_id": sid,
         "name": entry["name"],
@@ -137,14 +222,27 @@ def estimate_row(
         "level": level,
         "n_plants": entry["n_plants"],
         "measured_share": entry["measured_share"],
-        "flag_unmonitored_industry": is_flagged(entry["name"]),
+        "nei_unmonitored_t_yr": unmon,
+        "nei_largest": ""
+        if nei_fp is None
+        else "; ".join(
+            [f"{f['name']} {f['nox_t']:.0f} t" for f in nei_fp["largest"] if f["nox_t"] >= 100]
+            + (
+                [f"NEI power plants above CEMS {nei_fp['power_gap_t']:.0f} t"]
+                if nei_fp["power_gap_t"] >= 100
+                else []
+            )
+        ),
+        "flag_unmonitored_industry": is_flagged(unmon, v2, flag_frac),
         "est_t_yr": None,
         "lo": None,
         "hi": None,
         "gates_failed": None,
         "days_used": None,
         "v1_ref_t_yr": None,
-        "v2_ref_t_yr": annual_reference(annual, entry["plant_ids_eia"], year),
+        "v2_ref_t_yr": v2,
+        "v1_fp_ref_t_yr": None,
+        "v2_fp_ref_t_yr": None if v2 is None or unmon is None else v2 + unmon,
     }
     path = out_dir / sid / observe.estimate_name(year, level=level)
     if not path.exists():
@@ -164,6 +262,9 @@ def estimate_row(
     ]
     series = hourly_series(con, hourly, entry["plant_ids_eia"])
     row["v1_ref_t_yr"] = like_for_like(series, passes)
+    # The inventory is annual, so the unmonitored part enters V1 as a flat rate.
+    if row["v1_ref_t_yr"] is not None and unmon is not None:
+        row["v1_fp_ref_t_yr"] = row["v1_ref_t_yr"] + unmon
     return row
 
 
@@ -176,7 +277,9 @@ def summarise(rows: list[dict]) -> list[dict]:
     out = []
     groups = {"tier 1": {1}, "tier 2": {2}, "pooled": {1, 2}}
     for level in sorted({r["level"] for r in rows}):
-        for comp, key in (("V1", "v1_ref_t_yr"), ("V2", "v2_ref_t_yr")):
+        for comp, key, _ in COMPARISONS:
+            if not any(r.get(key) for r in rows):
+                continue
             for gname, tiers in groups.items():
                 for filt in ("all", "gates passed"):
                     sel = [
@@ -204,17 +307,114 @@ def _fmt(x: Any, nd: int = 2) -> str:
     return "" if x is None or (isinstance(x, float) and math.isnan(x)) else f"{x:.{nd}f}"
 
 
-def summary_markdown(summary: list[dict], rows: list[dict]) -> str:
+def gate_counts(rows: list[dict], level: str) -> list[dict]:
+    """Per tier: estimates, passes, and how often each gate fails (alone and in all)."""
+    out = []
+    for tier in sorted({r["tier"] for r in rows}):
+        sel = [
+            r
+            for r in rows
+            if r["level"] == level and r["tier"] == tier and r["gates_failed"] is not None
+        ]
+        fails = [[g for g in r["gates_failed"].split(",") if g] for r in sel]
+        line: dict[str, Any] = {"tier": tier, "n": len(sel), "passed": sum(not f for f in fails)}
+        for g in GATES:
+            line[g] = sum(g in f for f in fails)
+            line[g + "_alone"] = sum(f == [g] for f in fails)
+        out.append(line)
+    return out
+
+
+def pass_by_size(rows: list[dict], level: str) -> list[dict]:
+    """Pass rate by footprint size (calendar-year footprint reference), per tier."""
+    out = []
+    for lo, hi in SIZE_CLASSES:
+        for tier in sorted({r["tier"] for r in rows}):
+            sel = [
+                r
+                for r in rows
+                if r["level"] == level
+                and r["tier"] == tier
+                and r["gates_failed"] is not None
+                and r.get("v2_fp_ref_t_yr") is not None
+                and lo <= r["v2_fp_ref_t_yr"] < hi
+            ]
+            out.append(
+                {
+                    "lo": lo,
+                    "hi": hi,
+                    "tier": tier,
+                    "n": len(sel),
+                    "passed": sum(passed(r) for r in sel),
+                }
+            )
+    return out
+
+
+def summary_markdown(summary: list[dict], rows: list[dict], flag_frac: float = 0.25) -> str:
     lines = [
-        "# Validation against US stack monitors (M4.3)",
+        "# Validation against US stack monitors (M4.3, M4.4)",
         "",
         "Pass marks (PLAN.md 4.9, V1): mean bias within 20 percent and correlation above 0.7.",
         "Bias is the ratio of sums minus one. Scatter is the standard deviation of ln(estimate / "
-        "monitor).",
+        "reference).",
+        "",
+        "References: " + "; ".join(f"{c} {d}" for c, _, d in COMPARISONS) + ". The unmonitored "
+        f"NOx is from {getattr(nei, 'SOURCE', 'the NEI')}, used for both years.",
         "",
     ]
     for level in sorted({s["level"] for s in summary}):
-        for comp in ("V1", "V2"):
+        lines += [
+            f"## Gates, wind {level}",
+            "",
+            "Times each gate failed, in all and alone (the only gate that failed).",
+            "",
+            "| tier | n | passed | " + " | ".join(GATES) + " |",
+            "|---|---|---|" + "---|" * len(GATES),
+        ]
+        for g in gate_counts(rows, level):
+            lines.append(
+                f"| {g['tier']} | {g['n']} | {g['passed']} | "
+                + " | ".join(f"{g[k]} ({g[k + '_alone']})" for k in GATES)
+                + " |"
+            )
+        lines += [
+            "",
+            "Passes by footprint size (calendar-year monitors + NEI unmonitored):",
+            "",
+            "| footprint t/yr | tier | n | passed |",
+            "|---|---|---|---|",
+        ]
+        for s in pass_by_size(rows, level):
+            size = (
+                f"{s['lo']:,.0f}+" if math.isinf(s["hi"]) else f"{s['lo']:,.0f} to {s['hi']:,.0f}"
+            )
+            lines.append(f"| {size} | {s['tier']} | {s['n']} | {s['passed']} |")
+        lines += [
+            "",
+            "Systematic scatter of the estimates that pass every gate (u_sys, PLAN.md "
+            "4.8): observed log scatter, the part the bootstrap explains, the excess, and the "
+            "one-sided 95% upper bound of the observed scatter.",
+            "",
+            "| comparison | group | n | mean ratio | observed | bootstrap | excess | upper 95% |",
+            "|---|---|---|---|---|---|---|---|",
+        ]
+        for comp, key, _ in COMPARISONS:
+            for gname, tiers in (("tier 1", {1}), ("pooled", {1, 2})):
+                sel = [r for r in rows if r["level"] == level and r["tier"] in tiers and passed(r)]
+                s = systematic_scatter(sel, key)
+                if s["n"] < 3:
+                    continue
+                lines.append(
+                    f"| {comp} | {gname} | {s['n']} | {math.exp(s['mean_log_ratio']):.2f} "
+                    f"| {s['observed']:.2f} | {s['boot']:.2f} | {s['excess']:.2f} "
+                    f"| {s['upper95']:.2f} |"
+                )
+        lines.append("")
+    for level in sorted({s["level"] for s in summary}):
+        for comp, _, _ in COMPARISONS:
+            if not any(s["comparison"] == comp and s["level"] == level for s in summary):
+                continue
             lines += [
                 f"## {comp}, wind {level}",
                 "",
@@ -231,15 +431,25 @@ def summary_markdown(summary: list[dict], rows: list[dict]) -> str:
                         f"| {s.get('n_no_plume', '')} |"
                     )
             lines.append("")
-    flagged = sorted({r["name"] for r in rows if r["flag_unmonitored_industry"]})
     lines += [
-        "## Flagged for possible unmonitored industry",
+        "## Footprints with unmonitored NOx",
         "",
         "The monitor total is the sum of CEMS power plants. Refineries, chemical plants and other "
-        "industry beside these plants report nothing to CEMS, so a satellite estimate above the "
-        "monitors may be real emissions that the monitors cannot see: " + ", ".join(flagged) + ".",
+        "industry report nothing to CEMS. A footprint is flagged when the NEI lists unmonitored "
+        f"NOx of at least {flag_frac:.0%} of the monitor total within the footprint.",
         "",
+        "| footprint | tier | monitors 2023 t | NEI unmonitored t | largest sources |",
+        "|---|---|---|---|---|",
     ]
+    seen = set()
+    for r in rows:
+        if r["flag_unmonitored_industry"] and r["subject_id"] not in seen and r["year"] == 2023:
+            seen.add(r["subject_id"])
+            lines.append(
+                f"| {r['name']} | {r['tier']} | {r['v2_ref_t_yr']:,.0f} "
+                f"| {r['nei_unmonitored_t_yr']:,.0f} | {r['nei_largest']} |"
+            )
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -259,12 +469,14 @@ def draw_figure(rows: list[dict], level: str, path: Path) -> Path:
     import matplotlib.pyplot as plt
 
     colors = {1: "#1f5fa8", 2: "#d9822b"}
-    fig, axes = plt.subplots(1, 2, figsize=(11, 5.2))
-    for ax, (title, key) in zip(
-        axes,
-        (("V1 like for like (3 h before overpass)", "v1_ref_t_yr"), ("V2 annual", "v2_ref_t_yr")),
-        strict=True,
-    ):
+    panels = [
+        ("V1 like for like (3 h before overpass)", "v1_ref_t_yr", "monitors (CEMS)"),
+        ("V2 annual", "v2_ref_t_yr", "monitors (CEMS)"),
+    ]
+    if any(r.get("v2_fp_ref_t_yr") for r in rows):
+        panels.append(("V2f annual, whole footprint", "v2_fp_ref_t_yr", "CEMS + NEI unmonitored"))
+    fig, axes = plt.subplots(1, len(panels), figsize=(5.5 * len(panels), 5.2))
+    for ax, (title, key, xlabel) in zip(axes, panels, strict=True):
         sel = [r for r in rows if r["level"] == level and r["est_t_yr"] is not None and r[key]]
         for r in sel:
             ok = passed(r)
@@ -300,7 +512,7 @@ def draw_figure(rows: list[dict], level: str, path: Path) -> Path:
         ax.set_ylim(AX_MIN, AX_MAX)
         ax.set_xscale("log")
         ax.set_yscale("log")
-        ax.set_xlabel("monitors (CEMS), t NOx per year")
+        ax.set_xlabel(f"{xlabel}, t NOx per year")
         ax.set_ylabel("satellite estimate, t NOx per year")
         ax.set_title(title, fontsize=10)
         ax.set_aspect("equal", adjustable="box")
@@ -329,9 +541,12 @@ def main() -> None:
     entries = json.loads(validation_set.PLANTS_JSON.read_text(encoding="utf-8"))
     hourly = campd.hourly_path()
     annual = campd.WAREHOUSE_DIR / "campd_annual.parquet"
+    cfg = load_config()
+    flag_frac = cfg["validation"]["nei"]["flag_frac"]
+    nei_fp = nei_by_subject(entries, cfg["candidates"]["footprint_km"])
     con = duckdb.connect()
     rows = [
-        estimate_row(e, y, lv, args.in_dir, hourly, annual, con)
+        estimate_row(e, y, lv, args.in_dir, hourly, annual, con, nei_fp[e["subject_id"]], flag_frac)
         for lv in args.levels
         for y in args.years
         for e in entries
@@ -342,8 +557,10 @@ def main() -> None:
     write_table(rows, args.out / "validation_table.csv")
     summary = summarise(rows)
     write_table(summary, args.out / "validation_summary.csv")
-    (args.out / "validation_summary.md").write_text(summary_markdown(summary, rows), "utf-8")
-    for lv in args.levels:
+    (args.out / "validation_summary.md").write_text(
+        summary_markdown(summary, rows, flag_frac), "utf-8"
+    )
+    for lv in sorted({r["level"] for r in rows}):
         draw_figure(rows, lv, args.out / f"validation_{lv}.png")
     print(f"wrote {len(rows)} rows and figures to {args.out}")
 

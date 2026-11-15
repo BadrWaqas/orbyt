@@ -10,4 +10,5 @@ The MIT licence in this repo covers the code only. Each data source keeps its ow
 | ERA5 | Wind | Credit the Copernicus Climate Change Service. | Planned, M3 |
 | EEA Industrial Reporting database | Reported NOx, EU | Reuse with attribution. Exact wording still to verify on the dataset page. | Planned, M1 |
 | EPA CAMPD hourly emissions | Validation, US | US government data, credit EPA Clean Air Markets Division. Read from the PUDL republication (release v2026.11.0, Catalyst Cooperative, CC BY 4.0), which needs no API key. Credit PUDL as well. | M4 |
+| EPA National Emissions Inventory 2023, facility summary | Validation, US: NOx the stack monitors do not cover | US government data, credit the US EPA. | M4.4 |
 | Beirle et al. NOx point source catalogue v2 | Early demo | CC BY 4.0. Cite the paper. | Planned, M2 |

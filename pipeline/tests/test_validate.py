@@ -87,11 +87,69 @@ def test_hourly_series_sums_plants_and_converts_pounds(tmp_path):
     assert abs(got[datetime(2024, 6, 1, 15)] - 200.0 * 0.45359237) < 1e-9
 
 
-def test_flagged_names():
-    assert validate.is_flagged("Midland Cogeneration Venture")
-    assert validate.is_flagged("W A Parish")
-    assert validate.is_flagged("R S Nelson")
-    assert not validate.is_flagged("New Madrid")
+def test_flag_is_unmonitored_share_of_the_monitor_total():
+    assert validate.is_flagged(250.0, 1000.0, 0.25)
+    assert not validate.is_flagged(249.0, 1000.0, 0.25)
+    assert not validate.is_flagged(None, 1000.0, 0.25)
+    assert not validate.is_flagged(500.0, None, 0.25)
+
+
+def test_boot_log_sd_is_the_plan_s_boot():
+    assert abs(validate.boot_log_sd(1.0, np.exp(3.92)) - 1.0) < 1e-12
+    assert validate.boot_log_sd(0.0, 10.0) is None
+    assert validate.boot_log_sd(None, 10.0) is None
+
+
+def _gated(est, ref, lo, hi, tier=1, gates=""):
+    return {
+        "tier": tier,
+        "level": "100m",
+        "est_t_yr": est,
+        "lo": lo,
+        "hi": hi,
+        "gates_failed": gates,
+        "v2_fp_ref_t_yr": ref,
+    }
+
+
+def test_systematic_scatter_removes_the_bootstrap_part():
+    # Log ratios -0.5, 0, 0.5: sample variance 0.25. Each interval is s_boot = 0.3.
+    w = np.exp(0.3 * 3.92 / 2)
+    rows = [
+        _gated(100.0 * np.exp(x), 100.0, 100.0 * np.exp(x) / w, 100.0 * np.exp(x) * w)
+        for x in (-0.5, 0.0, 0.5)
+    ]
+    s = validate.systematic_scatter(rows, "v2_fp_ref_t_yr")
+    assert s["n"] == 3
+    assert abs(s["observed"] - 0.5) < 1e-9
+    assert abs(s["boot"] - 0.3) < 1e-9
+    assert abs(s["excess"] - 0.4) < 1e-9
+    assert s["upper95"] > s["observed"]
+    assert abs(s["mean_log_ratio"]) < 1e-9
+
+
+def test_systematic_scatter_never_negative_and_needs_three_points():
+    rows = [_gated(100.0, 100.0, 10.0, 1000.0) for _ in range(3)]
+    assert validate.systematic_scatter(rows, "v2_fp_ref_t_yr")["excess"] == 0.0
+    assert validate.systematic_scatter(rows[:2], "v2_fp_ref_t_yr") == {"n": 2}
+
+
+def test_gate_counts_and_pass_by_size():
+    rows = [
+        _gated(100.0, 3000.0, 1, 2),
+        _gated(100.0, 5000.0, 1, 2, gates="low_signal_to_noise"),
+        _gated(100.0, 9000.0, 1, 2, gates="poor_fit,source_offset"),
+        _gated(100.0, 9000.0, 1, 2, tier=2, gates="source_offset"),
+    ]
+    g = {x["tier"]: x for x in validate.gate_counts(rows, "100m")}
+    assert g[1]["n"] == 3 and g[1]["passed"] == 1
+    assert g[1]["low_signal_to_noise"] == 1 and g[1]["low_signal_to_noise_alone"] == 1
+    assert g[1]["source_offset"] == 1 and g[1]["source_offset_alone"] == 0
+    assert g[2]["source_offset_alone"] == 1
+    sizes = {(s["lo"], s["tier"]): s for s in validate.pass_by_size(rows, "100m")}
+    assert sizes[(0.0, 1)]["n"] == 1 and sizes[(0.0, 1)]["passed"] == 1
+    assert sizes[(6000.0, 1)]["n"] == 1 and sizes[(6000.0, 1)]["passed"] == 0
+    assert sizes[(6000.0, 2)]["n"] == 1
 
 
 def test_summary_groups_tiers_and_gate_filter():
@@ -111,3 +169,23 @@ def test_summary_groups_tiers_and_gate_filter():
     assert got[("V1", "tier 1", "gates passed")]["n"] == 1
     assert got[("V1", "pooled", "all")]["n"] == 3
     assert got[("V2", "tier 2", "gates passed")]["n"] == 1
+    assert ("V2f", "pooled", "all") not in got  # no footprint reference in these rows
+
+
+def test_summary_adds_the_footprint_reference_when_present():
+    rows = [
+        {
+            "tier": 1,
+            "level": "100m",
+            "est_t_yr": e,
+            "gates_failed": "",
+            "v1_ref_t_yr": 100.0,
+            "v2_ref_t_yr": 100.0,
+            "v1_fp_ref_t_yr": 200.0,
+            "v2_fp_ref_t_yr": 200.0,
+        }
+        for e in (180.0, 200.0, 220.0)
+    ]
+    got = {(s["comparison"], s["group"], s["subset"]): s for s in validate.summarise(rows)}
+    assert abs(got[("V2", "tier 1", "all")]["bias_pct"] - 100.0) < 1e-9
+    assert abs(got[("V2f", "tier 1", "all")]["bias_pct"]) < 1e-9

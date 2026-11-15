@@ -87,7 +87,11 @@ candidates:
   # 6 h, about 100 km at 5 m/s, so a big city that far out reaches the fan. 500,000 is
   # provisional: more than twice the near rule because a city matters less at three times the
   # distance. The hotspot test below is the data-driven check, and the V3 null test (PLAN.md
-  # 4.9) is what finally sets this.
+  # 4.9) is what finally sets this. The null test could not (docs/decisions.md, M4.5). The US
+  # validation (M4.4) supports the later checks: tier 2 footprints that fail the hotspot test,
+  # alone or with city_far, read 2.3 to 2.6 times their whole footprint, and most of their fits
+  # start the plume downwind of the plant. Only one footprint fails city_far alone (1.6 times),
+  # so this value on its own was not tested and stays provisional. It was not varied.
   city_far_km: 100
   city_far_pop: 500000
   hotspot:
@@ -128,6 +132,22 @@ validation:
   # and city_near, the two checks of PLAN.md 4.5 as first written. M4.3 reports the tiers
   # separately. Fixed from the rules alone, before any US estimate exists.
   tier2_may_fail: [city_far, hotspot]
+  # M4.4: the satellite sees every source in the footprint, the monitors only the power plants.
+  # The footprint reference adds the NOx that the EPA 2023 National Emissions Inventory lists
+  # inside the footprint and CEMS does not cover (sources/nei.py). A footprint is flagged when
+  # that is at least this share of the monitor total: the same quarter as the source rule of
+  # PLAN.md 4.5. Set before the flags were computed.
+  nei:
+    flag_frac: 0.25
+
+verdict:
+  # PLAN.md 4.8, the systematic uncertainty added to each estimate's own bootstrap interval.
+  # M4.4 (docs/decisions.md, docs/validation/validation_summary.md): the 7 US estimates that pass
+  # every gate scatter by 0.40 in ln(estimate / footprint total) for the calendar year (V2f), of
+  # which the bootstrap explains 0.22, leaving 0.33. Tier 1 alone gives the same. Rounded up to
+  # 0.35, the plan's placeholder, and not lowered: 7 points put the one-sided 95% upper bound of
+  # the scatter near 0.8. Set from US data only, never from Europe.
+  u_sys: 0.35
 
 null_test:
   # M4.5, PLAN.md 4.9 V3: places with no source within 60 km. See null_sites.py for the design.

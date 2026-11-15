@@ -199,3 +199,30 @@ All 33 footprints, 2023 and 2024, 100 m wind: 66 estimates. Run by `batch.py`, c
 - The 500 m wind was not available when the 100 m run finished. The Copernicus CDS rejected every pressure-level request with "maximum number of queued requests for this dataset" (a single request too). `era5_levels.py` waits and retries, and the 500 m estimates are filled in when it gets through. M4.4 needs them before the wind level can be chosen.
 - Flagged plants (Midland, Sabine, R S Nelson, W A Parish) are marked in the table and in the figure. They are not excluded from any statistic.
 - Operational note: the batch hung several times after a plant's download and was restarted by a watchdog script. Nothing in the results depends on it, since every step is resumable.
+## 2026-11-15, M4.4 Reading the US validation (100 m wind)
+
+The full write-up with every number is in `METHODS.md` sections 5 to 8, and the tables are in `docs/validation/validation_summary.md`. Only US data was used. Nothing was set from Europe.
+
+Questions and answers:
+
+- Why only 7 of 66 pass. Mostly size. No estimate passes with a footprint under 4,000 t (0 of 25), 1 of 20 does at 4,000 to 6,000 t, and 6 of 21 at 6,000 t or more. The rest is neighbours in tier 2 (below). The gates are not too strict overall. Tier 1 estimates that fail `poor_fit` or `source_offset` read 1.6 times the footprint with a log scatter of 0.74. The 3 that fail only `lifetime_out_of_range` read 0.62. Only the 4 that fail `low_signal_to_noise` alone look accurate (0.80, scatter 0.20).
+- Why tier 2 reads about 3 times its monitors. Two causes. (1) Unmonitored industry inside the footprint, confirmed with the EPA 2023 NEI: R S Nelson 12,600 t (Lake Charles refineries and chemical plants) and Sabine 10,300 t (Port Arthur, Beaumont, Orange). Against the whole footprint the gated R S Nelson 2023 goes from 4.1 to 0.69. (2) Sources downwind: 26 of 40 tier 2 fits start the plume more than 0.5 h downwind of the plant (13 at the 1.5 h bound) and none more than 0.5 h upwind. A city or industry 40 to 90 km away entering the widening fan does that. W A Parish has almost nothing unmonitored inside 20 km, so its excess is Houston, cause (2).
+- Wind or c. Neither shows a problem at 100 m. Gated tier 1 averages 1.00 against the monitors at the same hours, and all 7 gated estimates average 0.87 against the whole footprint, which is inside the roughly ±30% uncertainty of that mean. The bias does not depend on wind speed (r = 0.04). Only the product of wind speed and c can be checked with stack monitors. At Martin Lake 2023 the 500 m wind is 1.21 times the 100 m wind, so the 500 m level would need c of about 1.34.
+- u_sys. 0.35 (`verdict.u_sys`). See below.
+
+Changes made:
+
+- Footprint reference. `sources/nei.py` reads the 2023 NEI facility summary (NOx, short tons converted to tonnes). `validate.py` adds V1f and V2f: the monitor total plus every non-power facility within 20 km, plus any NEI power plant total above the CEMS total of 2023. Why: the satellite sees the whole footprint, and in Europe the register it is compared with holds industry as well. This is the footprint accounting of PLAN.md 4.5 applied to the ground truth, one rule for all 33 footprints, from a dataset independent of the satellite. The NEI power-plant total matches CEMS within a few percent in 30 of the 33 footprints, which checks the unit conversion.
+- The hand-named list of possible industry sites (Midland, Sabine, R S Nelson, W A Parish) is replaced by a flag computed from the NEI: unmonitored NOx of at least 25% of the monitor total (`validation.nei.flag_frac`, the same quarter as the source rule, set before the flags were computed). It flags Sabine, R S Nelson and Midland. For Midland, the NEI lists the Midland Cogeneration Venture at 6,181 t against 3,240 t in CEMS, so part of that plant is not in CEMS. W A Parish is not flagged, for the reason above.
+- `verdict.u_sys` = 0.35 in config.yaml. The gated estimates scatter by 0.40 against the whole footprint over the calendar year (V2f). Their bootstrap intervals explain 0.22 of that, leaving 0.33, and tier 1 alone gives the same. Rounded up to the plan's 0.35. Not lowered further, because the one-sided 95% upper bound with 7 points is 0.76. With a typical s_boot of 0.10 to 0.24, a verdict of higher than reported needs R of about 2.5 to 2.8, and lower than reported needs R of about 0.35 to 0.39 (METHODS.md 6).
+- `validation_summary.md` now has gate counts, passes by footprint size and the systematic scatter table. The figure has a third panel against the whole footprint.
+- The `city_far` comment in config.yaml records what the validation shows: the hotspot check is supported (tier 2 footprints failing it read 2.3 to 2.6 times their footprint), `city_far` alone rests on one footprint (J H Campbell, 1.6 times) and stays provisional.
+
+Considered and not changed:
+
+- c = 1.61 and f = 1.38: no detectable bias.
+- Gate thresholds. The only gate with a hint of being too strict is `low_signal_to_noise`, with 4 tier 1 points. Computing it in log space, the same s_boot as the verdict, would add 2 gated estimates (Independence 2024 at 0.60, R S Nelson 2024 at 0.76) and remove none. That is too little evidence to change a gate after seeing which estimates fail it. Revisit with the 500 m run or more plants.
+- `candidates.min_footprint_t` (2,000 t). The validation says real scenes rarely pass under about 6,000 t, so most European candidates between 2,000 and 6,000 t will come out inconclusive. That affects the go or no-go count of PLAN.md 1.7, so it is Badr's decision, not changed here.
+- Wind level. 100 m stays until the 500 m run finishes. On 15 November it had finished 1 of 33 plants for 2023 (Martin Lake) after about 31 hours, slowed down by the CDS queue limit ("maximum number of queued requests"). Requests left over from the earlier parallel runs may still be holding the account's queue.
+
+What can be said now: across the 5 tier 1 US plant-years that pass every gate, the satellite estimates average 1.00 times the stack monitors at the same hours, with a scatter of about 0.33 in log terms (about 35%).
