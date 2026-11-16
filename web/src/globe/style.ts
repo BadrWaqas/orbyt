@@ -16,6 +16,16 @@ export const FIRST_LABEL_LAYER_ID = "label-country-major";
 const TILES = "https://tiles.openfreemap.org";
 const placeName: ExpressionSpecification = ["coalesce", ["get", "name_en"], ["get", "name"]];
 
+// Night lights (M7.2, PLAN.md 3.1): NASA Black Marble, self-hosted and recoloured onto the
+// night palette by pipeline/orbyt/sources/black_marble.py. The low zoom base: from orbit the
+// cities glow under the NO2, and as the camera comes down the vector map takes over, so the
+// lights never turn into enlarged pixels at street level.
+export const NIGHT_TILES_PATH = "/tiles/night/{z}/{x}/{y}.png";
+export const NIGHT_TILES_MAX_ZOOM = 5;
+export const NIGHT_ATTRIBUTION = "Night lights: NASA Black Marble";
+const NIGHT_FADE_FROM_ZOOM = 5;
+const NIGHT_FADE_TO_ZOOM = 7.5;
+
 export const nightStyle: StyleSpecification = {
   version: 8,
   name: "Orbyt night",
@@ -29,9 +39,37 @@ export const nightStyle: StyleSpecification = {
   glyphs: `${TILES}/fonts/{fontstack}/{range}.pbf`,
   sources: {
     openmaptiles: { type: "vector", url: `${TILES}/planet` },
+    night: {
+      type: "raster",
+      tiles: [NIGHT_TILES_PATH],
+      tileSize: 256,
+      minzoom: 0,
+      maxzoom: NIGHT_TILES_MAX_ZOOM,
+      attribution: NIGHT_ATTRIBUTION,
+    },
   },
   layers: [
     { id: "land", type: "background", paint: { "background-color": LAND } },
+    {
+      // The lights lie over the land colour and under the water, so the coast stays crisp. Where
+      // there is no light the tile is the land colour itself, so only the lights show.
+      id: "night-lights",
+      type: "raster",
+      source: "night",
+      paint: {
+        "raster-resampling": "linear",
+        "raster-fade-duration": 300,
+        "raster-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          NIGHT_FADE_FROM_ZOOM,
+          1,
+          NIGHT_FADE_TO_ZOOM,
+          0,
+        ],
+      },
+    },
     {
       id: "water",
       type: "fill",

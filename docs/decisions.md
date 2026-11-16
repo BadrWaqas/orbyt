@@ -331,3 +331,11 @@ Panel text: the line saying the method had not been checked against stack monito
 **The rail.** `TimeRail.tsx` is a native range input over a row of ticks, one a month, taller at January, hatched where a month has no tiles. Play advances two months a second (PLAN.md 9.6), but never before the next month's tiles are in: `timePlayer.ts` preloads the month ahead unseen during each cross-fade and steps on when the fade has finished, so a slow connection slows the playback instead of showing half-loaded months. The globe cross-fades between two deck.gl tile layers over 400 ms (PLAN.md 9.7), the halo and bloom cross-fade with them, and the light stays level through the change because the two layers share it. At rest the globe shows the annual mean, the layer the verdicts are about; one button on the rail brings it back.
 
 **Not done.** The month is not yet in the URL (`t=` in PLAN.md 2.7). The raster fallback changes month as a cut, not a fade.
+
+## 2026-11-16, M7.2 Night lights as the low zoom base
+
+**What.** NASA Black Marble (the VIIRS_Night_Lights composite dated 2016-01-01 on GIBS), zoom 0 to 5, 1,365 tiles, 4.8 MB, self-hosted under `web/public/tiles/night` (`orbyt/sources/black_marble.py`). The lights are recoloured onto the palette of PLAN.md 9.2: no light is the land colour, so the raster vanishes into the map's land and the water fill keeps the coast crisp; full light is paper white, never amber, so the lights never pass for NO2. The layer sits between the land and the water in the style, and fades out from zoom 5 to 7.5, where the vector map takes over and the 500 m pixels would start to show.
+
+**Why not PMTiles.** Same reason as the NO2 tiles above: no R2 bucket yet and Pages does not serve range requests. 1,365 small files are fine in the bundle.
+
+**Poster.** Regenerated, so the first paint of the home screen has the lights too.

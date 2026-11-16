@@ -12,3 +12,4 @@ The MIT licence in this repo covers the code only. Each data source keeps its ow
 | EPA CAMPD hourly emissions | Validation, US | US government data, credit EPA Clean Air Markets Division. Read from the PUDL republication (release v2026.11.0, Catalyst Cooperative, CC BY 4.0), which needs no API key. Credit PUDL as well. | M4 |
 | EPA National Emissions Inventory 2023, facility summary | Validation, US: NOx the stack monitors do not cover | US government data, credit the US EPA. | M4.4 |
 | Beirle et al. NOx point source catalogue v2 | Early demo | CC BY 4.0. Cite the paper. | Planned, M2 |
+| NASA Black Marble (VIIRS night lights, 2016 composite) via GIBS | Night lights under the globe at low zoom | Free and open. NASA asks for an acknowledgement: shown in the map's credits and on the About page. Self-hosted copy of zoom 0 to 5, recoloured onto the site's palette. | M7.2 |

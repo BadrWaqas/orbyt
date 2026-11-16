@@ -57,7 +57,8 @@ const BODIES: Record<PageView, ReactNode> = {
       <h2>Data</h2>
       <p>
         Satellite NO<sub>2</sub>: {NO2_ATTRIBUTION}. Reported emissions: EEA Industrial Reporting
-        database. Base map: OpenStreetMap contributors, through OpenFreeMap.
+        database. Base map: OpenStreetMap contributors, through OpenFreeMap. Night lights: NASA
+        Black Marble, from the VIIRS instrument.
       </p>
     </>
   ),
