@@ -321,3 +321,13 @@ Panel text: the line saying the method had not been checked against stack monito
 **Hosting.** PLAN.md 3.1 puts the tiles on R2 as PMTiles. There is no R2 bucket yet, and Cloudflare Pages answers a range request with the whole file (checked on the live site), so PMTiles cannot be read from the Pages bundle. The tiles are plain files in the bundle for now, the fallback the plan names. With the monthly layers the bundle stays under the 20,000 file limit of Pages.
 
 **Earth Engine cost.** Measured from the call profiles (`data/raw/no2_grids/eecu_log.jsonl`): one month costs about 1,070 EECU-seconds for the global grid and 170 for Europe at 0.04 degree, 0.34 EECU-hours together.
+
+## 2026-11-16, M6.2 and M6.3: monthly NO2 layers and the time rail
+
+**What.** One mean NO2 layer per month from July 2022 to October 2026 (52 months, the last complete month in the collection), on the same two-part grid as the annual layer: the world at 0.1 degree to zoom 3, Europe at 0.04 degree to zoom 4 (about 2.4 km a pixel). A month has a thirtieth of the overpasses of a year, so its Europe grid is twice as coarse as the annual one and gets a 5 km Gaussian before the tiles are cut. 97 tiles a month, 5,297 in all, 52 MB, plain files in the Pages bundle (see the layer entry above for why not PMTiles yet).
+
+**Cost.** 0.34 EECU-hours a month, 18 EECU-hours for the backfill, 12 percent of the Community tier's month. A new month costs 0.34.
+
+**The rail.** `TimeRail.tsx` is a native range input over a row of ticks, one a month, taller at January, hatched where a month has no tiles. Play advances two months a second (PLAN.md 9.6), but never before the next month's tiles are in: `timePlayer.ts` preloads the month ahead unseen during each cross-fade and steps on when the fade has finished, so a slow connection slows the playback instead of showing half-loaded months. The globe cross-fades between two deck.gl tile layers over 400 ms (PLAN.md 9.7), the halo and bloom cross-fade with them, and the light stays level through the change because the two layers share it. At rest the globe shows the annual mean, the layer the verdicts are about; one button on the rail brings it back.
+
+**Not done.** The month is not yet in the URL (`t=` in PLAN.md 2.7). The raster fallback changes month as a cut, not a fade.

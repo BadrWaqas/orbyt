@@ -1539,3 +1539,231 @@ main:not([data-view="home"]) .home-item {
   padding-left: 0;
   list-style: none;
 }
+
+/* ------------------------------------------------------------------------------------------
+   The time rail (PLAN.md 9.6): a month scrubber from July 2022, a tick a month and a label a
+   year, play and pause. It sits along the bottom of the module view, under the legend on a
+   desktop and across the whole width on a phone, where the sheet rides over it.
+   ------------------------------------------------------------------------------------------ */
+:root {
+  --time-rail-h: 84px;
+}
+
+.time-rail {
+  position: absolute;
+  left: var(--margin-outer);
+  right: var(--margin-outer);
+  bottom: max(var(--margin-outer), env(safe-area-inset-bottom));
+  padding: 8px 12px 10px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.time-rail[data-shown="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 768px) {
+  .time-rail {
+    left: calc(var(--margin-outer) + 272px + 16px); /* beside the legend */
+    right: auto;
+    width: min(560px, calc(100% - var(--margin-outer) * 2 - 272px - 16px - 420px - 24px));
+    min-width: 320px;
+  }
+}
+
+.time-rail-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 20px;
+}
+
+.time-rail-now {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.time-rail-reset {
+  min-height: 28px;
+  padding: 0 4px;
+  margin-right: -4px;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.time-rail-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  margin-left: -8px;
+}
+
+.time-rail-track {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+}
+
+/* The scrubber. The native control carries keyboard and touch; the track and the ticks are
+   drawn underneath it, so its own track is cleared. */
+.time-scrub {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.time-scrub::-webkit-slider-runnable-track {
+  height: 44px;
+  background: transparent;
+}
+
+.time-scrub::-moz-range-track {
+  height: 44px;
+  background: transparent;
+}
+
+.time-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 15px;
+  border: 1.5px solid var(--text);
+  border-radius: 9999px;
+  background: var(--hue-no2-glow);
+  box-shadow: 0 0 10px 1px rgba(255, 176, 46, 0.6);
+}
+
+.time-scrub::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--text);
+  border-radius: 9999px;
+  background: var(--hue-no2-glow);
+  box-shadow: 0 0 10px 1px rgba(255, 176, 46, 0.6);
+}
+
+/* At rest (the annual mean) the thumb waits at the latest month, quiet and hollow. */
+.time-scrub[data-rest="true"]::-webkit-slider-thumb {
+  background: var(--panel-solid);
+  border-color: var(--text-3);
+  box-shadow: none;
+}
+
+.time-scrub[data-rest="true"]::-moz-range-thumb {
+  background: var(--panel-solid);
+  border-color: var(--text-3);
+  box-shadow: none;
+}
+
+.time-scrub:focus-visible {
+  outline: none;
+}
+
+.time-scrub:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.time-scrub:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* One tick a month, taller at January. A month without data is a hatched gap. */
+.time-rail-ticks {
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 16px;
+  height: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.time-rail-ticks span {
+  width: 1px;
+  height: 5px;
+  background: var(--text-3);
+  opacity: 0.6;
+}
+
+.time-rail-ticks span[data-january] {
+  height: 12px;
+  opacity: 0.9;
+}
+
+.time-rail-ticks span[data-missing] {
+  height: 12px;
+  width: 3px;
+  background: repeating-linear-gradient(135deg, var(--text-3) 0 1px, transparent 1px 3px);
+  opacity: 0.7;
+}
+
+.time-rail-ticks span[data-now] {
+  background: var(--hue-no2-glow);
+  opacity: 1;
+}
+
+.time-rail-years {
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 30px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.time-rail-years span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.time-rail-years span[data-first] {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .time-rail {
+    transition:
+      opacity 400ms ease,
+      visibility 0s linear 400ms;
+  }
+
+  .time-rail[data-shown="true"] {
+    transition-delay: 0s;
+  }
+}
+
+/* On a phone the sheet covers the rail while it is open. */
+@media (max-width: 767px) {
+  main[data-panel="open"] .time-rail {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* On a phone the rail runs under the map's credits button, so that button rides above it. */
+@media (max-width: 767px) {
+  main[data-view="module"][data-panel="closed"] .time-rail[data-shown="true"] ~ .maplibregl-ctrl-bottom-right,
+  main[data-view="module"][data-panel="closed"]:has(.time-rail[data-shown="true"]) .maplibregl-ctrl-bottom-right {
+    transform: translateY(calc(-1 * var(--time-rail-h)));
+  }
+}

@@ -1,8 +1,9 @@
-import type { Map as MapLibreMap } from "maplibre-gl";
+import type { Map as MapLibreMap, RasterTileSource } from "maplibre-gl";
 
 import { loadNo2Layers, NO2_HALO_OPACITY, NO2_YEAR } from "./no2";
+import type { No2Layers } from "./no2";
 import type { No2Glow } from "./no2Glow";
-import { annualTileSet } from "./no2Tiles";
+import { annualTileSet, monthTileSet } from "./no2Tiles";
 import type { TileSet } from "./no2Tiles";
 import type { SitePlumeSpec } from "./sitePlume";
 
@@ -50,6 +51,8 @@ interface RasterLayers {
   /** Resolves when the first tiles have arrived, or after a few seconds if they are slow. */
   ready: Promise<void>;
   setOpacity(level: number, ms: number): void;
+  /** Show another layer's tiles. The raster layers have no cross-fade: it is a cut. */
+  setTiles(set: TileSet): void;
   remove(): void;
 }
 
@@ -112,6 +115,12 @@ function addRaster(map: MapLibreMap, set: TileSet, beforeId: string, reducedMoti
 
   return {
     ready,
+    setTiles(next) {
+      if (removed) return;
+      for (const id of [SOURCE_ID, HALO_SOURCE_ID]) {
+        (map.getSource(id) as RasterTileSource | undefined)?.setTiles([next.template]);
+      }
+    },
     setOpacity(level, ms) {
       if (removed) return;
       const transition = { duration: ms, delay: 0 };
@@ -139,6 +148,14 @@ export interface No2Layer {
    * can draw it: with the raster fallback `onShown` is never called with true.
    */
   setSitePlume(spec: SitePlumeSpec | null, onShown?: (shown: boolean) => void): void;
+  /**
+   * Change to a month, "2024-06", or back to the annual mean with null. The month's tiles are
+   * loaded unseen first, then it cross-fades in over `ms`. Resolves true once it has taken
+   * over, and false if a later call came first or the layer has no such month.
+   */
+  showPeriod(month: string | null, ms: number): Promise<boolean>;
+  /** Load a month's tiles unseen, ahead of the change to it. Null drops them. */
+  preload(month: string | null): void;
   remove(): void;
 }
 
@@ -163,10 +180,17 @@ export function addNo2Layer(
 
   // The annual mean, the layer everything starts with. Set once the manifest has arrived.
   let annual: TileSet | null = null;
+  let manifest: No2Layers | null = null;
+  // The month asked for last, null for the annual mean. Kept so a layer that arrives later
+  // starts on it.
+  let month: string | null = null;
+  const tilesFor = (period: string | null): TileSet | null =>
+    period === null ? annual : manifest ? monthTileSet(manifest, period) : null;
 
   const showRaster = async () => {
-    if (!annual) return;
-    raster = addRaster(map, annual, beforeId, reducedMotion);
+    const first = tilesFor(month) ?? annual;
+    if (!first) return;
+    raster = addRaster(map, first, beforeId, reducedMotion);
     await raster.ready;
     if (cancelled) return;
     rasterLive = true;
@@ -186,9 +210,10 @@ export function addNo2Layer(
   };
 
   const tryGlow = (mod: typeof import("./no2Glow")) => {
-    if (!annual) return null;
+    const first = tilesFor(month) ?? annual;
+    if (!first) return null;
     try {
-      const added = mod.addNo2Glow(map, { tiles: annual, beforeId, onFail });
+      const added = mod.addNo2Glow(map, { tiles: first, beforeId, onFail });
       added?.setSitePlume(sitePlume.spec, sitePlume.onShown);
       return added;
     } catch {
@@ -197,8 +222,9 @@ export function addNo2Layer(
   };
 
   const start = async () => {
-    const [early, manifest] = await Promise.all([Promise.race([glowModule, wait(GLOW_WAIT_MS)]), layersManifest]);
+    const [early, layers] = await Promise.all([Promise.race([glowModule, wait(GLOW_WAIT_MS)]), layersManifest]);
     if (cancelled) return;
+    manifest = layers;
     annual = manifest ? annualTileSet(manifest) : null;
     if (!annual) return; // the manifest is missing or names no annual mean: there is nothing to draw
     if (early) glow = tryGlow(early);
@@ -247,6 +273,21 @@ export function addNo2Layer(
     setSitePlume(spec, onShown) {
       sitePlume = { spec, onShown };
       glow?.setSitePlume(spec, onShown);
+    },
+    showPeriod(next, ms) {
+      month = next;
+      const set = tilesFor(next);
+      if (cancelled || !set) return Promise.resolve(false); // not there yet: it starts on `month`
+      if (glow && !rasterLive) return glow.show(set, ms);
+      if (rasterLive && raster) {
+        raster.setTiles(set);
+        return Promise.resolve(true);
+      }
+      return Promise.resolve(false);
+    },
+    preload(next) {
+      if (cancelled) return;
+      glow?.preload(next === null ? null : tilesFor(next));
     },
     remove() {
       cancelled = true;

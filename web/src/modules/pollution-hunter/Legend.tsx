@@ -2,6 +2,7 @@ import { formatDay } from "../../data/format";
 import type { DayRow } from "../../data/types";
 import { NO2_HI_UMOL, NO2_LO_UMOL, NO2_YEAR, no2RampGradient, no2RampPosition } from "./no2";
 import { usePlumeClock } from "./plumeClock";
+import { monthLabel, useTimeClock } from "./timeClock";
 
 // Three labelled values (PLAN.md 9.6). The scale is square-root, so 100 sits near the middle.
 const TICKS_UMOL = [NO2_LO_UMOL, 100, NO2_HI_UMOL];
@@ -21,6 +22,7 @@ interface Props {
 
 /** Colour ramp for the NO2 layer with its units and one line saying what it shows. */
 export function Legend({ visible, site = null }: Props) {
+  const { month } = useTimeClock();
   return (
     <aside
       aria-label="Map legend"
@@ -30,7 +32,7 @@ export function Legend({ visible, site = null }: Props) {
       }`}
     >
       <p className="text-[14px] leading-5 text-text">
-        Mean NO<sub>2</sub> in the lower atmosphere, {NO2_YEAR}
+        Mean NO<sub>2</sub> in the lower atmosphere, {month ? monthLabel(month) : NO2_YEAR}
       </p>
       <p className="axis-text mt-2" aria-hidden="true">
         µmol/m²

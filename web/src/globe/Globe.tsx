@@ -22,6 +22,7 @@ import {
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { addNo2Layer, type No2Layer } from "../modules/pollution-hunter/no2Layer";
 import type { SitePlumeSpec } from "../modules/pollution-hunter/sitePlume";
+import { followTimeClock } from "../modules/pollution-hunter/timePlayer";
 import { FIRST_LABEL_LAYER_ID, FIRST_OVERLAY_LAYER_ID, nightStyle } from "./style";
 
 const SPIN_DEG_PER_S = 2; // PLAN.md 9.6
@@ -152,6 +153,8 @@ interface GlobeProps {
   onNo2Visible?: () => void;
   /** Called when the visitor zooms in from the module's opening view. Once for each stay. */
   onExplore?: () => void;
+  /** The months the NO2 layer has, oldest first, for the time rail. Empty until known. */
+  months?: string[];
   /** The selected facility's daily plume frames, to be drawn around it. Null for none. */
   sitePlume?: SitePlumeSpec | null;
   /** Called when that plume appears on the map and when it goes. */
@@ -164,6 +167,7 @@ export function Globe({
   selected,
   storyId = null,
   intro = false,
+  months = [],
   sitePlume = null,
   onSelect,
   onReady,
@@ -215,6 +219,14 @@ export function Globe({
     if (!ready) return;
     no2Ref.current?.setSitePlume(sitePlume, (shown) => callbacks.current.onSitePlume?.(shown));
   }, [ready, sitePlume]);
+
+  // The NO2 layer follows the time clock (the time rail), once the months are known.
+  useEffect(() => {
+    const no2 = no2Ref.current;
+    if (!ready || !no2 || months.length === 0) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    return followTimeClock(no2, months, reducedMotion);
+  }, [ready, months]);
 
   // The camera follows it too.
   useEffect(() => {

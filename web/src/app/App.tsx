@@ -6,8 +6,10 @@ import { Stars } from "../globe/Stars";
 import { Legend } from "../modules/pollution-hunter/Legend";
 import { plumeClock, plumeFrames } from "../modules/pollution-hunter/plumeClock";
 import type { SitePlumeSpec } from "../modules/pollution-hunter/sitePlume";
+import { timeClock } from "../modules/pollution-hunter/timeClock";
 import type { HueName } from "../modules/registry";
 import { FacilityPanel } from "../panels/FacilityPanel";
+import { TimeRail, useNo2Layers } from "../panels/TimeRail";
 import { EarthHalo, Home, OrbitRing } from "./Home";
 import { homeLayout, STORY_FLIGHT_MS, STORY_PANEL_LEAD_MS } from "./layout";
 import { Link } from "./Link";
@@ -99,6 +101,9 @@ export function App() {
 
   const [no2Visible, setNo2Visible] = useState(false);
   const showLegend = useCallback(() => setNo2Visible(true), []);
+  // The NO2 layers the pipeline published: the annual mean and the months for the time rail.
+  const no2Layers = useNo2Layers();
+  const months = useMemo(() => no2Layers?.monthly?.periods ?? [], [no2Layers]);
 
   const findings = useFindings();
   const list = findings.status === "ready" ? findings.data.findings : null;
@@ -227,6 +232,7 @@ export function App() {
     setHasSelected(false);
     setStoryId(null);
     setIntro("done");
+    timeClock.reset();
   }, [inModule]);
 
   const fromLoad = introTimes === INTRO_AT_MS;
@@ -259,6 +265,7 @@ export function App() {
             selected={selected}
             storyId={storyId}
             intro={introRuns}
+            months={months}
             sitePlume={site?.plume ?? null}
             onSitePlume={setSitePlumeShown}
             onSelect={select}
@@ -347,7 +354,7 @@ export function App() {
           explored &&
           list &&
           !selectedId && (
-            <p className="glass pointer-events-none absolute bottom-[max(48px,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 text-[14px] leading-5 text-text-2">
+            <p className="glass pointer-events-none absolute bottom-[calc(var(--time-rail-h)+max(48px,env(safe-area-inset-bottom)))] left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 text-[14px] leading-5 text-text-2 md:bottom-[max(48px,env(safe-area-inset-bottom))]">
               Pick a facility on the globe
             </p>
           )
@@ -358,6 +365,9 @@ export function App() {
         lastYear={findings.status === "ready" ? Number(findings.data.period) : 0}
         onClose={close}
       />
+
+      {/* The time rail (PLAN.md 9.6) takes the hero's place once the visitor has explored. */}
+      <TimeRail layers={no2Layers} shown={inModule && explored && no2Visible} />
     </main>
   );
 }
