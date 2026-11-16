@@ -357,3 +357,33 @@ Panel text: the line saying the method had not been checked against stack monito
 **Plume pictures.** The stack image is now drawn at least 1280 px wide and 1260 px tall, so the 2x card never enlarges it, and the flipbook frames at 3 px a 2 km cell instead of 2. Both are drawn from the numbers, not by enlarging a coloured picture: a Gaussian blur with the gaps left out of the average (1 km sigma for the stack, a mean of a year; 2 km for a single day), then a cubic B-spline read at each pixel, and cloud gaps fade in by the share of real data under the pixel. Pictures only: the estimate never sees this.
 
 **The globe close in.** The satellite pixel is about 5 km, so close in the tiles and the facility's frames are enlarged many times, and the GPU's linear filter drew the grid as creases and squares. The deck.gl bitmap layers now read an enlarged image through a cubic B-spline (four linear reads, GPU Gems 2 chapter 20), blended in from 1.5 to 3 screen pixels per image pixel, so the view from orbit is unchanged. The raster fallback keeps MapLibre's linear filter.
+
+## 2026-11-16, M4.4 Wind level: the 500 m wind, c unchanged, u_sys 0.40
+
+The 500 m run of all 33 US plants finished on 16 November at 18:21 (the regional CDS route of the entry above, 8 requests, the last in at 18:07). The full comparison is in `docs/validation/validation_summary.md`, section "Wind 100m against 500m", and in `METHODS.md` sections 5 to 8.
+
+What it shows:
+
+- The 500 m wind is 1.18 times the 100 m wind over the days each estimate used (median of 62, range 1.10 to 1.25). The estimates rise by a median of 1.23. So the level barely changes the day-to-day pattern and works almost as a scale factor on the emission.
+- Gates: tier 1 passes 5 at 100 m and 6 at 500 m (3 at both), tier 2 2 and 1, pooled 7 and 7. Passes by size are unchanged (0 of 25 under 4,000 t, 1 of 20 at 4,000 to 6,000 t, 6 of 21 above).
+- Scatter is a tie. On the same estimates the 500 m scatter is lower in every set, but by 0.02 to 0.04 (10 tier 1 estimates with a good fit and plume start at both levels: 0.31 against 0.35, bootstrap 95% range of the gap -0.08 to +0.02). On each level's own gated set it is equal or slightly higher (tier 1 against V1: 0.38 against 0.33; pooled against V1f: 0.37 and 0.37).
+- Bias, with c = 1.61: the 500 m wind reads 0.95 (tier 1 gated, V1), 0.91 (pooled gated, V1f, standard error 0.14) and 0.98 (the 10, V1f, standard error 0.10). The 100 m wind reads 1.00, 0.85 and 0.79 on the same sets. Its own gated set looks unbiased because the lifetime gate drops three estimates that read low at 100 m (lifetimes of 9 to 12 h). At 500 m their lifetimes are 7.4 to 7.5 h and they pass.
+
+Decisions:
+
+- `wind.level: 500m` in config.yaml, `method_version` `ph-emg-1.2`. Every step that reads a wind or an estimate now takes the level from config (`config.wind_level()`), and the file names keep the old rule (100 m untagged, 500 m tagged `-500m`), so the 100 m files stay as they are. Why 500 m, given that the scatter cannot decide: only wind times c can be checked with stack monitors, and with the published c the 500 m wind is unbiased on every set while the 100 m wind is about 2 standard errors low on the larger set. c = 1.61 comes from Beirle et al. 2023, who use wind at about 500 m, so the pair stays as published. Keeping 100 m would need c of about 2.0, outside 1.61 +/- 0.32, fitted to 10 points.
+- c = 1.61 and f = 1.38 unchanged. The rule written on 15 November, before the run, was to refit c at the chosen level only if the bias there is significant. It is not.
+- `verdict.u_sys` 0.35 to 0.40. Same rule as before: the excess scatter of the gated pooled set against the whole footprint over the calendar year (V2f), rounded up to the next 0.05. At 500 m that excess is 0.36 (tier 1 alone 0.40). 0.35 and 0.40 cannot be told apart with 7 points (one-sided 95% upper bound of the scatter about 0.8), so this is the cautious reading, not a measured worsening. A "higher than reported" call now needs R of about 2.9 to 3.2, "lower" about 0.32 to 0.34.
+- Gates unchanged. The 4 tier 1 estimates that fail only `low_signal_to_noise` read 1.26 times the footprint at 500 m (0.80 at 100 m). Still too few to move that gate.
+- The 15 November forecast (gated estimates about 1.2 times the monitors, c about 1.34) was wrong. Each estimate did rise by about 20%, but the gated set changed (Martin Lake 2023 and 2024 out, Shawnee 2023, New Madrid 2023 and Thomas Hill 2024 in). Recorded so the forecast is not mistaken for a result.
+- V4 for the wind level: 77% of estimates move by more than 15%, so the 15% mark is not met. The level is a calibration choice together with c, not a noise term, so this is reported and not acted on.
+
+Running it:
+
+- US: the 66 estimates at 500 m were rerun with `batch --levels 500m --redo` so they carry `ph-emg-1.2`. The numbers are identical. `validate` now writes the level comparison and a `mean_wind_ms` column.
+- Europe: 15 subjects, July 2022 to October 2026 (the end of the last rolling window), need the 500 m wind. `era5_levels --eu-region` asks for one box around all of them, hours 09 to 15 UTC, one request per quarter, the register years 2023 and 2024 first (18 requests). The CDS refuses a quarter of 7 hours and 9 levels (11,718 fields, "cost limits exceeded") and accepts 7 levels (9,114). Every European target level is 914 hPa or more in a sample of every tenth day (lowest Los Guinchos), so `eu_levels_hpa` stops at 850 hPa and the interpolated wind is the same. `eu_run` reads only those regional files (`winds_500m(..., region_only=True)`): a day they do not hold gets no wind, never a request of its own. Days in November 2026 get none, and no estimate uses them.
+- Published data is not switched yet. `findings.json`, the detail files, the US panels and the method page numbers stay on `ph-emg-1.1` (100 m, u_sys 0.35) until the European 500 m estimates exist, so the site never mixes the two. Then `compare`, `us_public` and `publish` run once and the site switches in one go.
+
+Not done:
+
+- The null test (M4.5) at 500 m. Its 10 European sites sit inside the Europe box, but Aosta and Appenzell need levels below 850 hPa, and the 10 US sites lie outside the US box. Until it is rerun, the 0 of 20 false positives is a 100 m result.

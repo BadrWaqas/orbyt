@@ -21,7 +21,7 @@ from typing import Any
 import numpy as np
 
 from orbyt.modules.pollution_hunter import extract, observe
-from orbyt.modules.pollution_hunter.config import load_config
+from orbyt.modules.pollution_hunter.config import load_config, wind_level
 from orbyt.sources import era5
 
 MONTHS = 12
@@ -73,10 +73,11 @@ def estimate_windows(
     subject_id: str,
     windows: list[tuple[date, date]],
     out_dir: Path | None = None,
-    level: str = "100m",
+    level: str | None = None,
     log=print,
 ) -> dict[str, Any]:
     """The estimate of every window for one subject, from cached patches and wind."""
+    level = level or wind_level()
     out_dir = out_dir or extract.INTERIM_DIR
     cfg = load_config()
     ocfg = cfg["observe"]
@@ -127,7 +128,8 @@ def estimate_windows(
     }
 
 
-def rolling_name(level: str = "100m") -> str:
+def rolling_name(level: str | None = None) -> str:
+    level = level or wind_level()
     return "rolling.json" if level == "100m" else f"rolling-{level}.json"
 
 

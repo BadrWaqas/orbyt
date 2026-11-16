@@ -2,7 +2,8 @@
 
     uv run python -m orbyt.modules.pollution_hunter.null_report
 
-Reads ``null_sites.json`` and each site's ``estimate-2024.json``, and writes
+Reads ``null_sites.json`` and each site's 2024 estimate at the wind level the estimates use
+(``--level 100m`` for the M4.5 run), and writes
 ``docs/validation/null_test.md`` and ``null_test.csv``. The pass mark is that no site passes
 every gate. A site that does is a false positive and needs a manual look.
 """
@@ -16,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from orbyt.modules.pollution_hunter import extract, null_sites, observe
+from orbyt.modules.pollution_hunter.config import wind_level
 
 OUT_DIR = Path(__file__).resolve().parents[4] / "docs" / "validation"
 GATES = (
@@ -27,8 +29,10 @@ GATES = (
 )
 
 
-def site_row(site: dict[str, Any], year: int, out_dir: Path) -> dict[str, Any]:
-    path = out_dir / site["subject_id"] / observe.estimate_name(year)
+def site_row(
+    site: dict[str, Any], year: int, out_dir: Path, level: str | None = None
+) -> dict[str, Any]:
+    path = out_dir / site["subject_id"] / observe.estimate_name(year, level=level)
     row: dict[str, Any] = {
         "subject_id": site["subject_id"],
         "name": site["name"],
@@ -62,13 +66,15 @@ def gate_counts(rows: list[dict]) -> dict[str, int]:
     return counts
 
 
-def report_markdown(rows: list[dict], year: int) -> str:
+def report_markdown(rows: list[dict], year: int, level: str | None = None) -> str:
+    level = level or wind_level()
     done = [r for r in rows if r["gates_failed"] is not None]
     passing = [r for r in done if r["passes_all_gates"]]
     lines = [
         "# Null test at 20 empty sites (M4.5, PLAN.md 4.9 V3)",
         "",
-        f"Estimates for {year}, 100 m wind, the same pipeline and gates as for real sources. "
+        f"Estimates for {year}, {level.removesuffix('m')} m wind, the same pipeline and gates as "
+        "for real sources. "
         "Pass mark: no site passes every gate.",
         "",
         f"**{len(done)} of {len(rows)} sites ran. {len(passing)} passed every gate.**",
@@ -109,15 +115,17 @@ def main() -> None:
     parser.add_argument("--year", type=int, default=2024)
     parser.add_argument("--in-dir", type=Path, default=extract.INTERIM_DIR)
     parser.add_argument("--out", type=Path, default=OUT_DIR)
+    parser.add_argument("--level", default=None, choices=["100m", "500m"], help="wind level")
     args = parser.parse_args()
+    level = args.level or wind_level()
     sites = json.loads(null_sites.OUT_JSON.read_text(encoding="utf-8"))
-    rows = [site_row(s, args.year, args.in_dir) for s in sites]
+    rows = [site_row(s, args.year, args.in_dir, level) for s in sites]
     args.out.mkdir(parents=True, exist_ok=True)
     with (args.out / "null_test.csv").open("w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-    text = report_markdown(rows, args.year)
+    text = report_markdown(rows, args.year, level)
     (args.out / "null_test.md").write_text(text, encoding="utf-8")
     print(text)
 

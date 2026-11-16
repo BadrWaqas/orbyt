@@ -1,9 +1,12 @@
-"""ERA5 wind at about 500 m above ground, for the wind-level test (PLAN.md 4.3 step 3, V4).
+"""ERA5 wind at about 500 m above ground, the level the estimates use since M4.4.
 
     uv run python -m orbyt.sources.era5_levels --subject-id ph-us-xxxxxxxx
+    uv run python -m orbyt.sources.era5_levels --us-region --years 2023 2024
+    uv run python -m orbyt.sources.era5_levels --eu-region
 
-The published catalogue uses wind at about 500 m above ground. Earth Engine only carries the
-100 m wind, so this reads the ERA5 pressure-level data from the Copernicus Climate Data Store
+The published catalogue uses wind at about 500 m above ground (PLAN.md 4.3 step 3). Earth
+Engine only carries the 100 m wind, so this reads the ERA5 pressure-level data from the
+Copernicus Climate Data Store
 (needs ``~/.cdsapirc``). The wind is taken at the pressure surface ``offset_hpa`` below the
 surface pressure (PLAN.md: surface pressure minus about 55 hPa), linearly interpolated in
 pressure between the stored levels. Surface pressure comes from the same Earth Engine ERA5 hour
@@ -24,7 +27,7 @@ import math
 import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 
 import numpy as np
@@ -89,6 +92,7 @@ def fetch_period(
     target: Path,
     cfg: dict,
     area: list[float] | None = None,
+    levels_hpa: list[int] | None = None,
 ) -> Path:
     """Download u and v on the pressure levels for the cell around the point.
 
@@ -107,7 +111,7 @@ def fetch_period(
     request = {
         "product_type": ["reanalysis"],
         "variable": ["u_component_of_wind", "v_component_of_wind"],
-        "pressure_level": [str(p) for p in cfg["levels_hpa"]],
+        "pressure_level": [str(p) for p in (levels_hpa or cfg["levels_hpa"])],
         "year": [str(year)],
         "month": [f"{m:02d}" for m in sorted(set(months))],
         "day": [f"{d:02d}" for d in sorted(set(days))],
@@ -175,9 +179,15 @@ def fetch_region(
     quarter: int,
     cfg: dict,
     raw_dir: Path = REGION_DIR,
+    months: list[int] | None = None,
+    levels_hpa: list[int] | None = None,
 ) -> Path:
-    """One CDS request for a quarter, every day, the given hours, over a box around the points."""
-    months = [3 * (quarter - 1) + m for m in (1, 2, 3)]
+    """One CDS request for a quarter, every day, the given hours, over a box around the points.
+
+    ``months`` limits the request to some months of the quarter (a quarter not yet over), and
+    ``levels_hpa`` replaces the configured levels.
+    """
+    months = months or [3 * (quarter - 1) + m for m in (1, 2, 3)]
     lat, lon = points[0]
     return fetch_period(
         lat,
@@ -189,11 +199,34 @@ def fetch_region(
         region_path(name, year, quarter, raw_dir),
         cfg,
         area=region_box(points),
+        levels_hpa=levels_hpa,
     )
 
 
-def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
-    """Write ``wind-500m.json`` for a subject that already has ``wind.json``."""
+def region_holds_cell(path: Path, lat: float, lon: float) -> bool:
+    """True when a regional file holds the point's cell, whatever hours it has."""
+    import xarray as xr
+
+    clat, clon = _cell(lat, lon)
+    ds = xr.open_dataset(path, engine="h5netcdf")
+    try:
+        return bool(
+            np.isclose(ds["latitude"].values, clat).any()
+            and np.isclose(ds["longitude"].values, clon).any()
+        )
+    finally:
+        ds.close()
+
+
+def winds_500m(
+    subject_id: str, out_dir: Path | None = None, log=print, region_only: bool = False
+) -> Path:
+    """Write ``wind-500m.json`` for a subject that already has ``wind.json``.
+
+    ``region_only`` reads the regional files only: a quarter with no file holding the cell, or an
+    hour a file does not hold, gives that day no wind (dropped as ``no_wind``), and nothing is
+    asked of the CDS for the one subject.
+    """
     from orbyt.modules.pollution_hunter import extract
     from orbyt.sources import gee
 
@@ -225,12 +258,20 @@ def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
         by_quarter.setdefault((stamp.year, (stamp.month - 1) // 3 + 1), []).append(stamp)
     jobs = sorted(by_quarter.items())
 
-    def get_quarter(job: tuple[tuple[int, int], list[datetime]]) -> Path:
+    def get_quarter(job: tuple[tuple[int, int], list[datetime]]) -> Path | None:
         (year, quarter), stamps = job
-        for region in sorted(REGION_DIR.glob(f"*_{year}-Q{quarter}.nc")):
+        regions = sorted(REGION_DIR.glob(f"*_{year}-Q{quarter}.nc"))
+        for region in regions:
             if region_covers(region, subject.lat, subject.lon, stamps):
                 log(f"{year} Q{quarter}: from {region.name}")
                 return region
+        if region_only:
+            for region in regions:
+                if region_holds_cell(region, subject.lat, subject.lon):
+                    log(f"{year} Q{quarter}: from {region.name}, some hours missing")
+                    return region
+            log(f"{year} Q{quarter}: no regional file, {len(stamps)} days without wind")
+            return None
         path = out_dir / subject_id / f"era5_pl_{year}-Q{quarter}.nc"
         log(f"{year} Q{quarter}: {len(stamps)} hours from the CDS")
         return fetch_period(
@@ -250,6 +291,8 @@ def winds_500m(subject_id: str, out_dir: Path | None = None, log=print) -> Path:
     profiles: dict[int, np.ndarray] = {}
     levels = np.array([])
     for path in paths:
+        if path is None:
+            continue
         prof, levels = read_profiles(path, subject.lat, subject.lon)
         profiles.update(prof)
     rows, extrapolated = [], 0
@@ -317,19 +360,86 @@ def fetch_us_region(years: list[int], log=print) -> list[Path]:
     return out
 
 
+def eu_quarters(
+    first_day: date, last_month: date, first_years: list[int]
+) -> list[tuple[int, int, list[int]]]:
+    """(year, quarter, months) from ``first_day``'s month to ``last_month``, both included.
+
+    Quarters of ``first_years`` (the register years) come first, so the calendar-year estimates
+    can be made before the rolling windows have all their wind.
+    """
+    out: dict[tuple[int, int], list[int]] = {}
+    k = first_day.year * 12 + first_day.month - 1
+    end = last_month.year * 12 + last_month.month - 1
+    while k <= end:
+        y, m = divmod(k, 12)
+        out.setdefault((y, m // 3 + 1), []).append(m + 1)
+        k += 1
+    keys = sorted(out, key=lambda q: (q[0] not in first_years, q))
+    return [(y, q, out[(y, q)]) for y, q in keys]
+
+
+def fetch_eu_region(log=print) -> list[Path]:
+    """Every quarter of the European period over one box around the European subjects.
+
+    The hours are the ERA5 hours that the subjects' 100 m winds use. The period runs from
+    ``europe.first_day`` to the last complete month of their data, the end of the last rolling
+    window. Days after it get no 500 m wind, and no estimate uses them.
+    """
+    import json
+
+    from orbyt.modules.pollution_hunter import eu_set, extract
+
+    subs = json.loads(eu_set.SUBJECTS_JSON.read_text(encoding="utf-8"))
+    points, hours, last_day = [], set(), date.min
+    for s in subs:
+        points.append((s["lat"], s["lon"]))
+        for w in era5.read_winds(era5.wind_path(extract.INTERIM_DIR, s["subject_id"])):
+            hours.add(int(w.era5_hour_utc[11:13]))
+            last_day = max(last_day, date.fromisoformat(w.day))
+    ecfg = load_config()["europe"]
+    first_day = date.fromisoformat(ecfg["first_day"])
+    k = last_day.year * 12 + last_day.month - 2  # the month before the last day's month
+    last_month = date(k // 12, k % 12 + 1, 1)
+    cfg = load_config()["wind"]["pressure_levels"]
+    quarters = eu_quarters(first_day, last_month, ecfg["register_years"])
+    box = region_box(points)
+    log(f"box {box}, hours {sorted(hours)}, {len(quarters)} quarters to {last_month}")
+    out = []
+    for year, quarter, months in quarters:
+        t0 = time.time()
+        out.append(
+            fetch_region(
+                "eu",
+                points,
+                sorted(hours),
+                year,
+                quarter,
+                cfg,
+                months=months,
+                levels_hpa=cfg["eu_levels_hpa"],
+            )
+        )
+        log(f"{year} Q{quarter}: {out[-1].name} ({(time.time() - t0) / 60:.0f} min)")
+    return out
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="ERA5 wind at about 500 m, per day")
     parser.add_argument("--subject-id")
     parser.add_argument("--us-region", action="store_true", help="fetch the US box by quarter")
+    parser.add_argument("--eu-region", action="store_true", help="fetch the Europe box by quarter")
     parser.add_argument("--years", type=int, nargs="+", default=[2023, 2024])
     parser.add_argument("--out-dir", type=Path, default=None)
     args = parser.parse_args()
-    if args.us_region:
+    if args.eu_region:
+        fetch_eu_region()
+    elif args.us_region:
         fetch_us_region(args.years)
     elif args.subject_id:
         print(f"wrote {winds_500m(args.subject_id, args.out_dir)}")
     else:
-        parser.error("give --subject-id or --us-region")
+        parser.error("give --subject-id, --us-region or --eu-region")
 
 
 if __name__ == "__main__":

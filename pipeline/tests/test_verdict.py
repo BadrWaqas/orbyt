@@ -25,7 +25,7 @@ def _call(label, ratio, s_boot=0.15, reported=10_000.0, gates=None, rules=RULES)
 
 def test_config_u_sys_is_the_validated_value():
     rules = v.rules_from_config(load_config())
-    assert rules.u_sys == 0.35
+    assert rules.u_sys == 0.40
     assert (rules.higher_min, rules.lower_max, rules.min_periods) == (1.25, 0.80, 2)
 
 

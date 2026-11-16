@@ -44,9 +44,43 @@ def test_cell_is_the_nearest_quarter_degree():
 def test_level_names_leave_the_100m_files_unchanged(tmp_path: Path):
     assert era5.wind_path(tmp_path, "s").name == "wind.json"
     assert era5.wind_path(tmp_path, "s", "500m").name == "wind-500m.json"
-    assert observe.estimate_name(2024) == "estimate-2024.json"
+    assert observe.estimate_name(2024, level="100m") == "estimate-2024.json"
     assert observe.estimate_name(2024, level="500m") == "estimate-2024-500m.json"
     assert observe.estimate_name(None, "diagnostic", ".png", "500m") == "diagnostic-500m.png"
+
+
+def test_estimates_default_to_the_configured_wind_level():
+    from orbyt.modules.pollution_hunter import windows
+    from orbyt.modules.pollution_hunter.config import wind_level
+
+    assert wind_level() == "500m"
+    assert observe.estimate_name(2024) == "estimate-2024-500m.json"
+    assert windows.rolling_name() == "rolling-500m.json"
+    assert windows.rolling_name("100m") == "rolling.json"
+
+
+def test_eu_quarters_put_the_register_years_first_and_stop_at_the_last_month():
+    from datetime import date
+
+    qs = era5_levels.eu_quarters(date(2022, 7, 1), date(2026, 10, 1), [2023, 2024])
+    assert [q[:2] for q in qs[:8]] == [(y, q) for y in (2023, 2024) for q in (1, 2, 3, 4)]
+    assert qs[8] == (2022, 3, [7, 8, 9])
+    assert qs[-1] == (2026, 4, [10])
+    assert len(qs) == 18
+
+
+def test_region_holds_cell_ignores_the_hours(tmp_path):
+    import xarray as xr
+
+    times = np.array(["2023-01-04T11:00"], dtype="datetime64[ns]")
+    ds = xr.Dataset(
+        {"u": (("valid_time", "latitude", "longitude"), np.zeros((1, 2, 2)))},
+        coords={"valid_time": times, "latitude": [35.25, 35.0], "longitude": [26.0, 26.25]},
+    )
+    path = tmp_path / "eu_2023-Q1.nc"
+    ds.to_netcdf(path, engine="h5netcdf")
+    assert era5_levels.region_holds_cell(path, 35.0, 26.14)
+    assert not era5_levels.region_holds_cell(path, 42.26, 26.13)
 
 
 def test_wind_covers_checks_the_years(tmp_path: Path):

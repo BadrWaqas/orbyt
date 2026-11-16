@@ -243,6 +243,7 @@ def estimate_row(
         "v2_ref_t_yr": v2,
         "v1_fp_ref_t_yr": None,
         "v2_fp_ref_t_yr": None if v2 is None or unmon is None else v2 + unmon,
+        "mean_wind_ms": None,
     }
     path = out_dir / sid / observe.estimate_name(year, level=level)
     if not path.exists():
@@ -251,6 +252,8 @@ def estimate_row(
     obs = doc["observed"]
     row["gates_failed"] = ",".join(doc["gates_failed"])
     row["days_used"] = doc["days"]["used"]
+    speeds = [d["wind_ms"] for d in doc["day_list"] if d.get("wind_ms") is not None]
+    row["mean_wind_ms"] = float(np.mean(speeds)) if speeds else None
     if obs is not None:
         row["est_t_yr"], row["lo"], row["hi"] = obs["nox_t_yr"], obs["lo"], obs["hi"]
     wind = era5.read_winds(era5.wind_path(out_dir, sid, level))
@@ -351,6 +354,120 @@ def pass_by_size(rows: list[dict], level: str) -> list[dict]:
     return out
 
 
+def _log_stats(pairs: list[tuple[float, float]]) -> dict[str, float]:
+    """Geometric mean ratio, its standard error in log units, log scatter and Pearson r."""
+    est = np.array([e for e, _ in pairs], dtype=float)
+    ref = np.array([r for _, r in pairs], dtype=float)
+    lr = np.log(est / ref)
+    n = len(lr)
+    sd = float(lr.std(ddof=1)) if n > 1 else math.nan
+    return {
+        "n": n,
+        "geo": float(math.exp(lr.mean())) if n else math.nan,
+        "se": sd / math.sqrt(n) if n > 1 else math.nan,
+        "scatter": sd,
+        "r": float(np.corrcoef(est, ref)[0, 1]) if n > 2 else math.nan,
+    }
+
+
+def level_comparison(rows: list[dict], base: str = "100m", alt: str = "500m") -> list[str]:
+    """Markdown comparing two wind levels estimate by estimate (M4.4, PLAN.md 4.3 step 3).
+
+    Each estimate is set against its own reference (V1 uses the days that level kept). An
+    estimate under 1% of its monitors (no plume) is left out, as in the log scatter above.
+    """
+    by: dict[tuple[str, int], dict[str, dict]] = {}
+    for r in rows:
+        by.setdefault((r["subject_id"], r["year"]), {})[r["level"]] = r
+    pairs = [(d[base], d[alt]) for d in by.values() if base in d and alt in d]
+
+    def plume(r: dict) -> bool:
+        return (
+            r["est_t_yr"] is not None
+            and bool(r["v1_ref_t_yr"])
+            and r["est_t_yr"] > 0.01 * r["v1_ref_t_yr"]
+        )
+
+    both = [(a, b) for a, b in pairs if plume(a) and plume(b)]
+    if not both:
+        return []
+    wr = np.array(
+        [b["mean_wind_ms"] / a["mean_wind_ms"] for a, b in both if a["mean_wind_ms"]],
+        dtype=float,
+    )
+    er = np.array([b["est_t_yr"] / a["est_t_yr"] for a, b in both])
+    moved = float(np.mean(np.abs(np.log(er)) > math.log(1.15)))
+    lines = [
+        f"## Wind {base} against {alt}",
+        "",
+        f"{len(both)} estimates find a plume at both levels. Mean wind over the days used, "
+        f"{alt} / {base}: median {np.median(wr):.2f}, range {wr.min():.2f} to {wr.max():.2f}. "
+        f"Estimate {alt} / {base}: median {np.median(er):.2f}, geometric mean "
+        f"{math.exp(np.log(er).mean()):.2f}; {moved:.0%} move by more than 15% (V4 pass mark).",
+        "",
+        "Passing every gate at each level:",
+        "",
+        f"| tier | both | {base} only | {alt} only | neither |",
+        "|---|---|---|---|---|",
+    ]
+    for tier in (1, 2):
+        t = [(passed(a), passed(b)) for a, b in pairs if a["tier"] == tier]
+        lines.append(
+            f"| {tier} | {sum(x and y for x, y in t)} | {sum(x and not y for x, y in t)} "
+            f"| {sum(y and not x for x, y in t)} | {sum(not x and not y for x, y in t)} |"
+        )
+
+    def fit_ok(r: dict) -> bool:
+        g = r["gates_failed"] or ""
+        return "poor_fit" not in g and "source_offset" not in g
+
+    sets = [
+        (
+            "passes at both, tier 1",
+            [(a, b) for a, b in pairs if a["tier"] == 1 and passed(a) and passed(b)],
+        ),
+        ("passes at both, pooled", [(a, b) for a, b in pairs if passed(a) and passed(b)]),
+        (
+            "fit and plume start pass at both, tier 1",
+            [(a, b) for a, b in both if a["tier"] == 1 and fit_ok(a) and fit_ok(b)],
+        ),
+    ]
+    lines += [
+        "",
+        "Geometric mean ratio (standard error in log units), log scatter and Pearson r, on the "
+        "same estimates at both levels, and on each level's own set of estimates that pass "
+        "every gate:",
+        "",
+        f"| set | reference | n | {base} ratio (se) | scatter | r | {alt} ratio (se) | scatter "
+        "| r |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ]
+
+    def cells(s: dict[str, float]) -> str:
+        return f"{s['geo']:.2f} ({s['se']:.2f}) | {s['scatter']:.2f} | {_fmt(s['r'])}"
+
+    for comp, key, _ in COMPARISONS:
+        if comp not in ("V1", "V1f", "V2f"):
+            continue
+        for name, sel in sets:
+            sel = [(a, b) for a, b in sel if a[key] and b[key]]
+            if len(sel) < 3:
+                continue
+            sa = _log_stats([(a["est_t_yr"], a[key]) for a, _ in sel])
+            sb = _log_stats([(b["est_t_yr"], b[key]) for _, b in sel])
+            lines.append(f"| {name} | {comp} | {len(sel)} | {cells(sa)} | {cells(sb)} |")
+        for gname, tiers in (("own gated set, tier 1", {1}), ("own gated set, pooled", {1, 2})):
+            ga = [a for a, _ in pairs if a["tier"] in tiers and passed(a) and a[key]]
+            gb = [b for _, b in pairs if b["tier"] in tiers and passed(b) and b[key]]
+            sa = _log_stats([(r["est_t_yr"], r[key]) for r in ga])
+            sb = _log_stats([(r["est_t_yr"], r[key]) for r in gb])
+            lines.append(
+                f"| {gname} | {comp} | {len(ga)} and {len(gb)} | {cells(sa)} | {cells(sb)} |"
+            )
+    lines.append("")
+    return lines
+
+
 def summary_markdown(summary: list[dict], rows: list[dict], flag_frac: float = 0.25) -> str:
     lines = [
         "# Validation against US stack monitors (M4.3, M4.4)",
@@ -411,6 +528,7 @@ def summary_markdown(summary: list[dict], rows: list[dict], flag_frac: float = 0
                     f"| {s['upper95']:.2f} |"
                 )
         lines.append("")
+    lines += level_comparison(rows)
     for level in sorted({s["level"] for s in summary}):
         for comp, _, _ in COMPARISONS:
             if not any(s["comparison"] == comp and s["level"] == level for s in summary):

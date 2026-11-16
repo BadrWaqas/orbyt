@@ -44,8 +44,12 @@ def _num(x: str) -> float | None:
     return None if x in ("", None) else float(x)
 
 
-def read_table(path: Path, level: str = "100m") -> dict[str, dict[int, dict]]:
-    """{subject id: {year: row}} from validation_table.csv, for one wind level."""
+def read_table(path: Path, level: str | None = None) -> dict[str, dict[int, dict]]:
+    """{subject id: {year: row}} from validation_table.csv, for one wind level.
+
+    ``level`` defaults to the level the estimates use (``wind.level``).
+    """
+    level = level or load_config()["wind"]["level"]
     out: dict[str, dict[int, dict]] = {}
     with path.open(encoding="utf-8") as fh:
         for row in csv.DictReader(fh):

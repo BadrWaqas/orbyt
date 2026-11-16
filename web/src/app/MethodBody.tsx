@@ -79,6 +79,14 @@ export function MethodBody() {
         comes from. The 13 plants that pass all the isolation checks are on the map as test sites.
       </p>
       <p>
+        We then ran the same test with the wind about 500 metres up, nearer the height the plumes
+        travel at and the height the published correction factor was worked out with. It agrees with
+        the monitors as closely, and with no bias on a larger set of estimates, where the wind at 100
+        metres reads about 20% low. The estimates are moving to the 500 metre wind, with a systematic
+        term of 40% instead of 35%. Until the European estimates have been rerun, the numbers on the
+        site still use the 100 metre wind.
+      </p>
+      <p>
         The test also set a practical floor. No estimate passed when the area&apos;s reported total was
         under 4,000 tonnes a year, and almost none under 6,000. Sources below that stay on the site
         and are labelled &quot;below reliable detection&quot;.
@@ -88,7 +96,7 @@ export function MethodBody() {
       <ul>
         <li>It sees one moment a day, in clear and windy weather, so it misses the rest of the year.</li>
         <li>It uses one average correction for how the satellite sees NO<sub>2</sub>. This is the largest simplification.</li>
-        <li>Wind comes from a 28 km grid at one height. A test of a higher wind level is still running.</li>
+        <li>Wind comes from a 28 km grid at one height. That height and the correction factor can only be checked together.</li>
         <li>Sources that do not report, and cities or industry in the area, add to the estimate.</li>
         <li>Seven passing estimates fix the uncertainty only loosely.</li>
       </ul>

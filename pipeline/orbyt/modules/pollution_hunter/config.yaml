@@ -1,6 +1,7 @@
 # Pollution Hunter constants. Every value names its source (PLAN.md section), so there are no
 # magic numbers in code.
-method_version: ph-emg-1.1
+# 1.2 (M4.4, 16 Nov 2026): the estimate uses the 500 m wind instead of the 100 m wind.
+method_version: ph-emg-1.2
 
 extract:
   # PLAN.md 4.3 step 2: a 0.03 degree grid covering 180 km in every direction.
@@ -34,15 +35,30 @@ wind:
   window_tolerance_min: 10
   # PLAN.md 4.3 step 3: in calmer air the gas pools and has no direction.
   min_speed_ms: 2.0
+  # The wind level the estimates use (PLAN.md 4.3 step 3: test both, keep the better). Chosen in
+  # M4.4 from the 33 US plants (docs/decisions.md). The 500 m wind is 1.19 times the 100 m wind
+  # at nearly every plant, so the scatter against the monitors is the same within noise and only
+  # wind times c is tested. With c = 1.61 the 500 m wind reads 0.91 to 0.98 times the monitors on
+  # every subset; the 100 m wind reads 0.79 on the 10 tier 1 estimates with a good fit and plume
+  # start at both levels. c = 1.61 is from Beirle et al. 2023, who use wind at about 500 m.
+  # 100m is the Earth Engine single-level wind below; 500m is pressure_levels below.
+  level: 500m
 
-  # PLAN.md 4.3 step 3: the published catalogue uses wind at about 500 m above ground. Test that
-  # level too (V4). ERA5 pressure levels from the CDS, taken at surface pressure minus 55 hPa
+  # PLAN.md 4.3 step 3: the published catalogue uses wind at about 500 m above ground, the level
+  # the estimates use (level above). ERA5 pressure levels from the CDS, taken at surface pressure minus 55 hPa
   # (PLAN.md), interpolated in pressure. Levels cover surface pressures down to about 855 hPa
   # (1.4 km terrain); days outside them are counted in the log. Nothing here is tuned to any validation result.
   pressure_levels:
     dataset: reanalysis-era5-pressure-levels
     offset_hpa: 55
     levels_hpa: [1000, 975, 950, 925, 900, 875, 850, 825, 800]
+    # The Europe box needs 7 ERA5 hours (09 to 15 UTC), and the CDS refuses a request of about
+    # 10,000 fields or more ("cost limits exceeded"): a quarter of 7 hours and 9 levels is 11,718,
+    # of 7 levels 9,114. The lowest target level of a European subject, in every tenth day, is
+    # 914 hPa (Los Guinchos, surface pressure 969 hPa), so levels down to 850 bracket every target
+    # and the interpolated wind is the same as with the 9 levels above. winds_500m counts any day
+    # outside the stored levels in its log.
+    eu_levels_hpa: [1000, 975, 950, 925, 900, 875, 850]
     # Requests in flight at once. One request spends minutes in the CDS queue.
     max_parallel: 1
     # The CDS rejects a request while too many are queued for the dataset ("request data
@@ -63,6 +79,9 @@ observe:
   # Diagnostic only: a wind quarter needs this many days before its own curve is drawn.
   sector_min_days: 10
   # PLAN.md 4.6 and Appendix A: NOx as a multiple of NO2, and the air mass factor correction.
+  # M4.4: c is not refit. With the 500 m wind the 7 US estimates that pass every gate average
+  # 0.91 times the whole footprint at the same hours (V1f), standard error about 0.14, so there is
+  # no significant bias. Only wind times c can be checked with stack monitors.
   nox_to_no2: 1.38
   amf_correction: 1.61
   # PLAN.md 4.3 step 8: bootstrap over days.
@@ -150,12 +169,13 @@ validation:
 
 verdict:
   # PLAN.md 4.8, the systematic uncertainty added to each estimate's own bootstrap interval.
-  # M4.4 (docs/decisions.md, docs/validation/validation_summary.md): the 7 US estimates that pass
-  # every gate scatter by 0.40 in ln(estimate / footprint total) for the calendar year (V2f), of
-  # which the bootstrap explains 0.22, leaving 0.33. Tier 1 alone gives the same. Rounded up to
-  # 0.35, the plan's placeholder, and not lowered: 7 points put the one-sided 95% upper bound of
-  # the scatter near 0.8. Set from US data only, never from Europe.
-  u_sys: 0.35
+  # M4.4 (docs/decisions.md, docs/validation/validation_summary.md), 500 m wind: the 7 US
+  # estimates that pass every gate scatter by 0.41 in ln(estimate / footprint total) for the
+  # calendar year (V2f), of which the bootstrap explains 0.20, leaving 0.36. Tier 1 alone leaves
+  # 0.40. Rounded up to 0.40, the same rule as the 0.35 of the 100 m wind (excess 0.33). Not
+  # lowered: 7 points put the one-sided 95% upper bound of the scatter near 0.8. Set from US data
+  # only, never from Europe.
+  u_sys: 0.40
   # PLAN.md 4.8: a period is higher than reported when the lower end of its ratio is above
   # higher_min_ratio, lower when the upper end is below lower_max_ratio. Both need
   # min_periods separate periods that pass every gate (core/verdict.py). Plan values.

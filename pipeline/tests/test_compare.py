@@ -6,7 +6,7 @@ import json
 from math import exp
 
 from orbyt.core import verdict as vd
-from orbyt.modules.pollution_hunter import compare
+from orbyt.modules.pollution_hunter import compare, observe
 
 RULES = vd.Rules(u_sys=0.35, higher_min=1.25, lower_max=0.80, min_periods=2, grade_a_min_days=80)
 
@@ -39,7 +39,7 @@ def _subject(reported_by_year, n_facilities=1):
 def _write(tmp_path, year, est):
     d = tmp_path / "ph-eu-test"
     d.mkdir(exist_ok=True)
-    (d / f"estimate-{year}.json").write_text(json.dumps(est), encoding="utf-8")
+    (d / observe.estimate_name(year)).write_text(json.dumps(est), encoding="utf-8")
 
 
 CFG = {"europe": {"register_years": [2023, 2024]}, "method_version": "ph-emg-1.1"}

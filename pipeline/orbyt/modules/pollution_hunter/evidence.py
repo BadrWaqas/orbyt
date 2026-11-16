@@ -371,7 +371,7 @@ def publish_subject(
         raise SystemExit(f"estimate.json is from {est['method']}, rerun observe first")
 
     subject = extract.load_subject(subject_id)
-    winds = era5.read_winds(era5.wind_path(interim_dir, subject_id))
+    winds = era5.read_winds(era5.wind_path(interim_dir, subject_id, all_cfg["wind"]["level"]))
     if year is not None:
         winds = [w for w in winds if w.day.startswith(f"{year}-")]
     days, _ = select_days(winds, all_cfg["wind"]["min_speed_ms"])

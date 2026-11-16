@@ -18,7 +18,7 @@ from typing import Any
 import numpy as np
 
 from orbyt.modules.pollution_hunter import extract
-from orbyt.modules.pollution_hunter.config import load_config
+from orbyt.modules.pollution_hunter.config import load_config, wind_level
 from orbyt.modules.pollution_hunter.core_math import (
     daily_flux_density,
     emg,
@@ -232,12 +232,14 @@ def build_document(
 
 
 def estimate_name(
-    year: int | None, stem: str = "estimate", suffix: str = ".json", level: str = "100m"
+    year: int | None, stem: str = "estimate", suffix: str = ".json", level: str | None = None
 ) -> str:
     """``estimate.json`` for all cached days, ``estimate-2024.json`` for one calendar year.
 
-    A wind level other than the default 100 m adds its name: ``estimate-2024-500m.json``.
+    A wind level other than 100 m adds its name: ``estimate-2024-500m.json``. ``level`` defaults
+    to the level the estimates use (``wind.level``).
     """
+    level = level or wind_level()
     tag = "" if level == "100m" else f"-{level}"
     return f"{stem}{'' if year is None else f'-{year}'}{tag}{suffix}"
 
@@ -247,9 +249,10 @@ def observe_subject(
     out_dir: Path | None = None,
     log=print,
     year: int | None = None,
-    level: str = "100m",
+    level: str | None = None,
 ) -> Path:
     """Estimate one subject. ``year`` keeps only the cached days of that UTC calendar year."""
+    level = level or wind_level()
     out_dir = out_dir or extract.INTERIM_DIR
     cfg = load_config()["observe"]
     subject = extract.load_subject(subject_id)
@@ -296,7 +299,7 @@ def main() -> None:
     parser.add_argument("--subject-id", required=True)
     parser.add_argument("--out-dir", type=Path, default=None)
     parser.add_argument("--window", type=int, help="calendar year; default is every cached day")
-    parser.add_argument("--level", default="100m", choices=["100m", "500m"], help="wind level")
+    parser.add_argument("--level", default=None, choices=["100m", "500m"], help="wind level")
     args = parser.parse_args()
     path = observe_subject(args.subject_id, args.out_dir, year=args.window, level=args.level)
     print(f"wrote {path}")

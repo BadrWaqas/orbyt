@@ -20,6 +20,7 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 from orbyt.modules.pollution_hunter import extract, observe
+from orbyt.modules.pollution_hunter.config import wind_level
 from orbyt.sources import era5, era5_levels, gee
 
 SETS = {
@@ -59,14 +60,18 @@ def run_subject(
     out_dir: Path,
     levels: list[str] | None = None,
     log=print,
+    redo: bool = False,
 ) -> None:
-    """Extract, wind and estimates for the years and wind levels that have no estimate yet."""
-    levels = levels or ["100m"]
+    """Extract, wind and estimates for the years and wind levels that have no estimate yet.
+
+    ``redo`` estimates again even where the file exists (after a method change).
+    """
+    levels = levels or [wind_level()]
     todo = {
         lv: [
             y
             for y in years
-            if not (out_dir / subject_id / observe.estimate_name(y, level=lv)).exists()
+            if redo or not (out_dir / subject_id / observe.estimate_name(y, level=lv)).exists()
         ]
         for lv in levels
     }
@@ -120,7 +125,8 @@ def main() -> None:
     parser.add_argument("--set", choices=sorted(SETS), required=True)
     parser.add_argument("--tier", type=int, nargs="+", help="US plants: tiers to run (1, 2)")
     parser.add_argument("--years", type=int, nargs="+", required=True)
-    parser.add_argument("--levels", nargs="+", default=["100m"], choices=["100m", "500m"])
+    parser.add_argument("--levels", nargs="+", default=None, choices=["100m", "500m"])
+    parser.add_argument("--redo", action="store_true", help="estimate again where a file exists")
     parser.add_argument("--only", nargs="+", help="run only these subject ids")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--out-dir", type=Path, default=extract.INTERIM_DIR)
@@ -132,7 +138,7 @@ def main() -> None:
     for n, sid in enumerate(ids, start=1):
         print(f"--- {n}/{len(ids)} {sid}", flush=True)
         try:
-            run_subject(sid, args.years, args.workers, args.out_dir, args.levels)
+            run_subject(sid, args.years, args.workers, args.out_dir, args.levels, redo=args.redo)
         except Exception as exc:  # one bad subject must not stop the batch
             traceback.print_exc()
             _log({"subject_id": sid, "step": "failed", "error": f"{type(exc).__name__}: {exc}"})

@@ -11,7 +11,7 @@ from PIL import Image
 from orbyt.modules.pollution_hunter import evidence
 from orbyt.modules.pollution_hunter.config import load_config
 from orbyt.modules.pollution_hunter.detect import day_plane
-from orbyt.modules.pollution_hunter.observe import grid
+from orbyt.modules.pollution_hunter.observe import estimate_name, grid
 
 CFG = load_config()
 OBS, DET, EVI = CFG["observe"], CFG["detect"], CFG["evidence"]
@@ -186,7 +186,7 @@ def test_merge_refuses_a_different_year_or_an_unknown_subject(tmp_path):
 def test_failed_gates_are_not_published(tmp_path):
     (tmp_path / "ph-eu-x").mkdir()
     est = {"gates_failed": ["source_offset"], "observed": {"nox_t_yr": 1.0}, "method": "m"}
-    (tmp_path / "ph-eu-x" / "estimate.json").write_text(json.dumps(est), "utf-8")
+    (tmp_path / "ph-eu-x" / estimate_name(None)).write_text(json.dumps(est), "utf-8")
     with pytest.raises(SystemExit, match="inconclusive"):
         evidence.publish_subject("ph-eu-x", interim_dir=tmp_path, web_public=tmp_path)
     assert not (tmp_path / "img").exists()

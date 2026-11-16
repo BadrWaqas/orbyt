@@ -346,7 +346,7 @@ def detect_subject(subject_id: str, out_dir: Path | None = None, log=print) -> P
     cfg, dcfg = all_cfg["observe"], all_cfg["detect"]
     subject = extract.load_subject(subject_id)
     patch_dir = out_dir / subject_id
-    winds = era5.read_winds(era5.wind_path(out_dir, subject_id))
+    winds = era5.read_winds(era5.wind_path(out_dir, subject_id, all_cfg["wind"]["level"]))
     days, dropped = select_days(winds, all_cfg["wind"]["min_speed_ms"])
     tests, images = run_days(subject, days, patch_dir, cfg, dcfg)
     x_km, yr_km = grid(dcfg["x_km"]), grid(cfg["crosswind_km"])

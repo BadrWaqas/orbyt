@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from orbyt.modules.pollution_hunter import null_report
+from orbyt.modules.pollution_hunter import null_report, observe
 
 SITE = {
     "subject_id": "ph-null-01",
@@ -24,7 +24,7 @@ def _write(tmp: Path, sid: str, gates: list[str], est: float | None = 100.0) -> 
         "days": {"used": 80},
         "observed": None if est is None else {"nox_t_yr": est},
     }
-    (d / "estimate-2024.json").write_text(json.dumps(doc), encoding="utf-8")
+    (d / observe.estimate_name(2024)).write_text(json.dumps(doc), encoding="utf-8")
 
 
 def test_a_site_that_fails_a_gate_does_not_pass(tmp_path: Path):

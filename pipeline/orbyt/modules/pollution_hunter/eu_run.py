@@ -6,9 +6,11 @@
 For each subject of ``eu_subjects.json``, in its order (reliable size first, then the rest):
 
 1. download the usable overpass patches from ``europe.first_day`` to the latest data (extract.py),
-2. fetch the 100 m wind of every cached day (era5.py), again when new days were added,
-3. write ``estimate-<year>.json`` and its diagnostic for each register year (observe.py),
-4. write ``rolling.json``: the estimate of every rolling 12-month window (windows.py).
+2. fetch the 100 m wind of every cached day (era5.py), again when new days were added, and the
+   wind at the level the estimates use (``wind.level``, 500 m since M4.4) from the regional
+   files of ``era5_levels --eu-region``,
+3. write ``estimate-<year>-500m.json`` and its diagnostic for each register year (observe.py),
+4. write ``rolling-500m.json``: the estimate of every rolling 12-month window (windows.py).
 
 Everything is resumable: cached patches are not downloaded again and a register year whose
 estimate file exists is kept. A subject that fails is logged and the run goes on. The log is
@@ -25,8 +27,8 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 from orbyt.modules.pollution_hunter import eu_set, extract, observe, windows
-from orbyt.modules.pollution_hunter.config import load_config
-from orbyt.sources import era5, gee
+from orbyt.modules.pollution_hunter.config import load_config, wind_level
+from orbyt.sources import era5, era5_levels, gee
 
 LOG = extract.INTERIM_DIR / "eu_batch_log.jsonl"
 
@@ -42,9 +44,9 @@ def subject_ids(path: Path = eu_set.SUBJECTS_JSON) -> list[str]:
     return [s["subject_id"] for s in json.loads(path.read_text(encoding="utf-8"))]
 
 
-def _winds_current(out_dir: Path, subject_id: str) -> bool:
-    """True when wind.json holds a row for every cached patch."""
-    path = era5.wind_path(out_dir, subject_id)
+def _winds_current(out_dir: Path, subject_id: str, level: str = "100m") -> bool:
+    """True when the wind file of that level holds a row for every cached patch."""
+    path = era5.wind_path(out_dir, subject_id, level)
     if not path.exists():
         return False
     n_patches = len(list((out_dir / subject_id).glob("*.npz")))
@@ -74,6 +76,11 @@ def run_subject(
     )
     if not _winds_current(out_dir, subject_id):
         era5.winds_for_subject(subject_id, out_dir, log=log)
+    level = wind_level()
+    if level != "100m" and not _winds_current(out_dir, subject_id, level):
+        # The 500 m wind comes from the regional files of era5_levels --eu-region only, so a
+        # day those files do not hold gets no wind instead of a slow request of its own.
+        era5_levels.winds_500m(subject_id, out_dir, log=log, region_only=True)
     for y in years:
         path = out_dir / subject_id / observe.estimate_name(y)
         if path.exists():
