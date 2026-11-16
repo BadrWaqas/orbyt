@@ -29,6 +29,30 @@ const SITE_NAME = "Orbyt Earth";
 const HOME_TITLE = "Orbyt Earth: fact-checking the world from space";
 const MARK_START = "<!-- share-meta:start -->";
 const MARK_END = "<!-- share-meta:end -->";
+// LinkedIn and others keep a card by its address. Raise this when the cards change in a way a
+// stale copy would hide (v2: the shared cards rendered at 2400 x 1260), so the next scrape
+// fetches them again.
+const CARD_VERSION = "2";
+
+/** Width and height of a JPEG, from its first frame header. */
+function jpegSize(bytes) {
+  let i = 2; // after the start of image marker
+  while (i + 9 < bytes.length) {
+    if (bytes[i] !== 0xff) throw new Error("not a JPEG");
+    const marker = bytes[i + 1];
+    const length = bytes.readUInt16BE(i + 2);
+    // Start of frame: baseline, extended or progressive.
+    if (marker >= 0xc0 && marker <= 0xc3) return { height: bytes.readUInt16BE(i + 5), width: bytes.readUInt16BE(i + 7) };
+    i += 2 + length;
+  }
+  throw new Error("no frame header");
+}
+
+/** The card's address and its pixel size: make-share-cards.mjs saves some at twice the layout. */
+async function cardImage(id) {
+  const { width, height } = jpegSize(await readFile(path.join(CARDS, `${id}.jpg`)));
+  return { url: `${SITE_URL}/img/share/${id}.jpg?v=${CARD_VERSION}`, width, height };
+}
 
 const whole = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
 const regions = new Intl.DisplayNames(["en"], { type: "region" });
@@ -87,15 +111,15 @@ function metaBlock({ title, description, url, image, alt }) {
     `<meta property="og:title" content="${esc(title)}" />`,
     `<meta property="og:description" content="${esc(description)}" />`,
     `<meta property="og:url" content="${esc(url)}" />`,
-    `<meta property="og:image" content="${esc(image)}" />`,
+    `<meta property="og:image" content="${esc(image.url)}" />`,
     `<meta property="og:image:type" content="image/jpeg" />`,
-    `<meta property="og:image:width" content="1200" />`,
-    `<meta property="og:image:height" content="630" />`,
+    `<meta property="og:image:width" content="${image.width}" />`,
+    `<meta property="og:image:height" content="${image.height}" />`,
     `<meta property="og:image:alt" content="${esc(alt)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${esc(title)}" />`,
     `<meta name="twitter:description" content="${esc(description)}" />`,
-    `<meta name="twitter:image" content="${esc(image)}" />`,
+    `<meta name="twitter:image" content="${esc(image.url)}" />`,
     `<meta name="twitter:image:alt" content="${esc(alt)}" />`,
   ];
   return `    ${MARK_START}\n    ${tags.join("\n    ")}\n    ${MARK_END}\n`;
@@ -143,7 +167,7 @@ await writeFile(
     title: HOME_TITLE,
     description: homeDescription,
     url: `${SITE_URL}/`,
-    image: `${SITE_URL}/img/share/home.jpg`,
+    image: await cardImage("home"),
     alt: "Reported on paper. Measured from orbit. A night globe over Europe.",
   }),
 );
@@ -160,7 +184,7 @@ for (const f of payload.findings) {
     title: `${title} | ${SITE_NAME}`,
     description,
     url: `${SITE_URL}${rel}`,
-    image: `${SITE_URL}/img/share/${f.id}.jpg`,
+    image: await cardImage(f.id),
     alt,
     redirect: `/explore?${params}`,
   });

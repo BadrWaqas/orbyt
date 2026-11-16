@@ -349,3 +349,11 @@ Panel text: the line saying the method had not been checked against stack monito
 **The plume chapter plays the daily frames** even under reduced motion, since frame 0 is whichever day came first (often cloudy) and the chapter is about the plume. The cross-fade between frames is 150 ms.
 
 **Not done.** No per-chapter URL; the story always opens at the first chapter.
+
+## 2026-11-16, Sharp share cards and a soft glow close in
+
+**Share cards.** LinkedIn's Post Inspector showed the cards soft: they were 1200 x 630, and the plume inside was a 640 px picture enlarged about three times to fill the card's height. The home card and every card with a plume picture are now photographed at 2400 x 1260 with JPEG quality 85. The other 309 cards are type and thin lines and stay at 1200 x 630, quality 78, which keeps `public/img/share` at about 20 MB instead of 45. The share pages read each card's size from its file, and the image addresses carry `?v=2` so a scraper fetches the new pictures.
+
+**Plume pictures.** The stack image is now drawn at least 1280 px wide and 1260 px tall, so the 2x card never enlarges it, and the flipbook frames at 3 px a 2 km cell instead of 2. Both are drawn from the numbers, not by enlarging a coloured picture: a Gaussian blur with the gaps left out of the average (1 km sigma for the stack, a mean of a year; 2 km for a single day), then a cubic B-spline read at each pixel, and cloud gaps fade in by the share of real data under the pixel. Pictures only: the estimate never sees this.
+
+**The globe close in.** The satellite pixel is about 5 km, so close in the tiles and the facility's frames are enlarged many times, and the GPU's linear filter drew the grid as creases and squares. The deck.gl bitmap layers now read an enlarged image through a cubic B-spline (four linear reads, GPU Gems 2 chapter 20), blended in from 1.5 to 3 screen pixels per image pixel, so the view from orbit is unchanged. The raster fallback keeps MapLibre's linear filter.

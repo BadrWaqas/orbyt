@@ -283,7 +283,14 @@ evidence:
     full_scale_percentile: 99
     # A cell is drawn when this share of the days saw it, the same rule as stack_profile.
     min_days_frac: 0.3
-    width_px: 640
+    # At least this wide, and at least this tall: the share card shows the image 1260 px tall at
+    # twice its size (scripts/make-share-cards.mjs), and it must never enlarge it.
+    width_px: 1280
+    min_height_px: 1260
+    # Pictures only, never the estimate: one sigma of blur before the image is drawn at its
+    # pixel size, so the 2 km grid does not show as squares. A mean of a year of days is already
+    # smooth, so it gets half the daily frames' blur and keeps its bright core.
+    smooth_sigma_km: 1.0
     webp_quality: 95
   flipbook:
     # One north-up frame per clear day: a square of this half-width around the source, on the
@@ -294,8 +301,11 @@ evidence:
     min_valid_frac: 0.8
     # Facility view range of PLAN.md 9.2: enhancement above background from 0 to 100.
     full_scale_umol_m2: 100.0
-    # Each 2 km cell is drawn this many pixels wide (bicubic), the browser scales the rest.
-    upscale: 2
+    # Each 2 km cell is drawn this many pixels wide, smoothed first, and the globe's cubic read
+    # (no2Glow.ts) does the rest close in. One sigma of 2 km is a full width at half maximum of
+    # 4.7 km, under one real satellite pixel: a single day's cell-to-cell noise goes, the plume stays.
+    upscale: 3
+    smooth_sigma_km: 2.0
     webp_quality: 82
   # The facility the site flies to when a visitor presses "Explore the globe" (PLAN.md 9.7,
   # the first story facility). Atherinolakkos: the largest reporter that passes the isolation

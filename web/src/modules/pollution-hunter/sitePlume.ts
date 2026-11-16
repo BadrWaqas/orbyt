@@ -28,6 +28,7 @@ export interface SitePlumeImages {
 const OCEAN = [0x04, 0x07, 0x0b]; // --earth-ocean, the colour the frames were laid over
 // Ramp colours are always redder than they are blue. The ocean and the cloud gaps are not.
 const WARM_MARGIN = 2;
+const WARM_RAMP = 10;
 // Dim the faintest pixels: in a single day they are mostly retrieval noise, and added up over
 // the whole square they would show its outline.
 const FAINT_RED = 22;
@@ -35,8 +36,9 @@ const FULL_RED = 96;
 // The frame fades to nothing between these shares of its half-width, so no edge shows.
 const FADE_FROM = 0.6;
 const FADE_TO = 0.97;
-// A blurred copy is added to each frame as its halo.
-const HALO_BLUR_RADIUS_PX = 3;
+// A blurred copy is added to each frame as its halo. The radius is a distance, so the halo is
+// the same width whatever pixel size the pipeline draws the frames at.
+const HALO_BLUR_RADIUS_KM = 3;
 const HALO_SHARE = 0.7;
 const CACHE_SIZE = 12;
 
@@ -63,7 +65,8 @@ function boxBlur(src: Float32Array, dst: Float32Array, w: number, h: number, r: 
 
 /** Load the sheet. Frames are cut out and converted one at a time, as they are asked for. */
 export function loadSitePlume(spec: SitePlumeSpec): Promise<SitePlumeImages> {
-  const { frame_w: w, frame_h: h, columns } = spec.sheet;
+  const { frame_w: w, frame_h: h, columns, half_km } = spec.sheet;
+  const haloRadiusPx = Math.max(1, Math.round((HALO_BLUR_RADIUS_KM * w) / (2 * half_km)));
   return new Promise((resolve, reject) => {
     const sheet = new Image();
     sheet.decoding = "async";
@@ -101,14 +104,17 @@ export function loadSitePlume(spec: SitePlumeSpec): Promise<SitePlumeImages> {
         for (let i = 0; i < w * h; i++) {
           const r = px[i * 4];
           const b = px[i * 4 + 2];
-          const keep = r > b + WARM_MARGIN ? smoothstep(FAINT_RED, FULL_RED, r) * edge[i] : 0;
+          // Soft, not a cut: where a cloud gap meets the plume the pixels are a blend of the two,
+          // and a hard test would draw the gap's outline.
+          const warm = smoothstep(WARM_MARGIN, WARM_MARGIN + WARM_RAMP, r - b);
+          const keep = warm * smoothstep(FAINT_RED, FULL_RED, r) * edge[i];
           for (let c = 0; c < 3; c++) planes[c][i] = Math.max(0, px[i * 4 + c] - OCEAN[c]) * keep;
         }
         for (let c = 0; c < 3; c++) {
           soft.set(planes[c]);
           for (let pass = 0; pass < 3; pass++) {
-            boxBlur(soft, scratch, w, h, HALO_BLUR_RADIUS_PX, true);
-            boxBlur(scratch, soft, w, h, HALO_BLUR_RADIUS_PX, false);
+            boxBlur(soft, scratch, w, h, haloRadiusPx, true);
+            boxBlur(scratch, soft, w, h, haloRadiusPx, false);
           }
           for (let i = 0; i < w * h; i++) px[i * 4 + c] = Math.min(255, planes[c][i] + HALO_SHARE * soft[i]);
         }

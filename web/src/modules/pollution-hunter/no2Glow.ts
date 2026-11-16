@@ -116,6 +116,59 @@ const DITHER = `
   float glowNoise = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715)))) - 0.5;
 `;
 
+// Close in, one pixel of an image covers many pixels of the screen, and the GPU's own linear
+// filter shows the grid as creases and squares. The satellite's real pixel is about 5 km, so
+// there is no detail to lose: where an image is enlarged, it is read through a cubic B-spline
+// instead, which is smooth to the second derivative and reads as a soft glow. Four linear reads
+// make one cubic read (GPU Gems 2, chapter 20). Where the image is shown at its own size or
+// smaller, the plain read is kept, so the view from orbit stays as sharp as before.
+const SMOOTH_SAMPLE = `
+vec4 orbytCubicWeights(float v) {
+  vec4 n = vec4(1.0, 2.0, 3.0, 4.0) - v;
+  vec4 s = n * n * n;
+  float x = s.x;
+  float y = s.y - 4.0 * s.x;
+  float z = s.z - 4.0 * s.y + 6.0 * s.x;
+  return vec4(x, y, z, 6.0 - x - y - z) * (1.0 / 6.0);
+}
+
+vec4 orbytSmoothSample(sampler2D tex, vec2 uv) {
+  vec2 size = vec2(textureSize(tex, 0));
+  vec4 plain = texture(tex, uv);
+  // Screen pixels per image pixel. Below 1.5 the image is not enlarged enough to show its grid.
+  vec2 texels = uv * size;
+  float enlarged = 1.0 / max(max(fwidth(texels.x), fwidth(texels.y)), 1e-6);
+  float share = smoothstep(1.5, 3.0, enlarged);
+  if (share <= 0.0) return plain;
+
+  vec2 st = texels - 0.5;
+  vec2 f = fract(st);
+  st -= f;
+  vec4 wx = orbytCubicWeights(f.x);
+  vec4 wy = orbytCubicWeights(f.y);
+  vec4 c = st.xxyy + vec2(-0.5, 1.5).xyxy;
+  vec4 s = vec4(wx.xz + wx.yw, wy.xz + wy.yw);
+  vec4 at = (c + vec4(wx.yw, wy.yw) / s) / size.xxyy;
+  vec4 s0 = textureLod(tex, at.xz, 0.0);
+  vec4 s1 = textureLod(tex, at.yz, 0.0);
+  vec4 s2 = textureLod(tex, at.xw, 0.0);
+  vec4 s3 = textureLod(tex, at.yw, 0.0);
+  float sx = s.x / (s.x + s.y);
+  float sy = s.z / (s.z + s.w);
+  vec4 cubic = mix(mix(s3, s2, sx), mix(s1, s0, sx), sy);
+  return mix(plain, cubic, share);
+}
+`;
+
+const TEXTURE_READ = "texture(bitmapTexture, uv)";
+const MAIN = "void main(void) {";
+
+/** The bitmap layer's fragment shader with the cubic read in place of the plain one. */
+function withSmoothSampling(fs: string): string {
+  if (!fs.includes(TEXTURE_READ) || !fs.includes(MAIN)) return fs; // a deck.gl that changed: keep its own read
+  return fs.replace(MAIN, `${SMOOTH_SAMPLE}\n${MAIN}`).replace(TEXTURE_READ, "orbytSmoothSample(bitmapTexture, uv)");
+}
+
 /**
  * A tile whose opacity is raised to a power before it is added. `layer.opacity` is divided out
  * first and put back after, so fading the layer in stays linear.
@@ -127,6 +180,7 @@ class GlowBitmapLayer extends BitmapLayer {
     const shaders = super.getShaders();
     return {
       ...shaders,
+      fs: withSmoothSampling(shaders.fs),
       inject: {
         ...shaders.inject,
         "fs:DECKGL_FILTER_COLOR": `
@@ -142,7 +196,7 @@ class GlowBitmapLayer extends BitmapLayer {
   }
 }
 
-/** The halo and bloom images: already light, so only the dither is added. */
+/** The halo, bloom and site plume images: already light, so only the dither is added. */
 class SoftBitmapLayer extends BitmapLayer {
   static layerName = "SoftBitmapLayer";
 
@@ -150,6 +204,7 @@ class SoftBitmapLayer extends BitmapLayer {
     const shaders = super.getShaders();
     return {
       ...shaders,
+      fs: withSmoothSampling(shaders.fs),
       inject: {
         ...shaders.inject,
         "fs:DECKGL_FILTER_COLOR": `

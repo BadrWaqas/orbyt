@@ -66,6 +66,49 @@ def colourise_glow(enh_umol_m2: np.ndarray, full_scale_umol_m2: float) -> np.nda
     return rgb
 
 
+def smooth_resample(
+    values: np.ndarray, shape: tuple[int, int], sigma_cells: tuple[float, float]
+) -> tuple[np.ndarray, np.ndarray]:
+    """``values`` (NaN = no data) on a finer pixel grid, smoothed: (field, cover), [rows, cols].
+
+    For pictures only, never for the estimate. The satellite's real pixel is about 5 km, so a
+    cell-to-cell step on the 2 km grid is noise, and enlarged it shows as squares. The cells are
+    blurred by ``sigma_cells`` (rows, cols) with the gaps left out of the average (normalised
+    convolution), then read at the new pixel centres with a cubic B-spline. ``cover`` is the share
+    of real data under each new pixel, 0 to 1, so a gap gets a soft edge instead of a square one.
+    """
+    from scipy.ndimage import gaussian_filter, map_coordinates
+
+    valid = np.isfinite(values)
+    weight = valid.astype(float)
+    filled = np.where(valid, values, 0.0)
+    if max(sigma_cells) > 0:
+        filled = gaussian_filter(filled, sigma_cells, mode="nearest")
+        weight = gaussian_filter(weight, sigma_cells, mode="nearest")
+    rows = (np.arange(shape[0]) + 0.5) * values.shape[0] / shape[0] - 0.5
+    cols = (np.arange(shape[1]) + 0.5) * values.shape[1] / shape[1] - 0.5
+    at = np.meshgrid(rows, cols, indexing="ij")
+    # A cubic B-spline without the prefilter: an all-positive kernel, so it smooths and never
+    # overshoots, which keeps a bright source from ringing and the cover between 0 and 1.
+    num = map_coordinates(filled, at, order=3, mode="nearest", prefilter=False)
+    cover = np.clip(map_coordinates(weight, at, order=3, mode="nearest", prefilter=False), 0.0, 1.0)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        field = np.where(cover > 0.02, num / np.maximum(cover, 1e-9), np.nan)
+    return field, cover
+
+
+def colourise_soft(
+    enh_umol_m2: np.ndarray, cover: np.ndarray, full_scale_umol_m2: float
+) -> np.ndarray:
+    """``colourise_glow`` for a smoothed picture: the no-data colour fades in where cover drops."""
+    glow = colourise_glow(np.nan_to_num(enh_umol_m2, nan=0.0), full_scale_umol_m2).astype(float)
+    # Half covered or more reads as data: the gap's edge sits where the cell edge was.
+    seen = np.clip((cover - 0.3) / 0.4, 0.0, 1.0)[..., None]
+    seen = seen * seen * (3.0 - 2.0 * seen)
+    rgb = glow * seen + np.array(NO_DATA_RGB, dtype=float) * (1.0 - seen)
+    return np.rint(rgb).astype(np.uint8)
+
+
 def nice_full_scale(peak: float, steps: list[float]) -> float:
     """The smallest listed step that holds ``peak``, or the largest one."""
     for s in steps:
@@ -142,15 +185,22 @@ def render_stack(
     """Write the wind-aligned plume image and return its geometry for the panel.
 
     The picture is drawn true to scale at the mean wind: one hour of travel is as wide as the
-    distance the mean wind covers in it. Crosswind +y is up.
+    distance the mean wind covers in it. Crosswind +y is up. It is at least ``width_px`` wide and
+    ``min_height_px`` tall, so the share card can fill its full height at twice its size without
+    enlarging it, and it is drawn smooth at that size (``smooth_resample``).
     """
     enh = enh_mol_m2 * UMOL
     peak = float(np.nanpercentile(enh, cfg["full_scale_percentile"]))
     full = nice_full_scale(peak, cfg["full_scale_steps_umol_m2"])
     span_km = (t_hours[-1] - t_hours[0]) * mean_speed_ms * 3.6
-    width = int(cfg["width_px"])
-    height = round(width * (yr_km[-1] - yr_km[0]) / span_km)
-    _save_webp(colourise_glow(enh[::-1], full), path, (width, height), cfg["webp_quality"])
+    cross_km = yr_km[-1] - yr_km[0]
+    width = max(int(cfg["width_px"]), math.ceil(cfg["min_height_px"] * span_km / cross_km))
+    height = round(width * cross_km / span_km)
+    sigma_km = float(cfg["smooth_sigma_km"])
+    step_x_km = (t_hours[1] - t_hours[0]) * mean_speed_ms * 3.6
+    sigma = (sigma_km / (yr_km[1] - yr_km[0]), sigma_km / step_x_km)
+    field, cover = smooth_resample(enh[::-1], (height, width), sigma)
+    _save_webp(colourise_soft(field, cover, full), path, None, cfg["webp_quality"])
     return {
         "width": width,
         "height": height,
@@ -165,19 +215,24 @@ def render_stack(
 def render_flipbook(
     path: Path, frames_mol_m2: list[np.ndarray], cfg: dict[str, Any]
 ) -> dict[str, Any]:
-    """Write the sprite sheet of north-up frames (row 0 of each array is south) and its grid."""
+    """Write the sprite sheet of north-up frames (row 0 of each array is south) and its grid.
+
+    Each frame is drawn ``upscale`` pixels a cell, smoothed (``smooth_resample``), so it reads
+    as a soft glow on the globe close in and not as 2 km squares.
+    """
     from PIL import Image
 
     n = len(frames_mol_m2)
     ny, nx = frames_mol_m2[0].shape
     up = int(cfg["upscale"])
     fw, fh = nx * up, ny * up
+    sigma = float(cfg["smooth_sigma_km"]) / float(cfg["step_km"])
     columns = max(1, math.ceil(math.sqrt(n)))
     rows = math.ceil(n / columns)
     sheet = Image.new("RGB", (columns * fw, rows * fh), BASE_RGB)
     for k, frame in enumerate(frames_mol_m2):
-        rgb = colourise_glow(frame[::-1] * UMOL, cfg["full_scale_umol_m2"])
-        tile = Image.fromarray(rgb).resize((fw, fh), Image.BICUBIC)
+        field, cover = smooth_resample(frame[::-1] * UMOL, (fh, fw), (sigma, sigma))
+        tile = Image.fromarray(colourise_soft(field, cover, cfg["full_scale_umol_m2"]))
         sheet.paste(tile, ((k % columns) * fw, (k // columns) * fh))
     path.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(path, "WEBP", quality=cfg["webp_quality"], method=6)

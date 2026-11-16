@@ -101,6 +101,38 @@ def test_render_stack_is_true_to_scale_and_reports_its_range(tmp_path):
     assert out["width"] / out["height"] == pytest.approx(230.4 / 160.0, rel=0.01)
     assert out["full_scale_umol_m2"] in EVI["stack"]["full_scale_steps_umol_m2"]
     assert len(out["fan_half_width_km"]) == len(t) and out["fan_half_width_km"][20] == 20.0
+    # Big enough for the share card at twice its size, so it is never enlarged there.
+    assert out["width"] >= EVI["stack"]["width_px"]
+    assert out["height"] >= EVI["stack"]["min_height_px"]
+
+
+def test_smooth_resample_has_no_squares():
+    cells = np.zeros((9, 9))
+    cells[4, 4] = 1.0
+    field, cover = evidence.smooth_resample(cells, (90, 90), (1.0, 1.0))
+    assert field.shape == cover.shape == (90, 90)
+    assert np.allclose(cover, 1.0)
+    row = field[45]
+    # One bright cell becomes one smooth hill: no flat steps, highest at the middle.
+    assert np.argmax(row) in (44, 45)
+    assert np.all(np.diff(row[:44]) > 0) and np.all(np.diff(row[46:]) < 0)
+
+
+def test_smooth_resample_gives_gaps_a_soft_edge():
+    cells = np.ones((8, 8))
+    cells[:, 4:] = np.nan
+    field, cover = evidence.smooth_resample(cells, (8, 80), (0.5, 0.5))
+    assert cover[4, 0] == pytest.approx(1.0, abs=0.01) and cover[4, -1] == pytest.approx(
+        0.0, abs=0.02
+    )
+    assert np.all(
+        np.diff(cover[4, 30:50]) <= 1e-9
+    )  # it falls across the gap's edge, not in one step
+    assert 0.2 < cover[4, 40] < 0.8
+    assert np.allclose(field[:, :30], 1.0, atol=1e-6)  # the data keeps its value up to the gap
+    rgb = evidence.colourise_soft(field, cover, 1.0)
+    assert tuple(rgb[4, -1]) == evidence.NO_DATA_RGB
+    assert tuple(rgb[4, 0]) == (0xFD, 0xF6, 0xD8)
 
 
 def test_render_flipbook_grid(tmp_path):
