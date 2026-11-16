@@ -4,6 +4,12 @@ Orbyt Earth fact-checks the world from space. Each module puts what was official
 
 Live: https://orbyt-earth.pages.dev
 
+![The home screen: the Earth at night with the six modules around it](docs/screenshots/2026-11-16/02-home.jpg)
+
+![Atherinolakkos Power Station: the reported figure next to the satellite estimate, with its daily plume on the globe](docs/screenshots/2026-11-16/07-facility-plume.jpg)
+
+![The time rail: monthly NO2 over Europe from July 2022, scrubbed and played](docs/screenshots/2026-11-16/05-time-rail-scrubbed.jpg)
+
 ## How it works
 
 - Sentinel-5P satellite data shows nitrogen dioxide plumes drifting away from large industrial sites.
