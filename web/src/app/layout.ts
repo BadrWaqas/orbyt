@@ -30,6 +30,13 @@ export function heroHeightPx(viewportWidth: number, viewportHeight: number): num
 export const STORY_FLIGHT_MS = 4500;
 export const STORY_PANEL_LEAD_MS = 300;
 
+// The scroll story (PLAN.md 9.5): a text column 440 px wide at the left over the globe, one
+// chapter per screen height. On a phone the text sits in the bottom third. The CSS twin is
+// ".story-column" in design/index.css.
+export const STORY_SIDE_MIN_WIDTH_PX = 768;
+export const STORY_COLUMN_PX = 440;
+export const STORY_SHEET_FRACTION = 0.38;
+
 // The home screen. The Earth sits in the middle with the six module cards around it. On a wide
 // window the cards stand either side of the globe on a shallow arc ("orbit"). Where there is no
 // room for that, they form a grid under it ("stack"). The camera (globe/Globe.tsx) and the page

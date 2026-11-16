@@ -1767,3 +1767,215 @@ main:not([data-view="home"]) .home-item {
     transform: translateY(calc(-1 * var(--time-rail-h)));
   }
 }
+
+/* ------------------------------------------------------------------------------------------
+   The scroll story (M7.4, PLAN.md 9.5): five chapters, one per screen height, in a column
+   440 px wide at the left over the globe. On a phone the text sits in the bottom third. The
+   globe flies when a chapter crosses the middle of the screen. The numbers are repeated in
+   app/layout.ts (STORY_COLUMN_PX, STORY_SHEET_FRACTION), which the camera reads.
+   ------------------------------------------------------------------------------------------ */
+.story {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: y proximity;
+  scrollbar-width: none;
+  pointer-events: none; /* the column takes the wheel and the touch, the globe shows through */
+}
+
+.story-column {
+  margin: 0;
+  padding: 0 var(--margin-outer) 40dvh;
+  list-style: none;
+  pointer-events: auto;
+}
+
+.story-chapter {
+  display: flex;
+  align-items: flex-end;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+.story-chapter:first-child {
+  padding-top: 72px; /* the header */
+}
+
+.story-card {
+  width: 100%;
+  padding: 20px 20px 22px;
+  opacity: 0.55;
+}
+
+.story-chapter[data-active="true"] .story-card {
+  opacity: 1;
+}
+
+.story-count {
+  margin-bottom: 8px;
+}
+
+.story-title {
+  font-family: var(--family-record);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 34px;
+  color: var(--ledger);
+}
+
+/* The instrument answers the record: the third chapter's title glows. */
+.story-chapter:nth-child(3) .story-title {
+  font-family: var(--family-instrument);
+  font-weight: 600;
+  font-stretch: 118%;
+  letter-spacing: -0.02em;
+  color: var(--hue-no2-glow);
+  text-shadow: 0 0 0.55em rgba(255, 176, 46, 0.35);
+}
+
+.story-body {
+  margin-top: 12px;
+  max-width: 68ch; /* PLAN.md 9.3: story text is at most 68 characters wide */
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-2);
+}
+
+.story-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.story-hint {
+  position: absolute;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  translate: -50% 0;
+  color: var(--text-3);
+  opacity: 0;
+}
+
+.story-hint[data-shown="true"] {
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .story-column {
+    width: 440px;
+    padding-bottom: 50dvh;
+  }
+
+  .story-chapter {
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .story-chapter:first-child {
+    padding-top: 0;
+  }
+
+  .story-card {
+    padding: 24px 24px 26px;
+  }
+
+  .story-title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .story-hint {
+    left: calc(440px + var(--margin-outer) + (100% - 440px - var(--margin-outer)) / 2);
+  }
+}
+
+/* The story's text column is a phone's bottom third: the chapters are pinned there and the
+   space above them lets the globe through. */
+@media (max-width: 767px) {
+  .story-chapter {
+    min-height: 100dvh;
+  }
+
+  .story-card {
+    max-height: 38dvh;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .story-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .story-body {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .story-card {
+    transition:
+      opacity 400ms ease,
+      transform 400ms ease;
+  }
+
+  .story-hint {
+    transition: opacity 400ms ease;
+    animation: story-hint 1.6s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes story-hint {
+  to {
+    translate: -50% 4px;
+  }
+}
+
+/* Through the story the globe is the chapters': the pointer goes to the text, not the map. */
+main[data-view="story"] .maplibregl-canvas-container {
+  cursor: default;
+}
+
+/* The number pair inside the fourth chapter's card: the record on the left, the instrument on
+   the right, as in the panel (PLAN.md 9.6). */
+.story-pair {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+}
+
+.story-pair-name {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-2);
+}
+
+.story-pair-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.story-pair-number {
+  margin-top: 2px;
+  font-size: 32px;
+  line-height: 36px;
+}
+
+/* On a phone the five quiet links need the width, so the pages and the story keep the mark. */
+@media (max-width: 599px) {
+  main[data-view="page"] .logo-word,
+  main[data-view="story"] .logo-word {
+    display: none;
+  }
+
+  .site-nav .text-button {
+    padding: 0 6px;
+  }
+}

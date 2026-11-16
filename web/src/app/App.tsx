@@ -15,6 +15,9 @@ import { homeLayout, STORY_FLIGHT_MS, STORY_PANEL_LEAD_MS } from "./layout";
 import { Link } from "./Link";
 import { Page, PAGE_TITLES } from "./Page";
 import { navigate, selectFacility, useRoute, type PageView } from "./route";
+import type { ChapterView } from "../globe/Globe";
+import { chapters, type ChapterFacts } from "../story/chapters";
+import { Story } from "../story/Story";
 
 // MapLibre is the heaviest dependency. Loading it as its own chunk lets the text paint first.
 const Globe = lazy(() => import("../globe/Globe").then((m) => ({ default: m.Globe })));
@@ -42,7 +45,8 @@ const INTRO_TAIL_MS = 900; // the last piece's own animation
 const INTRO_SEEN_KEY = "orbyt:intro-seen";
 const GLOBE_MAX_WAIT_MS = 5000; // show whatever the map has by then, tiles or not
 
-const NAV: readonly PageView[] = ["leaderboard", "method", "data", "about"];
+const NAV: readonly ("story" | PageView)[] = ["story", "leaderboard", "method", "data", "about"];
+const NAV_TITLES: Record<"story" | PageView, string> = { story: "Story", ...PAGE_TITLES };
 
 type Intro = "waiting" | "playing" | "done";
 
@@ -80,15 +84,16 @@ function useWindowSize(): { width: number; height: number } {
 
 export function App() {
   const { view, selectedId } = useRoute();
-  const inModule = view === "module";
+  const inStory = view === "story";
+  const inModule = view === "module" || inStory; // the story is the module's globe with the chapters over it
   const onGlobe = view === "home" || inModule;
-  const page = onGlobe ? null : view;
+  const page = onGlobe ? null : (view as PageView);
   const select = selectFacility;
 
   useEffect(() => {
-    const here = inModule ? "Pollution Hunter" : page ? PAGE_TITLES[page] : null;
+    const here = inStory ? "Story" : inModule ? "Pollution Hunter" : page ? PAGE_TITLES[page] : null;
     document.title = here ? `${here} | Orbyt Earth` : "Orbyt Earth";
-  }, [inModule, page]);
+  }, [inModule, inStory, page]);
 
   // The home screen's geometry: where the Earth sits and how large, and where the cards go.
   const size = useWindowSize();
@@ -107,16 +112,54 @@ export function App() {
 
   const findings = useFindings();
   const list = findings.status === "ready" ? findings.data.findings : null;
-  const selected = useMemo(
-    () => list?.find((f) => f.subject.id === selectedId) ?? null,
-    [list, selectedId],
-  );
   const showcaseId = findings.status === "ready" ? (findings.data.showcase ?? null) : null;
+
+  // The scroll story (M7.4): which chapter is in the middle of the screen, and what it asks
+  // of the globe. In the story the open facility is the chapter's, not the address's.
+  const [chapterIndex, setChapterIndex] = useState(0);
+  const chapter = inStory ? chapters[chapterIndex] : null;
+  const chapterFacilityId = chapter?.show.facility === "showcase" ? showcaseId : null;
+  const chapterView = useMemo<ChapterView | null>(() => {
+    if (!chapter) return null;
+    const showcase = list?.find((f) => f.subject.id === showcaseId);
+    const { camera } = chapter;
+    const center: [number, number] =
+      camera.center === "showcase"
+        ? showcase
+          ? [showcase.subject.lon, showcase.subject.lat]
+          : [14, 28]
+        : camera.center;
+    return { index: chapterIndex, center, zoom: camera.zoom, pitch: camera.pitch, bearing: camera.bearing };
+  }, [chapter, chapterIndex, list, showcaseId]);
+  useEffect(() => {
+    if (!inStory) setChapterIndex(0);
+  }, [inStory]);
+  // The last chapter plays the months; the others show the annual mean. The chapters with a
+  // facility play its daily frames, whatever the motion setting: a single frame is often a
+  // cloudy day, and the chapter is about the plume.
+  useEffect(() => {
+    if (!chapter) return;
+    if (chapter.show.time === "play") timeClock.setPlaying(true);
+    else timeClock.reset();
+    if (chapter.show.facility) plumeClock.setPlaying(true);
+  }, [chapter]);
+  const facts = useMemo<ChapterFacts>(
+    () => ({
+      reporters: list?.filter((f) => f.subject.register === "EEA" && f.claimed).length ?? 0,
+      year: findings.status === "ready" ? findings.data.period : "",
+    }),
+    [list, findings],
+  );
+
+  const selected = useMemo(() => {
+    const id = inStory ? chapterFacilityId : selectedId;
+    return list?.find((f) => f.subject.id === id) ?? null;
+  }, [list, selectedId, inStory, chapterFacilityId]);
 
   // A link can name a facility that is no longer in the data. Drop it from the address.
   useEffect(() => {
-    if (list && selectedId && !selected) select(null);
-  }, [list, selectedId, selected, select]);
+    if (list && selectedId && !inStory && !selected) select(null);
+  }, [list, selectedId, selected, select, inStory]);
 
   // The map is only fetched once a view needs it. From then on the one instance lives for the
   // whole session (PLAN.md 2.7), and every view drives the same camera.
@@ -134,7 +177,7 @@ export function App() {
 
   // The intro.
   const [intro, setIntro] = useState<Intro>(() =>
-    introWanted(inModule, selectedId !== null) ? "waiting" : "done",
+    introWanted(inModule && !inStory, selectedId !== null) ? "waiting" : "done",
   );
   const [introTimes, setIntroTimes] = useState(INTRO_AT_MS);
   const introRuns = useRef(intro !== "done").current; // fixed for this page view
@@ -184,9 +227,10 @@ export function App() {
     select(showcaseId);
   }, [showcaseId, select]);
   useEffect(() => () => window.clearTimeout(storyTimer.current), []);
-  // Anything else the visitor picks in the meantime ends the wait.
+  // Anything else the visitor picks in the meantime ends the wait. In the story the chapter
+  // card is the text, so the panel stays closed.
   const inFlight = storyId !== null && storyId === selectedId;
-  const shown = inFlight ? null : selected;
+  const shown = inFlight || inStory ? null : selected;
   const close = useCallback(() => {
     setStoryId(null);
     select(null);
@@ -223,7 +267,7 @@ export function App() {
   if (selectedId && !hasSelected) setHasSelected(true);
   const explored = zoomedIn || hasSelected;
   const noteZoom = useCallback(() => setZoomedIn(true), []);
-  const heroHidden = !inModule || explored || findings.status === "error"; // the error notice takes its place
+  const heroHidden = !inModule || inStory || explored || findings.status === "error"; // the error notice takes its place
 
   // Leaving the module ends its stay: the next visit starts from the opening view again.
   useEffect(() => {
@@ -261,7 +305,8 @@ export function App() {
         <Suspense fallback={null}>
           <Globe
             mode={page ? "idle" : inModule ? "module" : "home"}
-            findings={inModule ? list : null}
+            chapter={chapterView}
+            findings={inModule && (!chapter || chapter.show.markers) ? list : null}
             selected={selected}
             storyId={storyId}
             intro={introRuns}
@@ -279,6 +324,13 @@ export function App() {
 
       {!page && <Home shown={view === "home"} layout={layout} onEnter={enterModule} onHue={setHue} />}
       {page && <Page view={page} />}
+      {inStory && (
+        <Story
+          facts={facts}
+          showcase={list?.find((f) => f.subject.id === showcaseId) ?? null}
+          onChapter={setChapterIndex}
+        />
+      )}
 
       <header className={`site-header ${fromLoad ? "intro-item" : ""}`} style={at(introTimes.wordmark)}>
         {/* The logo returns home from anywhere. */}
@@ -292,7 +344,7 @@ export function App() {
           </svg>
           <span className="wordmark logo-word text-[18px] leading-6">Orbyt Earth</span>
         </Link>
-        <nav className="site-nav" aria-label="Site" inert={inModule}>
+        <nav className="site-nav" aria-label="Site" inert={inModule && !inStory}>
           {NAV.map((to) => (
             <Link
               key={to}
@@ -300,14 +352,14 @@ export function App() {
               className="text-button nav-link"
               aria-current={view === to ? "page" : undefined}
             >
-              {PAGE_TITLES[to]}
+              {NAV_TITLES[to]}
             </Link>
           ))}
         </nav>
       </header>
 
       <Legend
-        visible={no2Visible && inModule}
+        visible={no2Visible && inModule && !inStory}
         site={site && sitePlumeShown ? { frames: site.frames, fullScale: site.fullScale } : null}
       />
 
@@ -343,6 +395,7 @@ export function App() {
       </section>
 
       {inModule &&
+        !inStory &&
         (findings.status === "error" ? (
           <p className="glass absolute bottom-[max(48px,env(safe-area-inset-bottom))] left-1/2 w-max max-w-[calc(100%-2*var(--margin-outer))] -translate-x-1/2 px-4 py-1 text-[14px] leading-5 text-text-2">
             Could not load the facilities.{" "}
@@ -367,7 +420,7 @@ export function App() {
       />
 
       {/* The time rail (PLAN.md 9.6) takes the hero's place once the visitor has explored. */}
-      <TimeRail layers={no2Layers} shown={inModule && explored && no2Visible} />
+      <TimeRail layers={no2Layers} shown={inModule && !inStory && explored && no2Visible} />
     </main>
   );
 }

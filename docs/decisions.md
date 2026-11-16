@@ -339,3 +339,13 @@ Panel text: the line saying the method had not been checked against stack monito
 **Why not PMTiles.** Same reason as the NO2 tiles above: no R2 bucket yet and Pages does not serve range requests. 1,365 small files are fine in the bundle.
 
 **Poster.** Regenerated, so the first paint of the home screen has the lights too.
+
+## 2026-11-16, M7.4 The scroll story
+
+**What.** `/story`: five chapters in `web/src/story/chapters.json`, each one screen tall, that fly the same globe (PLAN.md 9.5): the whole Earth, Europe with the register's reporters, the first story facility and its daily plume, the two numbers side by side, and the months playing. A 440 px column at the left on a desktop, the bottom third on a phone. The driver is an IntersectionObserver over a band across the middle of the screen (no scrollama: thirty lines did the job). The camera pads the column's side so the chapter's centre lands in the free part of the window. Reduced motion jumps instead of flying.
+
+**No invented numbers.** The chapter texts take their figures from the data at run time: the count of reporters and the year from `findings.json`, the number pair from the showcase finding. The texts say "most checks come out consistent", which is what the data shows (3 of 3 verdicts).
+
+**The plume chapter plays the daily frames** even under reduced motion, since frame 0 is whichever day came first (often cloudy) and the chapter is about the plume. The cross-fade between frames is 150 ms.
+
+**Not done.** No per-chapter URL; the story always opens at the first chapter.

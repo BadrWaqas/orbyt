@@ -1,0 +1,37 @@
+[
+  {
+    "id": "orbit",
+    "title": "Every day, one look at the whole sky.",
+    "body": "The TROPOMI instrument on Sentinel-5P maps nitrogen dioxide over the whole planet once a day, in pixels about five kilometres across. NO2 forms where fuel burns. Averaged over a year, every power station, refinery and city leaves a mark.",
+    "camera": { "center": [14, 28], "zoom": "opening", "pitch": 0, "bearing": 0 },
+    "show": { "markers": false, "facility": null, "time": "annual" }
+  },
+  {
+    "id": "record",
+    "title": "Reported on paper.",
+    "body": "Europe's largest industrial sites report their NOx emissions to a public register every year, as one number per site. Each ring on the globe is one of the {reporters} largest reporters for {year}, sized by what it reported.",
+    "camera": { "center": [12, 50], "zoom": 3.6, "pitch": 0, "bearing": 0 },
+    "show": { "markers": true, "facility": null, "time": "annual" }
+  },
+  {
+    "id": "plume",
+    "title": "Measured from orbit.",
+    "body": "On a clear, windy day the plume of a single power station shows up as a streak downwind of the stack. Stack every clear day of a year with the wind turned the same way and the noise cancels: one plume, and a curve that gives the emission rate.",
+    "camera": { "center": "showcase", "zoom": 7.5, "pitch": 50, "bearing": -20 },
+    "show": { "markers": true, "facility": "showcase", "time": "annual" }
+  },
+  {
+    "id": "check",
+    "title": "The two numbers, side by side.",
+    "body": "The satellite-based estimate is set next to the reported figure, with its interval. A gap only counts when it is larger than the error measured against stack monitors at US plants. Most checks come out consistent with what was reported. That is the point: the check itself, shown in the open.",
+    "camera": { "center": "showcase", "zoom": 6.2, "pitch": 30, "bearing": 0 },
+    "show": { "markers": true, "facility": "showcase", "time": "annual" }
+  },
+  {
+    "id": "years",
+    "title": "Four years of breathing.",
+    "body": "Month by month from July 2022, the plumes swell in winter and thin in summer, grow where new plants start up and fade where old ones close. Explore the globe to drag through the years yourself, or open any site to see what the satellite saw there.",
+    "camera": { "center": [12, 48], "zoom": 3.4, "pitch": 0, "bearing": 0 },
+    "show": { "markers": true, "facility": null, "time": "play" }
+  }
+]

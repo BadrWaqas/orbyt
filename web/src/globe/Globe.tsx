@@ -12,7 +12,10 @@ import {
   PANEL_WIDTH_PX,
   SHEET_HEIGHT_FRACTION,
   SIDE_PANEL_MIN_WIDTH_PX,
+  STORY_COLUMN_PX,
   STORY_FLIGHT_MS,
+  STORY_SHEET_FRACTION,
+  STORY_SIDE_MIN_WIDTH_PX,
 } from "../app/layout";
 import type { Finding } from "../data/types";
 import {
@@ -47,6 +50,9 @@ const FLY_FAR_KM = 4000; // from here on a flight takes the full 3.5 s
 const STORY_ZOOM = 7.5;
 const STORY_PITCH_DEG = 50;
 const SETTLE_MS = 600; // easing the camera back when the panel closes
+// The scroll story's flights (M7.4): a chapter's camera arrives in 1.8 to 3.5 s, like a fly-to.
+const CHAPTER_MIN_MS = 1800;
+const CHAPTER_MAX_MS = 3500;
 const EXPLORE_ZOOM_STEPS = 0.4; // zooming in this far counts as leaving the opening view
 
 // The dive from the home screen into the module. The NO2 comes up a moment after the camera
@@ -136,8 +142,21 @@ function turnDeg(from: number, to: number): number {
  */
 export type GlobeMode = "home" | "module" | "idle";
 
+/** Where a story chapter puts the camera (M7.4). Resolved by app/App.tsx from chapters.json. */
+export interface ChapterView {
+  index: number;
+  center: [number, number];
+  /** A zoom, or "opening" for the module's opening view at the current window size. */
+  zoom: number | "opening";
+  pitch: number;
+  bearing: number;
+}
+
 interface GlobeProps {
   mode: GlobeMode;
+  /** The story chapter on show. Set only on the story view: the camera flies to it and the
+   *  visitor cannot take the camera, since the page scrolls instead. */
+  chapter?: ChapterView | null;
   /** Facilities to draw as markers. Null until they have loaded, and on the home screen. */
   findings: Finding[] | null;
   /** The facility whose panel is open. The camera flies to it. */
@@ -163,6 +182,7 @@ interface GlobeProps {
 
 export function Globe({
   mode,
+  chapter = null,
   findings,
   selected,
   storyId = null,
@@ -191,6 +211,10 @@ export function Globe({
   const modeRef = useRef(mode);
   const storyIdRef = useRef(storyId);
   storyIdRef.current = storyId;
+  const chapterRef = useRef(chapter);
+  chapterRef.current = chapter;
+  const flyChapterRef = useRef<(view: ChapterView) => void>(() => {});
+  const setStoryRef = useRef<(on: boolean) => void>(() => {});
 
   // Facility markers, once both the map and the findings are there.
   useEffect(() => {
@@ -228,11 +252,19 @@ export function Globe({
     return followTimeClock(no2, months, reducedMotion);
   }, [ready, months]);
 
+  // In the story the camera belongs to the chapters.
+  useEffect(() => {
+    if (!ready) return;
+    setStoryRef.current(chapter !== null);
+    if (chapter) flyChapterRef.current(chapter);
+  }, [ready, chapter]);
+
   // The camera follows it too.
   useEffect(() => {
     const map = mapRef.current;
     const el = container.current;
     if (!map || !el || !ready) return;
+    if (chapterRef.current) return; // the chapter's camera already frames the facility
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!selected) {
@@ -472,6 +504,47 @@ export function Globe({
         if (wasIdle && !moving) startSpin();
       } else if (next === "home") goHome();
       else dive();
+    };
+
+    // The scroll story (M7.4). While it is on, the camera is the chapters': the visitor scrolls
+    // the text and the globe flies to each chapter as it reaches the middle of the screen. The
+    // text column covers the left of a wide window and the bottom third of a narrow one, so the
+    // camera keeps the chapter's centre in the part that is free.
+    let inStory = false;
+    const storyPadding = (): PaddingOptions =>
+      el.clientWidth >= STORY_SIDE_MIN_WIDTH_PX
+        ? { ...NO_PADDING, left: STORY_COLUMN_PX + OUTER_MARGIN_PX }
+        : { ...NO_PADDING, bottom: Math.round(el.clientHeight * STORY_SHEET_FRACTION) };
+    setStoryRef.current = (on) => {
+      if (on === inStory) return;
+      inStory = on;
+      if (on) {
+        hold();
+        setInteractive(false);
+        map.setMinZoom(HOME_MIN_ZOOM);
+      } else {
+        setInteractive(scene === "module");
+        if (reducedMotion) map.setPadding(NO_PADDING);
+        else map.easeTo({ padding: NO_PADDING, duration: SETTLE_MS, easing: easeOut });
+      }
+    };
+    flyChapterRef.current = (view) => {
+      hold();
+      const zoom = view.zoom === "opening" ? openingView(el).zoom : view.zoom;
+      const camera = {
+        center: view.center,
+        zoom,
+        pitch: view.pitch,
+        bearing: view.bearing,
+        padding: storyPadding(),
+      };
+      if (reducedMotion) {
+        map.jumpTo(camera);
+        return;
+      }
+      const km = map.getCenter().distanceTo(new maplibregl.LngLat(...view.center)) / 1000;
+      const share = Math.min(1, km / FLY_FAR_KM + Math.abs(zoom - map.getZoom()) / 12);
+      map.flyTo({ ...camera, duration: CHAPTER_MIN_MS + (CHAPTER_MAX_MS - CHAPTER_MIN_MS) * share, easing: easeInOut });
     };
 
     // A new window size moves the home view's globe. The module's view is left as it is: by

@@ -5,13 +5,14 @@ import { useSyncExternalStore } from "react";
 //   /                                    the home screen
 //   /explore?m=pollution-hunter          a module
 //   /explore?m=pollution-hunter&f=<id>   a module with one facility open
+//   /story                               the scroll story, over the same globe
 //   /leaderboard, /method, /data, /about  pages
 //
 // A link that names a facility always opens Pollution Hunter, whatever its path. Links shared
 // before the home screen existed look like /?f=<id>, and they keep working.
 
 export type PageView = "leaderboard" | "method" | "data" | "about";
-export type View = "home" | "module" | PageView;
+export type View = "home" | "module" | "story" | PageView;
 
 export interface Route {
   view: View;
@@ -20,6 +21,7 @@ export interface Route {
 }
 
 const MODULE_PATH = "/explore";
+const STORY_PATH = "/story";
 const MODULE_PARAM = "m";
 const MODULE_ID = "pollution-hunter"; // the one live module, see modules/registry.ts
 const FACILITY_PARAM = "f";
@@ -34,6 +36,7 @@ const PAGE_VIEWS = Object.keys(PAGE_PATHS) as PageView[];
 /** The address of a view. */
 export function hrefFor(view: View, facilityId: string | null = null): string {
   if (view === "home") return "/";
+  if (view === "story") return STORY_PATH;
   if (view !== "module") return PAGE_PATHS[view];
   const query = new URLSearchParams({ [MODULE_PARAM]: MODULE_ID });
   if (facilityId) query.set(FACILITY_PARAM, facilityId);
@@ -45,6 +48,7 @@ function readRoute(): Route {
   if (facilityId) return { view: "module", selectedId: facilityId };
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
   if (path === MODULE_PATH) return { view: "module", selectedId: null };
+  if (path === STORY_PATH) return { view: "story", selectedId: null };
   const page = PAGE_VIEWS.find((view) => PAGE_PATHS[view] === path);
   return { view: page ?? "home", selectedId: null };
 }
