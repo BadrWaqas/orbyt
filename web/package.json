@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/make-share-pages.mjs",
     "preview": "vite preview",
-    "poster": "node scripts/make-poster.mjs"
+    "poster": "node scripts/make-poster.mjs",
+    "share:cards": "node scripts/make-share-cards.mjs",
+    "share:pages": "node scripts/make-share-pages.mjs"
   },
   "dependencies": {
     "@deck.gl/core": "^9.4.1",

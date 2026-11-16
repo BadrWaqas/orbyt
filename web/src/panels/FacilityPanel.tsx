@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ReportedSeriesChart, ReportedSeriesTable } from "../charts/ReportedSeries";
 import { useFindingDetail } from "../data/findings";
 import { BASIS_LABEL, countryName, formatTonnes } from "../data/format";
+import { sharePath } from "../data/slug.mjs";
 import type { Finding } from "../data/types";
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Evidence } from "./Evidence";
@@ -106,6 +107,36 @@ export function FacilityPanel({ finding, lastYear, onClose }: Props) {
   );
 }
 
+/**
+ * Copies the facility's share page address (/f/<slug>/), the one that unfurls with a picture
+ * when it is pasted into LinkedIn. The address bar shows the app's own link, which has no picture.
+ */
+function CopyLink({ subject }: { subject: Finding["subject"] }) {
+  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
+  useEffect(() => {
+    if (state === "idle") return;
+    const timer = window.setTimeout(() => setState("idle"), 2000);
+    return () => window.clearTimeout(timer);
+  }, [state]);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(`${window.location.origin}${sharePath(subject)}`);
+      setState("copied");
+    } catch {
+      setState("failed");
+    }
+  };
+
+  return (
+    <button type="button" className="text-button" onClick={copy}>
+      <span aria-live="polite">
+        {state === "copied" ? "Link copied" : state === "failed" ? "Could not copy" : "Copy link"}
+      </span>
+    </button>
+  );
+}
+
 function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding }) {
   const { subject, period, claimed, observed } = finding;
   const detail = useFindingDetail(finding.id);
@@ -129,11 +160,14 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
           <p className="label mt-1.5">{meta}</p>
           {us && <p className="label mt-1">Test site for the method</p>}
         </div>
-        <button type="button" onClick={onClose} aria-label="Close" className="icon-button -mr-2.5 -mt-2.5">
-          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
+        <div className="-mr-2.5 -mt-2.5 flex items-start">
+          <CopyLink subject={subject} />
+          <button type="button" onClick={onClose} aria-label="Close" className="icon-button">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
       </header>
 
       <div className="mt-6 grid grid-cols-2 gap-x-6">
