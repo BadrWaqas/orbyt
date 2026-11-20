@@ -18,7 +18,7 @@ export const METHOD_STEPS = [
   },
   {
     title: "Convert and add the uncertainty",
-    text: "NO2 is converted to NOx and corrected for the satellite reading low near point sources, with constants from the published literature. The days are then resampled 200 times to get an interval. A systematic uncertainty of 35%, measured against US stack monitors, is added before any verdict.",
+    text: "NO2 is converted to NOx and corrected for the satellite reading low near point sources, with constants from the published literature. The days are then resampled 200 times to get an interval. A systematic uncertainty of 40%, measured against US stack monitors, is added before any verdict.",
   },
 ] as const;
 
@@ -26,7 +26,7 @@ export function MethodBody() {
   return (
     <>
       <p>
-        Every satellite estimate on Orbyt Earth comes from the same method, version ph-emg-1.1. It
+        Every satellite estimate on Orbyt Earth comes from the same method, version ph-emg-1.2. It
         estimates the NOx a source released in a year, in tonnes as NO<sub>2</sub> mass, the same
         convention as the European register and the US stack monitors. It is an estimate from clear,
         windy middays. It is not the annual total, and it says nothing about permits or compliance.
@@ -60,11 +60,11 @@ export function MethodBody() {
       <h2>How a verdict is reached</h2>
       <p>
         The ratio is our estimate divided by the reported total for the same area and year. Its
-        interval combines the sampling noise of the days with a 35% systematic term. A source is
+        interval combines the sampling noise of the days with a 40% systematic term. A source is
         &quot;higher than reported&quot; only when the whole interval sits above 1.25 times the reported
         figure, and &quot;lower than reported&quot; only when it sits below 0.8. Both need two separate years
         to agree. Anything between is &quot;consistent with reported&quot;. In practice that means a gap
-        has to be about 2.5 times before the site flags it.
+        has to be about 3 times before the site flags it.
       </p>
       <p>
         Grade A means no flags and at least 80 clear days. Grade B means one flag or 40 to 79 days.
@@ -75,16 +75,16 @@ export function MethodBody() {
       <p>
         We ran the method on 33 US power plants whose stacks measure NOx every hour, for 2023 and
         2024. Seven of the 66 estimates passed every check. Those seven agreed with the monitors with
-        no bias we could detect, and they scatter by about 35%, which is where the systematic term
+        no bias we could detect, and they scatter by about 40%, which is where the systematic term
         comes from. The 13 plants that pass all the isolation checks are on the map as test sites.
       </p>
       <p>
-        We then ran the same test with the wind about 500 metres up, nearer the height the plumes
-        travel at and the height the published correction factor was worked out with. It agrees with
-        the monitors as closely, and with no bias on a larger set of estimates, where the wind at 100
-        metres reads about 20% low. The estimates are moving to the 500 metre wind, with a systematic
-        term of 40% instead of 35%. Until the European estimates have been rerun, the numbers on the
-        site still use the 100 metre wind.
+        We ran that test twice, once with the wind 100 metres up and once with the wind about 500
+        metres up. The two scatter the same, so the monitors cannot tell them apart on that. What
+        they can check is the wind together with the published correction factor, and that factor
+        was worked out with wind about 500 metres up. With it, the 500 metre wind shows no bias on a
+        larger set of estimates, where the 100 metre wind reads about 20% low. So the estimates use
+        the 500 metre wind.
       </p>
       <p>
         The test also set a practical floor. No estimate passed when the area&apos;s reported total was
@@ -97,6 +97,7 @@ export function MethodBody() {
         <li>It sees one moment a day, in clear and windy weather, so it misses the rest of the year.</li>
         <li>It uses one average correction for how the satellite sees NO<sub>2</sub>. This is the largest simplification.</li>
         <li>Wind comes from a 28 km grid at one height. That height and the correction factor can only be checked together.</li>
+        <li>The test plants all have tall stacks. A low stack on a coast may follow a lower wind, and there the two heights can give very different numbers.</li>
         <li>Sources that do not report, and cities or industry in the area, add to the estimate.</li>
         <li>Seven passing estimates fix the uncertainty only loosely.</li>
       </ul>

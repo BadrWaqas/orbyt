@@ -214,7 +214,7 @@ function PanelBody({ finding, lastYear, onClose }: Props & { finding: Finding })
       {observed && (
         <p className="mt-3 text-[12px] leading-4 text-text-3">
           Satellite-based estimate. The interval covers sampling noise only. Checked against US stack
-          monitors, estimates that pass every quality check scatter by about 35% more than that.
+          monitors, estimates that pass every quality check scatter by about 40% more than that.
         </p>
       )}
       <VerdictBlock finding={finding} />

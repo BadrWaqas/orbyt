@@ -2,7 +2,7 @@
 
 Pollution Hunter, method `ph-emg-1.2`. Every constant lives in `pipeline/orbyt/modules/pollution_hunter/config.yaml` with its source. This file says what each one is, where it comes from, and what the US validation (milestone M4.4, 15 and 16 November 2026) says about it. The reasoning behind each choice is in `docs/decisions.md`. The validation tables and figures are in `docs/validation/`.
 
-Status: checked against US stack monitors at both wind levels. Since 16 November 2026 the estimates use the 500 m wind (section 8) and `u_sys` is 0.40 (section 6). The numbers published on the site are still from `ph-emg-1.1` (100 m wind, `u_sys` 0.35) until the 15 European subjects have their 500 m wind, which takes 18 requests to the Copernicus Climate Data Store. The site then switches in one go.
+Status: checked against US stack monitors at both wind levels. The estimates use the 500 m wind (section 8) and `u_sys` is 0.40 (section 6). Everything published on the site, Europe and the US test sites, is from `ph-emg-1.2` since 20 November 2026 (section 10).
 
 Changes from `ph-emg-1.1`: the wind level (100 m to 500 m) and `u_sys` (0.35 to 0.40). Nothing else.
 
@@ -130,16 +130,35 @@ What did not happen: the 15 November note expected the gated tier 1 estimates to
 
 The bias shows no dependence on mean wind speed across the tier 1 estimates that do not fail `poor_fit` or `source_offset` (correlation 0.04, 12 estimates, 100 m).
 
-The European subjects need the same 500 m wind from July 2022 on. That is one CDS request per quarter for a box around all 15 (18 requests, about two to three hours each in the CDS queue). A request over about 10,000 fields is refused, so the Europe box asks for 7 pressure levels (1000 to 850 hPa) rather than 9. Every European target level is 914 hPa or more, so the interpolated wind is the same (`wind.pressure_levels.eu_levels_hpa`).
+The European subjects got the same 500 m wind from July 2022 to October 2026: one CDS request per quarter for a box around all 15 (18 requests, two and a half to five hours each in the CDS queue). A request over about 10,000 fields is refused, so the Europe box asks for 7 pressure levels (1000 to 850 hPa) rather than 9. Every European target level is 914 hPa or more, so the interpolated wind is the same (`wind.pressure_levels.eu_levels_hpa`).
 
 ## 9. Limitations
 
 - One look a day at about 13:30, clear and windy days only, spring to autumn at higher latitudes.
 - One average air mass correction instead of a per-pixel one. It is the largest simplification, and it cannot be told apart from a wind-speed error with stack monitors.
 - Wind from a 28 km reanalysis grid at a single level, about 500 m above ground. The level is a calibration choice with c (section 8), not a measured plume height.
+- The level was chosen on US power plants, all with tall stacks. A low stack on a coast may follow a lower, sea-breeze wind. Melilla (section 10) is the case: its estimate fell to about 0.6 times the 100 m one while its wind barely changed.
 - The null test (V3) ran with the 100 m wind and has not been repeated at 500 m. Its European sites sit inside the Europe box, but the two Alpine sites need levels below 850 hPa, and the US sites lie outside the US box.
 - Subjects under about 6,000 t/yr rarely pass the gates on real data. They stay candidates (the floor is 2,000 t) but are labelled "below reliable detection" (`candidates.reliable_min_t`, `detection` in findings.json).
 - The 13 tier 1 US plants are on the public map as test sites, with the stack monitor total as the record and both years of the comparison in the panel (PLAN.md 1.7 fallback).
 - The fan widens to 76 km, so a city or industrial area 40 to 90 km away can enter it. The isolation checks and the plume-start gate guard against this, and the US validation shows they are needed.
 - Seven gated US estimates fix u_sys only loosely, at either wind level. More US plants above 6,000 t would tighten it.
 - The US unmonitored reference is a single inventory year (2023) and is itself an estimate.
+
+## 10. What the 500 m wind changed in Europe
+
+All 15 European subjects were estimated again with the 500 m wind (20 November 2026). Nothing was chosen from these results: the level, c and u_sys were fixed on US data first (section 8).
+
+| Subject | 100 m: 2023, 2024 (t, gates) | 500 m: 2023, 2024 (t, gates) | 500 m / 100 m wind |
+|---|---|---|---|
+| Atherinolakkos (register 7,600 both years) | 9,933 pass, 9,124 pass | 12,017 lifetime 0.9 h, 10,519 pass | 1.08 to 1.09 |
+| Los Guinchos (3,540, 4,020) | 5,816 pass, 6,055 pass | 5,718 pass, 5,838 pass | 1.00 to 1.02 |
+| Melilla (3,100, no 2024 row) | 8,115 pass, 8,273 pass | 4,960 lifetime 9.9 h, 4,694 pass | 1.03 to 1.04 |
+| Tornio (2,001, 2,353) | 4,373 pass, fails | 6,053 pass, fails | 1.23 |
+| The other 11 | fail both years | fail both years | 0.96 to 1.27 |
+
+- Verdicts: 2, both "consistent with reported", grade C. Atherinolakkos 2024: 10,519 t against 7,600, ratio 1.38 (0.62 to 3.08). Los Guinchos 2024: 5,838 t against 4,020, ratio 1.45 (0.65 to 3.24). With the 100 m wind there were 3. Melilla lost its verdict: its 2023 estimate now fails the lifetime gate, and 2024, which passes, has no register value to compare with.
+- The 500 m wind is closer to the 100 m wind over the sea and the islands than at the US plants (1.00 to 1.09 at Los Guinchos, Melilla, Atherinolakkos and Thira, against 1.18 in the US). In Poland, Denmark and the north it is 1.15 to 1.27.
+- Melilla changed shape, not scale. Its wind is only 3 to 4% faster at 500 m and turns by a median of 8 degrees (more than 30 degrees on 11% of days), yet its lifetime went from about 2 h to 6 to 10 h and its estimate fell to 0.57 to 0.61 times. A diesel plant on a coast, probably with far lower stacks than the US coal plants, is the case a 500 m wind fits least (section 9). It is reported, not corrected: changing the level for one site after seeing its result would be tuning on Europe.
+- Rolling 12-month windows that pass every gate, 100 m then 500 m: Atherinolakkos 27 and 22 of 41, Los Guinchos 35 and 35, Melilla 41 and 31, Tornio 8 and 8 of 39, Maritsa East 2 5 and 4. The rest have none at either level.
+- US test sites on the map: New Madrid 2024, Shawnee 2023, Gerald Gentleman 2023 and Thomas Hill 2024 carry an estimate. Martin Lake no longer does (it fails a gate in both years at 500 m).

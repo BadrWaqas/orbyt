@@ -352,19 +352,19 @@
     "n_facilities": 1
    },
    "observed": {
-    "value": 9124,
-    "lo": 7832,
-    "hi": 11269,
+    "value": 10519,
+    "lo": 9015,
+    "hi": 12554,
     "unit": "t NOx/yr",
-    "method": "ph-emg-1.1",
-    "n_days": 255,
-    "lifetime_h": 1.9,
+    "method": "ph-emg-1.2",
+    "n_days": 260,
+    "lifetime_h": 1.7,
     "interval_basis": "sampling"
    },
    "ratio": {
-    "value": 1.2,
-    "lo": 0.59,
-    "hi": 2.44
+    "value": 1.38,
+    "lo": 0.62,
+    "hi": 3.08
    },
    "verdict": "consistent",
    "grade": "C",
@@ -1070,19 +1070,19 @@
     "n_facilities": 1
    },
    "observed": {
-    "value": 6055,
-    "lo": 5258,
-    "hi": 7239,
+    "value": 5838,
+    "lo": 4994,
+    "hi": 7101,
     "unit": "t NOx/yr",
-    "method": "ph-emg-1.1",
-    "n_days": 230,
-    "lifetime_h": 1.1,
+    "method": "ph-emg-1.2",
+    "n_days": 232,
+    "lifetime_h": 1.3,
     "interval_basis": "sampling"
    },
    "ratio": {
-    "value": 1.51,
-    "lo": 0.74,
-    "hi": 3.05
+    "value": 1.45,
+    "lo": 0.65,
+    "hi": 3.24
    },
    "verdict": "consistent",
    "grade": "C",
@@ -11829,6 +11829,138 @@
    }
   },
   {
+   "id": "ph-eu-13da8b3b-2023",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-13da8b3b",
+    "kind": "facility",
+    "name": "CENTRAL DIESEL DE MELILLA",
+    "display_name": null,
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "ES",
+    "city": "MELILLA",
+    "lat": 35.29044,
+    "lon": -2.93794,
+    "register": "EEA",
+    "register_id": "ES.CAED/006240000.FACILITY"
+   },
+   "period": {
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31",
+    "note": "No 2024 value in the register for this facility. Latest year reported: 2023."
+   },
+   "claimed": {
+    "value": 3100.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 1
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": "inconclusive",
+   "grade": null,
+   "detection": {
+    "footprint_t": 3100.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   }
+  },
+  {
+   "id": "ph-eu-75284d11-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-75284d11",
+    "kind": "cluster",
+    "name": "Enefit Power AS, Eesti elektrijaam",
+    "display_name": null,
+    "operator": null,
+    "sector": "Energy sector",
+    "country": "EE",
+    "city": "Auvere küla, Narva-Jõesuu linn",
+    "lat": 59.27438,
+    "lon": 27.90123,
+    "register": "EEA",
+    "register_id": "EE.KAUR.TTR/75.FACILITY"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 1616.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 4
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": "inconclusive",
+   "grade": null,
+   "detection": {
+    "footprint_t": 1616.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 5
+   }
+  },
+  {
+   "id": "ph-eu-5c2821b3-2024",
+   "module": "pollution-hunter",
+   "subject": {
+    "id": "ph-eu-5c2821b3",
+    "kind": "cluster",
+    "name": "Santos Barosa vidros SA (CI)",
+    "display_name": null,
+    "operator": null,
+    "sector": "Mineral industry",
+    "country": "PT",
+    "city": "Marinha Grande",
+    "lat": 39.73671,
+    "lon": -8.91975,
+    "register": "EEA",
+    "register_id": "PT.CAED/PT.APA05764442.CI"
+   },
+   "period": {
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "claimed": {
+    "value": 2016.0,
+    "unit": "t NOx/yr",
+    "basis": "unknown",
+    "source": "EEA Industrial Reporting database v16",
+    "n_facilities": 6
+   },
+   "observed": null,
+   "ratio": null,
+   "verdict": "inconclusive",
+   "grade": null,
+   "detection": {
+    "footprint_t": 2016.0,
+    "footprint_km": 20,
+    "min_reliable_t": 6000,
+    "reliable": false
+   },
+   "cluster": {
+    "n_facilities": 6,
+    "neighbour": {
+     "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
+     "reported_t": 965.0,
+     "distance_km": 35.5
+    }
+   }
+  },
+  {
    "id": "ph-us-2167-2024",
    "module": "pollution-hunter",
    "subject": {
@@ -11857,13 +11989,13 @@
     "source": "EPA CAMPD hourly stack monitors (CEMS)"
    },
    "observed": {
-    "value": 7849,
-    "lo": 5309,
-    "hi": 12383,
+    "value": 8767,
+    "lo": 6572,
+    "hi": 13067,
     "unit": "t NOx/yr",
-    "method": "ph-emg-1.1",
-    "n_days": 166,
-    "lifetime_h": 5.9,
+    "method": "ph-emg-1.2",
+    "n_days": 170,
+    "lifetime_h": 7.1,
     "interval_basis": "sampling"
    },
    "ratio": null,
@@ -11905,16 +12037,7 @@
     "basis": "measured",
     "source": "EPA CAMPD hourly stack monitors (CEMS)"
    },
-   "observed": {
-    "value": 8674,
-    "lo": 6834,
-    "hi": 16299,
-    "unit": "t NOx/yr",
-    "method": "ph-emg-1.1",
-    "n_days": 126,
-    "lifetime_h": 2.6,
-    "interval_basis": "sampling"
-   },
+   "observed": null,
    "ratio": null,
    "verdict": null,
    "grade": null,
@@ -11927,7 +12050,7 @@
    "validation_site": true
   },
   {
-   "id": "ph-us-1379-2024",
+   "id": "ph-us-1379-2023",
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-us-1379",
@@ -11944,22 +12067,31 @@
     "register_id": "EIA plant 1379, 55232, 55308, 56556"
    },
    "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
+    "label": "2023",
+    "start": "2023-01-01",
+    "end": "2023-12-31"
    },
    "claimed": {
-    "value": 6024.0,
+    "value": 5712.3,
     "unit": "t NOx/yr",
     "basis": "measured",
     "source": "EPA CAMPD hourly stack monitors (CEMS)"
    },
-   "observed": null,
+   "observed": {
+    "value": 5114,
+    "lo": 3883,
+    "hi": 7603,
+    "unit": "t NOx/yr",
+    "method": "ph-emg-1.2",
+    "n_days": 152,
+    "lifetime_h": 7.4,
+    "interval_basis": "sampling"
+   },
    "ratio": null,
    "verdict": null,
    "grade": null,
    "detection": {
-    "footprint_t": 6809.7,
+    "footprint_t": 6498.0,
     "footprint_km": 20,
     "min_reliable_t": 6000,
     "reliable": true
@@ -11995,13 +12127,13 @@
     "source": "EPA CAMPD hourly stack monitors (CEMS)"
    },
    "observed": {
-    "value": 11447,
-    "lo": 8399,
-    "hi": 17933,
+    "value": 13074,
+    "lo": 9855,
+    "hi": 18235,
     "unit": "t NOx/yr",
-    "method": "ph-emg-1.1",
-    "n_days": 189,
-    "lifetime_h": 2.0,
+    "method": "ph-emg-1.2",
+    "n_days": 194,
+    "lifetime_h": 2.1,
     "interval_basis": "sampling"
    },
    "ratio": null,
@@ -12016,7 +12148,7 @@
    "validation_site": true
   },
   {
-   "id": "ph-us-2168-2023",
+   "id": "ph-us-2168-2024",
    "module": "pollution-hunter",
    "subject": {
     "id": "ph-us-2168",
@@ -12033,34 +12165,34 @@
     "register_id": "EIA plant 2168, 6651"
    },
    "period": {
-    "label": "2023",
-    "start": "2023-01-01",
-    "end": "2023-12-31"
+    "label": "2024",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
    },
    "claimed": {
-    "value": 7105.7,
+    "value": 5328.8,
     "unit": "t NOx/yr",
     "basis": "measured",
     "source": "EPA CAMPD hourly stack monitors (CEMS)"
    },
    "observed": {
-    "value": 4242,
-    "lo": 3118,
-    "hi": 8112,
+    "value": 3021,
+    "lo": 1974,
+    "hi": 4537,
     "unit": "t NOx/yr",
-    "method": "ph-emg-1.1",
-    "n_days": 154,
-    "lifetime_h": 5.3,
+    "method": "ph-emg-1.2",
+    "n_days": 183,
+    "lifetime_h": 7.5,
     "interval_basis": "sampling"
    },
    "ratio": null,
    "verdict": null,
    "grade": null,
    "detection": {
-    "footprint_t": 7110.5,
+    "footprint_t": 5333.6,
     "footprint_km": 20,
     "min_reliable_t": 6000,
-    "reliable": true
+    "reliable": false
    },
    "validation_site": true
   },
@@ -12383,151 +12515,6 @@
     "reliable": false
    },
    "validation_site": true
-  },
-  {
-   "id": "ph-eu-13da8b3b-2023",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-13da8b3b",
-    "kind": "facility",
-    "name": "CENTRAL DIESEL DE MELILLA",
-    "display_name": null,
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "ES",
-    "city": "MELILLA",
-    "lat": 35.29044,
-    "lon": -2.93794,
-    "register": "EEA",
-    "register_id": "ES.CAED/006240000.FACILITY"
-   },
-   "period": {
-    "label": "2023",
-    "start": "2023-01-01",
-    "end": "2023-12-31",
-    "note": "No 2024 value in the register for this facility. Latest year reported: 2023."
-   },
-   "claimed": {
-    "value": 3100.0,
-    "unit": "t NOx/yr",
-    "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16",
-    "n_facilities": 1
-   },
-   "observed": {
-    "value": 8115,
-    "lo": 6463,
-    "hi": 11256,
-    "unit": "t NOx/yr",
-    "method": "ph-emg-1.1",
-    "n_days": 250,
-    "lifetime_h": 2.6,
-    "interval_basis": "sampling"
-   },
-   "ratio": {
-    "value": 2.62,
-    "lo": 1.25,
-    "hi": 5.49
-   },
-   "verdict": "consistent",
-   "grade": "C",
-   "detection": {
-    "footprint_t": 3100.0,
-    "footprint_km": 20,
-    "min_reliable_t": 6000,
-    "reliable": false
-   }
-  },
-  {
-   "id": "ph-eu-75284d11-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-75284d11",
-    "kind": "cluster",
-    "name": "Enefit Power AS, Eesti elektrijaam",
-    "display_name": null,
-    "operator": null,
-    "sector": "Energy sector",
-    "country": "EE",
-    "city": "Auvere küla, Narva-Jõesuu linn",
-    "lat": 59.27438,
-    "lon": 27.90123,
-    "register": "EEA",
-    "register_id": "EE.KAUR.TTR/75.FACILITY"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 1616.0,
-    "unit": "t NOx/yr",
-    "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16",
-    "n_facilities": 4
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": "inconclusive",
-   "grade": null,
-   "detection": {
-    "footprint_t": 1616.0,
-    "footprint_km": 20,
-    "min_reliable_t": 6000,
-    "reliable": false
-   },
-   "cluster": {
-    "n_facilities": 5
-   }
-  },
-  {
-   "id": "ph-eu-5c2821b3-2024",
-   "module": "pollution-hunter",
-   "subject": {
-    "id": "ph-eu-5c2821b3",
-    "kind": "cluster",
-    "name": "Santos Barosa vidros SA (CI)",
-    "display_name": null,
-    "operator": null,
-    "sector": "Mineral industry",
-    "country": "PT",
-    "city": "Marinha Grande",
-    "lat": 39.73671,
-    "lon": -8.91975,
-    "register": "EEA",
-    "register_id": "PT.CAED/PT.APA05764442.CI"
-   },
-   "period": {
-    "label": "2024",
-    "start": "2024-01-01",
-    "end": "2024-12-31"
-   },
-   "claimed": {
-    "value": 2016.0,
-    "unit": "t NOx/yr",
-    "basis": "unknown",
-    "source": "EEA Industrial Reporting database v16",
-    "n_facilities": 6
-   },
-   "observed": null,
-   "ratio": null,
-   "verdict": "inconclusive",
-   "grade": null,
-   "detection": {
-    "footprint_t": 2016.0,
-    "footprint_km": 20,
-    "min_reliable_t": 6000,
-    "reliable": false
-   },
-   "cluster": {
-    "n_facilities": 6,
-    "neighbour": {
-     "name": "Celulose Beira Industrial (Celbi), S.A. (CI)",
-     "reported_t": 965.0,
-     "distance_km": 35.5
-    }
-   }
   }
  ],
  "showcase": "ph-eu-12a5336d"

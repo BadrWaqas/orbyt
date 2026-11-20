@@ -155,3 +155,21 @@ def test_a_neighbour_cluster_is_graded_c_even_with_one_facility(tmp_path):
     r = compare.evaluate(subject, {"flags": []}, tmp_path, RULES, CFG)
     assert r["verdict"] == "consistent"
     assert r["grade"] == "C"
+
+
+def test_detail_drops_an_old_estimate_once_the_headline_fails(tmp_path):
+    base = {"observed": {"value": 1}, "profile": {}, "days": [], "evidence": {}, "id": "x"}
+    failed = _evaluate(
+        tmp_path,
+        {2023: _estimate(9_000, gates=["lifetime_out_of_range"]), 2024: _estimate(9_000)},
+        {2023: 10_000.0, 2024: None},
+    )
+    doc = compare.detail_json(failed, dict(base), [], tmp_path, True, 0.4)
+    assert not set(compare.SATELLITE_KEYS) & set(doc)
+    passed = _evaluate(
+        tmp_path,
+        {2023: _estimate(11_000), 2024: _estimate(9_000)},
+        {2023: 10_000.0, 2024: 10_000.0},
+    )
+    doc = compare.detail_json(passed, dict(base), [], tmp_path, True, 0.4)
+    assert set(compare.SATELLITE_KEYS) <= set(doc)

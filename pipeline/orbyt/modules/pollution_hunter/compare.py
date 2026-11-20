@@ -34,6 +34,8 @@ from orbyt.sources import eea
 
 REVIEW_JSON = Path(__file__).parent / "higher_review.json"
 DEFAULT_REVIEW_DIR = extract.INTERIM_DIR / "review"
+# Keys of a detail file that evidence.py writes for a headline estimate that passed every gate.
+SATELLITE_KEYS = ("observed", "profile", "days", "evidence")
 
 
 def is_cluster(subject: dict) -> bool:
@@ -325,6 +327,11 @@ def detail_json(
     else:
         doc.pop("comparison", None)
         doc.pop("rolling", None)
+    if not (publish and result["head_passes"]):
+        # The satellite side evidence.py added for an earlier estimate. It must go when the
+        # headline no longer passes every gate, or the panel would draw the old estimate.
+        for key in SATELLITE_KEYS:
+            doc.pop(key, None)
     return doc
 
 

@@ -387,3 +387,19 @@ Running it:
 Not done:
 
 - The null test (M4.5) at 500 m. Its 10 European sites sit inside the Europe box, but Aosta and Appenzell need levels below 850 hPa, and the 10 US sites lie outside the US box. Until it is rerun, the 0 of 20 false positives is a 100 m result.
+
+## 2026-11-20, The site switches to ph-emg-1.2 (500 m wind in Europe)
+
+The 18 Europe quarters came in from 16 November 21:57 to 20 November 10:51, then `eu_run` estimated all 15 subjects at 500 m (calendar years and rolling windows). The runner died once without an error after the file of 17 November 23:53 and was restarted 18 hours later; `watch_eu500.ps1` restarted it if needed after that. No subject asked the CDS for a request of its own: every day came from the regional files (the only days without wind, 0 to 5 per subject, are in November 2026, after the last rolling window, so no estimate uses them). No day fell outside the 7 stored levels.
+
+Published with the unchanged `compare`, `us_public` and `publish`, and the share cards redrawn. The European results are in METHODS.md section 10. In short:
+
+- 2 verdicts instead of 3, both consistent, grade C: Atherinolakkos 2024 (10,519 t against 7,600, 1.38, interval 0.62 to 3.08) and Los Guinchos 2024 (5,838 t against 4,020, 1.45, 0.65 to 3.24). Melilla lost its verdict: 2023 fails `lifetime_out_of_range` at 500 m (9.9 h), and 2024 passes but has no register row.
+- Melilla's estimates fell to 0.57 to 0.61 times the 100 m ones while its wind is only 3 to 4% faster and turns little. Its lifetime went from about 2 h to 6 to 10 h, so the fit changed shape. A diesel plant on a coast, probably with far lower stacks than the US coal plants, is where a wind at about 500 m is least likely to be the one the plume follows. Recorded as a limitation (METHODS.md 9) and not acted on: picking a level per site after seeing the European result would be tuning on Europe, which PLAN.md 4.6 rules out.
+- Over the sea and the islands the 500 m wind is only 1.00 to 1.09 times the 100 m wind (1.18 at the US plants), so those estimates moved little. In Poland, Denmark and the north it is 1.15 to 1.27.
+- US test sites: New Madrid 2024, Shawnee 2023, Gerald Gentleman 2023 and Thomas Hill 2024 carry an estimate. Martin Lake no longer does.
+- PLAN.md section 0 and 1.7 now say 2 European verdicts. The panel line on the systematic scatter says 40%, and the method page is at 1.2 (500 m wind, 40%, a gap of about 3 times before a flag), with the two wind levels and the low-stack limitation in plain words.
+
+Fixed on the way: `compare` kept the satellite part of a detail file (`observed`, `profile`, `days`, `evidence`) from an earlier run when the headline no longer passed, so Melilla's file still held its 100 m curve and images. A detail file now loses those keys whenever its headline does not pass every gate (`compare.SATELLITE_KEYS`, test in `test_compare.py`). Plume images and share cards that no published file refers to any more were deleted (Martin Lake 2024, Thomas Hill 2023, Melilla 2023, and the cards `ph-us-1379-2024` and `ph-us-2168-2023`).
+
+Still open: the null test at 500 m (previous entry).
