@@ -1986,3 +1986,44 @@ html[data-hidden] *::before,
 html[data-hidden] *::after {
   animation-play-state: paused !important;
 }
+
+/* The footer under every page's text: the standing line, the contact and the credits. */
+.site-footer {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--text-3);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-3);
+}
+
+.site-footer > * + * {
+  margin-top: 12px;
+}
+
+.site-footer-line {
+  color: var(--text-2);
+}
+
+.site-footer-credits {
+  list-style: none;
+  padding: 0;
+}
+
+.site-footer-credits li + li {
+  margin-top: 4px;
+}
+
+.site-footer-credits span {
+  color: var(--text-2);
+}
+
+.page-body .correction-log {
+  list-style: none;
+  padding-left: 0;
+}
+
+.correction-log time {
+  color: var(--text);
+  font-weight: 600;
+}

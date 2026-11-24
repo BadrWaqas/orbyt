@@ -6,12 +6,12 @@ import { useSyncExternalStore } from "react";
 //   /explore?m=pollution-hunter          a module
 //   /explore?m=pollution-hunter&f=<id>   a module with one facility open
 //   /story                               the scroll story, over the same globe
-//   /leaderboard, /method, /data, /about  pages
+//   /leaderboard, /method, /data, /about, /corrections  pages
 //
 // A link that names a facility always opens Pollution Hunter, whatever its path. Links shared
 // before the home screen existed look like /?f=<id>, and they keep working.
 
-export type PageView = "leaderboard" | "method" | "data" | "about";
+export type PageView = "leaderboard" | "method" | "data" | "about" | "corrections";
 export type View = "home" | "module" | "story" | PageView;
 
 export interface Route {
@@ -30,6 +30,7 @@ const PAGE_PATHS: Record<PageView, string> = {
   method: "/method",
   data: "/data",
   about: "/about",
+  corrections: "/corrections",
 };
 const PAGE_VIEWS = Object.keys(PAGE_PATHS) as PageView[];
 

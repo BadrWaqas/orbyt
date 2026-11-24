@@ -3,10 +3,13 @@ import type { ReactNode } from "react";
 
 import { NO2_ATTRIBUTION } from "../modules/pollution-hunter/no2";
 import { Leaderboard } from "../panels/Leaderboard";
+import { CorrectionsBody } from "./CorrectionsBody";
+import { STANDING_LINE } from "./credits";
 import { DataBody } from "./DataBody";
 import { MethodBody } from "./MethodBody";
 import { Link } from "./Link";
 import type { PageView } from "./route";
+import { SiteFooter } from "./SiteFooter";
 
 // The pages behind the quiet links of the home screen. They are placeholders for now: each says
 // what the page will hold and nothing more (AGENTS.md rule 6, no invented numbers). The full
@@ -17,6 +20,7 @@ export const PAGE_TITLES: Record<PageView, string> = {
   method: "Method",
   data: "Data",
   about: "About",
+  corrections: "Corrections",
 };
 
 const BODIES: Record<PageView, ReactNode> = {
@@ -34,10 +38,7 @@ const BODIES: Record<PageView, ReactNode> = {
         the globe. Pollution Hunter is the first: reported NO<sub>x</sub> emissions next to the
         NO<sub>2</sub> that Sentinel-5P sees. Five more modules are planned.
       </p>
-      <p>
-        Orbyt Earth is an independent student research project. Estimates are uncertain and are
-        not findings of non-compliance.
-      </p>
+      <p>{STANDING_LINE}</p>
       <h2>Who built it</h2>
       <p>Built by Badr Waqas, Data Science student at National College of Ireland.</p>
       <ul className="page-links">
@@ -62,6 +63,7 @@ const BODIES: Record<PageView, ReactNode> = {
       </p>
     </>
   ),
+  corrections: <CorrectionsBody />,
 };
 
 export function Page({ view }: { view: PageView }) {
@@ -84,6 +86,7 @@ export function Page({ view }: { view: PageView }) {
             Back to the globe
           </Link>
         </p>
+        <SiteFooter />
       </div>
     </article>
   );
