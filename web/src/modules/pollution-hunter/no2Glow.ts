@@ -566,10 +566,24 @@ export function addNo2Glow(map: MapLibreMap, { tiles, beforeId, onFail }: Option
     },
   });
   map.addControl(overlay);
-  const draw = () => {
-    if (!removed) overlay.setProps({ layers: layers() });
+  // The zoom changes two things in the layers: the share of light the sharp layer carries and
+  // the share the bloom carries. Only a change in one of them makes new layers.
+  const zoomShares = () => {
+    const zoom = map.getZoom();
+    return `${Math.round(meanShare(zoom, siteDim) * 1000)}|${Math.round(bloomShare(zoom) * 1000)}`;
   };
-  map.on("zoom", draw); // the bloom and the sharp layer follow the zoom
+  let drawnShares = "";
+  const draw = () => {
+    if (removed) return;
+    drawnShares = zoomShares();
+    overlay.setProps({ layers: layers() });
+  };
+  // Over most of a flight both hold steady, and handing deck.gl the same layers again on every
+  // frame is work for nothing. The bloom and the sharp layer follow the zoom where it counts.
+  const onZoom = () => {
+    if (zoomShares() !== drawnShares) draw();
+  };
+  map.on("zoom", onZoom);
 
   // The halo is built once the sharp tiles are in, so it never competes with them for the network.
   void ready.then(async () => {
@@ -720,7 +734,7 @@ export function addNo2Glow(map: MapLibreMap, { tiles, beforeId, onFail }: Option
       stopHaloFade();
       stopMix();
       stopDim();
-      map.off("zoom", draw);
+      map.off("zoom", onZoom);
       map.removeControl(overlay);
     },
   };

@@ -1,3 +1,4 @@
+import { isHidden, onVisibilityChange } from "../../app/visibility";
 import type { No2Layer } from "./no2Layer";
 import { timeClock } from "./timeClock";
 
@@ -27,9 +28,19 @@ export function followTimeClock(no2: No2Layer, months: string[], reducedMotion: 
     window.clearTimeout(timer);
     timer = window.setTimeout(() => {
       const now = timeClock.get();
-      if (!stopped && now.playing && now.month === month) timeClock.advanceTo(after(month));
+      // A hidden tab does not move on. The watcher below picks the player up again.
+      if (!stopped && !isHidden() && now.playing && now.month === month) timeClock.advanceTo(after(month));
     }, waitMs);
   };
+
+  const stopWatching = onVisibilityChange((hidden) => {
+    if (hidden) {
+      window.clearTimeout(timer);
+      return;
+    }
+    const { month, playing } = timeClock.get();
+    if (!stopped && playing && month === shown) stepFrom(month, STEP_MS);
+  });
 
   const follow = () => {
     const { month, playing } = timeClock.get();
@@ -65,6 +76,7 @@ export function followTimeClock(no2: No2Layer, months: string[], reducedMotion: 
   return () => {
     stopped = true;
     window.clearTimeout(timer);
+    stopWatching();
     unsubscribe();
   };
 }

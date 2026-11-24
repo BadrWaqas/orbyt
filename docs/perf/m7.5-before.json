@@ -1,0 +1,98 @@
+{
+  "label": "before",
+  "at": "2026-11-23T23:57:41.897Z",
+  "gpu": false,
+  "phone": {
+    "viewport": "412x915 @2.625x",
+    "cpuSlowdown": 4,
+    "net": "9 Mbit/s, 100 ms RTT, brotli"
+  },
+  "load": {
+    "runs": 3,
+    "fcpMs": 1428,
+    "lcpMs": 1608,
+    "globeReadyMs": 3095,
+    "entryJsKB": 88.1,
+    "allJsKB": 587.6,
+    "cssKB": 19,
+    "totalKB": 1102,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "files": [
+      "/assets/Globe-NCQU9CTy.js 250.4 KB",
+      "/assets/array-utils-flat-BL8Cekj1.js 8.8 KB",
+      "/assets/expression-C4x9yiMU.js 27.2 KB",
+      "/assets/get-attribute-from-layouts-Dd2gixpo.js 5.2 KB",
+      "/assets/index-DcHWuk_-.js 88.1 KB",
+      "/assets/no2Glow-DA6TvqgL.js 207.9 KB",
+      "/assets/webgl-device-BCBwZ1ho.js 0.1 KB",
+      "http://127.0.0.1:59310/263b0837-811b-44aa-bf18-d245ed3caee4 -0.1 KB"
+    ],
+    "each": [
+      {
+        "fcpMs": 1324,
+        "globeReadyMs": 3223
+      },
+      {
+        "fcpMs": 1428,
+        "globeReadyMs": 3087
+      },
+      {
+        "fcpMs": 1436,
+        "globeReadyMs": 3095
+      }
+    ]
+  },
+  "fps": {
+    "turn": {
+      "fps": 57.3,
+      "worstSecondFps": 56,
+      "p50ms": 14,
+      "p95ms": 20.9,
+      "over25msPct": 0.9
+    },
+    "flyNear": {
+      "fps": 37.7,
+      "worstSecondFps": 19,
+      "p50ms": 7,
+      "p95ms": 55.5,
+      "over25msPct": 37
+    },
+    "flyFar": {
+      "fps": 32.1,
+      "worstSecondFps": 15,
+      "p50ms": 27.7,
+      "p95ms": 55.5,
+      "over25msPct": 53.3
+    }
+  },
+  "hidden": {
+    "turning": {
+      "visible": {
+        "appFramesPerSec": 144.7,
+        "timersPerSec": 0
+      },
+      "hidden": {
+        "appFramesPerSec": 144.3,
+        "timersPerSec": 0
+      },
+      "backVisible": {
+        "appFramesPerSec": 144.5,
+        "timersPerSec": 0
+      }
+    },
+    "facilityOpen": {
+      "visible": {
+        "appFramesPerSec": 143.3,
+        "timersPerSec": 6
+      },
+      "hidden": {
+        "appFramesPerSec": 142,
+        "timersPerSec": 6
+      },
+      "backVisible": {
+        "appFramesPerSec": 142.5,
+        "timersPerSec": 6
+      }
+    }
+  }
+}

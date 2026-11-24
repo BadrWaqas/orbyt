@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 
+import { isHidden, onVisibilityChange } from "../../app/visibility";
 import type { DayRow } from "../../data/types";
 
 // One clock for the daily plume frames of the open facility. The flipbook in the panel and the
@@ -28,9 +29,9 @@ function emit() {
   for (const listener of listeners) listener();
 }
 
-/** The clock only ticks while something on screen shows the frames. */
+/** The clock only ticks while something on screen shows the frames, and the tab is on screen. */
 function syncTimer() {
-  const run = viewers > 0 && state.playing && frameCount > 1;
+  const run = viewers > 0 && state.playing && frameCount > 1 && !isHidden();
   if (run && !timer) {
     timer = window.setInterval(() => {
       state = { ...state, index: (state.index + 1) % frameCount };
@@ -41,6 +42,9 @@ function syncTimer() {
     timer = 0;
   }
 }
+
+// Hiding the tab stops the ticks and showing it starts them again, where they were.
+onVisibilityChange(syncTimer);
 
 function update(next: Partial<PlumeClockState>) {
   state = { ...state, ...next };

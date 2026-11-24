@@ -1979,3 +1979,10 @@ main[data-view="story"] .maplibregl-canvas-container {
     padding: 0 6px;
   }
 }
+
+/* A hidden tab stands still (PLAN.md 9.10). app/visibility.ts sets the attribute. */
+html[data-hidden] *,
+html[data-hidden] *::before,
+html[data-hidden] *::after {
+  animation-play-state: paused !important;
+}

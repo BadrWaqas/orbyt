@@ -17,6 +17,7 @@ import {
   STORY_SHEET_FRACTION,
   STORY_SIDE_MIN_WIDTH_PX,
 } from "../app/layout";
+import { isHidden, onVisibilityChange } from "../app/visibility";
 import type { Finding } from "../data/types";
 import {
   addFacilityMarkers,
@@ -403,8 +404,14 @@ export function Globe({
       });
     };
 
+    let spinWhenShown = false; // a hidden tab stopped the turn, or kept it from starting
+
     const startSpin = () => {
       if (reducedMotion || idle || touched) return;
+      if (isHidden()) {
+        spinWhenShown = true;
+        return;
+      }
       spinning = true;
       spin();
     };
@@ -414,6 +421,19 @@ export function Globe({
       spinning = false;
       map.stop();
     };
+
+    // PLAN.md 9.10: a hidden tab stands still. The turn stops and starts again where it was.
+    const stopWatchingVisibility = onVisibilityChange((hidden) => {
+      if (hidden) {
+        if (spinning) {
+          spinWhenShown = true;
+          stopSpin();
+        }
+      } else if (spinWhenShown) {
+        spinWhenShown = false;
+        startSpin();
+      }
+    });
 
     /** The camera is taken, by the visitor or by a flight to a facility. The slow turn ends. */
     const hold = () => {
@@ -580,6 +600,7 @@ export function Globe({
 
     return () => {
       window.clearTimeout(no2Timer);
+      stopWatchingVisibility();
       no2Ref.current?.remove();
       no2Ref.current = null;
       el.removeEventListener("pointerdown", take);

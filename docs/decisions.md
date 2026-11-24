@@ -403,3 +403,13 @@ Published with the unchanged `compare`, `us_public` and `publish`, and the share
 Fixed on the way: `compare` kept the satellite part of a detail file (`observed`, `profile`, `days`, `evidence`) from an earlier run when the headline no longer passed, so Melilla's file still held its 100 m curve and images. A detail file now loses those keys whenever its headline does not pass every gate (`compare.SATELLITE_KEYS`, test in `test_compare.py`). Plume images and share cards that no published file refers to any more were deleted (Martin Lake 2024, Thomas Hill 2023, Melilla 2023, and the cards `ph-us-1379-2024` and `ph-us-2168-2023`).
 
 Still open: the null test at 500 m (previous entry).
+
+## 2026-11-23, M7.5 Performance pass
+
+**Measured first.** `web/scripts/perf.mjs` runs the production build on a stand-in phone (412 x 915 at 2.6x, CPU 4x slower, 4G, brotli) and reports first paint, bytes, time to a live globe, frame rate in a turn and two flights, and what the page still runs while hidden. Results and the variants that were tried are in `docs/perf/m7.5.md`, raw numbers in `docs/perf/m7.5-before.json` and `m7.5-after.json`.
+
+**Changed.** The live globe went from 3.10 s to 2.75 s, under the 3 s budget: `index.html` now asks for the map's chunk and opens the tile server's connection as soon as the route needs a globe, instead of after the app has started. A hidden tab now stops the globe's turn, the flipbook clock, the month player and every CSS animation, and they resume on return. The deck.gl layers are not rebuilt on zoom frames where the two zoom-driven shares are unchanged. First paint (1.4 s) and JavaScript (88 KB brotli for the page, 338 KB with the map) already met the budgets.
+
+**Not met.** Flights run at 32 to 39 fps on the stand-in phone, short of 50. The halo is not the cost: taking it out changed nothing, so the "drop the halo first" fallback in 9.10 would not help. Panel blur and labels are not the cost either. A lower pixel ratio gains about 4 fps and would cross the cap of 2. The flight profile is flat across MapLibre and deck.gl. This needs a run on a real mid-range Android phone, which has not been done.
+
+**Left alone.** deck.gl's own animation loop keeps waking the page at the display rate. Stopping it needs the overlay's private `_deck` and was not tested for restarting, and the browser already stops it in a hidden tab.

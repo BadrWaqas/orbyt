@@ -36,6 +36,28 @@
   <body>
     <div id="root"></div>
     <script>
+      // The globe is on the home screen, in the module and in the story, and on any facility
+      // link. There the map's code and its tile server are asked for now, beside the app, and
+      // not once the app has started and found out (PLAN.md 9.10, the live globe under 3 s).
+      (function () {
+        var route = location.pathname.replace(/\/+$/, "") || "/";
+        if (route !== "/" && route !== "/explore" && route !== "/story" && !new URLSearchParams(location.search).get("f")) return;
+        var tiles = document.createElement("link");
+        tiles.rel = "preconnect";
+        tiles.href = "https://tiles.openfreemap.org";
+        tiles.crossOrigin = "";
+        document.head.appendChild(tiles);
+        var chunk = "__GLOBE_CHUNK__"; // filled in by vite.config.ts, empty in the dev server
+        if (chunk) {
+          var preload = document.createElement("link");
+          preload.rel = "modulepreload";
+          preload.href = chunk;
+          preload.setAttribute("fetchpriority", "low");
+          document.head.appendChild(preload);
+        }
+      })();
+    </script>
+    <script>
       // Where the Earth sits on the home screen, worked out before the app has loaded. These
       // are the globe's numbers from homeLayout() in src/app/layout.ts. Keep the two in step.
       (function () {
